@@ -1,0 +1,33 @@
+<br>
+<div class="mx-5">
+    <div class="d-flex justify-content-center">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-success" (click)="switch('french')">Français</button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-success" (click)="switch('english')">English</button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-success" (click)="switch('spanish')">Español</button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-success" (click)="switch('italian')">Italiano</button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-success" (click)="switch('german')">Deutsch</button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-success" (click)="switch('japanese')">Japanese</button>
+                </div>
+            </div>
+
+            <div class="row" *ngFor="let content of text.contents">
+                <app-table [content]="content" [russianContent]="getRussianContent(content.id)" [table]="text.table">
+                </app-table>
+            </div>
+        </div>
+    </div>
+</div>
+<br>

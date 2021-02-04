@@ -1,0 +1,42 @@
+{
+    "home": {
+        "name": "Sitio web",
+        "title": "Hola!",
+        "text": "Como estas ?",
+        "select": "Escoge un idioma"
+    },
+    "notfound": {
+        "message": "La pagina no existe"
+    },
+    "user": {
+        "welcome": "Bienvenida en la pagina del usario",
+        "refresh": "Actualizar"
+    },
+    "navbar": {
+        "menu": {
+            "home": "Bienvenido",
+            "calendar": "calendario",
+            "edit": "Modificar",
+            "documentation": "Ruso",
+            "settings": "Parametras",
+            "language": "Idioma"
+        },
+        "side": {
+            "language": "Idioma",
+            "new": "Nuevo",
+            "project": "Proyecto",
+            "other": "Otro",
+            "open": "Abrir",
+            "quit": "Salir",
+            "edit": "Modificar",
+            "delete": "Borrar",
+            "refresh": "Refrescar"
+        },
+        "russian": {
+            "title": "Rusos"
+        }
+    },
+    "russian": {
+        "title": "Ruso"
+    }
+}

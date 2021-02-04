@@ -1,0 +1,14 @@
+<br>
+<div *ngIf="actualise()"></div>
+<p-tieredMenu [model]="items"></p-tieredMenu>
+
+
+
+<div class="mx-5">
+    <p>{{ 'home.select' | translate }}</p>
+    <select #langselect (change)="translate.use(langselect.value)" id="select">
+        <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">
+            {{ lang }}
+        </option>
+    </select>
+</div>
