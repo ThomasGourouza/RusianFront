@@ -5,6 +5,7 @@ import { subscribedContainerMixin } from '../subscribed-container.mixin';
 import { takeUntil } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../auth/auth.service';
+import { ToastrService } from 'ngx-toastr';
 export class Params {
   constructor(
     public login: string,
@@ -21,7 +22,8 @@ export class PlayerService extends subscribedContainerMixin() {
 
   constructor(
     private playerApi: PlayerApi,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastr: ToastrService
   ) {
     super();
   }
@@ -40,9 +42,10 @@ export class PlayerService extends subscribedContainerMixin() {
     ).subscribe((players: Array<any>) => {
       this._playerSubject$.next(players[0]);
       this.authService.isAuth = true;
+      this.toastr.success('Bonjour Cavalier_Fou!', 'Bienvenue!');
     }, (error: HttpErrorResponse) => {
       console.log(error.status);
-      alert('le login ou mot de passe est incorrect!');
+      this.toastr.error('le login ou mot de passe est incorrect!', 'Attention!');
     })
   }
 
