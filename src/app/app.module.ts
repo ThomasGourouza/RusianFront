@@ -1,3 +1,5 @@
+import { CommonModule } from '@angular/common';
+import { ToastrModule } from 'ngx-toastr';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -39,6 +41,9 @@ import { AuthService } from './auth/auth.service';
     LogComponent,
   ],
   imports: [
+    CommonModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -52,8 +57,7 @@ import { AuthService } from './auth/auth.service';
       }
     }),
     TabMenuModule,
-    TieredMenuModule,
-    BrowserAnimationsModule
+    TieredMenuModule
   ],
   providers: [
     PlayerApi,
