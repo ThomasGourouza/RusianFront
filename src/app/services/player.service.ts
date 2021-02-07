@@ -47,7 +47,7 @@ export class PlayerService extends subscribedContainerMixin() {
       this._playerSubject$.next(players[0]);
       this.authService.isAuth = true;
       this.toastr.success(
-        this.translate.instant('toastr.success.message.auth') + players[0].firstName + ' ' + players[0].lastName,
+        this.translate.instant('toastr.success.message.auth'),
         this.translate.instant('toastr.success.title')
       );
     }, (error: HttpErrorResponse) => {
@@ -71,10 +71,11 @@ export class PlayerService extends subscribedContainerMixin() {
       this._playerSubject$.next(player);
       this.authService.isAuth = true;
       this.toastr.success(
-        this.translate.instant('toastr.success.message.register') + player.firstName + ' ' + player.lastName,
+        this.translate.instant('toastr.success.message.register'),
         this.translate.instant('toastr.success.title')
       );
     }, (error: HttpErrorResponse) => {
+      console.log(error);
       this.toastr.error(
         this.translate.instant(
           error.status < 500 ? 'toastr.error.message.register' : 'toastr.error.message.basic'

@@ -13,6 +13,7 @@ import { takeUntil } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 import { PlayerService } from 'src/app/services/player.service';
+import { Player } from 'src/app/models/get/player.model';
 
 @Component({
   selector: 'app-create-player',
@@ -80,7 +81,9 @@ export class CreatePlayerComponent extends subscribedContainerMixin() implements
       {
         birthCountryRefId: ['', Validators.required],
         birthDate: ['', Validators.required],
-        email: ['', Validators.required, Validators.email],
+        email: ['', Validators.required
+          // , Validators.email
+        ],
         firstName: ['', Validators.required],
         genderRefId: ['', Validators.required],
         imageRefId: ['', Validators.required],
@@ -118,10 +121,12 @@ export class CreatePlayerComponent extends subscribedContainerMixin() implements
     this.playerService.registerPlayer(newPlayer);
     this.playerService.playerSubject$.pipe(
       takeUntil(this.destroyed$)
-    ).subscribe((player) => {
+    ).subscribe((player: Player) => {
+      if (player.login === this.userForm.value['login']) {
         this.router.navigate(['/account']);
+      }
     });
-    
+
   }
 
   public getLanguages(): FormArray {
