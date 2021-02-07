@@ -6,7 +6,7 @@
             "russian": "Aprender el ruso",
             "language": "Idioma del sitio",
             "github": "GitHub",
-            "login": "Entrar",
+            "login": "Conexión",
             "logout": "Salir"
         },
         "side": {
@@ -34,6 +34,30 @@
         "title": "Hola!",
         "text": "Como estas ?",
         "select": "Escoge un idioma"
+    },
+    "toastr": {
+        "success": {
+            "title": "Éxito",
+            "message": {
+                "basic": "Operación exitosa",
+                "auth": "Bienvenido ",
+                "register": "Hecho"
+            }
+        },
+        "error": {
+            "title": "Error",
+            "message": {
+                "basic": "Ocurrió un error",
+                "auth": "Apodo o contraseña incorrecta",
+                "register": "No hecho"
+            }
+        },
+        "info": {
+            "title": "Info",
+            "message": {
+                "basic": "Info"
+            }
+        }
     },
     "notfound": {
         "message": "La pagina no existe"

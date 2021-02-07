@@ -1,79 +1,93 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Player } from 'src/app/models/player.model';
-import { PlayerSpokenLanguage } from 'src/app/models/playerSpokenLanguages.model';
+import { PlayerPost } from 'src/app/models/post/player-post.model';
+import { PlayerReferenceService } from 'src/app/services/player-reference.service';
+import { CountryModel } from 'src/app/models/reference/player/country.model';
+import { GenderModel } from 'src/app/models/reference/player/gender.model';
+import { ImageModel } from 'src/app/models/reference/player/image.model';
+import { LanguageModel } from 'src/app/models/reference/player/language.model';
+import { LevelModel } from 'src/app/models/reference/player/level.model';
+import { subscribedContainerMixin } from 'src/app/subscribed-container.mixin';
+import { takeUntil } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 import { PlayerService } from 'src/app/services/player.service';
-import { PlayerApi } from 'src/app/services/api/player.api';
 
 @Component({
   selector: 'app-create-player',
   templateUrl: './create-player.component.html',
   styleUrls: ['./create-player.component.scss']
 })
-export class CreatePlayerComponent implements OnInit {
-
-
-
-  private playerSpokenLanguages: Array<PlayerSpokenLanguage> = [
-    {
-      certification: "Certif1",
-      languageRefId: 1,
-      levelRefId: 5
-    },
-    {
-      certification: "Certif2",
-      languageRefId: 2,
-      levelRefId: 4
-    },
-    {
-      certification: "Certif3",
-      languageRefId: 3,
-      levelRefId: 4
-    }
-  ]
-  private player: Player = new Player(
-    3,
-    "1983-08-15",
-    "testrrr@moonfruit.com",
-    "Coco2",
-    1,
-    2,
-    "Bandicoot",
-    "cocoB2",
-    "psswd",
-    "0671933441",
-    this.playerSpokenLanguages
-  );
-
-  private message: any;
-
-
-
-
-
+export class CreatePlayerComponent extends subscribedContainerMixin() implements OnInit {
 
   public userForm: FormGroup;
 
+  public _countries: Array<CountryModel>;
+  public _genders: Array<GenderModel>;
+  public _images: Array<ImageModel>;
+  public _languages: Array<LanguageModel>;
+  public _levels: Array<LevelModel>;
+
   constructor(
     private formBuilder: FormBuilder,
+    private playerReferenceService: PlayerReferenceService,
     private playerService: PlayerService,
-    private playerApi: PlayerApi,
-    private router: Router
-  ) { }
+    private router: Router,
+    private translate: TranslateService
+  ) {
+    super();
+  }
 
   public ngOnInit(): void {
+    this.playerReferenceService.fetchPlayerReferences();
+
+    this.playerReferenceService.countriesSubject$.pipe(
+      takeUntil(this.destroyed$)
+    ).subscribe((countries) => {
+      this._countries = countries;
+    });
+
+    this.playerReferenceService.gendersSubject$.pipe(
+      takeUntil(this.destroyed$)
+    ).subscribe((genders) => {
+      this._genders = genders;
+    });
+
+    this.playerReferenceService.imagesSubject$.pipe(
+      takeUntil(this.destroyed$)
+    ).subscribe((images) => {
+      this._images = images;
+    });
+
+    this.playerReferenceService.languagesSubject$.pipe(
+      takeUntil(this.destroyed$)
+    ).subscribe((languages) => {
+      this._languages = languages;
+    });
+
+    this.playerReferenceService.levelsSubject$.pipe(
+      takeUntil(this.destroyed$)
+    ).subscribe((levels) => {
+      this._levels = levels;
+    });
+
     this.initForm();
   }
 
   private initForm(): void {
     this.userForm = this.formBuilder.group(
       {
+        birthCountryRefId: ['', Validators.required],
+        birthDate: ['', Validators.required],
+        email: ['', Validators.required, Validators.email],
         firstName: ['', Validators.required],
+        genderRefId: ['', Validators.required],
+        imageRefId: ['', Validators.required],
         lastName: ['', Validators.required],
-        sport: ['', Validators.required],
-        languages: this.formBuilder.array([]),
-        email: ['', [Validators.required, Validators.email]],
+        phone: ['', Validators.required],
+        playerSpokenLanguages: this.formBuilder.array([]),
+        login: ['', Validators.required],
         password: ['', Validators.required],
         passwordConfirmation: ['', Validators.required],
       },
@@ -87,31 +101,31 @@ export class CreatePlayerComponent implements OnInit {
   }
 
   public onSubmit(): void {
-    this.playerApi.register(this.player).toPromise()
-      .then((success) => {
-        this.message = 'Success';
-      }
-      ).catch((error) => {
-        console.log(error.status);
-        this.message = 'Error';
-      });
-
-
-    // const formValue = this.userForm.value;
-    // const newUser = new Player(
-    //   formValue['firstName'],
-    //   formValue['lastName'],
-    //   formValue['email'],
-    //   formValue['password'],
-    //   formValue['sport'],
-    //   formValue['languages'] ? formValue['languages'] : []
-    // );
-    // this.playerService.addUser(newUser);
-    // this.router.navigate(['/users']);
+    const formValue = this.userForm.value;
+    const newPlayer = new PlayerPost(
+      formValue['birthCountryRefId'],
+      formValue['birthDate'],
+      formValue['email'],
+      formValue['firstName'],
+      formValue['genderRefId'],
+      formValue['imageRefId'],
+      formValue['lastName'],
+      formValue['login'],
+      formValue['password'],
+      formValue['phone'],
+      formValue['playerSpokenLanguages'] ? formValue['playerSpokenLanguages'] : []
+    );
+    this.playerService.registerPlayer(newPlayer);
+    this.playerService.playerSubject$.pipe(
+      takeUntil(this.destroyed$)
+    ).subscribe((player) => {
+        this.router.navigate(['/account']);
+    });
+    
   }
 
   public getLanguages(): FormArray {
-    return this.userForm.get('languages') as FormArray;
+    return this.userForm.get('playerSpokenLanguages') as FormArray;
   }
 
   public onAddLanguage(): void {
@@ -122,7 +136,7 @@ export class CreatePlayerComponent implements OnInit {
     this.getLanguages().push(newLanguageControl);
   }
 
-  private passwordMatchValidator(password: string, confirmPassword: string) {
+  private passwordMatchValidator(password: string, confirmPassword: string): ValidationErrors | null {
     return (formGroup: FormGroup) => {
       const passwordControl = formGroup.controls[password];
       const confirmPasswordControl = formGroup.controls[confirmPassword];

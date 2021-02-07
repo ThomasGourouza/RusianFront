@@ -1,41 +1,32 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { takeUntil } from 'rxjs/operators';
+import { Player } from 'src/app/models/get/player.model';
+import { PlayerService } from 'src/app/services/player.service';
+import { subscribedContainerMixin } from 'src/app/subscribed-container.mixin';
 
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.scss']
 })
-export class AccountComponent implements OnInit {
+export class AccountComponent extends subscribedContainerMixin() implements OnInit {
 
-  public variable: { a: string; b: string } = { a: '', b: '' };
+  public _player: Player;
 
-  public langue: string;
-
-  constructor(private translate: TranslateService) {
-    this.langue = this.translate.currentLang;
-    this.translate.get('account.welcome').subscribe((res: string) => {
-      this.refresh();
-    });
+  constructor(
+    // private translate: TranslateService,
+    private playerService: PlayerService
+  ) {
+    super();
   }
 
   ngOnInit(): void {
-   
-
-  }
-
-  public refresh(): void {
-    this.variable.a = this.translate.instant('account.welcome');
-    this.variable.b = this.translate.instant('home.title');
-  }
-
-
-  public actualise(): boolean {
-    if (this.langue !== this.translate.currentLang) {
-      this.langue = this.translate.currentLang;
-      this.refresh();
-    }
-    return true;
+    this.playerService.playerSubject$.pipe(
+      takeUntil(this.destroyed$)
+    ).subscribe((player: Player) => {
+      this._player = player;
+    })
   }
 
 }

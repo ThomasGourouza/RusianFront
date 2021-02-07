@@ -6,6 +6,9 @@ import { takeUntil } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
+import { Player } from '../models/get/player.model';
+import { PlayerPost } from '../models/post/player-post.model';
 export class Params {
   constructor(
     public login: string,
@@ -23,7 +26,8 @@ export class PlayerService extends subscribedContainerMixin() {
   constructor(
     private playerApi: PlayerApi,
     private authService: AuthService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private translate: TranslateService
   ) {
     super();
   }
@@ -39,18 +43,45 @@ export class PlayerService extends subscribedContainerMixin() {
       takeUntil(
         this.destroyed$
       )
-    ).subscribe((players: Array<any>) => {
+    ).subscribe((players: Array<Player>) => {
       this._playerSubject$.next(players[0]);
       this.authService.isAuth = true;
-      this.toastr.success('Bonjour Cavalier_Fou!', 'Bienvenue!');
+      this.toastr.success(
+        this.translate.instant('toastr.success.message.auth') + players[0].firstName + ' ' + players[0].lastName,
+        this.translate.instant('toastr.success.title')
+      );
     }, (error: HttpErrorResponse) => {
-      console.log(error.status);
-      this.toastr.error('le login ou mot de passe est incorrect!', 'Attention!');
-    })
+      this.toastr.error(
+        this.translate.instant(
+          error.status === 404 ? 'toastr.error.message.auth' : 'toastr.error.message.basic'
+        ),
+        this.translate.instant('toastr.error.title')
+      );
+    });
   }
 
   public logout() {
     this._playerSubject$.next({});
+  }
+
+  public registerPlayer(newPlayer: PlayerPost) {
+    this.playerApi.createPlayer(newPlayer).pipe(
+      takeUntil(this.destroyed$)
+    ).subscribe((player: Player) => {
+      this._playerSubject$.next(player);
+      this.authService.isAuth = true;
+      this.toastr.success(
+        this.translate.instant('toastr.success.message.register') + player.firstName + ' ' + player.lastName,
+        this.translate.instant('toastr.success.title')
+      );
+    }, (error: HttpErrorResponse) => {
+      this.toastr.error(
+        this.translate.instant(
+          error.status < 500 ? 'toastr.error.message.register' : 'toastr.error.message.basic'
+        ),
+        this.translate.instant('toastr.error.title')
+      );
+    });
   }
 
 }

@@ -32,6 +32,30 @@
         "text": "Comment ça va ?",
         "select": "Choisis une langue"
     },
+    "toastr": {
+        "success": {
+            "title": "Succès",
+            "message": {
+                "basic": "Opération réussie",
+                "auth": "Bienvenue ",
+                "register": "Enregistrement effectué"
+            }
+        },
+        "error": {
+            "title": "Erreur",
+            "message": {
+                "basic": "Une erreur est survenue",
+                "auth": "Login ou mot de passe incorrect",
+                "register": "Enregistrement non effectué"
+            }
+        },
+        "info": {
+            "title": "Info",
+            "message": {
+                "basic": "Info"
+            }
+        }
+    },
     "notfound": {
         "message": "Page non trouvée"
     },

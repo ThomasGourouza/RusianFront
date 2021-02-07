@@ -32,6 +32,30 @@
         "text": "How are you ?",
         "select": "Select language"
     },
+    "toastr": {
+        "success": {
+            "title": "Success",
+            "message": {
+                "basic": "Operation succeeded",
+                "auth": "Welcome ",
+                "register": "Successfully registred"
+            }
+        },
+        "error": {
+            "title": "Error",
+            "message": {
+                "basic": "An error occurred",
+                "auth": "Incorrect login or password",
+                "register": "Registration failed"
+            }
+        },
+        "info": {
+            "title": "Info",
+            "message": {
+                "basic": "Info"
+            }
+        }
+    },
     "notfound": {
         "message": "Page not found"
     },

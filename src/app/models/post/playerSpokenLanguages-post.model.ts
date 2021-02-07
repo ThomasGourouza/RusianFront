@@ -1,4 +1,4 @@
-export class PlayerSpokenLanguage {
+export class PlayerSpokenLanguagePost {
     constructor(
         public certification: string,
         public languageRefId: number,

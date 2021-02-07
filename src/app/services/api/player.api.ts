@@ -1,7 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Player } from '../../models/player.model';
+import { PlayerPost } from 'src/app/models/post/player-post.model';
+import { Player } from '../../models/get/player.model';
 import { Params } from '../player.service';
 
 const API_PLAYER_URL = 'http://localhost:8080/api/v1/player';
@@ -21,12 +22,12 @@ export class PlayerApi {
     return httpParams;
   }
 
-  public register(player: Player): Observable<any> {
-    return this.http.post(API_PLAYER_URL, player);
+  public createPlayer(player: PlayerPost): Observable<Player> {
+    return this.http.post<Player>(API_PLAYER_URL, player);
   }
 
-  public getPlayerByLoginAndPassword(params: Params): Observable<any> {
-    return this.http.get<Array<any>>(API_PLAYER_URL , {
+  public getPlayerByLoginAndPassword(params: Params): Observable<Array<Player>> {
+    return this.http.get<Array<Player>>(API_PLAYER_URL , {
       observe: 'body',
       params: this.asHttpParam(params)
     });
