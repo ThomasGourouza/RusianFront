@@ -1,25 +1,13 @@
 {
-    "home": {
-        "name": "Website",
-        "title": "Hello!",
-        "text": "How are you ?",
-        "select": "Select language"
-    },
-    "notfound": {
-        "message": "Page not found"
-    },
-    "user": {
-        "welcome": "Welcome on the user's page",
-        "refresh": "Refresh"
-    },
     "navbar": {
         "menu": {
             "home": "Welcome",
-            "calendar": "Calendar",
-            "edit": "Edit",
-            "documentation": "Russian",
-            "settings": "Settings",
-            "language": "Language"
+            "account": "My account",
+            "russian": "Learn russian",
+            "language": "Language of the website",
+            "github": "GitHub",
+            "login": "Log in",
+            "logout": "Log out"
         },
         "side": {
             "language": "Language",
@@ -32,6 +20,24 @@
             "delete": "Delete",
             "refresh": "Refresh"
         }
+    },
+    "language": {
+        "fr": "Français",
+        "en": "English",
+        "es": "Español"
+    },
+    "home": {
+        "name": "Russian",
+        "title": "Hello!",
+        "text": "How are you ?",
+        "select": "Select language"
+    },
+    "notfound": {
+        "message": "Page not found"
+    },
+    "account": {
+        "welcome": "Welcome on the account's page",
+        "refresh": "Refresh"
     },
     "russian": {
         "title": "Russian"

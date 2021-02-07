@@ -1,25 +1,13 @@
 {
-    "home": {
-        "name": "Sitio web",
-        "title": "Hola!",
-        "text": "Como estas ?",
-        "select": "Escoge un idioma"
-    },
-    "notfound": {
-        "message": "La pagina no existe"
-    },
-    "user": {
-        "welcome": "Bienvenida en la pagina del usario",
-        "refresh": "Actualizar"
-    },
     "navbar": {
         "menu": {
             "home": "Bienvenido",
-            "calendar": "calendario",
-            "edit": "Modificar",
-            "documentation": "Ruso",
-            "settings": "Parametras",
-            "language": "Idioma"
+            "account": "Mi cuenta",
+            "russian": "Aprender el ruso",
+            "language": "Idioma del sitio",
+            "github": "GitHub",
+            "login": "Entrar",
+            "logout": "Salir"
         },
         "side": {
             "language": "Idioma",
@@ -35,6 +23,24 @@
         "russian": {
             "title": "Rusos"
         }
+    },
+    "language": {
+        "fr": "Français",
+        "en": "English",
+        "es": "Español"
+    },
+    "home": {
+        "name": "Ruso",
+        "title": "Hola!",
+        "text": "Como estas ?",
+        "select": "Escoge un idioma"
+    },
+    "notfound": {
+        "message": "La pagina no existe"
+    },
+    "account": {
+        "welcome": "Bienvenida en la pagina del usario",
+        "refresh": "Actualizar"
     },
     "russian": {
         "title": "Ruso"

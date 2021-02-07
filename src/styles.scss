@@ -1,4 +1,53 @@
-html, body {
-    padding: 0px;
-    margin: 0px;
+// html,
+// head,
+// body {
+//     background-color: black;
+//     background-image: url(./assets/flag.jpg);
+//     background-position: top;
+//     background-repeat: no-repeat;
+//     background-size: 100%;
+//     color: black;
+// }
+.white {
+    background-image: url(../src/assets/colors/white.png);
+}
+.blue {
+    background-image: url(../src/assets/colors/blue.png);
+}
+.red {
+    background-image: url(../src/assets/colors/red.png);
+}
+.green {
+    background-image: url(../src/assets/colors/green.png);
+}
+.backgroung-config {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+.logo {
+    background-image: url(../src/assets/eagle.png);
+}
+.french {
+    background-image: url(../src/assets/flags/french.png);
+}
+.english {
+    background-image: url(../src/assets/flags/english.png);
+}
+.spanish {
+    background-image: url(../src/assets/flags/spanish.png);
+}
+.logo-config {
+    width: 50px;
+    height: 50px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 90%;
+}
+.flag-config {
+    width: 50px;
+    height: 50px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 60%;
 }

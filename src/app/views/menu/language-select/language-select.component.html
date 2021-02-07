@@ -1,0 +1,18 @@
+<table>
+    <tr>
+        <td
+            [ngClass]="{'french': isLanguage('fr'), 'english': isLanguage('en'), 'spanish': isLanguage('es'), 'flag-config': true}">
+        </td>
+        <td>
+            <select #langselect class="form-control" (change)="translate.use(langselect.value)" id="select">
+                <option *ngFor="let lang of translate.getLangs()" [value]="lang"
+                    [selected]="lang === translate.currentLang">
+                    {{ 'language.' + lang | translate }}
+                </option>
+            </select>
+        </td>
+        <td>
+            <app-log></app-log>
+        </td>
+    </tr>
+</table>

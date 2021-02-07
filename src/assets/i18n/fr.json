@@ -1,25 +1,13 @@
 {
-    "home": {
-        "name": "Site web",
-        "title": "Salut!",
-        "text": "Comment ça va ?",
-        "select": "Choisis une langue"
-    },
-    "notfound": {
-        "message": "Page non trouvée"
-    },
-    "user": {
-        "welcome": "Bienvenue sur la page Utilisateur",
-        "refresh": "Rafraichir"
-    },
     "navbar": {
         "menu": {
             "home": "Accueil",
-            "calendar": "calendrier",
-            "edit": "Éditer",
-            "documentation": "Russe",
-            "settings": "Paramètres",
-            "language": "Langue"
+            "account": "Mon compte",
+            "russian": "Apprendre le russe",
+            "language": "Langue du site",
+            "github": "GitHub",
+            "login": "Connexion",
+            "logout": "Déconnexion"
         },
         "side": {
             "language": "Langue",
@@ -32,6 +20,24 @@
             "delete": "Supprimer",
             "refresh": "Rafraichir"
         }
+    },
+    "language": {
+        "fr": "Français",
+        "en": "English",
+        "es": "Español"
+    },
+    "home": {
+        "name": "Russe",
+        "title": "Salut!",
+        "text": "Comment ça va ?",
+        "select": "Choisis une langue"
+    },
+    "notfound": {
+        "message": "Page non trouvée"
+    },
+    "account": {
+        "welcome": "Bienvenue sur la page Utilisateur",
+        "refresh": "Rafraichir"
     },
     "russian": {
         "title": "Russe"
