@@ -15,8 +15,8 @@ const routes: Routes = [
   { path: '', redirectTo: '/welcome', pathMatch: 'full' },
   { path: 'register', canActivate: [CreatePlayerGuard], component: CreatePlayerComponent },
   { path: 'account', canActivate: [AuthGuard], component: AccountComponent },
-  { path: 'russian', canActivate: [AuthGuard], component: RussianComponent },
-  { path: 'authentification', component: GetPlayerComponent },
+  { path: 'russian', component: RussianComponent },
+  { path: 'authentification', canActivate: [CreatePlayerGuard], component: GetPlayerComponent },
   { path: 'not-found', component: NotfoundComponent },
   { path: '**', redirectTo: '/not-found' },
 ];

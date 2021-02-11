@@ -3,7 +3,9 @@
         "menu": {
             "home": "Welcome",
             "account": "My account",
-            "russian": "Learn russian",
+            "adjective": "The Adjectives",
+            "noun": "The nouns",
+            "training": "Training",
             "language": "Language of the website",
             "github": "GitHub",
             "login": "Log in",

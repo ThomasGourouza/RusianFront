@@ -1,8 +1,0 @@
-<div class="d-flex justify-content-center">
-    <button class="btn btn-success" *ngIf="!isAuth()" routerLink="/authentification">
-        {{ 'navbar.menu.login' | translate }}
-    </button>
-    <button class="btn btn-danger" *ngIf="isAuth()" (click)="onSignOut()">
-        {{ 'navbar.menu.logout' | translate }}
-    </button>
-</div>

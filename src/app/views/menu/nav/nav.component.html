@@ -1,4 +1,17 @@
-<table>
-    <div *ngIf="actualise()"></div>
-    <p-tabMenu [model]="menu" [activeItem]="activeMenu(menu)"></p-tabMenu>
-</table>
+<div class="row">
+    <div class="col-3 d-flex justify-content-center">
+        <div class="logo logo-config"></div>
+        <div class="d-flex align-items-center">
+           &nbsp; <h3>{{ 'home.name' | translate }}</h3>
+        </div>
+    </div>
+    <div class="col d-flex justify-content-center">
+        <table>
+            <div *ngIf="actualise()"></div>
+            <p-tabMenu [model]="menu" [activeItem]="activeMenu(menu)"></p-tabMenu>
+        </table>
+    </div>
+    <div class="col-3 d-flex justify-content-center">
+        <app-language-select></app-language-select>
+    </div>
+</div>

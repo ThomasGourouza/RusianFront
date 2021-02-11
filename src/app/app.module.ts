@@ -12,6 +12,7 @@ import { NavComponent } from './views/menu/nav/nav.component';
 import { WelcomeComponent } from './views/welcome/welcome.component';
 import { NotfoundComponent } from './views/notfound/notfound.component';
 import { TabMenuModule } from 'primeng/tabmenu';
+import { MegaMenuModule } from 'primeng/megamenu';
 import { TieredMenuModule } from 'primeng/tieredmenu';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AccountComponent } from './views/account/account.component';
@@ -20,11 +21,10 @@ import { SideComponent } from './views/side/side.component';
 import { LanguageFormComponent } from './views/menu/language-select/language-select.component';
 import { GetPlayerComponent } from './views/player/get-player/get-player.component';
 import { CreatePlayerComponent } from './views/player/create-player/create-player.component';
-import { LogComponent } from './views/menu/log/log.component';
 import { PlayerApi } from './services/api/player.api';
 import { PlayerService } from './services/player.service';
 import { AuthService } from './auth/auth.service';
-
+import { SortPipe } from './pipes/sort.pipe';
 
 @NgModule({
   declarations: [
@@ -38,7 +38,7 @@ import { AuthService } from './auth/auth.service';
     LanguageFormComponent,
     GetPlayerComponent,
     CreatePlayerComponent,
-    LogComponent,
+    SortPipe
   ],
   imports: [
     CommonModule,
@@ -57,6 +57,7 @@ import { AuthService } from './auth/auth.service';
       }
     }),
     TabMenuModule,
+    MegaMenuModule,
     TieredMenuModule
   ],
   providers: [

@@ -39,8 +39,9 @@ export class NavComponent implements OnInit {
   public refresh(): void {
 
     const home = this.translate.instant('navbar.menu.home');
-    const login = this.translate.instant('navbar.menu.account');
-    const russian = this.translate.instant('navbar.menu.russian');
+    const adjective = this.translate.instant('navbar.menu.adjective');
+    const noun = this.translate.instant('navbar.menu.noun');
+    const training = this.translate.instant('navbar.menu.training');
     const github = this.translate.instant('navbar.menu.github');
     const edit = this.translate.instant('navbar.menu.edit');
 
@@ -55,8 +56,9 @@ export class NavComponent implements OnInit {
 
     this.menu = [
       { label: home, icon: 'pi pi-fw pi-home', routerLink: '/welcome' },
-      { label: login, icon: 'pi pi-fw pi-user', routerLink: '/account' },
-      { label: russian, icon: 'pi pi-fw pi-file', routerLink: '/russian' },
+      { label: adjective, icon: 'pi pi-fw pi-folder', routerLink: '/russian' },
+      { label: noun, icon: 'pi pi-fw pi-folder', routerLink: '/russian' },
+      { label: training, icon: 'pi pi-fw pi-pencil', routerLink: '/russian' },
       { label: github, icon: 'pi pi-fw pi-github', routerLink: '/github' },
     ];
     this.activeItem = this.menu[0];

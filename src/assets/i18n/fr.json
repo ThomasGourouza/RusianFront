@@ -3,7 +3,9 @@
         "menu": {
             "home": "Accueil",
             "account": "Mon compte",
-            "russian": "Apprendre le russe",
+            "adjective": "Les Adjectifs",
+            "noun": "Les noms",
+            "training": "Entraînement",
             "language": "Langue du site",
             "github": "GitHub",
             "login": "Connexion",

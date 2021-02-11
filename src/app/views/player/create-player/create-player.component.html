@@ -39,7 +39,7 @@
           <div class="form-group">
             <label for="birthCountryRefId">Pays</label>
             <select class="form-control" id="birthCountryRefId" formControlName="birthCountryRefId">
-              <option *ngFor="let country of _countries" [value]="country.id">
+              <option *ngFor="let country of _countries | sort:false" [value]="country.id">
                 {{ country.value }}
               </option>
             </select>

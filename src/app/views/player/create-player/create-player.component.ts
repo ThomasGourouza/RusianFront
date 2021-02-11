@@ -14,6 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 import { PlayerService } from 'src/app/services/player.service';
 import { Player } from 'src/app/models/get/player.model';
+// import { SortPipe } from 'src/app/pipes/sort.pipe';
 
 @Component({
   selector: 'app-create-player',
@@ -35,7 +36,8 @@ export class CreatePlayerComponent extends subscribedContainerMixin() implements
     private playerReferenceService: PlayerReferenceService,
     private playerService: PlayerService,
     private router: Router,
-    private translate: TranslateService
+    private translate: TranslateService,
+    // private sortPipe: SortPipe
   ) {
     super();
   }
@@ -161,4 +163,8 @@ export class CreatePlayerComponent extends subscribedContainerMixin() implements
       );
     };
   }
+
+  // public sort(array: Array<any>): Array<any> {
+  //   return this.sortPipe.transform(array, false);
+  // }
 }
