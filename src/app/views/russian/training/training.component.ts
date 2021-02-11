@@ -4,10 +4,10 @@ import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-russian',
-  templateUrl: './russian.component.html',
-  styleUrls: ['./russian.component.scss']
+  templateUrl: './training.component.html',
+  styleUrls: ['./training.component.scss']
 })
-export class RussianComponent implements OnInit {
+export class TrainingComponent implements OnInit {
 
   public items: MenuItem[];
 

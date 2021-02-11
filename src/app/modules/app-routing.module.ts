@@ -5,9 +5,11 @@ import { CreatePlayerGuard } from '../auth/guards/create-player.guard';
 import { GetPlayerComponent } from '../views/player/get-player/get-player.component';
 import { CreatePlayerComponent } from '../views/player/create-player/create-player.component';
 import { NotfoundComponent } from '../views/notfound/notfound.component';
-import { RussianComponent } from '../views/russian/russian.component';
-import { AccountComponent } from '../views/account/account.component';
+import { TrainingComponent } from '../views/russian/training/training.component';
+import { AccountComponent } from '../views/player/account/account.component';
 import { WelcomeComponent } from '../views/welcome/welcome.component';
+import { AdjectivesComponent } from '../views/russian/adjectives/adjectives.component';
+import { NounsComponent } from '../views/russian/nouns/nouns.component';
 
 
 const routes: Routes = [
@@ -15,7 +17,9 @@ const routes: Routes = [
   { path: '', redirectTo: '/welcome', pathMatch: 'full' },
   { path: 'register', canActivate: [CreatePlayerGuard], component: CreatePlayerComponent },
   { path: 'account', canActivate: [AuthGuard], component: AccountComponent },
-  { path: 'russian', component: RussianComponent },
+  { path: 'training', component: TrainingComponent },
+  { path: 'adjectives', component: AdjectivesComponent },
+  { path: 'nouns', component: NounsComponent },
   { path: 'authentification', canActivate: [CreatePlayerGuard], component: GetPlayerComponent },
   { path: 'not-found', component: NotfoundComponent },
   { path: '**', redirectTo: '/not-found' },

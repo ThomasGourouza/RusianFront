@@ -15,8 +15,8 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { MegaMenuModule } from 'primeng/megamenu';
 import { TieredMenuModule } from 'primeng/tieredmenu';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AccountComponent } from './views/account/account.component';
-import { RussianComponent } from './views/russian/russian.component';
+import { AccountComponent } from './views/player/account/account.component';
+import { TrainingComponent } from './views/russian/training/training.component';
 import { SideComponent } from './views/side/side.component';
 import { LanguageFormComponent } from './views/menu/language-select/language-select.component';
 import { GetPlayerComponent } from './views/player/get-player/get-player.component';
@@ -25,6 +25,8 @@ import { PlayerApi } from './services/api/player.api';
 import { PlayerService } from './services/player.service';
 import { AuthService } from './auth/auth.service';
 import { SortPipe } from './pipes/sort.pipe';
+import { AdjectivesComponent } from './views/russian/adjectives/adjectives.component';
+import { NounsComponent } from './views/russian/nouns/nouns.component';
 
 @NgModule({
   declarations: [
@@ -33,12 +35,14 @@ import { SortPipe } from './pipes/sort.pipe';
     WelcomeComponent,
     NotfoundComponent,
     AccountComponent,
-    RussianComponent,
+    TrainingComponent,
     SideComponent,
     LanguageFormComponent,
     GetPlayerComponent,
     CreatePlayerComponent,
-    SortPipe
+    SortPipe,
+    AdjectivesComponent,
+    NounsComponent
   ],
   imports: [
     CommonModule,

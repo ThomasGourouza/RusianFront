@@ -3,8 +3,8 @@
         "menu": {
             "home": "Welcome",
             "account": "My account",
-            "adjective": "The Adjectives",
-            "noun": "The nouns",
+            "adjective": "Adjectives",
+            "noun": "Nouns",
             "training": "Training",
             "language": "Language of the website",
             "github": "GitHub",

@@ -56,9 +56,9 @@ export class NavComponent implements OnInit {
 
     this.menu = [
       { label: home, icon: 'pi pi-fw pi-home', routerLink: '/welcome' },
-      { label: adjective, icon: 'pi pi-fw pi-folder', routerLink: '/russian' },
-      { label: noun, icon: 'pi pi-fw pi-folder', routerLink: '/russian' },
-      { label: training, icon: 'pi pi-fw pi-pencil', routerLink: '/russian' },
+      { label: adjective, icon: 'pi pi-fw pi-folder', routerLink: '/adjectives' },
+      { label: noun, icon: 'pi pi-fw pi-folder', routerLink: '/nouns' },
+      { label: training, icon: 'pi pi-fw pi-pencil', routerLink: '/training' },
       { label: github, icon: 'pi pi-fw pi-github', routerLink: '/github' },
     ];
     this.activeItem = this.menu[0];
