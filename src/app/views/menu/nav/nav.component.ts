@@ -56,8 +56,8 @@ export class NavComponent implements OnInit {
 
     this.menu = [
       { label: home, icon: 'pi pi-fw pi-home', routerLink: '/welcome' },
-      { label: adjective, icon: 'pi pi-fw pi-folder', routerLink: '/adjectives' },
-      { label: noun, icon: 'pi pi-fw pi-folder', routerLink: '/nouns' },
+      { label: adjective, icon: 'pi pi-fw pi-folder-open', routerLink: '/adjectives' },
+      { label: noun, icon: 'pi pi-fw pi-folder-open', routerLink: '/nouns' },
       { label: training, icon: 'pi pi-fw pi-pencil', routerLink: '/training' },
       { label: github, icon: 'pi pi-fw pi-github', routerLink: '/github' },
     ];
@@ -104,6 +104,10 @@ export class NavComponent implements OnInit {
       activeMenu = menu.find((item) => item.routerLink === this.router.url);
     }
     return menu && activeMenu ? activeMenu : null;
+  }
+
+  public redirectToWelcome(): void {
+    this.router.navigate(['/welcome']);
   }
 
 }

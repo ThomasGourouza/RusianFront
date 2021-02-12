@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { subscribedContainerMixin } from '../subscribed-container.mixin';
 import { takeUntil } from 'rxjs/operators';
-import { HttpErrorResponse } from '@angular/common/http';
 import { PlayerReferenceApi } from './api/player-reference.api';
 import { CountryModel } from '../models/reference/player/country.model';
 import { GenderModel } from '../models/reference/player/gender.model';
@@ -44,7 +43,7 @@ export class PlayerReferenceService extends subscribedContainerMixin() {
     return this._levelsSubject$.asObservable();
   }
 
-  public fetchPlayerReferences() {
+  public fetchReferences() {
     this.playerReferenceApi.getCountry()
       .pipe(
         takeUntil(

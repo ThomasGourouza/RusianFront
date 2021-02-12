@@ -43,7 +43,7 @@ export class CreatePlayerComponent extends subscribedContainerMixin() implements
   }
 
   public ngOnInit(): void {
-    this.playerReferenceService.fetchPlayerReferences();
+    this.playerReferenceService.fetchReferences();
 
     this.playerReferenceService.countriesSubject$.pipe(
       takeUntil(this.destroyed$)

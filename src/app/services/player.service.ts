@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 import { Player } from '../models/get/player.model';
 import { PlayerPost } from '../models/post/player-post.model';
-export class Params {
+export class SignInParams {
   constructor(
     public login: string,
     public password: string
@@ -36,7 +36,7 @@ export class PlayerService extends subscribedContainerMixin() {
     return this._playerSubject$.asObservable();
   }
 
-  public fetchPlayer(params: Params) {
+  public fetchPlayer(params: SignInParams) {
     this.playerApi.getPlayerByLoginAndPassword(
       params
     ).pipe(

@@ -27,6 +27,11 @@ import { AuthService } from './auth/auth.service';
 import { SortPipe } from './pipes/sort.pipe';
 import { AdjectivesComponent } from './views/russian/adjectives/adjectives.component';
 import { NounsComponent } from './views/russian/nouns/nouns.component';
+import { Utils } from './services/utils/utils.service';
+import { PlayerReferenceApi } from './services/api/player-reference.api';
+import { PlayerReferenceService } from './services/player-reference.service';
+import { RussianReferenceApi } from './services/api/russian-reference.api';
+import { RussianReferenceService } from './services/russian-reference.service';
 
 @NgModule({
   declarations: [
@@ -65,6 +70,11 @@ import { NounsComponent } from './views/russian/nouns/nouns.component';
     TieredMenuModule
   ],
   providers: [
+    Utils,
+    RussianReferenceApi,
+    RussianReferenceService,
+    PlayerReferenceApi,
+    PlayerReferenceService,
     PlayerApi,
     PlayerService,
     AuthService

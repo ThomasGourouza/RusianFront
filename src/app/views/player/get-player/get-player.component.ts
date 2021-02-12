@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { subscribedContainerMixin } from 'src/app/subscribed-container.mixin';
-import { Params, PlayerService } from 'src/app/services/player.service';
+import { SignInParams, PlayerService } from 'src/app/services/player.service';
 
 @Component({
   selector: 'app-get-player',
@@ -22,7 +22,7 @@ export class GetPlayerComponent extends subscribedContainerMixin() implements On
   public ngOnInit(): void { }
 
   public onSignIn(login: string, password: string): void {
-    this.playerService.fetchPlayer(new Params(login, password));
+    this.playerService.fetchPlayer(new SignInParams(login, password));
     this.playerService.playerSubject$.pipe(
       takeUntil(this.destroyed$)
     ).subscribe(() => {
