@@ -1,33 +1,66 @@
 <br>
 <div class="row">
     <div class="col-3">
-        <app-side-adjectives (openDeclension)="onOpenDeclension($event)"></app-side-adjectives>
+        <app-side-adjectives *ngIf="masculineNominative" [masculineNominative]="masculineNominative"
+            (openPage)="onOpenPage($event)">
+        </app-side-adjectives>
     </div>
     <div class="col">
-        <section class="d-flex align-items-center justify-content-center">
-            <!-- accueil adjectifs -->
-            <div *ngIf="!declension.show;else show_declension">
-                <h1>
-                    {{ 'adjectives.title' | translate }}
-                </h1>
+        <section>
+            <br>
+            <div class="d-flex align-items-center justify-content-center">
+                <!-- accueil adjectifs -->
+                <div class="row" *ngIf="!page.show;else show_page">
+                    <h3>
+                        {{ 'adjectives.text' | translate }}
+                    </h3>
+                </div>
+                <!-- voir les déclinaisons -->
+                <ng-template #show_page>
+                    <span *ngIf="masculineNominative" [ngSwitch]="page.type">
+                        <div *ngSwitchCase=1>
+                            <h2>
+                                {{ 'adjectives.declension.first' | translate }}{{ masculineNominative.first }}
+                            </h2>
+                            <app-declension-category [adjectiveCategory]="getAdjectiveCategory(1)">
+                            </app-declension-category>
+                        </div>
+                        <div *ngSwitchCase=2>
+                            <h2>
+                                {{ 'adjectives.declension.second' | translate }}{{ masculineNominative.second }}
+                            </h2>
+                            <app-declension-category [adjectiveCategory]="getAdjectiveCategory(2)">
+                            </app-declension-category>
+                        </div>
+                        <div *ngSwitchCase=3>
+                            <h2>
+                                {{ 'adjectives.declension.third' | translate }}{{ masculineNominative.third }}
+                            </h2>
+                            <app-declension-category [adjectiveCategory]="getAdjectiveCategory(3)">
+                            </app-declension-category>
+                        </div>
+                        <div *ngSwitchCase=4>
+                            <h2>
+                                {{ 'adjectives.declension.fourth' | translate }}{{ masculineNominative.fourth }}
+                            </h2>
+                            <app-declension-category [adjectiveCategory]="getAdjectiveCategory(4)">
+                            </app-declension-category>
+                        </div>
+                        <div *ngSwitchCase=5>
+                            <h2>
+                                {{ 'adjectives.adjectives.consult' | translate }}
+                            </h2>
+                            <app-adjective-list></app-adjective-list>
+                        </div>
+                        <div *ngSwitchCase=6>
+                            <h2>
+                                {{ 'adjectives.adjectives.add' | translate }}
+                            </h2>
+                            <app-add-adjective></app-add-adjective>
+                        </div>
+                    </span>
+                </ng-template>
             </div>
-            <!-- voir les déclinaisons -->
-            <ng-template #show_declension>
-                <span [ngSwitch]="declension.type">
-                    <div *ngSwitchCase=1>
-                        Premiere déclinaison
-                    </div>
-                    <div *ngSwitchCase=2>
-                        Deuxième déclinaison
-                    </div>
-                    <div *ngSwitchCase=3>
-                        Troisième déclinaison
-                    </div>
-                    <div *ngSwitchCase=4>
-                        Quatrième déclinaison
-                    </div>
-                </span>
-            </ng-template>
         </section>
     </div>
     <div class="col-3">

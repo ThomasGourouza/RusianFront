@@ -1,0 +1,22 @@
+<div class="card">
+    <p-table [columns]="cols" [value]="cars" [paginator]="true" [rows]="5" selectionMode="single"
+        [(selection)]="selected" dataKey="vin" (onRowSelect)="onRowSelect($event)"
+        (onRowUnselect)="onRowUnselect($event)">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                    {{col.header}} <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr [pSelectableRow]="rowData">
+                <td *ngFor="let col of columns">
+                    {{ rowData[col.field] }}
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+<br>
+<button class="btn btn-primary" (click)="voir()">click</button>

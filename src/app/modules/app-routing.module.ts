@@ -19,6 +19,7 @@ const routes: Routes = [
   { path: 'account', canActivate: [AuthGuard], component: AccountComponent },
   { path: 'training', component: TrainingComponent },
   { path: 'adjectives', component: AdjectivesComponent },
+  { path: 'adjectives/:category', component: AdjectivesComponent },
   { path: 'nouns', component: NounsComponent },
   { path: 'authentification', canActivate: [CreatePlayerGuard], component: GetPlayerComponent },
   { path: 'not-found', component: NotfoundComponent },

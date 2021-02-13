@@ -14,6 +14,7 @@ import { NotfoundComponent } from './views/notfound/notfound.component';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { MegaMenuModule } from 'primeng/megamenu';
 import { TieredMenuModule } from 'primeng/tieredmenu';
+import { TableModule } from 'primeng/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AccountComponent } from './views/player/account/account.component';
 import { TrainingComponent } from './views/russian/training/training.component';
@@ -36,6 +37,9 @@ import { AdjectiveApi } from './services/api/adjective.api';
 import { AdjectiveService } from './services/adjective.service';
 import { NounApi } from './services/api/noun.api';
 import { NounService } from './services/noun.service';
+import { DeclensionCategoryComponent } from './views/russian/adjectives/declension-category/declension-category.component';
+import { AdjectiveListComponent } from './views/russian/adjectives/adjective-list/adjective-list.component';
+import { AddAdjectiveComponent } from './views/russian/adjectives/add-adjective/add-adjective.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +55,10 @@ import { NounService } from './services/noun.service';
     CreatePlayerComponent,
     SortPipe,
     AdjectivesComponent,
-    NounsComponent
+    NounsComponent,
+    DeclensionCategoryComponent,
+    AdjectiveListComponent,
+    AddAdjectiveComponent
   ],
   imports: [
     CommonModule,
@@ -71,7 +78,8 @@ import { NounService } from './services/noun.service';
     }),
     TabMenuModule,
     MegaMenuModule,
-    TieredMenuModule
+    TieredMenuModule,
+    TableModule
   ],
   providers: [
     Utils,

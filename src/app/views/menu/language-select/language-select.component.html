@@ -9,7 +9,7 @@
         </td>
         <td>
             <select #langselect class="form-control" (change)="translate.use(langselect.value)" id="select"
-                title="Langue de l'application">
+                [title]="languageInfo" >
                 <option *ngFor="let lang of translate.getLangs()" [value]="lang"
                     [selected]="lang === translate.currentLang">
                     {{ 'navbar.language.' + lang | translate }}

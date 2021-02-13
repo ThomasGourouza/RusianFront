@@ -1,7 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
-import { DECL } from '../adjectives.component';
+import { PAGE, MN } from '../adjectives.component';
 
 @Component({
   selector: 'app-side-adjectives',
@@ -12,8 +12,10 @@ export class SideAdjectivesComponent implements OnInit {
 
   public items: Array<MenuItem>;
   public langue: string;
+  @Input()
+  public masculineNominative: MN;
   @Output()
-  public openDeclension: EventEmitter<DECL> = new EventEmitter();
+  public openPage: EventEmitter<PAGE> = new EventEmitter();
 
 
   constructor(
@@ -31,21 +33,24 @@ export class SideAdjectivesComponent implements OnInit {
 
   public refresh(): void {
     const declension = this.translate.instant('adjectives.side.declension');
-    const firstType = this.translate.instant('adjectives.side.firstType');
-    const secondType = this.translate.instant('adjectives.side.secondType');
-    const thirdType = this.translate.instant('adjectives.side.thirdType');
-    const fourthType = this.translate.instant('adjectives.side.fourthType');
+    const first = this.translate.instant('adjectives.side.first') + this.masculineNominative.first;
+    const second = this.translate.instant('adjectives.side.second') + this.masculineNominative.second;
+    const third = this.translate.instant('adjectives.side.third') + this.masculineNominative.third;
+    const fourth = this.translate.instant('adjectives.side.fourth') + this.masculineNominative.fourth;
     const close = this.translate.instant('adjectives.side.close');
+    const adjectives = this.translate.instant('adjectives.side.adjectives');
+    const consult = this.translate.instant('adjectives.side.consult');
+    const add = this.translate.instant('adjectives.side.add');
 
     this.items = [
       {
         label: declension,
         icon: 'pi pi-fw pi-folder-open',
         items: [{
-          label: firstType,
+          label: first,
           icon: 'pi pi-fw pi-file',
           command: () => {
-            this.openDeclension.emit(
+            this.openPage.emit(
               {
                 show: true,
                 type: 1
@@ -54,10 +59,10 @@ export class SideAdjectivesComponent implements OnInit {
           }
         },
         {
-          label: secondType,
+          label: second,
           icon: 'pi pi-fw pi-file',
           command: () => {
-            this.openDeclension.emit(
+            this.openPage.emit(
               {
                 show: true,
                 type: 2
@@ -66,10 +71,10 @@ export class SideAdjectivesComponent implements OnInit {
           }
         },
         {
-          label: thirdType,
+          label: third,
           icon: 'pi pi-fw pi-file',
           command: () => {
-            this.openDeclension.emit(
+            this.openPage.emit(
               {
                 show: true,
                 type: 3
@@ -78,10 +83,10 @@ export class SideAdjectivesComponent implements OnInit {
           }
         },
         {
-          label: fourthType,
+          label: fourth,
           icon: 'pi pi-fw pi-file',
           command: () => {
-            this.openDeclension.emit(
+            this.openPage.emit(
               {
                 show: true,
                 type: 4
@@ -96,7 +101,51 @@ export class SideAdjectivesComponent implements OnInit {
           label: close,
           icon: 'pi pi-times',
           command: () => {
-            this.openDeclension.emit(
+            this.openPage.emit(
+              {
+                show: false,
+                type: 0
+              }
+            );
+          }
+        }
+        ]
+      },
+      {
+        label: adjectives,
+        icon: 'pi pi-fw pi-folder-open',
+        items: [{
+          label: consult,
+          icon: 'pi pi-fw pi-eye',
+          command: () => {
+            this.openPage.emit(
+              {
+                show: true,
+                type: 5
+              }
+            );
+          }
+        },
+        {
+          label: add,
+          icon: 'pi pi-fw pi-plus',
+          command: () => {
+            this.openPage.emit(
+              {
+                show: true,
+                type: 6
+              }
+            );
+          }
+        },
+        {
+          separator: true
+        },
+        {
+          label: close,
+          icon: 'pi pi-times',
+          command: () => {
+            this.openPage.emit(
               {
                 show: false,
                 type: 0

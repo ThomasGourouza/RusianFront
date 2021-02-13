@@ -101,7 +101,8 @@ export class NavComponent implements OnInit {
   public activeMenu(menu: Array<MenuItem>): MenuItem {
     let activeMenu: MenuItem;
     if (menu) {
-      activeMenu = menu.find((item) => item.routerLink === this.router.url);
+      activeMenu = menu.find((item) =>
+        this.router.url.split('/').includes(item.routerLink.split('/')[1]))
     }
     return menu && activeMenu ? activeMenu : null;
   }

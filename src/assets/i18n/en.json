@@ -6,7 +6,7 @@
             "adjective": "Adjectives",
             "noun": "Nouns",
             "training": "Training",
-            "language": "Language of the website",
+            "language": "Language of the application",
             "github": "GitHub",
             "login": "Log in",
             "logout": "Log out"
@@ -61,14 +61,43 @@
         "refresh": "Refresh"
     },
     "adjectives": {
-        "title": "Adjectives",
+        "text": "There are four declensions of adjectives in russian.",
+        "declension": {
+            "first": "First declension",
+            "second": "Second declension",
+            "third": "Third declension",
+            "fourth": "Fourth declension"
+        },
+        "adjectives": {
+            "consult": "List of adjectives",
+            "add": "Add an adjective"
+        },
         "side": {
-            "declension": "Declension",
-            "firstType": "First type",
-            "secondType": "Second type",
-            "thirdType": "Third type",
-            "fourthType": "Fourth type",
-            "close": "Close"
+            "declension": "Declensions",
+            "first": "First",
+            "second": "Second",
+            "third": "Third",
+            "fourth": "Fourth",
+            "close": "Close",
+            "adjectives": "Adjectives",
+            "consult": "Consult",
+            "add": "Add"
+        }
+    },
+    "reference": {
+        "case": {
+            "nominative": "Nominative",
+            "accusative": "Accusative",
+            "genitive": "Genitive",
+            "dative": "Dative",
+            "locative": "Locative",
+            "instrumental": "Instrumental"
+        },
+        "gender": {
+            "masculine": "Masculine",
+            "feminine": "Feminine",
+            "neuter": "Neuter",
+            "plural": "Plural"
         }
     }
 }

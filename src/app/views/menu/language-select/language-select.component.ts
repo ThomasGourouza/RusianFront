@@ -18,6 +18,7 @@ export class LanguageFormComponent extends subscribedContainerMixin() implements
   public _player: Player;
   public items: MegaMenuItem[];
   public langue: string;
+  public languageInfo: string;
 
   constructor(
     public translate: TranslateService,
@@ -60,11 +61,9 @@ export class LanguageFormComponent extends subscribedContainerMixin() implements
     }
   }
 
-  public titleLogInOut(): string {
-    return this.isAuth() ? this.translate.instant('navbar.menu.logout') : this.translate.instant('navbar.menu.login');
-  }
-
   public refresh(): void {
+    const titleLogInOut = this.isAuth() ? this.translate.instant('navbar.menu.logout') : this.translate.instant('navbar.menu.login');
+    this.languageInfo = this.translate.instant('navbar.menu.language');
     this.items = [
       {
         label: this._player.login,
@@ -74,7 +73,7 @@ export class LanguageFormComponent extends subscribedContainerMixin() implements
             {
               items: [
                 {
-                  label: this.titleLogInOut(),
+                  label: titleLogInOut,
                   icon: 'pi pi-fw pi-power-off',
                   command: () => this.onSignInOut()
                 }

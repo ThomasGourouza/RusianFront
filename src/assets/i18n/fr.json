@@ -6,7 +6,7 @@
             "adjective": "Les Adjectifs",
             "noun": "Les noms",
             "training": "Entraînement",
-            "language": "Langue du site",
+            "language": "Langue de l'application",
             "github": "GitHub",
             "login": "Connexion",
             "logout": "Déconnexion"
@@ -61,14 +61,43 @@
         "refresh": "Rafraichir"
     },
     "adjectives": {
-        "title": "Adjectifs",
+        "text": "Il existe quatre déclinaisons d'adjectifs en russe.",
+        "declension": {
+            "first": "Première déclinaison",
+            "second": "Deuxième déclinaison",
+            "third": "Troisième déclinaison",
+            "fourth": "Quatrième déclinaison"
+        },
+        "adjectives": {
+            "consult": "Liste des adjectifs",
+            "add": "Ajouter un adjectif"
+        },
         "side": {
             "declension": "Déclinaisons",
-            "firstType": "Premier type",
-            "secondType": "Deuxième type",
-            "thirdType": "Troisième type",
-            "fourthType": "Quatrième type",
-            "close": "Fermer"
+            "first": "Première",
+            "second": "Deuxième",
+            "third": "Troisième",
+            "fourth": "Quatrième",
+            "close": "Fermer",
+            "adjectives": "Adjectifs",
+            "consult": "Consulter",
+            "add": "Ajouter"
+        }
+    },
+    "reference": {
+        "case": {
+            "nominative": "Nominatif",
+            "accusative": "Accusatif",
+            "genitive": "Génitif",
+            "dative": "Datif",
+            "locative": "Locatif",
+            "instrumental": "Instrumental"
+        },
+        "gender": {
+            "masculine": "Masculin",
+            "feminine": "Fémimin",
+            "neuter": "Neutre",
+            "plural": "Pluriel"
         }
     }
 }
