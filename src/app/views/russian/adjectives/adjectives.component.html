@@ -1,8 +1,36 @@
 <br>
-<section class="d-flex align-items-center justify-content-center">
-    <article>
-        <h1>
-            {{ 'home.title' | translate }}
-        </h1>
-    </article>
-</section>
+<div class="row">
+    <div class="col-3">
+        <app-side-adjectives (openDeclension)="onOpenDeclension($event)"></app-side-adjectives>
+    </div>
+    <div class="col">
+        <section class="d-flex align-items-center justify-content-center">
+            <!-- accueil adjectifs -->
+            <div *ngIf="!declension.show;else show_declension">
+                <h1>
+                    {{ 'adjectives.title' | translate }}
+                </h1>
+            </div>
+            <!-- voir les déclinaisons -->
+            <ng-template #show_declension>
+                <span [ngSwitch]="declension.type">
+                    <div *ngSwitchCase=1>
+                        Premiere déclinaison
+                    </div>
+                    <div *ngSwitchCase=2>
+                        Deuxième déclinaison
+                    </div>
+                    <div *ngSwitchCase=3>
+                        Troisième déclinaison
+                    </div>
+                    <div *ngSwitchCase=4>
+                        Quatrième déclinaison
+                    </div>
+                </span>
+            </ng-template>
+        </section>
+    </div>
+    <div class="col-3">
+
+    </div>
+</div>

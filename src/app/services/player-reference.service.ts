@@ -3,11 +3,11 @@ import { BehaviorSubject } from 'rxjs';
 import { subscribedContainerMixin } from '../subscribed-container.mixin';
 import { takeUntil } from 'rxjs/operators';
 import { PlayerReferenceApi } from './api/player-reference.api';
-import { CountryModel } from '../models/reference/player/country.model';
-import { GenderModel } from '../models/reference/player/gender.model';
-import { LanguageModel } from '../models/reference/player/language.model';
-import { LevelModel } from '../models/reference/player/level.model';
-import { ImageModel } from '../models/reference/player/image.model';
+import { Country } from '../models/reference/player/country.model';
+import { Gender } from '../models/reference/player/gender.model';
+import { Language } from '../models/reference/player/language.model';
+import { Level } from '../models/reference/player/level.model';
+import { Image } from '../models/reference/player/image.model';
 
 
 @Injectable({
@@ -15,11 +15,11 @@ import { ImageModel } from '../models/reference/player/image.model';
 })
 export class PlayerReferenceService extends subscribedContainerMixin() {
 
-  private _countriesSubject$ = new BehaviorSubject([]);
-  private _gendersSubject$ = new BehaviorSubject([]);
-  private _imagesSubject$ = new BehaviorSubject([]);
-  private _languagesSubject$ = new BehaviorSubject([]);
-  private _levelsSubject$ = new BehaviorSubject([]);
+  private _countries$ = new BehaviorSubject([]);
+  private _genders$ = new BehaviorSubject([]);
+  private _images$ = new BehaviorSubject([]);
+  private _languages$ = new BehaviorSubject([]);
+  private _levels$ = new BehaviorSubject([]);
 
   constructor(
     private playerReferenceApi: PlayerReferenceApi
@@ -27,20 +27,20 @@ export class PlayerReferenceService extends subscribedContainerMixin() {
     super();
   }
 
-  public get countriesSubject$() {
-    return this._countriesSubject$.asObservable();
+  public get countries$() {
+    return this._countries$.asObservable();
   }
-  public get gendersSubject$() {
-    return this._gendersSubject$.asObservable();
+  public get genders$() {
+    return this._genders$.asObservable();
   }
-  public get imagesSubject$() {
-    return this._imagesSubject$.asObservable();
+  public get images$() {
+    return this._images$.asObservable();
   }
-  public get languagesSubject$() {
-    return this._languagesSubject$.asObservable();
+  public get languages$() {
+    return this._languages$.asObservable();
   }
-  public get levelsSubject$() {
-    return this._levelsSubject$.asObservable();
+  public get levels$() {
+    return this._levels$.asObservable();
   }
 
   public fetchReferences() {
@@ -49,8 +49,8 @@ export class PlayerReferenceService extends subscribedContainerMixin() {
         takeUntil(
           this.destroyed$
         )
-      ).subscribe((countries: Array<CountryModel>) => {
-        this._countriesSubject$.next(countries);
+      ).subscribe((countries: Array<Country>) => {
+        this._countries$.next(countries);
       });
 
     this.playerReferenceApi.getGender()
@@ -58,8 +58,8 @@ export class PlayerReferenceService extends subscribedContainerMixin() {
         takeUntil(
           this.destroyed$
         )
-      ).subscribe((genders: Array<GenderModel>) => {
-        this._gendersSubject$.next(genders);
+      ).subscribe((genders: Array<Gender>) => {
+        this._genders$.next(genders);
       });
 
     this.playerReferenceApi.getImage()
@@ -67,8 +67,8 @@ export class PlayerReferenceService extends subscribedContainerMixin() {
         takeUntil(
           this.destroyed$
         )
-      ).subscribe((images: Array<ImageModel>) => {
-        this._imagesSubject$.next(images);
+      ).subscribe((images: Array<Image>) => {
+        this._images$.next(images);
       });
 
     this.playerReferenceApi.getLanguage()
@@ -76,8 +76,8 @@ export class PlayerReferenceService extends subscribedContainerMixin() {
         takeUntil(
           this.destroyed$
         )
-      ).subscribe((languages: Array<LanguageModel>) => {
-        this._languagesSubject$.next(languages);
+      ).subscribe((languages: Array<Language>) => {
+        this._languages$.next(languages);
       });
 
     this.playerReferenceApi.getLevel()
@@ -85,8 +85,8 @@ export class PlayerReferenceService extends subscribedContainerMixin() {
         takeUntil(
           this.destroyed$
         )
-      ).subscribe((levels: Array<LevelModel>) => {
-        this._levelsSubject$.next(levels);
+      ).subscribe((levels: Array<Level>) => {
+        this._levels$.next(levels);
       });
   }
 

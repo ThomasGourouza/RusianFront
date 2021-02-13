@@ -7,8 +7,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
-import { Player } from '../models/get/player.model';
-import { PlayerPost } from '../models/post/player-post.model';
+import { Player } from '../models/player/get/player.model';
+import { PlayerPost } from '../models/player/post/player-post.model';
 export class SignInParams {
   constructor(
     public login: string,
@@ -21,7 +21,7 @@ export class SignInParams {
 })
 export class PlayerService extends subscribedContainerMixin() {
 
-  private _playerSubject$ = new BehaviorSubject({});
+  private _player$ = new BehaviorSubject({});
 
   constructor(
     private playerApi: PlayerApi,
@@ -32,8 +32,8 @@ export class PlayerService extends subscribedContainerMixin() {
     super();
   }
 
-  public get playerSubject$() {
-    return this._playerSubject$.asObservable();
+  public get player$() {
+    return this._player$.asObservable();
   }
 
   public fetchPlayer(params: SignInParams) {
@@ -44,7 +44,7 @@ export class PlayerService extends subscribedContainerMixin() {
         this.destroyed$
       )
     ).subscribe((players: Array<Player>) => {
-      this._playerSubject$.next(players[0]);
+      this._player$.next(players[0]);
       this.authService.isAuth = true;
       this.toastr.success(
         this.translate.instant('toastr.success.message.auth'),
@@ -61,14 +61,14 @@ export class PlayerService extends subscribedContainerMixin() {
   }
 
   public logout() {
-    this._playerSubject$.next({});
+    this._player$.next({});
   }
 
   public registerPlayer(newPlayer: PlayerPost) {
     this.playerApi.createPlayer(newPlayer).pipe(
       takeUntil(this.destroyed$)
     ).subscribe((player: Player) => {
-      this._playerSubject$.next(player);
+      this._player$.next(player);
       this.authService.isAuth = true;
       this.toastr.success(
         this.translate.instant('toastr.success.message.register'),

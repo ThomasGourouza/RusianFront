@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { PlayerPost } from 'src/app/models/post/player-post.model';
+import { PlayerPost } from 'src/app/models/player/post/player-post.model';
 import { PlayerReferenceService } from 'src/app/services/player-reference.service';
-import { CountryModel } from 'src/app/models/reference/player/country.model';
-import { GenderModel } from 'src/app/models/reference/player/gender.model';
-import { ImageModel } from 'src/app/models/reference/player/image.model';
-import { LanguageModel } from 'src/app/models/reference/player/language.model';
-import { LevelModel } from 'src/app/models/reference/player/level.model';
+import { Country } from 'src/app/models/reference/player/country.model';
+import { Gender } from 'src/app/models/reference/player/gender.model';
+import { Image } from 'src/app/models/reference/player/image.model';
+import { Language } from 'src/app/models/reference/player/language.model';
+import { Level } from 'src/app/models/reference/player/level.model';
 import { subscribedContainerMixin } from 'src/app/subscribed-container.mixin';
 import { takeUntil } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 import { PlayerService } from 'src/app/services/player.service';
-import { Player } from 'src/app/models/get/player.model';
+import { Player } from 'src/app/models/player/get/player.model';
 // import { SortPipe } from 'src/app/pipes/sort.pipe';
 
 @Component({
@@ -25,11 +25,11 @@ export class CreatePlayerComponent extends subscribedContainerMixin() implements
 
   public userForm: FormGroup;
 
-  public _countries: Array<CountryModel>;
-  public _genders: Array<GenderModel>;
-  public _images: Array<ImageModel>;
-  public _languages: Array<LanguageModel>;
-  public _levels: Array<LevelModel>;
+  public _countries: Array<Country>;
+  public _genders: Array<Gender>;
+  public _images: Array<Image>;
+  public _languages: Array<Language>;
+  public _levels: Array<Level>;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -45,31 +45,31 @@ export class CreatePlayerComponent extends subscribedContainerMixin() implements
   public ngOnInit(): void {
     this.playerReferenceService.fetchReferences();
 
-    this.playerReferenceService.countriesSubject$.pipe(
+    this.playerReferenceService.countries$.pipe(
       takeUntil(this.destroyed$)
     ).subscribe((countries) => {
       this._countries = countries;
     });
 
-    this.playerReferenceService.gendersSubject$.pipe(
+    this.playerReferenceService.genders$.pipe(
       takeUntil(this.destroyed$)
     ).subscribe((genders) => {
       this._genders = genders;
     });
 
-    this.playerReferenceService.imagesSubject$.pipe(
+    this.playerReferenceService.images$.pipe(
       takeUntil(this.destroyed$)
     ).subscribe((images) => {
       this._images = images;
     });
 
-    this.playerReferenceService.languagesSubject$.pipe(
+    this.playerReferenceService.languages$.pipe(
       takeUntil(this.destroyed$)
     ).subscribe((languages) => {
       this._languages = languages;
     });
 
-    this.playerReferenceService.levelsSubject$.pipe(
+    this.playerReferenceService.levels$.pipe(
       takeUntil(this.destroyed$)
     ).subscribe((levels) => {
       this._levels = levels;
@@ -121,7 +121,7 @@ export class CreatePlayerComponent extends subscribedContainerMixin() implements
       formValue['playerSpokenLanguages'] ? formValue['playerSpokenLanguages'] : []
     );
     this.playerService.registerPlayer(newPlayer);
-    this.playerService.playerSubject$.pipe(
+    this.playerService.player$.pipe(
       takeUntil(this.destroyed$)
     ).subscribe((player: Player) => {
       if (player.login === this.userForm.value['login']) {

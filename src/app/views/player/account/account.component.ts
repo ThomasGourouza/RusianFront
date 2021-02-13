@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { takeUntil } from 'rxjs/operators';
-import { Player } from 'src/app/models/get/player.model';
+import { Player } from 'src/app/models/player/get/player.model';
 import { PlayerService } from 'src/app/services/player.service';
 import { subscribedContainerMixin } from 'src/app/subscribed-container.mixin';
 
@@ -22,7 +22,7 @@ export class AccountComponent extends subscribedContainerMixin() implements OnIn
   }
 
   ngOnInit(): void {
-    this.playerService.playerSubject$.pipe(
+    this.playerService.player$.pipe(
       takeUntil(this.destroyed$)
     ).subscribe((player: Player) => {
       this._player = player;

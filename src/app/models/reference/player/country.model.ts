@@ -1,4 +1,4 @@
-export class CountryModel {
+export class Country {
   constructor(
     public id: number,
     public value: string

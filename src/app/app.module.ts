@@ -17,7 +17,7 @@ import { TieredMenuModule } from 'primeng/tieredmenu';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AccountComponent } from './views/player/account/account.component';
 import { TrainingComponent } from './views/russian/training/training.component';
-import { SideComponent } from './views/side/side.component';
+import { SideAdjectivesComponent } from './views/russian/adjectives/side-adjectives/side-adjectives.component';
 import { LanguageFormComponent } from './views/menu/language-select/language-select.component';
 import { GetPlayerComponent } from './views/player/get-player/get-player.component';
 import { CreatePlayerComponent } from './views/player/create-player/create-player.component';
@@ -32,6 +32,10 @@ import { PlayerReferenceApi } from './services/api/player-reference.api';
 import { PlayerReferenceService } from './services/player-reference.service';
 import { RussianReferenceApi } from './services/api/russian-reference.api';
 import { RussianReferenceService } from './services/russian-reference.service';
+import { AdjectiveApi } from './services/api/adjective.api';
+import { AdjectiveService } from './services/adjective.service';
+import { NounApi } from './services/api/noun.api';
+import { NounService } from './services/noun.service';
 
 @NgModule({
   declarations: [
@@ -41,7 +45,7 @@ import { RussianReferenceService } from './services/russian-reference.service';
     NotfoundComponent,
     AccountComponent,
     TrainingComponent,
-    SideComponent,
+    SideAdjectivesComponent,
     LanguageFormComponent,
     GetPlayerComponent,
     CreatePlayerComponent,
@@ -71,13 +75,17 @@ import { RussianReferenceService } from './services/russian-reference.service';
   ],
   providers: [
     Utils,
-    RussianReferenceApi,
-    RussianReferenceService,
+    AuthService,
     PlayerReferenceApi,
     PlayerReferenceService,
     PlayerApi,
     PlayerService,
-    AuthService
+    RussianReferenceApi,
+    RussianReferenceService,
+    AdjectiveApi,
+    AdjectiveService,
+    NounApi,
+    NounService
   ],
   bootstrap: [AppComponent]
 })

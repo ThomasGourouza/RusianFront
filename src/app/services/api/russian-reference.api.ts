@@ -1,15 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AdjectiveCategoryModel } from 'src/app/models/reference/russian/adjective-category.model';
-import { DeclensionNameModel } from 'src/app/models/reference/russian/declension-name.model';
-import { DeclensionTypeModel } from 'src/app/models/reference/russian/declension-type.model';
-import { GrammaticalNumberModel } from 'src/app/models/reference/russian/grammatical-number.model';
-import { InterrogativeWordModel } from 'src/app/models/reference/russian/interrogative-word.model';
-import { NounCategoryModel } from 'src/app/models/reference/russian/noun-category.model';
-import { RussianCaseModel } from 'src/app/models/reference/russian/russian-case.model';
-import { RussianGenderModel } from 'src/app/models/reference/russian/russian-gender.model';
-import { RussianRoleModel } from 'src/app/models/reference/russian/russian-role.model';
+import { AdjectiveCategory } from 'src/app/models/reference/russian/adjective-category.model';
+import { DeclensionName } from 'src/app/models/reference/russian/declension-name.model';
+import { DeclensionType } from 'src/app/models/reference/russian/declension-type.model';
+import { GrammaticalNumber } from 'src/app/models/reference/russian/grammatical-number.model';
+import { InterrogativeWord } from 'src/app/models/reference/russian/interrogative-word.model';
+import { NounCategory } from 'src/app/models/reference/russian/noun-category.model';
+import { RussianCase } from 'src/app/models/reference/russian/russian-case.model';
+import { RussianGender } from 'src/app/models/reference/russian/russian-gender.model';
+import { RussianRole } from 'src/app/models/reference/russian/russian-role.model';
 import { AnimateNounParam } from '../russian-reference.service';
 import { Utils } from '../utils/utils.service';
 
@@ -34,35 +34,35 @@ export class RussianReferenceApi {
     private utils: Utils
   ) { }
 
-  public getDeclensionName(): Observable<Array<DeclensionNameModel>> {
-    return this.http.get<Array<DeclensionNameModel>>(API_BASE_URL + DECLENSIONNAME);
+  public getDeclensionName(): Observable<Array<DeclensionName>> {
+    return this.http.get<Array<DeclensionName>>(API_BASE_URL + DECLENSIONNAME);
   }
-  public getDeclensionType(): Observable<Array<DeclensionTypeModel>> {
-    return this.http.get<Array<DeclensionTypeModel>>(API_BASE_URL + DECLENSIONTYPE);
+  public getDeclensionType(): Observable<Array<DeclensionType>> {
+    return this.http.get<Array<DeclensionType>>(API_BASE_URL + DECLENSIONTYPE);
   }
-  public getInterrogativeWord(): Observable<Array<InterrogativeWordModel>> {
-    return this.http.get<Array<InterrogativeWordModel>>(API_BASE_URL + INTERROGATIVEWORD);
+  public getInterrogativeWord(): Observable<Array<InterrogativeWord>> {
+    return this.http.get<Array<InterrogativeWord>>(API_BASE_URL + INTERROGATIVEWORD);
   }
-  public getGrammaticalNumber(): Observable<Array<GrammaticalNumberModel>> {
-    return this.http.get<Array<GrammaticalNumberModel>>(API_BASE_URL + GRAMMATICALNUMBER);
+  public getGrammaticalNumber(): Observable<Array<GrammaticalNumber>> {
+    return this.http.get<Array<GrammaticalNumber>>(API_BASE_URL + GRAMMATICALNUMBER);
   }
-  public getRussianGender(): Observable<Array<RussianGenderModel>> {
-    return this.http.get<Array<RussianGenderModel>>(API_BASE_URL + GENDER);
+  public getRussianGender(): Observable<Array<RussianGender>> {
+    return this.http.get<Array<RussianGender>>(API_BASE_URL + GENDER);
   }
-  public getRussianCase(): Observable<Array<RussianCaseModel>> {
-    return this.http.get<Array<RussianCaseModel>>(API_BASE_URL + CASE);
+  public getRussianCase(): Observable<Array<RussianCase>> {
+    return this.http.get<Array<RussianCase>>(API_BASE_URL + CASE);
   }
-  public getRussianRole(): Observable<Array<RussianRoleModel>> {
-    return this.http.get<Array<RussianRoleModel>>(API_BASE_URL + ROLE);
+  public getRussianRole(): Observable<Array<RussianRole>> {
+    return this.http.get<Array<RussianRole>>(API_BASE_URL + ROLE);
   }
-  public getNounCategory(param: AnimateNounParam): Observable<Array<NounCategoryModel>> {
-    return this.http.get<Array<NounCategoryModel>>(API_BASE_URL + NOUNCATEGORY, {
+  public getNounCategory(param: AnimateNounParam): Observable<Array<NounCategory>> {
+    return this.http.get<Array<NounCategory>>(API_BASE_URL + NOUNCATEGORY, {
       observe: 'body',
       params: this.utils.asHttpParam(param)
     });
   }
-  public getAdjectiveCategory(): Observable<Array<AdjectiveCategoryModel>> {
-    return this.http.get<Array<AdjectiveCategoryModel>>(API_BASE_URL + ADJECTIVECATEGORY);
+  public getAdjectiveCategory(): Observable<Array<AdjectiveCategory>> {
+    return this.http.get<Array<AdjectiveCategory>>(API_BASE_URL + ADJECTIVECATEGORY);
   }
 
 }

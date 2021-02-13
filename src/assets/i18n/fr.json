@@ -11,28 +11,15 @@
             "login": "Connexion",
             "logout": "Déconnexion"
         },
-        "side": {
-            "language": "Langue",
-            "new": "Nouveau",
-            "project": "Projet",
-            "other": "Autre",
-            "open": "Ouvrir",
-            "quit": "Quitter",
-            "edit": "Éditer",
-            "delete": "Supprimer",
-            "refresh": "Rafraichir"
+        "language": {
+            "fr": "Français",
+            "en": "English",
+            "es": "Español"
         }
-    },
-    "language": {
-        "fr": "Français",
-        "en": "English",
-        "es": "Español"
     },
     "home": {
         "name": "Russe",
-        "title": "Salut!",
-        "text": "Comment ça va ?",
-        "select": "Choisis une langue"
+        "title": "Salut!"
     },
     "toastr": {
         "success": {
@@ -40,7 +27,11 @@
             "message": {
                 "basic": "Opération réussie",
                 "auth": "Bienvenue ",
-                "register": "Enregistrement effectué"
+                "register": "Enregistrement effectué",
+                "getAdjective": "Recherche effectuée",
+                "postAdjective": "Adjectif enregistré",
+                "updateAdjective": "Adjectif modifié",
+                "deleteAdjective": "Adjectif supprimé"
             }
         },
         "error": {
@@ -48,7 +39,11 @@
             "message": {
                 "basic": "Une erreur est survenue",
                 "auth": "Login ou mot de passe incorrect",
-                "register": "Enregistrement non effectué"
+                "register": "Enregistrement non effectué",
+                "getAdjective": "Recherche non effectuée",
+                "postAdjective": "Adjectif non enregistré",
+                "updateAdjective": "Adjectif non modifié",
+                "deleteAdjective": "Adjectif non supprimé"
             }
         },
         "info": {
@@ -65,7 +60,15 @@
         "welcome": "Bienvenue sur la page Utilisateur",
         "refresh": "Rafraichir"
     },
-    "russian": {
-        "title": "Russe"
+    "adjectives": {
+        "title": "Adjectifs",
+        "side": {
+            "declension": "Déclinaisons",
+            "firstType": "Premier type",
+            "secondType": "Deuxième type",
+            "thirdType": "Troisième type",
+            "fourthType": "Quatrième type",
+            "close": "Fermer"
+        }
     }
 }

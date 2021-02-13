@@ -1,4 +1,4 @@
-export class AdjectiveEndingModel {
+export class AdjectiveEnding {
     constructor(
         public russianCase: string,
         public russianGender: string,

@@ -1,4 +1,4 @@
-export class RussianRoleModel {
+export class RussianRole {
   constructor(
     public id: number,
     public value: string

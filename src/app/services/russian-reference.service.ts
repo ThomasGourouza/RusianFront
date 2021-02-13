@@ -3,15 +3,15 @@ import { BehaviorSubject } from 'rxjs';
 import { subscribedContainerMixin } from '../subscribed-container.mixin';
 import { takeUntil } from 'rxjs/operators';
 import { RussianReferenceApi } from './api/russian-reference.api';
-import { NounCategoryModel } from '../models/reference/russian/noun-category.model';
-import { DeclensionNameModel } from '../models/reference/russian/declension-name.model';
-import { DeclensionTypeModel } from '../models/reference/russian/declension-type.model';
-import { InterrogativeWordModel } from '../models/reference/russian/interrogative-word.model';
-import { GrammaticalNumberModel } from '../models/reference/russian/grammatical-number.model';
-import { RussianGenderModel } from '../models/reference/russian/russian-gender.model';
-import { RussianCaseModel } from '../models/reference/russian/russian-case.model';
-import { RussianRoleModel } from '../models/reference/russian/russian-role.model';
-import { AdjectiveCategoryModel } from '../models/reference/russian/adjective-category.model';
+import { NounCategory } from '../models/reference/russian/noun-category.model';
+import { DeclensionName } from '../models/reference/russian/declension-name.model';
+import { DeclensionType } from '../models/reference/russian/declension-type.model';
+import { InterrogativeWord } from '../models/reference/russian/interrogative-word.model';
+import { GrammaticalNumber } from '../models/reference/russian/grammatical-number.model';
+import { RussianGender } from '../models/reference/russian/russian-gender.model';
+import { RussianCase } from '../models/reference/russian/russian-case.model';
+import { RussianRole } from '../models/reference/russian/russian-role.model';
+import { AdjectiveCategory } from '../models/reference/russian/adjective-category.model';
 export class AnimateNounParam {
   constructor(
     public is_noun_animate: boolean
@@ -24,16 +24,16 @@ export class AnimateNounParam {
 })
 export class RussianReferenceService extends subscribedContainerMixin() {
 
-  private _declensionNamesSubject$ = new BehaviorSubject([]);
-  private _declensionTypesSubject$ = new BehaviorSubject([]);
-  private _interrogativeWordsSubject$ = new BehaviorSubject([]);
-  private _grammaticalNumbersSubject$ = new BehaviorSubject([]);
-  private _gendersSubject$ = new BehaviorSubject([]);
-  private _casesSubject$ = new BehaviorSubject([]);
-  private _rolesSubject$ = new BehaviorSubject([]);
-  private _nounCategoriesInanimateSubject$ = new BehaviorSubject([]);
-  private _nounCategoriesAnimateSubject$ = new BehaviorSubject([]);
-  private _adjectiveCategoriesSubject$ = new BehaviorSubject([]);
+  private _declensionNames$ = new BehaviorSubject([]);
+  private _declensionTypes$ = new BehaviorSubject([]);
+  private _interrogativeWords$ = new BehaviorSubject([]);
+  private _grammaticalNumbers$ = new BehaviorSubject([]);
+  private _genders$ = new BehaviorSubject([]);
+  private _cases$ = new BehaviorSubject([]);
+  private _roles$ = new BehaviorSubject([]);
+  private _nounCategoriesInanimate$ = new BehaviorSubject([]);
+  private _nounCategoriesAnimate$ = new BehaviorSubject([]);
+  private _adjectiveCategories$ = new BehaviorSubject([]);
 
   constructor(
     private russianReferenceApi: RussianReferenceApi
@@ -41,35 +41,35 @@ export class RussianReferenceService extends subscribedContainerMixin() {
     super();
   }
 
-  public get declensionNamesSubject$() {
-    return this._declensionNamesSubject$.asObservable();
+  public get declensionNames$() {
+    return this._declensionNames$.asObservable();
   }
-  public get declensionTypesSubject$() {
-    return this._declensionTypesSubject$.asObservable();
+  public get declensionTypes$() {
+    return this._declensionTypes$.asObservable();
   }
-  public get interrogativeWordsSubject$() {
-    return this._interrogativeWordsSubject$.asObservable();
+  public get interrogativeWords$() {
+    return this._interrogativeWords$.asObservable();
   }
-  public get grammaticalNumbersSubject$() {
-    return this._grammaticalNumbersSubject$.asObservable();
+  public get grammaticalNumbers$() {
+    return this._grammaticalNumbers$.asObservable();
   }
-  public get gendersSubject$() {
-    return this._gendersSubject$.asObservable();
+  public get genders$() {
+    return this._genders$.asObservable();
   }
-  public get casesSubject$() {
-    return this._casesSubject$.asObservable();
+  public get cases$() {
+    return this._cases$.asObservable();
   }
-  public get rolesSubject$() {
-    return this._rolesSubject$.asObservable();
+  public get roles$() {
+    return this._roles$.asObservable();
   }
-  public get nounCategoriesInanimateSubject$() {
-    return this._nounCategoriesInanimateSubject$.asObservable();
+  public get nounCategoriesInanimate$() {
+    return this._nounCategoriesInanimate$.asObservable();
   }
-  public get nounCategoriesAnimateSubject$() {
-    return this._nounCategoriesAnimateSubject$.asObservable();
+  public get nounCategoriesAnimate$() {
+    return this._nounCategoriesAnimate$.asObservable();
   }
-  public get adjectiveCategoriesSubject$() {
-    return this._adjectiveCategoriesSubject$.asObservable();
+  public get adjectiveCategories$() {
+    return this._adjectiveCategories$.asObservable();
   }
 
   public fetchReferences() {
@@ -78,8 +78,8 @@ export class RussianReferenceService extends subscribedContainerMixin() {
         takeUntil(
           this.destroyed$
         )
-      ).subscribe((declensionNames: Array<DeclensionNameModel>) => {
-        this._declensionNamesSubject$.next(declensionNames);
+      ).subscribe((declensionNames: Array<DeclensionName>) => {
+        this._declensionNames$.next(declensionNames);
       });
 
       this.russianReferenceApi.getDeclensionType()
@@ -87,8 +87,8 @@ export class RussianReferenceService extends subscribedContainerMixin() {
         takeUntil(
           this.destroyed$
         )
-      ).subscribe((declensionTypes: Array<DeclensionTypeModel>) => {
-        this._declensionTypesSubject$.next(declensionTypes);
+      ).subscribe((declensionTypes: Array<DeclensionType>) => {
+        this._declensionTypes$.next(declensionTypes);
       });
 
       this.russianReferenceApi.getInterrogativeWord()
@@ -96,8 +96,8 @@ export class RussianReferenceService extends subscribedContainerMixin() {
         takeUntil(
           this.destroyed$
         )
-      ).subscribe((interrogativeWords: Array<InterrogativeWordModel>) => {
-        this._interrogativeWordsSubject$.next(interrogativeWords);
+      ).subscribe((interrogativeWords: Array<InterrogativeWord>) => {
+        this._interrogativeWords$.next(interrogativeWords);
       });
 
       this.russianReferenceApi.getGrammaticalNumber()
@@ -105,8 +105,8 @@ export class RussianReferenceService extends subscribedContainerMixin() {
         takeUntil(
           this.destroyed$
         )
-      ).subscribe((grammaticalNumbers: Array<GrammaticalNumberModel>) => {
-        this._grammaticalNumbersSubject$.next(grammaticalNumbers);
+      ).subscribe((grammaticalNumbers: Array<GrammaticalNumber>) => {
+        this._grammaticalNumbers$.next(grammaticalNumbers);
       });
 
       this.russianReferenceApi.getRussianGender()
@@ -114,8 +114,8 @@ export class RussianReferenceService extends subscribedContainerMixin() {
         takeUntil(
           this.destroyed$
         )
-      ).subscribe((russianGenders: Array<RussianGenderModel>) => {
-        this._gendersSubject$.next(russianGenders);
+      ).subscribe((russianGenders: Array<RussianGender>) => {
+        this._genders$.next(russianGenders);
       });
 
       this.russianReferenceApi.getRussianCase()
@@ -123,8 +123,8 @@ export class RussianReferenceService extends subscribedContainerMixin() {
         takeUntil(
           this.destroyed$
         )
-      ).subscribe((russianCases: Array<RussianCaseModel>) => {
-        this._casesSubject$.next(russianCases);
+      ).subscribe((russianCases: Array<RussianCase>) => {
+        this._cases$.next(russianCases);
       });
 
       this.russianReferenceApi.getRussianRole()
@@ -132,8 +132,8 @@ export class RussianReferenceService extends subscribedContainerMixin() {
         takeUntil(
           this.destroyed$
         )
-      ).subscribe((russianRoles: Array<RussianRoleModel>) => {
-        this._rolesSubject$.next(russianRoles);
+      ).subscribe((russianRoles: Array<RussianRole>) => {
+        this._roles$.next(russianRoles);
       });
 
       this.russianReferenceApi.getNounCategory(new AnimateNounParam(false))
@@ -141,8 +141,8 @@ export class RussianReferenceService extends subscribedContainerMixin() {
         takeUntil(
           this.destroyed$
         )
-      ).subscribe((nounCategories: Array<NounCategoryModel>) => {
-        this._nounCategoriesInanimateSubject$.next(nounCategories);
+      ).subscribe((nounCategories: Array<NounCategory>) => {
+        this._nounCategoriesInanimate$.next(nounCategories);
       });
 
       this.russianReferenceApi.getNounCategory(new AnimateNounParam(true))
@@ -150,8 +150,8 @@ export class RussianReferenceService extends subscribedContainerMixin() {
         takeUntil(
           this.destroyed$
         )
-      ).subscribe((nounCategories: Array<NounCategoryModel>) => {
-        this._nounCategoriesAnimateSubject$.next(nounCategories);
+      ).subscribe((nounCategories: Array<NounCategory>) => {
+        this._nounCategoriesAnimate$.next(nounCategories);
       });
 
       this.russianReferenceApi.getAdjectiveCategory()
@@ -159,8 +159,8 @@ export class RussianReferenceService extends subscribedContainerMixin() {
         takeUntil(
           this.destroyed$
         )
-      ).subscribe((adjectiveCategories: Array<AdjectiveCategoryModel>) => {
-        this._adjectiveCategoriesSubject$.next(adjectiveCategories);
+      ).subscribe((adjectiveCategories: Array<AdjectiveCategory>) => {
+        this._adjectiveCategories$.next(adjectiveCategories);
       });
   }
 

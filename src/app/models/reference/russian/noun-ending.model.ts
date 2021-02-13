@@ -1,9 +1,9 @@
-import { SpecificEndingRuleModel } from "./specific-ending-rule.model";
+import { SpecificEndingRule } from "./specific-ending-rule.model";
 
-export class NounEndingModel {
+export class NounEnding {
     constructor(
         public russianCase: string,
         public value: string,
-        public specificEndingRules: Array<SpecificEndingRuleModel>
+        public specificEndingRules: Array<SpecificEndingRule>
     ) { }
 }

@@ -1,4 +1,4 @@
-export class SpecificEndingRuleModel {
+export class SpecificEndingRule {
     constructor(
         public id: number,
         public rule: string,

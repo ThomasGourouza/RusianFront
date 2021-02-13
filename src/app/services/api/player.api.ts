@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { PlayerPost } from 'src/app/models/post/player-post.model';
-import { Player } from '../../models/get/player.model';
+import { PlayerPost } from 'src/app/models/player/post/player-post.model';
+import { Player } from '../../models/player/get/player.model';
 import { SignInParams } from '../player.service';
 import { Utils } from '../utils/utils.service';
 

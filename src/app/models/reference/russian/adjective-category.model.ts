@@ -1,9 +1,9 @@
-import { AdjectiveEndingModel } from "./adjective-ending.model";
+import { AdjectiveEnding } from "./adjective-ending.model";
 
-export class AdjectiveCategoryModel {
+export class AdjectiveCategory {
   constructor(
     public id: number,
     public value: string,
-    public endings: Array<AdjectiveEndingModel>
+    public endings: Array<AdjectiveEnding>
   ) { }
 }

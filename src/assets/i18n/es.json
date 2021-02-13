@@ -9,6 +9,11 @@
             "login": "Conexión",
             "logout": "Salir"
         },
+        "language": {
+            "fr": "Français",
+            "en": "English",
+            "es": "Español"
+        },
         "side": {
             "language": "Idioma",
             "new": "Nuevo",
@@ -23,11 +28,6 @@
         "russian": {
             "title": "Rusos"
         }
-    },
-    "language": {
-        "fr": "Français",
-        "en": "English",
-        "es": "Español"
     },
     "home": {
         "name": "Ruso",

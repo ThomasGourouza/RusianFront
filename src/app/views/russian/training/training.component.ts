@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
 import { takeUntil } from 'rxjs/operators';
-import { AdjectiveCategoryModel } from 'src/app/models/reference/russian/adjective-category.model';
-import { DeclensionNameModel } from 'src/app/models/reference/russian/declension-name.model';
-import { DeclensionTypeModel } from 'src/app/models/reference/russian/declension-type.model';
-import { GrammaticalNumberModel } from 'src/app/models/reference/russian/grammatical-number.model';
-import { InterrogativeWordModel } from 'src/app/models/reference/russian/interrogative-word.model';
-import { NounCategoryModel } from 'src/app/models/reference/russian/noun-category.model';
-import { RussianCaseModel } from 'src/app/models/reference/russian/russian-case.model';
-import { RussianGenderModel } from 'src/app/models/reference/russian/russian-gender.model';
-import { RussianRoleModel } from 'src/app/models/reference/russian/russian-role.model';
+import { AdjectiveCategory } from 'src/app/models/reference/russian/adjective-category.model';
+import { DeclensionName } from 'src/app/models/reference/russian/declension-name.model';
+import { DeclensionType } from 'src/app/models/reference/russian/declension-type.model';
+import { GrammaticalNumber } from 'src/app/models/reference/russian/grammatical-number.model';
+import { InterrogativeWord } from 'src/app/models/reference/russian/interrogative-word.model';
+import { NounCategory } from 'src/app/models/reference/russian/noun-category.model';
+import { RussianCase } from 'src/app/models/reference/russian/russian-case.model';
+import { RussianGender } from 'src/app/models/reference/russian/russian-gender.model';
+import { RussianRole } from 'src/app/models/reference/russian/russian-role.model';
 import { RussianReferenceService } from 'src/app/services/russian-reference.service';
 import { subscribedContainerMixin } from 'src/app/subscribed-container.mixin';
 
@@ -23,16 +23,16 @@ export class TrainingComponent extends subscribedContainerMixin()  implements On
 
   public items: MenuItem[];
 
-  public _declensionNames: Array<DeclensionNameModel>;
-  public _declensionTypes: Array<DeclensionTypeModel>;
-  public _interrogativeWords: Array<InterrogativeWordModel>;
-  public _grammaticalNumbers: Array<GrammaticalNumberModel>;
-  public _genders: Array<RussianGenderModel>;
-  public _cases: Array<RussianCaseModel>;
-  public _roles: Array<RussianRoleModel>;
-  public _nounCategoriesInanimate: Array<NounCategoryModel>;
-  public _nounCategoriesAnimate: Array<NounCategoryModel>;
-  public _adjectiveCategories: Array<AdjectiveCategoryModel>;
+  public _declensionNames: Array<DeclensionName>;
+  public _declensionTypes: Array<DeclensionType>;
+  public _interrogativeWords: Array<InterrogativeWord>;
+  public _grammaticalNumbers: Array<GrammaticalNumber>;
+  public _genders: Array<RussianGender>;
+  public _cases: Array<RussianCase>;
+  public _roles: Array<RussianRole>;
+  public _nounCategoriesInanimate: Array<NounCategory>;
+  public _nounCategoriesAnimate: Array<NounCategory>;
+  public _adjectiveCategories: Array<AdjectiveCategory>;
 
   constructor(
     public translate: TranslateService,
@@ -70,70 +70,70 @@ export class TrainingComponent extends subscribedContainerMixin()  implements On
   }
 
   ngOnInit(): void {
-    this.russianReferenceService.declensionNamesSubject$.pipe(
+    this.russianReferenceService.declensionNames$.pipe(
       takeUntil(this.destroyed$)
     ).subscribe((declensionNames) => {
       this._declensionNames = declensionNames;
       console.log(this._declensionNames);
     });
 
-    this.russianReferenceService.declensionTypesSubject$.pipe(
+    this.russianReferenceService.declensionTypes$.pipe(
       takeUntil(this.destroyed$)
     ).subscribe((declensionTypes) => {
       this._declensionTypes = declensionTypes;
       console.log(this._declensionTypes);
     });
 
-    this.russianReferenceService.interrogativeWordsSubject$.pipe(
+    this.russianReferenceService.interrogativeWords$.pipe(
       takeUntil(this.destroyed$)
     ).subscribe((interrogativeWords) => {
       this._interrogativeWords = interrogativeWords;
       console.log(this._interrogativeWords);
     });
 
-    this.russianReferenceService.grammaticalNumbersSubject$.pipe(
+    this.russianReferenceService.grammaticalNumbers$.pipe(
       takeUntil(this.destroyed$)
     ).subscribe((grammaticalNumbers) => {
       this._grammaticalNumbers = grammaticalNumbers;
       console.log(this._grammaticalNumbers);
     });
 
-    this.russianReferenceService.gendersSubject$.pipe(
+    this.russianReferenceService.genders$.pipe(
       takeUntil(this.destroyed$)
     ).subscribe((genders) => {
       this._genders = genders;
       console.log(this._genders);
     });
 
-    this.russianReferenceService.casesSubject$.pipe(
+    this.russianReferenceService.cases$.pipe(
       takeUntil(this.destroyed$)
     ).subscribe((cases) => {
       this._cases = cases;
       console.log(this._cases);
     });
 
-    this.russianReferenceService.rolesSubject$.pipe(
+    this.russianReferenceService.roles$.pipe(
       takeUntil(this.destroyed$)
     ).subscribe((roles) => {
       this._roles = roles;
       console.log(this._roles);
     });
 
-    this.russianReferenceService.nounCategoriesInanimateSubject$.pipe(
+    this.russianReferenceService.nounCategoriesInanimate$.pipe(
       takeUntil(this.destroyed$)
     ).subscribe((nounCategoriesInanimate) => {
       this._nounCategoriesInanimate = nounCategoriesInanimate;
       console.log(this._nounCategoriesInanimate);
     });
 
-    this.russianReferenceService.nounCategoriesAnimateSubject$.pipe(
+    this.russianReferenceService.nounCategoriesAnimate$.pipe(
       takeUntil(this.destroyed$)
     ).subscribe((nounCategoriesAnimate) => {
       this._nounCategoriesAnimate = nounCategoriesAnimate;
       console.log(this._nounCategoriesAnimate);
     });
 
-    this.russianReferenceService.adjectiveCategoriesSubject$.pipe(
+    this.russianReferenceService.adjectiveCategories$.pipe(
       takeUntil(this.destroyed$)
     ).subscribe((adjectiveCategories) => {
       this._adjectiveCategories = adjectiveCategories;

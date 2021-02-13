@@ -11,28 +11,15 @@
             "login": "Log in",
             "logout": "Log out"
         },
-        "side": {
-            "language": "Language",
-            "new": "New",
-            "project": "Project",
-            "other": "Other",
-            "open": "Open",
-            "quit": "Quit",
-            "edit": "Edit",
-            "delete": "Delete",
-            "refresh": "Refresh"
+        "language": {
+            "fr": "Français",
+            "en": "English",
+            "es": "Español"
         }
-    },
-    "language": {
-        "fr": "Français",
-        "en": "English",
-        "es": "Español"
     },
     "home": {
         "name": "Russian",
-        "title": "Hello!",
-        "text": "How are you ?",
-        "select": "Select language"
+        "title": "Hello!"
     },
     "toastr": {
         "success": {
@@ -40,7 +27,11 @@
             "message": {
                 "basic": "Operation succeeded",
                 "auth": "Welcome ",
-                "register": "Successfully registred"
+                "register": "Successfully registred",
+                "getAdjective": "Research done",
+                "postAdjective": "Adjective saved",
+                "updateAdjective": "Adjective updated",
+                "deleteAdjective": "Adjectif deleted"
             }
         },
         "error": {
@@ -48,7 +39,11 @@
             "message": {
                 "basic": "An error occurred",
                 "auth": "Incorrect login or password",
-                "register": "Registration failed"
+                "register": "Registration failed",
+                "getAdjective": "Research failed",
+                "postAdjective": "Adjective not saved",
+                "updateAdjective": "Adjective not updated",
+                "deleteAdjective": "Adjectif not deleted"
             }
         },
         "info": {
@@ -65,7 +60,15 @@
         "welcome": "Welcome on the account's page",
         "refresh": "Refresh"
     },
-    "russian": {
-        "title": "Russian"
+    "adjectives": {
+        "title": "Adjectives",
+        "side": {
+            "declension": "Declension",
+            "firstType": "First type",
+            "secondType": "Second type",
+            "thirdType": "Third type",
+            "fourthType": "Fourth type",
+            "close": "Close"
+        }
     }
 }

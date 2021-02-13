@@ -23,7 +23,7 @@ export class GetPlayerComponent extends subscribedContainerMixin() implements On
 
   public onSignIn(login: string, password: string): void {
     this.playerService.fetchPlayer(new SignInParams(login, password));
-    this.playerService.playerSubject$.pipe(
+    this.playerService.player$.pipe(
       takeUntil(this.destroyed$)
     ).subscribe(() => {
         this.router.navigate(['/welcome']);

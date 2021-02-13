@@ -1,6 +1,9 @@
-<p-megaMenu>
-
+<div *ngIf="actualise()"></div>
+<p-megaMenu [model]="items">
     <table>
+        <td>
+            &nbsp;
+        </td>
         <td
             [ngClass]="{'french': isLanguage('fr'), 'english': isLanguage('en'), 'spanish': isLanguage('es'), 'flag-config': true}">
         </td>
@@ -9,30 +12,12 @@
                 title="Langue de l'application">
                 <option *ngFor="let lang of translate.getLangs()" [value]="lang"
                     [selected]="lang === translate.currentLang">
-                    {{ 'language.' + lang | translate }}
+                    {{ 'navbar.language.' + lang | translate }}
                 </option>
             </select>
         </td>
         <td>
             &nbsp;
-            &nbsp;
-            &nbsp;
         </td>
-
-        <td *ngIf="isAuth()">
-            <button class="btn btn-outline-primary" [title]="_player.login" routerLink="/account">
-                <img [src]="_player.imageUrl" alt="Avatar" width="30" height="30">
-            </button>
-            &nbsp;
-        </td>
-
-        <td>
-            <button [ngClass]="{ 'btn': true, 'btn-success': !isAuth(), 'btn-danger': isAuth() }"
-                (click)="onSignInOut()" [title]="titleLogInOut()">
-                <img src="./../../../../../assets/images/logout.png" alt="logout" width="30" height="30">
-            </button>
-            &nbsp;
-        </td>
-
     </table>
 </p-megaMenu>

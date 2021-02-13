@@ -1,4 +1,4 @@
-export class LevelModel {
+export class Level {
   constructor(
     public id: number,
     public value: string,
