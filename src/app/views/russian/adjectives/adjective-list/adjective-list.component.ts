@@ -24,8 +24,7 @@ export class AdjectiveListComponent implements OnInit {
   public _adjectives: Array<Adjective>;
 
   public rowSelected: RowData;
-  public adjectiveCategory: AdjectiveCategory;
-  public displayDeclension: boolean;
+  public previousRowSelected: RowData;
   public data: Array<RowData>;
   public cols: Array<string>;
 
@@ -36,7 +35,6 @@ export class AdjectiveListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.displayDeclension = false;
     this.cols = [a, t, d];
     this.data = [];
     this.adjectiveService.fetchAdjectives();
@@ -77,18 +75,19 @@ export class AdjectiveListComponent implements OnInit {
   }
 
   public onRowSelect(): void {
-    this.onRowUnselect();
-    setTimeout(() => {
-      this.adjectiveCategory = this._adjectives
-        .find((adjective) => adjective.id === this.rowSelected.id)
-        .category;
-      this.displayDeclension = true;
-    }, 1);
+    if (this.previousRowSelected) {
+      this.previousRowSelected = this.rowSelected;
+      this.previousRowSelected = undefined;
+    } else {
+      this.previousRowSelected = this.rowSelected;
+      this.rowSelected = undefined;
+    }
   }
 
-  public onRowUnselect(): void {
-    this.displayDeclension = false;
+  public adjectiveCategory(rowSelected: RowData): AdjectiveCategory {
+    return this._adjectives
+    .find((adjective) => adjective.id === rowSelected.id)
+    .category;
   }
-
 
 }
