@@ -1,19 +1,25 @@
 <br>
-<section>
-    <table class="table table-dark table-bordered table-hover">
-        <thead>
+<div class="card">
+    <p-table [columns]="cols" [value]="data" styleClass="p-datatable-gridlines" [reorderableColumns]="true">
+        <ng-template pTemplate="header" let-columns>
             <tr>
-                <th scope="col"></th>
-                <th *ngFor="let gender of russianGenders" scope="col">{{ printGender(gender) }}</th>
+                <th *ngFor="let col of columns" pReorderableColumn>
+                    <div class="d-flex justify-content-center">
+                        {{ printGender(col.header) }}
+                    </div>
+                </th>
             </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let russianCase of russianCases">
-                <th scope="row">{{ printCase(russianCase) }}</th>
-                <td *ngFor="let gender of russianGenders">
-                    {{ findDeclensionByCaseAndGender(russianCase, gender) }}
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex">
+            <tr [pReorderableRow]="index">
+                <td *ngFor="let col of columns" [ngClass]="{'header': col.field === 'case'}">
+                    <div [ngClass]="{'d-flex justify-content-center': col.field != 'case'}">
+                        <span *ngIf="col.field === 'case'" class="pi pi-bars grabbable" pReorderableRowHandle>&nbsp;</span>
+                        {{ printCase(rowData[col.field]) }}
+                    </div>
                 </td>
             </tr>
-        </tbody>
-    </table>
-</section>
+        </ng-template>
+    </p-table>
+</div>
+<br>

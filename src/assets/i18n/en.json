@@ -70,6 +70,9 @@
         },
         "adjectives": {
             "consult": "List of adjectives",
+            "adjective": "Adjective",
+            "translation": "Translation",
+            "declension": "Declension",
             "add": "Add an adjective"
         },
         "side": {

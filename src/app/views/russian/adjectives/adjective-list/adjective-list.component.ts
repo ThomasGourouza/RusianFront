@@ -1,8 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { Adjective } from 'src/app/models/adjective/get/adjective.model';
 import { AdjectiveService } from 'src/app/services/adjective.service';
-import { TableModule } from 'primeng/table';
 import { SortEvent } from 'primeng/api';
+import { TranslateService } from '@ngx-translate/core';
+import { AdjectiveCategory } from 'src/app/models/reference/russian/adjective-category.model';
+export interface RowData {
+  adjective: string;
+  translation: string;
+  declension: number;
+  id: number;
+}
+const a = 'adjective';
+const t = 'translation';
+const d = 'declension';
 
 @Component({
   selector: 'app-adjective-list',
@@ -13,42 +23,36 @@ export class AdjectiveListComponent implements OnInit {
 
   public _adjectives: Array<Adjective>;
 
-  public selected: any;
-
-  public cars = [
-    { brand: "Volkswagen", year: 2012, color: "White", vin: "dsad231ff" },
-    { brand: "Audi", year: 2011, color: "Black", vin: "gwregre345" },
-    { brand: "Renault", year: 2005, color: "Gray", vin: "h354htr" },
-    { brand: "BMW", year: 2003, color: "Blue", vin: "j6w54qgh" },
-    { brand: "Mercedes", year: 1995, color: "White", vin: "hrtwy34" },
-    { brand: "Volvo", year: 2005, color: "Black", vin: "jejtyj" },
-    { brand: "Honda", year: 2012, color: "Yellow", vin: "g43gr" },
-    { brand: "Jaguar", year: 2013, color: "White", vin: "greg34" },
-    { brand: "Ford", year: 2000, color: "Black", vin: "h54hw5" },
-    { brand: "Fiat", year: 2013, color: "Red", vin: "245t2s" }
-  ]
-
-  public cols = [
-    { field: 'brand', header: 'Brand' },
-    { field: 'year', header: 'Year' },
-    { field: 'color', header: 'Color' },
-    { field: 'vin', header: 'Vin' }
-];
+  public rowSelected: RowData;
+  public adjectiveCategory: AdjectiveCategory;
+  public displayDeclension: boolean;
+  public data: Array<RowData>;
+  public cols: Array<string>;
 
 
   constructor(
-    private adjectiveService: AdjectiveService
+    private adjectiveService: AdjectiveService,
+    public translate: TranslateService
   ) { }
 
   ngOnInit(): void {
+    this.displayDeclension = false;
+    this.cols = [a, t, d];
+    this.data = [];
     this.adjectiveService.fetchAdjectives();
     this.adjectiveService.adjectiveList$.subscribe(
-      (adjectives) => this._adjectives = adjectives
+      (adjectives) => {
+        this._adjectives = adjectives;
+        this._adjectives.forEach((adjective) => {
+          this.data.push({
+            adjective: adjective.nominativeMasculineForm,
+            translation: adjective.translation,
+            declension: adjective.category.id,
+            id: adjective.id
+          });
+        });
+      }
     );
-  }
-
-  public voir(): void {
-    console.log(this._adjectives);
   }
 
   public customSort(event: SortEvent) {
@@ -72,12 +76,19 @@ export class AdjectiveListComponent implements OnInit {
     });
   }
 
-  public onRowSelect(event: any): void {
-    console.log(event.data);
+  public onRowSelect(): void {
+    this.onRowUnselect();
+    setTimeout(() => {
+      this.adjectiveCategory = this._adjectives
+        .find((adjective) => adjective.id === this.rowSelected.id)
+        .category;
+      this.displayDeclension = true;
+    }, 1);
   }
 
-  public onRowUnselect(event: any): void {
-    console.log(event.data);
+  public onRowUnselect(): void {
+    this.displayDeclension = false;
   }
+
 
 }

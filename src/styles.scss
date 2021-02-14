@@ -55,3 +55,18 @@
 .cursor {
     cursor: pointer;
 }
+.header {
+    background-color: rgb(248, 249, 250);
+    font-weight: 600;
+}
+.grabbable {
+    cursor: move;
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+    cursor: grab;
+}
+.grabbable:active {
+    cursor: -webkit-grabbing;
+    cursor: -moz-grabbing;
+    cursor: grabbing;
+}
