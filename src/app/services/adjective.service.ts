@@ -74,10 +74,6 @@ export class AdjectiveService extends subscribedContainerMixin() {
         )
       ).subscribe((adjectives: Array<Adjective>) => {
         this._adjective$.next(adjectives[0]);
-        this.toastr.success(
-          this.translate.instant('toastr.success.message.getAdjective'),
-          this.translate.instant('toastr.success.title')
-        );
       }, (error: HttpErrorResponse) => {
         this.toastr.error(
           this.translate.instant(

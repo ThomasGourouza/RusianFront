@@ -73,7 +73,11 @@
             "adjective": "Adjectif",
             "translation": "Traduction",
             "declension": "Déclinaison",
-            "add": "Ajouter un adjectif"
+            "add": "Ajouter un adjectif",
+            "open": "Ouvrir",
+            "back": "Retour",
+            "delete": "Supprimer",
+            "update": "Modifier"
         },
         "side": {
             "declension": "Déclinaisons",

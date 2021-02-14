@@ -27,10 +27,10 @@ export class LanguageFormComponent extends subscribedContainerMixin() implements
     private router: Router
   ) {
     super();
-    this.langue = this.translate.currentLang;
   }
-
+  
   ngOnInit(): void {
+    this.langue = this.translate.currentLang;
     this.playerService.player$.pipe(
       takeUntil(this.destroyed$)
     ).subscribe((player: Player) => {

@@ -10,22 +10,22 @@ import { PAGE, MN } from '../adjectives.component';
 })
 export class SideAdjectivesComponent implements OnInit {
 
-  public items: Array<MenuItem>;
-  public langue: string;
   @Input()
   public masculineNominative: MN;
   @Output()
   public openPage: EventEmitter<PAGE> = new EventEmitter();
 
+  public items: Array<MenuItem>;
+  public langue: string;
+
 
   constructor(
     public translate: TranslateService
-  ) {
-    this.langue = this.translate.currentLang;
-  }
-
-
+  ) { }
+  
+  
   ngOnInit(): void {
+    this.langue = this.translate.currentLang;
     this.translate.get('home.name').subscribe(() => {
       this.refresh();
     });

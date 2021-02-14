@@ -46,10 +46,22 @@
                             </app-declension-category>
                         </div>
                         <div *ngSwitchCase=5>
-                            <h2 class="d-flex align-items-center justify-content-center">
-                                {{ 'adjectives.adjectives.consult' | translate }}
-                            </h2>
-                            <app-adjective-list></app-adjective-list>
+                            <div *ngIf="!openAdjDeclension;else show_declension">
+                                <h2 class="d-flex align-items-center justify-content-center">
+                                    {{ 'adjectives.adjectives.consult' | translate }}
+                                </h2>
+                                <app-adjective-list (openActionMenu)="onOpenActionMenu($event)"></app-adjective-list>
+                            </div>
+                            <ng-template #show_declension>
+
+                                <h3 *ngIf="actionMenu.rowData" class="d-flex justify-content-center">
+                                    {{ actionMenu.rowData.adjective }} : {{ actionMenu.rowData.translation }} 
+                                </h3>
+                                <app-declension-category *ngIf="adjectiveCategory" [adjectiveCategory]="adjectiveCategory">
+                                </app-declension-category>
+                                <br>
+
+                            </ng-template>
                         </div>
                         <div *ngSwitchCase=6>
                             <h2 class="d-flex align-items-center justify-content-center">
@@ -63,5 +75,8 @@
         </section>
     </div>
     <div class="col-3">
+        <app-action-menu *ngIf="actionMenu.show" [actionMenu]="actionMenu"
+            (openAdjDeclension)="onOpenAdjDeclension($event)">
+        </app-action-menu>
     </div>
 </div>

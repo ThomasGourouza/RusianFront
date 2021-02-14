@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Adjective } from 'src/app/models/adjective/get/adjective.model';
 import { AdjectiveService } from 'src/app/services/adjective.service';
 import { SortEvent } from 'primeng/api';
 import { TranslateService } from '@ngx-translate/core';
-import { AdjectiveCategory } from 'src/app/models/reference/russian/adjective-category.model';
+import { ActionMenu } from '../adjectives.component';
 export interface RowData {
   adjective: string;
   translation: string;
@@ -13,6 +13,9 @@ export interface RowData {
 const a = 'adjective';
 const t = 'translation';
 const d = 'declension';
+const NG = 'N/G';
+const N = 'Nominative';
+const G = 'Genitive';
 
 @Component({
   selector: 'app-adjective-list',
@@ -21,8 +24,10 @@ const d = 'declension';
 })
 export class AdjectiveListComponent implements OnInit {
 
-  public _adjectives: Array<Adjective>;
+  @Output()
+  public openActionMenu: EventEmitter<ActionMenu> = new EventEmitter();
 
+  public _adjectives: Array<Adjective>;
   public rowSelected: RowData;
   public previousRowSelected: RowData;
   public data: Array<RowData>;
@@ -75,8 +80,11 @@ export class AdjectiveListComponent implements OnInit {
   }
 
   public onRowSelect(): void {
+    this.openActionMenu.emit({
+      show: true,
+      rowData: this.rowSelected
+    });
     if (this.previousRowSelected) {
-      this.previousRowSelected = this.rowSelected;
       this.previousRowSelected = undefined;
     } else {
       this.previousRowSelected = this.rowSelected;
@@ -84,10 +92,13 @@ export class AdjectiveListComponent implements OnInit {
     }
   }
 
-  public adjectiveCategory(rowSelected: RowData): AdjectiveCategory {
-    return this._adjectives
-    .find((adjective) => adjective.id === rowSelected.id)
-    .category;
+  public onRowUnselect(): void {
+    this.openActionMenu.emit({
+      show: false,
+      rowData: null
+    });
+    this.rowSelected = undefined;
+    this.previousRowSelected = undefined;
   }
 
 }

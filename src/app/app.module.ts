@@ -15,6 +15,7 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { MegaMenuModule } from 'primeng/megamenu';
 import { TieredMenuModule } from 'primeng/tieredmenu';
 import { TableModule } from 'primeng/table';
+import { MenuModule } from 'primeng/menu';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AccountComponent } from './views/player/account/account.component';
 import { TrainingComponent } from './views/russian/training/training.component';
@@ -40,6 +41,7 @@ import { NounService } from './services/noun.service';
 import { DeclensionCategoryComponent } from './views/russian/adjectives/declension-category/declension-category.component';
 import { AdjectiveListComponent } from './views/russian/adjectives/adjective-list/adjective-list.component';
 import { AddAdjectiveComponent } from './views/russian/adjectives/add-adjective/add-adjective.component';
+import { ActionMenuComponent } from './views/russian/adjectives/action-menu/action-menu.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,8 @@ import { AddAdjectiveComponent } from './views/russian/adjectives/add-adjective/
     NounsComponent,
     DeclensionCategoryComponent,
     AdjectiveListComponent,
-    AddAdjectiveComponent
+    AddAdjectiveComponent,
+    ActionMenuComponent
   ],
   imports: [
     CommonModule,
@@ -79,7 +82,8 @@ import { AddAdjectiveComponent } from './views/russian/adjectives/add-adjective/
     TabMenuModule,
     MegaMenuModule,
     TieredMenuModule,
-    TableModule
+    TableModule,
+    MenuModule
   ],
   providers: [
     Utils,

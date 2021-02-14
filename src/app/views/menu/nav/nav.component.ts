@@ -25,12 +25,10 @@ export class NavComponent implements OnInit {
     translate.use('fr');
     const browserLang = translate.getBrowserLang();
     translate.use(browserLang.match(/en|fr|es/) ? browserLang : 'fr');
-
-    this.langue = this.translate.currentLang;
-
   }
-
+  
   public ngOnInit(): void {
+    this.langue = this.translate.currentLang;
     this.translate.get('home.name').subscribe((res: string) => {
       this.refresh();
     });

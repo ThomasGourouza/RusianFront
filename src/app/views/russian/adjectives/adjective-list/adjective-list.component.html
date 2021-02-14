@@ -1,7 +1,7 @@
 <br>
 <div class="card">
     <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="5" selectionMode="single"
-        [(selection)]="rowSelected" dataKey="id" (onRowSelect)="onRowSelect()">
+        [(selection)]="rowSelected" dataKey="id" (onRowSelect)="onRowSelect()" (onRowUnselect)="onRowUnselect()">
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns" [pSortableColumn]="col">
@@ -23,13 +23,3 @@
     </p-table>
 </div>
 <br>
-<div *ngIf="rowSelected">
-    <app-declension-category [adjectiveCategory]="adjectiveCategory(rowSelected)">
-    </app-declension-category>
-    <br>
-</div>
-<div *ngIf="previousRowSelected">
-    <app-declension-category [adjectiveCategory]="adjectiveCategory(previousRowSelected)">
-    </app-declension-category>
-    <br>
-</div>
