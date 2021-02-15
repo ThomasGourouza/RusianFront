@@ -80,6 +80,7 @@
             "update": "Update"
         },
         "side": {
+            "intro": "Intro",
             "declension": "Declensions",
             "first": "First",
             "second": "Second",

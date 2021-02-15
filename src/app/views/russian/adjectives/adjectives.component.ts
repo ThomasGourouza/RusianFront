@@ -40,17 +40,17 @@ const ADD = 'add';
   templateUrl: './adjectives.component.html',
   styleUrls: ['./adjectives.component.scss']
 })
+// url: /adjectives
 export class AdjectivesComponent implements OnInit {
 
-  public page: PAGE;
   public masculineNominative: MN;
   public _adjectiveCategories: Array<AdjectiveCategory>;
-
+  public adjectiveCategory: AdjectiveCategory;
+  
+  public page: PAGE;
   public actionMenu: ActionMenu;
 
   public openAdjDeclension: boolean;
-
-  public adjectiveCategory: AdjectiveCategory;
 
   constructor(
     private adjectiveService: AdjectiveService,
@@ -151,6 +151,7 @@ export class AdjectivesComponent implements OnInit {
     };
   }
 
+  // side menu emitter
   public onOpenPage(p: PAGE): void {
     this.page = p;
     if (this.page.type !== 5) {
@@ -189,6 +190,7 @@ export class AdjectivesComponent implements OnInit {
     }
   }
 
+  // action menu emitter
   public onOpenActionMenu(actionMenu: ActionMenu): void {
     this.actionMenu = actionMenu;
     if (this.actionMenu.rowData != null) {

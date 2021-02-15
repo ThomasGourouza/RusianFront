@@ -48,13 +48,11 @@ export class AdjectiveService extends subscribedContainerMixin() {
 
   public fetchAdjectives() {
     this.adjectiveApi.getAdjectives()
-      .pipe(
-        takeUntil(
-          this.destroyed$
-        )
-      ).subscribe((adjectives: Array<Adjective>) => {
+      .toPromise()
+      .then((adjectives: Array<Adjective>) => {
         this._adjectiveList$.next(adjectives);
-      }, (error: HttpErrorResponse) => {
+      })
+      .catch((error: HttpErrorResponse) => {
         this.toastr.error(
           this.translate.instant(
             error.status === 404 ? 'toastr.error.message.getAdjective' : 'toastr.error.message.basic'

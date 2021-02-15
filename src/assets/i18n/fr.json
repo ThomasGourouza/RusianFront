@@ -80,6 +80,7 @@
             "update": "Modifier"
         },
         "side": {
+            "intro": "Présentation",
             "declension": "Déclinaisons",
             "first": "Première",
             "second": "Deuxième",

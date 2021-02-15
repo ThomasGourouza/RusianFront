@@ -1,7 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { MenuItem } from 'primeng/api';
+import { TreeNode } from 'primeng/api';
 import { PAGE, MN } from '../adjectives.component';
+const C = 'category';
+const A = 'adjective';
+const CSLT = 'consult';
 
 @Component({
   selector: 'app-side-adjectives',
@@ -15,15 +19,16 @@ export class SideAdjectivesComponent implements OnInit {
   @Output()
   public openPage: EventEmitter<PAGE> = new EventEmitter();
 
-  public items: Array<MenuItem>;
+  public files: Array<TreeNode>;
   public langue: string;
 
 
   constructor(
-    public translate: TranslateService
+    public translate: TranslateService,
+    private activatedRoute: ActivatedRoute
   ) { }
-  
-  
+
+
   ngOnInit(): void {
     this.langue = this.translate.currentLang;
     this.translate.get('home.name').subscribe(() => {
@@ -31,132 +36,87 @@ export class SideAdjectivesComponent implements OnInit {
     });
   }
 
+  nodeSelect(event: any) {
+    this.openPage.emit({
+      show: (event.node.data != 0),
+      type: event.node.data
+    });
+  }
+
   public refresh(): void {
+    const intro = this.translate.instant('adjectives.side.intro');
     const declension = this.translate.instant('adjectives.side.declension');
     const first = this.translate.instant('adjectives.side.first') + this.masculineNominative.first;
     const second = this.translate.instant('adjectives.side.second') + this.masculineNominative.second;
     const third = this.translate.instant('adjectives.side.third') + this.masculineNominative.third;
     const fourth = this.translate.instant('adjectives.side.fourth') + this.masculineNominative.fourth;
-    const close = this.translate.instant('adjectives.side.close');
     const adjectives = this.translate.instant('adjectives.side.adjectives');
     const consult = this.translate.instant('adjectives.side.consult');
     const add = this.translate.instant('adjectives.side.add');
 
-    this.items = [
+    this.files = [
+      {
+        label: intro,
+        icon: "pi pi-paperclip",
+        selectable: true,
+        data: 0
+      },
       {
         label: declension,
-        icon: 'pi pi-fw pi-folder-open',
-        items: [{
-          label: first,
-          icon: 'pi pi-fw pi-file',
-          command: () => {
-            this.openPage.emit(
-              {
-                show: true,
-                type: 1
-              }
-            );
+        expandedIcon: "pi pi-folder-open",
+        collapsedIcon: "pi pi-folder",
+        selectable: false,
+        expanded: this.activatedRoute.snapshot.params[C]
+          && this.activatedRoute.snapshot.params[C] !== CSLT,
+        children: [
+          {
+            label: first,
+            icon: 'pi pi-fw pi-file',
+            selectable: true,
+            data: 1
+          },
+          {
+            label: second,
+            icon: 'pi pi-fw pi-file',
+            selectable: true,
+            data: 2
+          },
+          {
+            label: third,
+            icon: 'pi pi-fw pi-file',
+            selectable: true,
+            data: 3
+          },
+          {
+            label: fourth,
+            icon: 'pi pi-fw pi-file',
+            selectable: true,
+            data: 4
           }
-        },
-        {
-          label: second,
-          icon: 'pi pi-fw pi-file',
-          command: () => {
-            this.openPage.emit(
-              {
-                show: true,
-                type: 2
-              }
-            );
-          }
-        },
-        {
-          label: third,
-          icon: 'pi pi-fw pi-file',
-          command: () => {
-            this.openPage.emit(
-              {
-                show: true,
-                type: 3
-              }
-            );
-          }
-        },
-        {
-          label: fourth,
-          icon: 'pi pi-fw pi-file',
-          command: () => {
-            this.openPage.emit(
-              {
-                show: true,
-                type: 4
-              }
-            );
-          }
-        },
-        {
-          separator: true
-        },
-        {
-          label: close,
-          icon: 'pi pi-times',
-          command: () => {
-            this.openPage.emit(
-              {
-                show: false,
-                type: 0
-              }
-            );
-          }
-        }
         ]
       },
       {
         label: adjectives,
-        icon: 'pi pi-fw pi-folder-open',
-        items: [{
+        expandedIcon: "pi pi-folder-open",
+        collapsedIcon: "pi pi-folder",
+        selectable: false,
+        expanded: this.activatedRoute.snapshot.params[A]
+          || this.activatedRoute.snapshot.params[C] === CSLT,
+        children: [{
           label: consult,
           icon: 'pi pi-fw pi-eye',
-          command: () => {
-            this.openPage.emit(
-              {
-                show: true,
-                type: 5
-              }
-            );
-          }
+          selectable: true,
+          data: 5
         },
         {
           label: add,
           icon: 'pi pi-fw pi-plus',
-          command: () => {
-            this.openPage.emit(
-              {
-                show: true,
-                type: 6
-              }
-            );
-          }
-        },
-        {
-          separator: true
-        },
-        {
-          label: close,
-          icon: 'pi pi-times',
-          command: () => {
-            this.openPage.emit(
-              {
-                show: false,
-                type: 0
-              }
-            );
-          }
+          selectable: true,
+          data: 6
         }
         ]
       }
     ];
-
   }
 
   public actualise(): boolean {

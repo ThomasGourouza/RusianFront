@@ -13,9 +13,9 @@ import { WelcomeComponent } from './views/welcome/welcome.component';
 import { NotfoundComponent } from './views/notfound/notfound.component';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { MegaMenuModule } from 'primeng/megamenu';
-import { TieredMenuModule } from 'primeng/tieredmenu';
 import { TableModule } from 'primeng/table';
 import { MenuModule } from 'primeng/menu';
+import { TreeModule } from 'primeng/tree';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AccountComponent } from './views/player/account/account.component';
 import { TrainingComponent } from './views/russian/training/training.component';
@@ -81,9 +81,9 @@ import { ActionMenuComponent } from './views/russian/adjectives/action-menu/acti
     }),
     TabMenuModule,
     MegaMenuModule,
-    TieredMenuModule,
     TableModule,
-    MenuModule
+    MenuModule,
+    TreeModule
   ],
   providers: [
     Utils,

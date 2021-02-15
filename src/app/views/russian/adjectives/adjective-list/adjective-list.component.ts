@@ -22,6 +22,7 @@ const G = 'Genitive';
   templateUrl: './adjective-list.component.html',
   styleUrls: ['./adjective-list.component.scss']
 })
+// url: adjectives/consult
 export class AdjectiveListComponent implements OnInit {
 
   @Output()
