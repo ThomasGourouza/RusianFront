@@ -6,12 +6,12 @@
             "adjective": "Les Adjectifs",
             "noun": "Les noms",
             "training": "Entraînement",
-            "language": "Langue de l'application",
             "github": "GitHub",
             "login": "Connexion",
             "logout": "Déconnexion"
         },
         "language": {
+            "language": "Langue",
             "fr": "Français",
             "en": "English",
             "es": "Español"

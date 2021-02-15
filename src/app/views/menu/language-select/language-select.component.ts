@@ -18,7 +18,6 @@ export class LanguageFormComponent extends subscribedContainerMixin() implements
   public _player: Player;
   public items: MegaMenuItem[];
   public langue: string;
-  public languageInfo: string;
 
   constructor(
     public translate: TranslateService,
@@ -28,7 +27,7 @@ export class LanguageFormComponent extends subscribedContainerMixin() implements
   ) {
     super();
   }
-  
+
   ngOnInit(): void {
     this.langue = this.translate.currentLang;
     this.playerService.player$.pipe(
@@ -63,9 +62,9 @@ export class LanguageFormComponent extends subscribedContainerMixin() implements
 
   public refresh(): void {
     const titleLogInOut = this.isAuth() ? this.translate.instant('navbar.menu.logout') : this.translate.instant('navbar.menu.login');
-    this.languageInfo = this.translate.instant('navbar.menu.language');
     this.items = [
       {
+        id: 'player',
         label: this._player.login,
         icon: 'pi pi-fw pi-user',
         items: [
@@ -81,8 +80,31 @@ export class LanguageFormComponent extends subscribedContainerMixin() implements
             }
           ]
         ]
+      },
+      {
+        id: 'language',
+        label: this.translate.instant('navbar.language.language'),
+        icon: 'pi pi-fw pi-comment',
+        items: [
+          [
+            {
+              items: []
+            }
+          ]
+        ]
       }
     ];
+    this.translate.getLangs().forEach((lang) => {
+      this.items.find((item) => item.id === 'language').items[0][0].items.push(
+        {
+          id: lang,
+          label: this.translate.instant('navbar.language.' + lang),
+          icon: this.translate.currentLang === lang ? 'pi pi-fw pi-check-circle' : 'pi pi-fw pi-circle-off',
+          disabled: this.translate.currentLang === lang,
+          command: () => this.translate.use(lang)
+        }
+      );
+    });
     if (this.isAuth()) {
       this.items[0].items[0][0].items.unshift(
         {

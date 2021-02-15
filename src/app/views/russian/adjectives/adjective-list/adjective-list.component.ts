@@ -48,7 +48,6 @@ export class AdjectiveListComponent implements OnInit {
               this.initData(adjectivesAfterFetch);
             }
           );
-          console.log("cas qui foire");
         } else {
           this.data = [];
           this.initData(adjectives);
