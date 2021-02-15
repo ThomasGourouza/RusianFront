@@ -1,9 +1,9 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Adjective } from 'src/app/models/adjective/get/adjective.model';
 import { AdjectiveService } from 'src/app/services/adjective.service';
-import { SortEvent } from 'primeng/api';
 import { TranslateService } from '@ngx-translate/core';
 import { ActionMenu } from '../adjectives.component';
+import { SortPipe } from 'src/app/pipes/sort.pipe';
 export interface RowData {
   adjective: string;
   translation: string;
@@ -13,9 +13,6 @@ export interface RowData {
 const a = 'adjective';
 const t = 'translation';
 const d = 'declension';
-const NG = 'N/G';
-const N = 'Nominative';
-const G = 'Genitive';
 
 @Component({
   selector: 'app-adjective-list',
@@ -29,8 +26,6 @@ export class AdjectiveListComponent implements OnInit {
   public openActionMenu: EventEmitter<ActionMenu> = new EventEmitter();
 
   public _adjectives: Array<Adjective>;
-  public rowSelected: RowData;
-  public previousRowSelected: RowData;
   public data: Array<RowData>;
   public cols: Array<string>;
 
@@ -43,54 +38,46 @@ export class AdjectiveListComponent implements OnInit {
   ngOnInit(): void {
     this.cols = [a, t, d];
     this.data = [];
-    this.adjectiveService.fetchAdjectives();
     this.adjectiveService.adjectiveList$.subscribe(
       (adjectives) => {
-        this._adjectives = adjectives;
-        this._adjectives.forEach((adjective) => {
-          this.data.push({
-            adjective: adjective.nominativeMasculineForm,
-            translation: adjective.translation,
-            declension: adjective.category.id,
-            id: adjective.id
-          });
-        });
+        if (adjectives.length === 0) {
+          this.adjectiveService.fetchAdjectives();
+          this.adjectiveService.adjectiveList$.subscribe(
+            (adjectivesAfterFetch) => {
+              this.data = [];
+              this.initData(adjectivesAfterFetch);
+            }
+          );
+          console.log("cas qui foire");
+        } else {
+          this.data = [];
+          this.initData(adjectives);
+        }
       }
     );
   }
 
-  public customSort(event: SortEvent) {
-    event.data.sort((data1, data2) => {
-      let value1 = data1[event.field];
-      let value2 = data2[event.field];
-      let result = null;
-
-      if (value1 == null && value2 != null)
-        result = -1;
-      else if (value1 != null && value2 == null)
-        result = 1;
-      else if (value1 == null && value2 == null)
-        result = 0;
-      else if (typeof value1 === 'string' && typeof value2 === 'string')
-        result = value1.localeCompare(value2);
-      else
-        result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
-
-      return (event.order * result);
+  private initData(adjectives: Array<Adjective>): void {
+    this._adjectives = adjectives;
+    this._adjectives.forEach((adjective) => {
+      this.data.push({
+        adjective: adjective.nominativeMasculineForm,
+        translation: adjective.translation,
+        declension: adjective.category.id,
+        id: adjective.id
+      });
     });
   }
 
-  public onRowSelect(): void {
+  public translateTitle(): string {
+    return this.translate.instant('adjectives.adjectives.title')
+  }
+
+  public onRowSelect(event: any): void {
     this.openActionMenu.emit({
       show: true,
-      rowData: this.rowSelected
+      rowData: event.data
     });
-    if (this.previousRowSelected) {
-      this.previousRowSelected = undefined;
-    } else {
-      this.previousRowSelected = this.rowSelected;
-      this.rowSelected = undefined;
-    }
   }
 
   public onRowUnselect(): void {
@@ -98,8 +85,6 @@ export class AdjectiveListComponent implements OnInit {
       show: false,
       rowData: null
     });
-    this.rowSelected = undefined;
-    this.previousRowSelected = undefined;
   }
 
 }

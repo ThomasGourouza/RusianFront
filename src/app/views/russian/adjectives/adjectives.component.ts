@@ -46,9 +46,11 @@ export class AdjectivesComponent implements OnInit {
   public masculineNominative: MN;
   public _adjectiveCategories: Array<AdjectiveCategory>;
   public adjectiveCategory: AdjectiveCategory;
-  
+
   public page: PAGE;
   public actionMenu: ActionMenu;
+
+  public translation: string;
 
   public openAdjDeclension: boolean;
 
@@ -102,7 +104,6 @@ export class AdjectivesComponent implements OnInit {
 
     const adjective = this.activatedRoute.snapshot.params[A];
     if (adjective) {
-
       this.adjectiveService.fetchAdjectiveByTranslation(adjective);
       this.adjectiveService.adjective$.subscribe(
         (adj: Adjective) => {
@@ -125,6 +126,8 @@ export class AdjectivesComponent implements OnInit {
               }
             };
             this.openAdjDeclension = true;
+          } else {
+            this.router.navigate(['/adjectives/not-found/' + adjective]);
           }
         }
       );
@@ -144,6 +147,12 @@ export class AdjectivesComponent implements OnInit {
       });
   }
 
+  public goTo(translation: string): void {
+    if (translation) {
+      this.router.navigate(['/adjectives/not-found/' + translation]);
+    }
+  }
+
   private actionMenuInit(): void {
     this.actionMenu = {
       show: false,
@@ -154,6 +163,7 @@ export class AdjectivesComponent implements OnInit {
   // side menu emitter
   public onOpenPage(p: PAGE): void {
     this.page = p;
+    // if not consultation
     if (this.page.type !== 5) {
       this.actionMenuInit();
       this.openAdjDeclension = false;

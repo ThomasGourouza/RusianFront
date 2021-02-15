@@ -28,7 +28,6 @@ const f = 'feminine';
 const n = 'neuter';
 const p = 'plural';
 
-
 @Component({
   selector: 'app-declension-category',
   templateUrl: './declension-category.component.html',

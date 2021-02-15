@@ -66,19 +66,16 @@ export class AdjectiveService extends subscribedContainerMixin() {
     this.adjectiveApi.getAdjectiveByTranslation(
       new AdjTranslationParam(englishTranslation)
     )
-      .pipe(
-        takeUntil(
-          this.destroyed$
-        )
-      ).subscribe((adjectives: Array<Adjective>) => {
+      .toPromise()
+      .then((adjectives: Array<Adjective>) => {
         this._adjective$.next(adjectives[0]);
-      }, (error: HttpErrorResponse) => {
-        this.toastr.error(
-          this.translate.instant(
-            error.status === 404 ? 'toastr.error.message.getAdjective' : 'toastr.error.message.basic'
-          ),
-          this.translate.instant('toastr.error.title')
-        );
+      })
+      .catch((error: HttpErrorResponse) => {
+        if (error.status === 404) {
+          this._adjective$.next({});
+        } else {
+          this.toastr.error(this.translate.instant('toastr.error.message.basic'), this.translate.instant('toastr.error.title'));
+        }
       });
   }
 

@@ -77,7 +77,9 @@
             "open": "Open",
             "back": "Back",
             "delete": "Delete",
-            "update": "Update"
+            "update": "Update",
+            "title": "Click to sort. Use 'Ctrl' key to sort by multiple columns.",
+            "search": "Search an adjective"
         },
         "side": {
             "intro": "Intro",

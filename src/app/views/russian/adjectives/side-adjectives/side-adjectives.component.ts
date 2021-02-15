@@ -6,6 +6,7 @@ import { PAGE, MN } from '../adjectives.component';
 const C = 'category';
 const A = 'adjective';
 const CSLT = 'consult';
+const ADD = 'add';
 
 @Component({
   selector: 'app-side-adjectives',
@@ -67,7 +68,7 @@ export class SideAdjectivesComponent implements OnInit {
         collapsedIcon: "pi pi-folder",
         selectable: false,
         expanded: this.activatedRoute.snapshot.params[C]
-          && this.activatedRoute.snapshot.params[C] !== CSLT,
+          && ![CSLT, ADD].includes(this.activatedRoute.snapshot.params[C]),
         children: [
           {
             label: first,
@@ -101,7 +102,7 @@ export class SideAdjectivesComponent implements OnInit {
         collapsedIcon: "pi pi-folder",
         selectable: false,
         expanded: this.activatedRoute.snapshot.params[A]
-          || this.activatedRoute.snapshot.params[C] === CSLT,
+          || [CSLT, ADD].includes(this.activatedRoute.snapshot.params[C]),
         children: [{
           label: consult,
           icon: 'pi pi-fw pi-eye',

@@ -51,13 +51,29 @@
                                     {{ 'adjectives.adjectives.consult' | translate }}
                                 </h2>
                                 <app-adjective-list (openActionMenu)="onOpenActionMenu($event)"></app-adjective-list>
+
+                                <div class="d-flex justify-content-center align-items-start">
+
+                                    <span class="p-float-label">
+                                        <input id="search" type="text" pInputText [(ngModel)]="translation">
+                                        <label for="search">{{ 'adjectives.adjectives.search' | translate
+                                            }}</label>
+                                    </span>
+                                    &nbsp;
+                                    <button pButton type="button"
+                                        class="p-button-outlined p-button-raised p-button-rounded" icon="pi pi-search"
+                                        (click)="goTo(translation)"></button>
+
+                                </div>
+
                             </div>
                             <ng-template #show_declension>
 
                                 <h3 *ngIf="actionMenu.rowData" class="d-flex justify-content-center">
-                                    {{ actionMenu.rowData.adjective }} : {{ actionMenu.rowData.translation }} 
+                                    {{ actionMenu.rowData.adjective }} : {{ actionMenu.rowData.translation }}
                                 </h3>
-                                <app-declension-category *ngIf="adjectiveCategory" [adjectiveCategory]="adjectiveCategory">
+                                <app-declension-category *ngIf="adjectiveCategory"
+                                    [adjectiveCategory]="adjectiveCategory">
                                 </app-declension-category>
                                 <br>
 

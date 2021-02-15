@@ -13,6 +13,8 @@ import { WelcomeComponent } from './views/welcome/welcome.component';
 import { NotfoundComponent } from './views/notfound/notfound.component';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { MegaMenuModule } from 'primeng/megamenu';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { MenuModule } from 'primeng/menu';
 import { TreeModule } from 'primeng/tree';
@@ -42,6 +44,7 @@ import { DeclensionCategoryComponent } from './views/russian/adjectives/declensi
 import { AdjectiveListComponent } from './views/russian/adjectives/adjective-list/adjective-list.component';
 import { AddAdjectiveComponent } from './views/russian/adjectives/add-adjective/add-adjective.component';
 import { ActionMenuComponent } from './views/russian/adjectives/action-menu/action-menu.component';
+import { AdjectiveNotFoundComponent } from './views/russian/adjectives/adjective-not-found/adjective-not-found.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +64,8 @@ import { ActionMenuComponent } from './views/russian/adjectives/action-menu/acti
     DeclensionCategoryComponent,
     AdjectiveListComponent,
     AddAdjectiveComponent,
-    ActionMenuComponent
+    ActionMenuComponent,
+    AdjectiveNotFoundComponent
   ],
   imports: [
     CommonModule,
@@ -83,7 +87,9 @@ import { ActionMenuComponent } from './views/russian/adjectives/action-menu/acti
     MegaMenuModule,
     TableModule,
     MenuModule,
-    TreeModule
+    InputTextModule,
+    TreeModule,
+    ButtonModule
   ],
   providers: [
     Utils,
