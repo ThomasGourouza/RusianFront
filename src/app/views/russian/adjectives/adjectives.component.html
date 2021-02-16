@@ -92,7 +92,7 @@
     </div>
     <div class="col-3">
         <app-action-menu *ngIf="actionMenu.show" [actionMenu]="actionMenu"
-            (openAdjDeclension)="onOpenAdjDeclension($event)">
+            (actionEmitter)="onActionEmitter($event)">
         </app-action-menu>
     </div>
 </div>

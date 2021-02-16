@@ -19,6 +19,8 @@ import { TableModule } from 'primeng/table';
 import { MenuModule } from 'primeng/menu';
 import { TreeModule } from 'primeng/tree';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 import { AccountComponent } from './views/player/account/account.component';
 import { TrainingComponent } from './views/russian/training/training.component';
 import { SideAdjectivesComponent } from './views/russian/adjectives/side-adjectives/side-adjectives.component';
@@ -89,7 +91,8 @@ import { AdjectiveNotFoundComponent } from './views/russian/adjectives/adjective
     MenuModule,
     InputTextModule,
     TreeModule,
-    ButtonModule
+    ButtonModule,
+    ConfirmDialogModule
   ],
   providers: [
     Utils,
@@ -103,7 +106,8 @@ import { AdjectiveNotFoundComponent } from './views/russian/adjectives/adjective
     AdjectiveApi,
     AdjectiveService,
     NounApi,
-    NounService
+    NounService,
+    ConfirmationService
   ],
   bootstrap: [AppComponent]
 })

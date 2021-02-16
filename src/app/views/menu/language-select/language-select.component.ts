@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { MegaMenuItem } from 'primeng/api';
+import { MegaMenuItem, MenuItem } from 'primeng/api';
 import { takeUntil } from 'rxjs/operators';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Player } from 'src/app/models/player/get/player.model';
@@ -65,11 +65,11 @@ export class LanguageFormComponent extends subscribedContainerMixin() implements
     this.items = [
       {
         id: 'player',
-        label: this._player.login,
         icon: 'pi pi-fw pi-user',
         items: [
           [
             {
+              label: this._player.login,
               items: [
                 {
                   label: titleLogInOut,
@@ -83,11 +83,11 @@ export class LanguageFormComponent extends subscribedContainerMixin() implements
       },
       {
         id: 'language',
-        label: this.translate.instant('navbar.language.language'),
         icon: 'pi pi-fw pi-comment',
         items: [
           [
             {
+              label: this.translate.instant('navbar.language.language'),
               items: []
             }
           ]
@@ -106,13 +106,28 @@ export class LanguageFormComponent extends subscribedContainerMixin() implements
       );
     });
     if (this.isAuth()) {
-      this.items[0].items[0][0].items.unshift(
+      const basicMenu: Array<MenuItem> = this.items.find((item) => item.id === 'player').items[0][0].items;
+      const userMenu: Array<MenuItem> = [
         {
           label: this.translate.instant('navbar.menu.account'),
           icon: 'pi pi-fw pi-id-card',
           command: () => this.router.navigate(['/account'])
+        },
+        {
+          label: this.translate.instant('navbar.menu.history'),
+          icon: 'pi pi-fw pi-save',
+          command: () => this.router.navigate(['/account'])
+        },
+        {
+          label: this.translate.instant('navbar.menu.stat'),
+          icon: 'pi pi-fw pi-chart-line',
+          command: () => this.router.navigate(['/account'])
+        },
+        {
+          separator: true
         }
-      );
+      ];
+      this.items.find((item) => item.id === 'player').items[0][0].items = userMenu.concat(basicMenu);
     }
   }
 

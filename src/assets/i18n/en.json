@@ -3,6 +3,8 @@
         "menu": {
             "home": "Welcome",
             "account": "My account",
+            "history": "History",
+            "stat": "Statistiques",
             "adjective": "Adjectives",
             "noun": "Nouns",
             "training": "Training",

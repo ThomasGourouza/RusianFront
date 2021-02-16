@@ -5,6 +5,7 @@ import { AdjectiveCategory } from 'src/app/models/reference/russian/adjective-ca
 import { AdjectiveEnding } from 'src/app/models/reference/russian/adjective-ending.model';
 import { AdjectiveService } from 'src/app/services/adjective.service';
 import { RussianReferenceService } from 'src/app/services/russian-reference.service';
+import { Action } from './action-menu/action-menu.component';
 import { RowData } from './adjective-list/adjective-list.component';
 export interface PAGE {
   show: boolean;
@@ -34,6 +35,9 @@ const THIRD = 'third-declension';
 const FOURTH = 'fourth-declension';
 const CONSULT = 'consult';
 const ADD = 'add';
+const o = 'open';
+const d = 'delete';
+const u = 'update';
 
 @Component({
   selector: 'app-adjectives',
@@ -104,6 +108,7 @@ export class AdjectivesComponent implements OnInit {
 
     const adjective = this.activatedRoute.snapshot.params[A];
     if (adjective) {
+      console.log(adjective);
       this.adjectiveService.fetchAdjectiveByTranslation(adjective);
       this.adjectiveService.adjective$.subscribe(
         (adj: Adjective) => {
@@ -200,7 +205,7 @@ export class AdjectivesComponent implements OnInit {
     }
   }
 
-  // action menu emitter
+  // open and close action menu emitter
   public onOpenActionMenu(actionMenu: ActionMenu): void {
     this.actionMenu = actionMenu;
     if (this.actionMenu.rowData != null) {
@@ -208,24 +213,46 @@ export class AdjectivesComponent implements OnInit {
         (adjectives) => {
           const adjective = adjectives
             .find((adj) => adj.id === actionMenu.rowData.id);
-          const root = adjective.root;
-          this.adjectiveCategory = new AdjectiveCategory(
-            adjective.category.id,
-            adjective.category.value,
-            this.mapEndings(root, adjective.category.endings)
-          );
+          if (adjective) {
+            const root = adjective.root;
+            this.adjectiveCategory = new AdjectiveCategory(
+              adjective.category.id,
+              adjective.category.value,
+              this.mapEndings(root, adjective.category.endings)
+            );
+          }
         }
       );
     }
   }
 
-  public onOpenAdjDeclension(openAdjDeclension: boolean): void {
-    this.openAdjDeclension = openAdjDeclension;
-    if (!this.openAdjDeclension) {
-      this.actionMenuInit();
-      this.router.navigate(['/adjectives/consult']);
-    } else {
-      this.router.navigate(['/adjectives/consult/' + this.actionMenu.rowData.translation]);
+  // receive the action from the action menu
+  public onActionEmitter(action: Action): void {
+    switch (action.name) {
+      case o: {
+        this.openAdjDeclension = action.value;
+        if (!this.openAdjDeclension) {
+          this.router.navigate(['/adjectives/consult']);
+        } else {
+          this.router.navigate(['/adjectives/consult/' + this.actionMenu.rowData.translation]);
+        }
+        break;
+      }
+      case d: {
+        if (action.value) {
+          this.router.navigate(['/adjectives/consult']);
+          this.openAdjDeclension = false;
+          this.adjectiveService.deleteAdjectiveById(this.actionMenu.rowData.id);
+          this.actionMenuInit();
+        }
+        break;
+      }
+      case u: {
+        if (action.value) {
+          console.log(u);
+        }
+        break;
+      }
     }
   }
 

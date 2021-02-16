@@ -1,14 +1,22 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { MenuItem } from 'primeng/api';
+import { ConfirmationService, MenuItem } from 'primeng/api';
 import { ActionMenu } from '../adjectives.component';
-export interface Action {
+export interface OpenAction {
   label: string;
   icon: string;
   isOpen: boolean;
 }
+// 'open', 'delete' or 'update'
+export interface Action {
+  name: string;
+  value: boolean;
+}
 const A = 'adjective';
+const o = 'open';
+const d = 'delete';
+const u = 'update';
 
 @Component({
   selector: 'app-action-menu',
@@ -20,26 +28,27 @@ export class ActionMenuComponent implements OnInit {
   @Input()
   public actionMenu: ActionMenu;
   @Output()
-  public openAdjDeclension: EventEmitter<boolean> = new EventEmitter();
+  public actionEmitter: EventEmitter<Action> = new EventEmitter();
 
   public langue: string;
   public adjective: string;
 
   public items: Array<MenuItem>;
 
-  private action: Action;
+  private openAction: OpenAction;
 
   constructor(
     public translate: TranslateService,
-    private activatedRoute: ActivatedRoute
-  ) {}
+    private activatedRoute: ActivatedRoute,
+    private confirmationService: ConfirmationService
+  ) { }
 
   ngOnInit(): void {
-    this.action = this.actionOpen(!this.activatedRoute.snapshot.params[A]);
-    this.refresh(this.action);
+    this.openAction = this.actionOpen(!this.activatedRoute.snapshot.params[A]);
+    this.refresh(this.openAction);
   }
 
-  public actionOpen(value: boolean): Action {
+  public actionOpen(value: boolean): OpenAction {
     return value ?
       {
         label: this.translate.instant('adjectives.adjectives.open'),
@@ -52,44 +61,62 @@ export class ActionMenuComponent implements OnInit {
       };
   }
 
-  public refresh(action: Action): void {
+  public refresh(openAction: OpenAction): void {
     this.langue = this.translate.currentLang;
     this.adjective = this.actionMenu.rowData.adjective;
     this.items = [{
       label: this.adjective,
       items: [
         {
-          label: action.label,
-          icon: action.icon,
+          label: openAction.label,
+          icon: openAction.icon,
           command: () => {
-            this.action = action.isOpen ? this.actionOpen(true) : this.actionOpen(false);
-            this.openAdjDeclension.emit(this.action.isOpen);
-            this.refresh(this.action);
+            this.openAction = openAction.isOpen ? this.actionOpen(true) : this.actionOpen(false);
+            this.actionEmitter.emit({
+              name: o,
+              value: this.openAction.isOpen
+            });
+            this.refresh(this.openAction);
           }
         },
         {
           label: this.translate.instant('adjectives.adjectives.delete'),
           icon: 'pi pi-fw pi-trash',
           command: () => {
-            console.log('delete');
+            this.confirm();
           }
         },
         {
           label: this.translate.instant('adjectives.adjectives.update'),
           icon: 'pi pi-fw pi-refresh',
           command: () => {
-            console.log('update');
+            this.actionEmitter.emit({
+              name: u,
+              value: true
+            });
           }
         }
       ]
     }];
   }
 
+  private confirm(): void {
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to perform this action?',
+      accept: () => {
+        this.actionEmitter.emit({
+          name: d,
+          value: true
+        });
+      }
+    });
+  }
+
   public actualise(): boolean {
     if (this.langue !== this.translate.currentLang
       || this.adjective !== this.actionMenu.rowData.adjective) {
-      this.action = this.actionOpen(!this.action.isOpen);
-      this.refresh(this.action);
+      this.openAction = this.actionOpen(!this.openAction.isOpen);
+      this.refresh(this.openAction);
     }
     return true;
   }

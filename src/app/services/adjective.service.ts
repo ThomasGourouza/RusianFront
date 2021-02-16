@@ -147,9 +147,8 @@ export class AdjectiveService extends subscribedContainerMixin() {
         takeUntil(
           this.destroyed$
         )
-      ).subscribe((response: any) => {
-        console.log(response);
-        this.clearAdjective();
+      ).subscribe(() => {
+        this.fetchAdjectives();
         this.toastr.success(
           this.translate.instant('toastr.success.message.deleteAdjective'),
           this.translate.instant('toastr.success.title')
