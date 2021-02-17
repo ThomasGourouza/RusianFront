@@ -83,6 +83,16 @@
             "title": "Click to sort. Use 'Ctrl' key to sort by multiple columns.",
             "search": "Search an adjective"
         },
+        "action": {
+            "open": "Open",
+            "back": "Back",
+            "delete": "Delete",
+            "update": "Update",
+            "confirmation": "Confirmation",
+            "message": "Are you sure you want to delete this adjective ?",
+            "no": "No",
+            "yes": "Yes"
+        },
         "side": {
             "intro": "Intro",
             "declension": "Declensions",

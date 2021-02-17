@@ -9,14 +9,14 @@
         <section>
             <div class="d-flex align-items-center justify-content-center" id="u">
                 <!-- accueil adjectifs -->
-                <div class="row" *ngIf="!page.show;else show_page">
+                <div class="row" *ngIf="!sideMenu.show;else show_page">
                     <h3>
                         {{ 'adjectives.text' | translate }}
                     </h3>
                 </div>
                 <!-- voir les déclinaisons -->
                 <ng-template #show_page>
-                    <span *ngIf="masculineNominative" [ngSwitch]="page.type">
+                    <span *ngIf="masculineNominative" [ngSwitch]="sideMenu.type">
                         <div *ngSwitchCase=1>
                             <h2 class="d-flex align-items-center justify-content-center">
                                 {{ 'adjectives.declension.first' | translate }}{{ masculineNominative.first }}
@@ -46,40 +46,43 @@
                             </app-declension-category>
                         </div>
                         <div *ngSwitchCase=5>
-                            <div *ngIf="!openAdjDeclension;else show_declension">
-                                <h2 class="d-flex align-items-center justify-content-center">
-                                    {{ 'adjectives.adjectives.consult' | translate }}
-                                </h2>
-                                <app-adjective-list (openActionMenu)="onOpenActionMenu($event)"></app-adjective-list>
 
-                                <div class="d-flex justify-content-center align-items-start">
+                            <h2 class="d-flex align-items-center justify-content-center">
+                                {{ 'adjectives.adjectives.consult' | translate }}
+                            </h2>
+                            <app-adjective-list (openActionMenu)="onOpenActionMenu($event)"></app-adjective-list>
 
-                                    <span class="p-float-label">
-                                        <input id="search" type="text" pInputText [(ngModel)]="translation">
-                                        <label for="search">{{ 'adjectives.adjectives.search' | translate
-                                            }}</label>
-                                    </span>
-                                    &nbsp;
-                                    <button pButton type="button"
-                                        class="p-button-outlined p-button-raised p-button-rounded" icon="pi pi-search"
-                                        (click)="goTo(translation)"></button>
-
-                                </div>
-
+                            <div class="d-flex justify-content-center align-items-start">
+                                <span class="p-float-label">
+                                    <input id="search" type="text" pInputText [(ngModel)]="translation">
+                                    <label for="search">{{ 'adjectives.adjectives.search' | translate
+                                        }}</label>
+                                </span>
+                                &nbsp;
+                                <button pButton type="button" class="p-button-outlined p-button-raised p-button-rounded"
+                                    icon="pi pi-search" (click)="goTo(translation)"></button>
                             </div>
-                            <ng-template #show_declension>
 
-                                <h3 *ngIf="actionMenu.rowData" class="d-flex justify-content-center">
-                                    {{ actionMenu.rowData.adjective }} : {{ actionMenu.rowData.translation }}
-                                </h3>
-                                <app-declension-category *ngIf="adjectiveCategory"
-                                    [adjectiveCategory]="adjectiveCategory">
-                                </app-declension-category>
-                                <br>
-
-                            </ng-template>
                         </div>
                         <div *ngSwitchCase=6>
+
+                            <h3 class="d-flex justify-content-center">
+                                {{ actionMenu.rowData.adjective }} : {{ actionMenu.rowData.translation }}
+                            </h3>
+                            <app-declension-category [adjectiveCategory]="adjectiveCategory">
+                            </app-declension-category>
+                            <br>
+
+                        </div>
+                        <div *ngSwitchCase=7>
+
+          
+                            <app-adjective-not-found>
+                            </app-adjective-not-found>
+                            <br>
+
+                        </div>
+                        <div *ngSwitchCase=8>
                             <h2 class="d-flex align-items-center justify-content-center">
                                 {{ 'adjectives.adjectives.add' | translate }}
                             </h2>
@@ -91,8 +94,7 @@
         </section>
     </div>
     <div class="col-3">
-        <app-action-menu *ngIf="actionMenu.show" [actionMenu]="actionMenu"
-            (actionEmitter)="onActionEmitter($event)">
+        <app-action-menu *ngIf="actionMenu.show" [actionMenu]="actionMenu" (actionEmitter)="onActionEmitter($event)">
         </app-action-menu>
     </div>
 </div>

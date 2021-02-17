@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { TreeNode } from 'primeng/api';
-import { PAGE, MN } from '../adjectives.component';
+import { SideMenu, MN } from '../adjectives.component';
 const C = 'category';
 const A = 'adjective';
 const CSLT = 'consult';
@@ -18,7 +18,7 @@ export class SideAdjectivesComponent implements OnInit {
   @Input()
   public masculineNominative: MN;
   @Output()
-  public openPage: EventEmitter<PAGE> = new EventEmitter();
+  public openPage: EventEmitter<SideMenu> = new EventEmitter();
 
   public files: Array<TreeNode>;
   public langue: string;

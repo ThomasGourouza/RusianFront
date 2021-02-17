@@ -3,7 +3,6 @@ import { Adjective } from 'src/app/models/adjective/get/adjective.model';
 import { AdjectiveService } from 'src/app/services/adjective.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ActionMenu } from '../adjectives.component';
-import { SortPipe } from 'src/app/pipes/sort.pipe';
 export interface RowData {
   adjective: string;
   translation: string;

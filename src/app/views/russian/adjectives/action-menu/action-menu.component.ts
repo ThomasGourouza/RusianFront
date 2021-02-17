@@ -100,9 +100,13 @@ export class ActionMenuComponent implements OnInit {
     }];
   }
 
+  public getTranslated(answer: string): string {
+    return this.translate.instant('adjectives.action.' + answer);
+  }
+
   private confirm(): void {
     this.confirmationService.confirm({
-      message: 'Are you sure that you want to perform this action?',
+      message: this.translate.instant('adjectives.action.message'),
       accept: () => {
         this.actionEmitter.emit({
           name: d,

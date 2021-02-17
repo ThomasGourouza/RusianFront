@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Adjective } from 'src/app/models/adjective/get/adjective.model';
 import { AdjectiveCategory } from 'src/app/models/reference/russian/adjective-category.model';
@@ -7,7 +8,7 @@ import { AdjectiveService } from 'src/app/services/adjective.service';
 import { RussianReferenceService } from 'src/app/services/russian-reference.service';
 import { Action } from './action-menu/action-menu.component';
 import { RowData } from './adjective-list/adjective-list.component';
-export interface PAGE {
+export interface SideMenu {
   show: boolean;
   type: number
 }
@@ -44,19 +45,25 @@ const u = 'update';
   templateUrl: './adjectives.component.html',
   styleUrls: ['./adjectives.component.scss']
 })
-// url: /adjectives
+/**
+ * urls:
+ * /adjectives
+ * /adjectives/:category
+ * /adjectives/consult/:adjective
+ * /adjectives/not-found/:adjective
+ */
 export class AdjectivesComponent implements OnInit {
 
   public masculineNominative: MN;
   public _adjectiveCategories: Array<AdjectiveCategory>;
   public adjectiveCategory: AdjectiveCategory;
 
-  public page: PAGE;
+  public sideMenu: SideMenu;
   public actionMenu: ActionMenu;
 
   public translation: string;
 
-  public openAdjDeclension: boolean;
+  // public openAdjDeclension: boolean;
 
   constructor(
     private adjectiveService: AdjectiveService,
@@ -66,78 +73,120 @@ export class AdjectivesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.openAdjDeclension = false;
-    this.actionMenuInit();
-    this.page = {
-      show: false,
-      type: 0
-    };
-    const category = this.activatedRoute.snapshot.params[C];
-    if (category) {
-      this.page.show = [FIRST, SECOND, THIRD, FOURTH, CONSULT, ADD].includes(category);
-      switch (category) {
+    this.menusInit();
+
+    // /adjectives
+    // /adjectives/first-declension
+    // /adjectives/second-declension
+    // /adjectives/third-declension
+    // /adjectives/fourth-declension
+    // /adjectives/consult
+    // /adjectives/add
+    // /adjectives/consult/:adjective
+    // /adjectives/not-found/:adjective
+
+    const url = this.router.url;
+    const urlArray = url.split('/');
+    console.log(urlArray);
+
+    if (urlArray.length === 3) {
+      switch (urlArray[2]) {
         case FIRST: {
-          this.page.type = 1;
+          this.sideMenu = {
+            show: true,
+            type: 1
+          }
           break;
         }
         case SECOND: {
-          this.page.type = 2;
+          this.sideMenu = {
+            show: true,
+            type: 2
+          }
           break;
         }
         case THIRD: {
-          this.page.type = 3;
+          this.sideMenu = {
+            show: true,
+            type: 3
+          }
           break;
         }
         case FOURTH: {
-          this.page.type = 4;
+          this.sideMenu = {
+            show: true,
+            type: 4
+          }
           break;
         }
         case CONSULT: {
-          this.page.type = 5;
+          this.sideMenu = {
+            show: true,
+            type: 5
+          }
           break;
         }
         case ADD: {
-          this.page.type = 6;
+          this.sideMenu = {
+            show: true,
+            type: 8
+          }
           break;
         }
         default: {
           this.router.navigate([NF]);
+          break;
         }
       }
-    }
-
-    const adjective = this.activatedRoute.snapshot.params[A];
-    if (adjective) {
+    } 
+    if (urlArray.length === 4) {
+      const adjective = urlArray[3];
       console.log(adjective);
-      this.adjectiveService.fetchAdjectiveByTranslation(adjective);
-      this.adjectiveService.adjective$.subscribe(
-        (adj: Adjective) => {
-          if (adj.id) {
-            const root = adj.root;
-            this.adjectiveCategory = new AdjectiveCategory(
-              adj.category.id,
-              adj.category.value,
-              this.mapEndings(root, adj.category.endings)
-            );
-            this.page.show = true;
-            this.page.type = 5;
-            this.actionMenu = {
-              show: true,
-              rowData: {
-                adjective: adj.nominativeMasculineForm,
-                translation: adj.translation,
-                declension: adj.category.id,
-                id: adj.id
+      if ([CONSULT, NF].includes(urlArray[2])) {
+        this.adjectiveService.fetchAdjectiveByTranslation(adjective);
+        this.adjectiveService.adjective$.subscribe(
+          (adj: Adjective) => {
+            if (adj.id) {
+              this.router.navigate(['/adjectives/consult/' + adjective]);
+              const root = adj.root;
+              this.adjectiveCategory = new AdjectiveCategory(
+                adj.category.id,
+                adj.category.value,
+                this.mapEndings(root, adj.category.endings)
+              );
+              this.sideMenu = {
+                show: true,
+                type: 6
               }
-            };
-            this.openAdjDeclension = true;
-          } else {
-            this.router.navigate(['/adjectives/not-found/' + adjective]);
+              this.actionMenu = {
+                show: true,
+                rowData: {
+                  adjective: adj.nominativeMasculineForm,
+                  translation: adj.translation,
+                  declension: adj.category.id,
+                  id: adj.id
+                }
+              };
+            } else {
+              this.router.navigate(['/adjectives/not-found/' + adjective]);
+              this.sideMenu = {
+                show: true,
+                type: 7
+              }
+              this.actionMenu = {
+                show: true,
+                rowData: {
+                  adjective: 'adj',
+                  translation: 'translation',
+                  declension: 1,
+                  id: 1
+                }
+              };
+            }
           }
-        }
-      );
-    }
-
+        );
+      }
+    } 
     this.russianReferenceService.adjectiveCategories$
       .subscribe((adjectiveCategories: Array<AdjectiveCategory>) => {
         this._adjectiveCategories = adjectiveCategories;
@@ -154,29 +203,33 @@ export class AdjectivesComponent implements OnInit {
 
   public goTo(translation: string): void {
     if (translation) {
-      this.router.navigate(['/adjectives/not-found/' + translation]);
+      this.router.navigate(['/adjectives/consult/' + translation]);
     }
   }
 
-  private actionMenuInit(): void {
+  private menusInit(): void {
     this.actionMenu = {
       show: false,
       rowData: null
     };
+    this.sideMenu = {
+      show: false,
+      type: 0
+    };
   }
 
   // side menu emitter
-  public onOpenPage(p: PAGE): void {
-    this.page = p;
+  public onOpenPage(p: SideMenu): void {
+    this.sideMenu = p;
     // if not consultation
-    if (this.page.type !== 5) {
-      this.actionMenuInit();
-      this.openAdjDeclension = false;
-    }
-    if (!this.page.show) {
+    // if (this.sideMenu.type !== 5) {
+    //   this.menusInit();
+    //   // this.openAdjDeclension = false;
+    // }
+    if (!this.sideMenu.show) {
       this.router.navigate([ADJ]);
     } else {
-      switch (this.page.type) {
+      switch (this.sideMenu.type) {
         case 1: {
           this.router.navigate([ADJ + '/' + FIRST]);
           break;
@@ -197,7 +250,7 @@ export class AdjectivesComponent implements OnInit {
           this.router.navigate([ADJ + '/' + CONSULT]);
           break;
         }
-        case 6: {
+        case 8: {
           this.router.navigate([ADJ + '/' + ADD]);
           break;
         }
@@ -230,20 +283,25 @@ export class AdjectivesComponent implements OnInit {
   public onActionEmitter(action: Action): void {
     switch (action.name) {
       case o: {
-        this.openAdjDeclension = action.value;
-        if (!this.openAdjDeclension) {
-          this.router.navigate(['/adjectives/consult']);
-        } else {
+        // this.openAdjDeclension = action.value;
+        this.sideMenu = {
+          show: true,
+          type: action.value ? 6 : 5
+        }
+        // if (!this.openAdjDeclension) {
+        if (this.sideMenu.type === 6) {
           this.router.navigate(['/adjectives/consult/' + this.actionMenu.rowData.translation]);
+        } else {
+          this.router.navigate(['/adjectives/consult']);
         }
         break;
       }
       case d: {
         if (action.value) {
           this.router.navigate(['/adjectives/consult']);
-          this.openAdjDeclension = false;
+          // this.openAdjDeclension = false;
           this.adjectiveService.deleteAdjectiveById(this.actionMenu.rowData.id);
-          this.actionMenuInit();
+          this.menusInit();
         }
         break;
       }
