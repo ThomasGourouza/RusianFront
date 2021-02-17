@@ -65,10 +65,10 @@
     "adjectives": {
         "text": "Il existe quatre déclinaisons d'adjectifs en russe.",
         "declension": {
-            "first": "Première déclinaison",
-            "second": "Deuxième déclinaison",
-            "third": "Troisième déclinaison",
-            "fourth": "Quatrième déclinaison"
+            "first": "Première déclinaison (-ый)",
+            "second": "Deuxième déclinaison (-ой)",
+            "third": "Troisième déclinaison (-ий)",
+            "fourth": "Quatrième déclinaison (-ний)"
         },
         "adjectives": {
             "consult": "Liste des adjectifs",
@@ -96,10 +96,10 @@
         "side": {
             "intro": "Présentation",
             "declension": "Déclinaisons",
-            "first": "Première",
-            "second": "Deuxième",
-            "third": "Troisième",
-            "fourth": "Quatrième",
+            "first": "Première (-ый)",
+            "second": "Deuxième (-ой)",
+            "third": "Troisième (-ий)",
+            "fourth": "Quatrième (-ний)",
             "close": "Fermer",
             "adjectives": "Adjectifs",
             "consult": "Consulter",

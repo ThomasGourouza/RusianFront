@@ -1,7 +1,6 @@
-<div *ngIf="actualise()"></div>
 <br>
 <div class="d-flex justify-content-center">
-    <p-menu [model]="items"></p-menu>
+    <p-menu [model]="actionMenu"></p-menu>
 
     <p-confirmDialog #cd [header]="getTranslated('confirmation')" icon="pi pi-trash">
         <p-footer>

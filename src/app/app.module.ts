@@ -42,11 +42,13 @@ import { AdjectiveApi } from './services/api/adjective.api';
 import { AdjectiveService } from './services/adjective.service';
 import { NounApi } from './services/api/noun.api';
 import { NounService } from './services/noun.service';
-import { DeclensionCategoryComponent } from './views/russian/adjectives/declension-category/declension-category.component';
-import { AdjectiveListComponent } from './views/russian/adjectives/adjective-list/adjective-list.component';
-import { AddAdjectiveComponent } from './views/russian/adjectives/add-adjective/add-adjective.component';
+import { DeclensionCategoryComponent } from './views/russian/adjectives/core/declension-category/declension-category.component';
+import { AdjectiveListComponent } from './views/russian/adjectives/core/adjective-list/adjective-list.component';
+import { AddAdjectiveComponent } from './views/russian/adjectives/core/add-adjective/add-adjective.component';
 import { ActionMenuComponent } from './views/russian/adjectives/action-menu/action-menu.component';
-import { AdjectiveNotFoundComponent } from './views/russian/adjectives/adjective-not-found/adjective-not-found.component';
+import { AdjectiveNotFoundComponent } from './views/russian/adjectives/core/adjective-not-found/adjective-not-found.component';
+import { SideMenuService } from './services/side-menu.service';
+import { ActionMenuService } from './services/action-menu.service';
 
 @NgModule({
   declarations: [
@@ -107,7 +109,9 @@ import { AdjectiveNotFoundComponent } from './views/russian/adjectives/adjective
     AdjectiveService,
     NounApi,
     NounService,
-    ConfirmationService
+    ConfirmationService,
+    SideMenuService,
+    ActionMenuService
   ],
   bootstrap: [AppComponent]
 })

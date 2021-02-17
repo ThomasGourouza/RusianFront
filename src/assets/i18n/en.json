@@ -65,10 +65,10 @@
     "adjectives": {
         "text": "There are four declensions of adjectives in russian.",
         "declension": {
-            "first": "First declension",
-            "second": "Second declension",
-            "third": "Third declension",
-            "fourth": "Fourth declension"
+            "first": "First declension (-ый)",
+            "second": "Second declension (-ой)",
+            "third": "Third declension (-ий)",
+            "fourth": "Fourth declension (-ний)"
         },
         "adjectives": {
             "consult": "List of adjectives",
@@ -96,10 +96,10 @@
         "side": {
             "intro": "Intro",
             "declension": "Declensions",
-            "first": "First",
-            "second": "Second",
-            "third": "Third",
-            "fourth": "Fourth",
+            "first": "First (-ый)",
+            "second": "Second (-ой)",
+            "third": "Third (-ий)",
+            "fourth": "Fourth (-ний)",
             "close": "Close",
             "adjectives": "Adjectives",
             "consult": "Consult",

@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Adjective } from 'src/app/models/adjective/get/adjective.model';
 import { AdjectiveService } from 'src/app/services/adjective.service';
 import { TranslateService } from '@ngx-translate/core';
-import { ActionMenu } from '../adjectives.component';
+import { ActionMenu } from '../../adjectives.component';
 export interface RowData {
   adjective: string;
   translation: string;

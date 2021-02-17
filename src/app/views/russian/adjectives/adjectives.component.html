@@ -1,10 +1,11 @@
 <br>
 <div class="row">
     <div class="col-3">
-        <app-side-adjectives *ngIf="masculineNominative" [masculineNominative]="masculineNominative"
-            (openPage)="onOpenPage($event)">
+        <app-side-adjectives *ngIf="areEndingsNotEmpty()"
+            (sideMenuEmitter)="onSideMenuEmitter($event)">
         </app-side-adjectives>
     </div>
+
     <div class="col">
         <section>
             <div class="d-flex align-items-center justify-content-center" id="u">
@@ -16,31 +17,31 @@
                 </div>
                 <!-- voir les déclinaisons -->
                 <ng-template #show_page>
-                    <span *ngIf="masculineNominative" [ngSwitch]="sideMenu.type">
+                    <span *ngIf="areEndingsNotEmpty()" [ngSwitch]="sideMenu.type">
                         <div *ngSwitchCase=1>
                             <h2 class="d-flex align-items-center justify-content-center">
-                                {{ 'adjectives.declension.first' | translate }}{{ masculineNominative.first }}
+                                {{ 'adjectives.declension.first' | translate }}
                             </h2>
                             <app-declension-category [adjectiveCategory]="getAdjectiveCategory(1)">
                             </app-declension-category>
                         </div>
                         <div *ngSwitchCase=2>
                             <h2 class="d-flex align-items-center justify-content-center">
-                                {{ 'adjectives.declension.second' | translate }}{{ masculineNominative.second }}
+                                {{ 'adjectives.declension.second' | translate }}
                             </h2>
                             <app-declension-category [adjectiveCategory]="getAdjectiveCategory(2)">
                             </app-declension-category>
                         </div>
                         <div *ngSwitchCase=3>
                             <h2 class="d-flex align-items-center justify-content-center">
-                                {{ 'adjectives.declension.third' | translate }}{{ masculineNominative.third }}
+                                {{ 'adjectives.declension.third' | translate }}
                             </h2>
                             <app-declension-category [adjectiveCategory]="getAdjectiveCategory(3)">
                             </app-declension-category>
                         </div>
                         <div *ngSwitchCase=4>
                             <h2 class="d-flex align-items-center justify-content-center">
-                                {{ 'adjectives.declension.fourth' | translate }}{{ masculineNominative.fourth }}
+                                {{ 'adjectives.declension.fourth' | translate }}
                             </h2>
                             <app-declension-category [adjectiveCategory]="getAdjectiveCategory(4)">
                             </app-declension-category>
@@ -67,7 +68,7 @@
                         <div *ngSwitchCase=6>
 
                             <h3 class="d-flex justify-content-center">
-                                {{ actionMenu.rowData.adjective }} : {{ actionMenu.rowData.translation }}
+                                {{ actionMenu.rowData.adjective }}
                             </h3>
                             <app-declension-category [adjectiveCategory]="adjectiveCategory">
                             </app-declension-category>
@@ -93,8 +94,9 @@
             </div>
         </section>
     </div>
+
     <div class="col-3">
-        <app-action-menu *ngIf="actionMenu.show" [actionMenu]="actionMenu" (actionEmitter)="onActionEmitter($event)">
+        <app-action-menu *ngIf="actionMenu.show">
         </app-action-menu>
     </div>
 </div>

@@ -1,6 +1,5 @@
 <br>
-<div *ngIf="actualise()"></div>
 <div class="col-11">
-    <p-tree [value]="files" selectionMode="single" (onNodeSelect)="nodeSelect($event)">
+    <p-tree [value]="sideMenu" selectionMode="single" (onNodeSelect)="select($event)">
     </p-tree>
 </div>

@@ -99,7 +99,7 @@ export class LanguageFormComponent extends subscribedContainerMixin() implements
         {
           id: lang,
           label: this.translate.instant('navbar.language.' + lang),
-          icon: this.translate.currentLang === lang ? 'pi pi-fw pi-check-circle' : 'pi pi-fw pi-circle-off',
+          icon: this.translate.currentLang === lang ? 'pi pi-fw pi-circle-on' : 'pi pi-fw pi-circle-off',
           disabled: this.translate.currentLang === lang,
           command: () => this.translate.use(lang)
         }
