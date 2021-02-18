@@ -49,6 +49,7 @@ import { ActionMenuComponent } from './views/russian/adjectives/action-menu/acti
 import { AdjectiveNotFoundComponent } from './views/russian/adjectives/core/adjective-not-found/adjective-not-found.component';
 import { SideMenuService } from './services/side-menu.service';
 import { ActionMenuService } from './services/action-menu.service';
+import { AdjectiveListService } from './services/adjective-list.service';
 
 @NgModule({
   declarations: [
@@ -111,7 +112,8 @@ import { ActionMenuService } from './services/action-menu.service';
     NounService,
     ConfirmationService,
     SideMenuService,
-    ActionMenuService
+    ActionMenuService,
+    AdjectiveListService
   ],
   bootstrap: [AppComponent]
 })

@@ -12,8 +12,10 @@ export interface OpenLabel {
 })
 export class ActionMenuService {
 
+  // menu de droite
   private _menu$ = new BehaviorSubject<Array<MenuItem>>([]);
 
+  // action souscrite par Adj component
   private _action$ = new BehaviorSubject<string>(null);
 
   constructor(
@@ -29,30 +31,21 @@ export class ActionMenuService {
     return this._action$.asObservable();
   }
 
-  // adjective = this.actionMenuRename.rowData.adjective
-  // openAction = this.actionOpen(!this.isAdjectiveDetail);
-  public setMenu(adjective: string, isClosed: boolean): void {
+  public resetAction(): void {
+    this._action$.next(null);
+  }
 
+  public setMenu(translation: string, isClosed: boolean): void {
     const openAction = this.openLabel(isClosed);
-
     this._menu$.next(
     [{
-      label: adjective,
+      label: translation,
       items: [
         {
           label: openAction.label,
           icon: openAction.icon,
           command: () => {
-
             this._action$.next(isClosed ? 'open' : 'close');
-
-
-            // openAction = openAction.isOpen ? this.actionOpen(true) : this.actionOpen(false);
-            // this.actionEmitter.emit({
-            //   name: o,
-            //   value: openAction.isOpen
-            // });
-            // this.refresh(openAction);
           }
         },
         {
@@ -66,14 +59,7 @@ export class ActionMenuService {
           label: this.translate.instant('adjectives.adjectives.update'),
           icon: 'pi pi-fw pi-refresh',
           command: () => {
-
             this._action$.next('update');
-
-
-            // this.actionEmitter.emit({
-            //   name: u,
-            //   value: true
-            // });
           }
         }
       ]
@@ -86,14 +72,7 @@ export class ActionMenuService {
     this.confirmationService.confirm({
       message: this.translate.instant('adjectives.action.message'),
       accept: () => {
-
         this._action$.next('delete');
-        
-
-        // this.actionEmitter.emit({
-        //   name: d,
-        //   value: true
-        // });
       }
     });
   }
@@ -108,6 +87,5 @@ export class ActionMenuService {
         icon: 'pi pi-fw pi-arrow-left'
       };
   }
-
 
 }

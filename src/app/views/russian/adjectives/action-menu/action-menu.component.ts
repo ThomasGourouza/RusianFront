@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
 import { takeUntil } from 'rxjs/operators';
@@ -9,10 +9,6 @@ export interface Action {
   name: string;
   value: boolean;
 }
-const A = 'adjective';
-const o = 'open';
-const d = 'delete';
-const u = 'update';
 
 @Component({
   selector: 'app-action-menu',

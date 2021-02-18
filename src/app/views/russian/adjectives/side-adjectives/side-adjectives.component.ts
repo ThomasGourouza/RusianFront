@@ -1,7 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { TreeNode } from 'primeng/api';
-import { SideMenu } from '../adjectives.component';
 import { SideMenuService } from 'src/app/services/side-menu.service';
 import { subscribedContainerMixin } from 'src/app/subscribed-container.mixin';
 import { takeUntil } from 'rxjs/operators';
@@ -12,9 +11,6 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./side-adjectives.component.scss']
 })
 export class SideAdjectivesComponent extends subscribedContainerMixin() implements OnInit {
-
-  @Output()
-  public sideMenuEmitter: EventEmitter<SideMenu> = new EventEmitter();
 
   public sideMenu: Array<TreeNode>;
 
@@ -35,10 +31,8 @@ export class SideAdjectivesComponent extends subscribedContainerMixin() implemen
     );
   }
 
+  // mise à jour de la selection dans le service
   select(event: any) {
-    this.sideMenuEmitter.emit({
-      show: (event.node.data != 0),
-      type: event.node.data
-    });
+    this.sideMenuService.setSelection(event.node.data);
   }
 }

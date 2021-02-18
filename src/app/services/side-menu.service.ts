@@ -2,26 +2,18 @@ import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { TreeNode } from 'primeng/api';
 import { BehaviorSubject, Observable } from 'rxjs';
-export interface Menu {
-  intro: string;
-  declension: string;
-  first: string;
-  second: string;
-  third: string;
-  fourth: string;
-  adjectives: string;
-  consult: string;
-  add: string;
-  declensionExpanded: boolean;
-  adjectiveExpanded: boolean;
-}
+import { Const } from 'src/app/services/utils/const';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SideMenuService {
 
+  // menu de gauche
   private _menu$ = new BehaviorSubject<Array<TreeNode>>([]);
+
+  // selection souscrite par Adj component
+  private _selection$ = new BehaviorSubject<string>(null);
 
   constructor(
     public translate: TranslateService,
@@ -31,78 +23,74 @@ export class SideMenuService {
     return this._menu$.asObservable();
   }
 
+  public get selection$(): Observable<string> {
+    return this._selection$.asObservable();
+  }
+
+  public setSelection(selection: string): void {
+    this._selection$.next(selection);
+  }
+
   public setMenu(isDeclensionExpanded: boolean, isAdjectiveExpanded: boolean): void {
-    const menu: Menu = {
-      intro: this.translate.instant('adjectives.side.intro'),
-      declension: this.translate.instant('adjectives.side.declension'),
-      first: this.translate.instant('adjectives.side.first'),
-      second: this.translate.instant('adjectives.side.second'),
-      third: this.translate.instant('adjectives.side.third'),
-      fourth: this.translate.instant('adjectives.side.fourth'), 
-      adjectives: this.translate.instant('adjectives.side.adjectives'),
-      consult: this.translate.instant('adjectives.side.consult'),
-      add: this.translate.instant('adjectives.side.add'),
-      declensionExpanded: isDeclensionExpanded,
-      adjectiveExpanded: isAdjectiveExpanded,
-    }
     this._menu$.next(
       [
         {
-          label: menu.intro,
+          label: this.translate.instant('adjectives.side.intro'),
           icon: "pi pi-paperclip",
           selectable: true,
-          data: 0
+          data: Const.intro,
+
         },
         {
-          label: menu.declension,
+          label: this.translate.instant('adjectives.side.declension'),
           expandedIcon: "pi pi-folder-open",
           collapsedIcon: "pi pi-folder",
           selectable: false,
-          expanded: menu.declensionExpanded,
+          expanded: isDeclensionExpanded,
           children: [
             {
-              label: menu.first,
+              label: this.translate.instant('adjectives.side.first'),
               icon: 'pi pi-fw pi-file',
               selectable: true,
-              data: 1
+              data: Const.first
             },
             {
-              label: menu.second,
+              label: this.translate.instant('adjectives.side.second'),
               icon: 'pi pi-fw pi-file',
               selectable: true,
-              data: 2
+              data: Const.second
             },
             {
-              label: menu.third,
+              label: this.translate.instant('adjectives.side.third'),
               icon: 'pi pi-fw pi-file',
               selectable: true,
-              data: 3
+              data: Const.third
             },
             {
-              label: menu.fourth,
+              label: this.translate.instant('adjectives.side.fourth'),
               icon: 'pi pi-fw pi-file',
               selectable: true,
-              data: 4
+              data: Const.fourth
             }
           ]
         },
         {
-          label: menu.adjectives,
+          label: this.translate.instant('adjectives.side.adjectives'),
           expandedIcon: "pi pi-folder-open",
           collapsedIcon: "pi pi-folder",
           selectable: false,
-          expanded: menu.adjectiveExpanded,
+          expanded: isAdjectiveExpanded,
           children: [{
-            label: menu.consult,
+            label: this.translate.instant('adjectives.side.consult'),
             icon: 'pi pi-fw pi-eye',
             selectable: true,
-            data: 5
+            data: Const.consult
           },
           {
-            label: menu.add,
+            label: this.translate.instant('adjectives.side.add'),
             icon: 'pi pi-fw pi-plus',
             selectable: true,
-            data: 6
+            data: Const.add
           }
           ]
         }

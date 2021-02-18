@@ -1,17 +1,9 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Adjective } from 'src/app/models/adjective/get/adjective.model';
 import { AdjectiveService } from 'src/app/services/adjective.service';
 import { TranslateService } from '@ngx-translate/core';
-import { ActionMenu } from '../../adjectives.component';
-export interface RowData {
-  adjective: string;
-  translation: string;
-  declension: number;
-  id: number;
-}
-const a = 'adjective';
-const t = 'translation';
-const d = 'declension';
+import { Const } from 'src/app/services/utils/const';
+import { AdjectiveListService, RowData } from 'src/app/services/adjective-list.service';
 
 @Component({
   selector: 'app-adjective-list',
@@ -21,21 +13,18 @@ const d = 'declension';
 // url: adjectives/consult
 export class AdjectiveListComponent implements OnInit {
 
-  @Output()
-  public openActionMenu: EventEmitter<ActionMenu> = new EventEmitter();
-
   public _adjectives: Array<Adjective>;
   public data: Array<RowData>;
   public cols: Array<string>;
 
-
   constructor(
     private adjectiveService: AdjectiveService,
-    public translate: TranslateService
+    public translate: TranslateService,
+    private adjectiveListService: AdjectiveListService
   ) { }
 
   ngOnInit(): void {
-    this.cols = [a, t, d];
+    this.cols = [Const.adjective, Const.translation, Const.declension];
     this.data = [];
     this.adjectiveService.adjectiveList$.subscribe(
       (adjectives) => {
@@ -72,17 +61,11 @@ export class AdjectiveListComponent implements OnInit {
   }
 
   public onRowSelect(event: any): void {
-    this.openActionMenu.emit({
-      show: true,
-      rowData: event.data
-    });
+    this.adjectiveListService.setRowdata(event.data);
   }
 
   public onRowUnselect(): void {
-    this.openActionMenu.emit({
-      show: false,
-      rowData: null
-    });
+    this.adjectiveListService.setRowdata(null);
   }
 
 }
