@@ -21,5 +21,6 @@ export class Const {
     public static fourth: string = 'fourth-declension';
     public static translation: string = 'translation';
     public static declension: string = 'declension';
+    public static check: string = 'check';
 
 }

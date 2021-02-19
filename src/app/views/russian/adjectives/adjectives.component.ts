@@ -32,6 +32,7 @@ export class AdjectivesComponent extends subscribedContainerMixin() implements O
   public translation: string;
   public selectedRow: RowData;
   public page: string;
+  public action: string;
 
   constructor(
     private sideMenuService: SideMenuService,
@@ -96,7 +97,7 @@ export class AdjectivesComponent extends subscribedContainerMixin() implements O
       )
     ).subscribe((action: string) => {
       if (action) {
-        console.log(action);
+        this.action = action
         // mise à jour du menu de droite
         switch (action) {
           case Const.open: {
@@ -106,6 +107,8 @@ export class AdjectivesComponent extends subscribedContainerMixin() implements O
             break;
           }
           case Const.close: {
+            // déselection de la row
+            this.adjectiveListService.setRowdata(null);
             // mise à jour du menu
             this.actionMenuService.setMenu('', true);
             this.redirect('/adjectives/consult');
@@ -122,7 +125,6 @@ export class AdjectivesComponent extends subscribedContainerMixin() implements O
             break;
           }
         }
-        this.actionMenuService.resetAction();
       }
     });
   }
@@ -145,9 +147,16 @@ export class AdjectivesComponent extends subscribedContainerMixin() implements O
     this.setPage(url);
   }
 
+  private resetServices(): void {
+    this.actionMenuService.resetAction();
+    this.adjectiveListService.setRowdata(null);
+    this.sideMenuService.setSelection(null);
+  }
+
   // rechercher un adjectif
   public searchAdjective(translation: string): void {
     if (/^[a-z]+$/.test(translation)) {
+      this.resetServices();
       this.redirect('/adjectives/consult/' + translation);
     }
   }
@@ -178,9 +187,6 @@ export class AdjectivesComponent extends subscribedContainerMixin() implements O
 
   private setPage(url: string): void {
     const urlArray = url.split('/');
-
-    console.log(url);
-
     // url = /adjectives
     if (urlArray.length === 2 && urlArray[1] === Const.adjectives) {
       this.page = 'intro';

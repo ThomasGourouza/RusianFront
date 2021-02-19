@@ -85,7 +85,7 @@
     </div>
 
     <div class="col-3">
-        <app-action-menu *ngIf="(page === 'consult' && selectedRow) || page === 'check' || page === 'not-found'">
+        <app-action-menu *ngIf="(page === 'consult' && !!selectedRow) || page === 'check' || page === 'not-found'">
         </app-action-menu>
     </div>
 </div>

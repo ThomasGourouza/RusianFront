@@ -42,6 +42,7 @@ export class AdjectiveListComponent implements OnInit {
         }
       }
     );
+    this.onRowUnselect();
   }
 
   private initData(adjectives: Array<Adjective>): void {
