@@ -5,9 +5,9 @@ import * as _ from 'lodash';
   name: 'sort',
 })
 export class SortPipe implements PipeTransform {
-  transform(value: Array<unknown>, reverse: boolean): Array<unknown> {
+  transform(value: Array<unknown>, key: string): Array<unknown> {
     if (!value) return [];
-    const sortedList = _.sortBy(value, ['value']);
-    return reverse ? sortedList.reverse() : sortedList;
+    const sortedList = _.sortBy(value, [key]);
+    return sortedList;
   }
 }

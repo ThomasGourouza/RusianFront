@@ -20,7 +20,7 @@ export class NavComponent implements OnInit {
     public translate: TranslateService,
     private router: Router
   ) {
-    translate.addLangs(['en', 'fr', 'es']);
+    translate.addLangs(['fr', 'en', 'es']);
     translate.setDefaultLang('fr');
     translate.use('fr');
     const browserLang = translate.getBrowserLang();

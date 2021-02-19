@@ -1,10 +1,10 @@
 <br>
 <div class="card">
-    <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="5" selectionMode="single"
-        [(selection)]="rowSelected" dataKey="id" (onRowSelect)="onRowSelect()" (onRowUnselect)="onRowUnselect()">
+    <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="5" sortMode="multiple" selectionMode="single"
+        dataKey="id" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect()">
         <ng-template pTemplate="header" let-columns>
             <tr>
-                <th *ngFor="let col of columns" [pSortableColumn]="col">
+                <th *ngFor="let col of columns" [pSortableColumn]="col" [title]="translateTitle()">
                     <div class="d-flex justify-content-center">
                         {{ 'adjectives.adjectives.' + col | translate }} <p-sortIcon [field]="col"></p-sortIcon>
                     </div>

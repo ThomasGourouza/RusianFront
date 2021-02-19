@@ -1,82 +1,91 @@
 <br>
 <div class="row">
     <div class="col-3">
-        <app-side-adjectives *ngIf="masculineNominative" [masculineNominative]="masculineNominative"
-            (openPage)="onOpenPage($event)">
+        <app-side-adjectives>
         </app-side-adjectives>
     </div>
+
     <div class="col">
         <section>
-            <div class="d-flex align-items-center justify-content-center" id="u">
+            <div class="d-flex align-items-center justify-content-center" *ngIf="_adjectiveCategories.length > 0"
+                [ngSwitch]="page">
                 <!-- accueil adjectifs -->
-                <div class="row" *ngIf="!page.show;else show_page">
+                <div *ngSwitchCase="'intro'">
                     <h3>
                         {{ 'adjectives.text' | translate }}
                     </h3>
                 </div>
-                <!-- voir les déclinaisons -->
-                <ng-template #show_page>
-                    <span *ngIf="masculineNominative" [ngSwitch]="page.type">
-                        <div *ngSwitchCase=1>
-                            <h2 class="d-flex align-items-center justify-content-center">
-                                {{ 'adjectives.declension.first' | translate }}{{ masculineNominative.first }}
-                            </h2>
-                            <app-declension-category [adjectiveCategory]="getAdjectiveCategory(1)">
-                            </app-declension-category>
-                        </div>
-                        <div *ngSwitchCase=2>
-                            <h2 class="d-flex align-items-center justify-content-center">
-                                {{ 'adjectives.declension.second' | translate }}{{ masculineNominative.second }}
-                            </h2>
-                            <app-declension-category [adjectiveCategory]="getAdjectiveCategory(2)">
-                            </app-declension-category>
-                        </div>
-                        <div *ngSwitchCase=3>
-                            <h2 class="d-flex align-items-center justify-content-center">
-                                {{ 'adjectives.declension.third' | translate }}{{ masculineNominative.third }}
-                            </h2>
-                            <app-declension-category [adjectiveCategory]="getAdjectiveCategory(3)">
-                            </app-declension-category>
-                        </div>
-                        <div *ngSwitchCase=4>
-                            <h2 class="d-flex align-items-center justify-content-center">
-                                {{ 'adjectives.declension.fourth' | translate }}{{ masculineNominative.fourth }}
-                            </h2>
-                            <app-declension-category [adjectiveCategory]="getAdjectiveCategory(4)">
-                            </app-declension-category>
-                        </div>
-                        <div *ngSwitchCase=5>
-                            <div *ngIf="!openAdjDeclension;else show_declension">
-                                <h2 class="d-flex align-items-center justify-content-center">
-                                    {{ 'adjectives.adjectives.consult' | translate }}
-                                </h2>
-                                <app-adjective-list (openActionMenu)="onOpenActionMenu($event)"></app-adjective-list>
-                            </div>
-                            <ng-template #show_declension>
+                <div *ngSwitchCase="'first-declension'">
+                    <h2 class="d-flex align-items-center justify-content-center">
+                        {{ 'adjectives.declension.first' | translate }}
+                    </h2>
+                    <app-declension-category [adjectiveCategory]="getAdjectiveCategory(1)">
+                    </app-declension-category>
+                </div>
+                <div *ngSwitchCase="'second-declension'">
+                    <h2 class="d-flex align-items-center justify-content-center">
+                        {{ 'adjectives.declension.second' | translate }}
+                    </h2>
+                    <app-declension-category [adjectiveCategory]="getAdjectiveCategory(2)">
+                    </app-declension-category>
+                </div>
+                <div *ngSwitchCase="'third-declension'">
+                    <h2 class="d-flex align-items-center justify-content-center">
+                        {{ 'adjectives.declension.third' | translate }}
+                    </h2>
+                    <app-declension-category [adjectiveCategory]="getAdjectiveCategory(3)">
+                    </app-declension-category>
+                </div>
+                <div *ngSwitchCase="'fourth-declension'">
+                    <h2 class="d-flex align-items-center justify-content-center">
+                        {{ 'adjectives.declension.fourth' | translate }}
+                    </h2>
+                    <app-declension-category [adjectiveCategory]="getAdjectiveCategory(4)">
+                    </app-declension-category>
+                </div>
+                <div *ngSwitchCase="'consult'">
 
-                                <h3 *ngIf="actionMenu.rowData" class="d-flex justify-content-center">
-                                    {{ actionMenu.rowData.adjective }} : {{ actionMenu.rowData.translation }} 
-                                </h3>
-                                <app-declension-category *ngIf="adjectiveCategory" [adjectiveCategory]="adjectiveCategory">
-                                </app-declension-category>
-                                <br>
+                    <h2 class="d-flex align-items-center justify-content-center">
+                        {{ 'adjectives.adjectives.consult' | translate }}
+                    </h2>
+                    <app-adjective-list></app-adjective-list>
 
-                            </ng-template>
-                        </div>
-                        <div *ngSwitchCase=6>
-                            <h2 class="d-flex align-items-center justify-content-center">
-                                {{ 'adjectives.adjectives.add' | translate }}
-                            </h2>
-                            <app-add-adjective></app-add-adjective>
-                        </div>
-                    </span>
-                </ng-template>
+                    <div class="d-flex justify-content-center align-items-start">
+                        <span class="p-float-label">
+                            <input id="search" type="text" pInputText [(ngModel)]="translation">
+                            <label for="search">{{ 'adjectives.adjectives.search' | translate
+                                }}</label>
+                        </span>
+                        &nbsp;
+                        <button pButton type="button" class="p-button-outlined p-button-raised p-button-rounded"
+                            icon="pi pi-search" (click)="searchAdjective(translation)"></button>
+                    </div>
+                </div>
+                <div *ngSwitchCase="'check'">
+                    <h3 class="d-flex justify-content-center">
+                        {{ selectedRow?.adjective }}
+                    </h3>
+                    <app-declension-category [adjectiveCategory]="adjectiveCategory">
+                    </app-declension-category>
+                    <br>
+                </div>
+                <div *ngSwitchCase="'not-found'">
+                    <app-adjective-not-found>
+                    </app-adjective-not-found>
+                    <br>
+                </div>
+                <div *ngSwitchCase="'add'">
+                    <h2 class="d-flex align-items-center justify-content-center">
+                        {{ 'adjectives.adjectives.add' | translate }}
+                    </h2>
+                    <app-add-adjective></app-add-adjective>
+                </div>
             </div>
         </section>
     </div>
+
     <div class="col-3">
-        <app-action-menu *ngIf="actionMenu.show" [actionMenu]="actionMenu"
-            (openAdjDeclension)="onOpenAdjDeclension($event)">
+        <app-action-menu *ngIf="(page === 'consult' && !!selectedRow) || page === 'check' || page === 'not-found'">
         </app-action-menu>
     </div>
 </div>

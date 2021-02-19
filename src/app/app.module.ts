@@ -13,10 +13,14 @@ import { WelcomeComponent } from './views/welcome/welcome.component';
 import { NotfoundComponent } from './views/notfound/notfound.component';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { MegaMenuModule } from 'primeng/megamenu';
-import { TieredMenuModule } from 'primeng/tieredmenu';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { MenuModule } from 'primeng/menu';
+import { TreeModule } from 'primeng/tree';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 import { AccountComponent } from './views/player/account/account.component';
 import { TrainingComponent } from './views/russian/training/training.component';
 import { SideAdjectivesComponent } from './views/russian/adjectives/side-adjectives/side-adjectives.component';
@@ -38,10 +42,14 @@ import { AdjectiveApi } from './services/api/adjective.api';
 import { AdjectiveService } from './services/adjective.service';
 import { NounApi } from './services/api/noun.api';
 import { NounService } from './services/noun.service';
-import { DeclensionCategoryComponent } from './views/russian/adjectives/declension-category/declension-category.component';
-import { AdjectiveListComponent } from './views/russian/adjectives/adjective-list/adjective-list.component';
-import { AddAdjectiveComponent } from './views/russian/adjectives/add-adjective/add-adjective.component';
+import { DeclensionCategoryComponent } from './views/russian/adjectives/core/declension-category/declension-category.component';
+import { AdjectiveListComponent } from './views/russian/adjectives/core/adjective-list/adjective-list.component';
+import { AddAdjectiveComponent } from './views/russian/adjectives/core/add-adjective/add-adjective.component';
 import { ActionMenuComponent } from './views/russian/adjectives/action-menu/action-menu.component';
+import { AdjectiveNotFoundComponent } from './views/russian/adjectives/core/adjective-not-found/adjective-not-found.component';
+import { SideMenuService } from './services/side-menu.service';
+import { ActionMenuService } from './services/action-menu.service';
+import { AdjectiveListService } from './services/adjective-list.service';
 
 @NgModule({
   declarations: [
@@ -61,7 +69,8 @@ import { ActionMenuComponent } from './views/russian/adjectives/action-menu/acti
     DeclensionCategoryComponent,
     AdjectiveListComponent,
     AddAdjectiveComponent,
-    ActionMenuComponent
+    ActionMenuComponent,
+    AdjectiveNotFoundComponent
   ],
   imports: [
     CommonModule,
@@ -81,9 +90,12 @@ import { ActionMenuComponent } from './views/russian/adjectives/action-menu/acti
     }),
     TabMenuModule,
     MegaMenuModule,
-    TieredMenuModule,
     TableModule,
-    MenuModule
+    MenuModule,
+    InputTextModule,
+    TreeModule,
+    ButtonModule,
+    ConfirmDialogModule
   ],
   providers: [
     Utils,
@@ -97,7 +109,11 @@ import { ActionMenuComponent } from './views/russian/adjectives/action-menu/acti
     AdjectiveApi,
     AdjectiveService,
     NounApi,
-    NounService
+    NounService,
+    ConfirmationService,
+    SideMenuService,
+    ActionMenuService,
+    AdjectiveListService
   ],
   bootstrap: [AppComponent]
 })

@@ -11,7 +11,6 @@ import { WelcomeComponent } from '../views/welcome/welcome.component';
 import { AdjectivesComponent } from '../views/russian/adjectives/adjectives.component';
 import { NounsComponent } from '../views/russian/nouns/nouns.component';
 
-
 const routes: Routes = [
   { path: 'welcome', component: WelcomeComponent },
   { path: '', redirectTo: '/welcome', pathMatch: 'full' },

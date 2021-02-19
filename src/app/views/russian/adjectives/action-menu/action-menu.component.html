@@ -1,5 +1,12 @@
-<div *ngIf="actualise()"></div>
 <br>
 <div class="d-flex justify-content-center">
-    <p-menu [model]="items"></p-menu>
+    <p-menu [model]="actionMenu"></p-menu>
+
+    <p-confirmDialog #cd [header]="getTranslated('confirmation')" icon="pi pi-trash">
+        <p-footer>
+            <button type="button" pButton icon="pi pi-times" [label]="getTranslated('no')" (click)="cd.reject()"></button>
+            <button type="button" pButton icon="pi pi-check" [label]="getTranslated('yes')" (click)="cd.accept()"></button>
+        </p-footer>
+    </p-confirmDialog>
+
 </div>

@@ -3,15 +3,17 @@
         "menu": {
             "home": "Accueil",
             "account": "Mon compte",
+            "history": "Historique",
+            "stat": "Statistiques",
             "adjective": "Les Adjectifs",
             "noun": "Les noms",
             "training": "Entraînement",
-            "language": "Langue de l'application",
             "github": "GitHub",
             "login": "Connexion",
             "logout": "Déconnexion"
         },
         "language": {
+            "language": "Langue",
             "fr": "Français",
             "en": "English",
             "es": "Español"
@@ -63,10 +65,10 @@
     "adjectives": {
         "text": "Il existe quatre déclinaisons d'adjectifs en russe.",
         "declension": {
-            "first": "Première déclinaison",
-            "second": "Deuxième déclinaison",
-            "third": "Troisième déclinaison",
-            "fourth": "Quatrième déclinaison"
+            "first": "Première déclinaison (-ый)",
+            "second": "Deuxième déclinaison (-ой)",
+            "third": "Troisième déclinaison (-ий)",
+            "fourth": "Quatrième déclinaison (-ний)"
         },
         "adjectives": {
             "consult": "Liste des adjectifs",
@@ -77,14 +79,27 @@
             "open": "Ouvrir",
             "back": "Retour",
             "delete": "Supprimer",
-            "update": "Modifier"
+            "update": "Modifier",
+            "title": "Cliquer pour trier. Utiliser la touche 'Ctrl' pour trier sur plusieurs colonnes.",
+            "search": "Chercher un adjectif"
+        },
+        "action": {
+            "open": "Ouvrir",
+            "back": "Retour",
+            "delete": "Supprimer",
+            "update": "Modifier",
+            "confirmation": "Confirmation",
+            "message": "Êtes-vous sûr de vouloir supprimer cet adjectif ?",
+            "no": "Non",
+            "yes": "Oui"
         },
         "side": {
+            "intro": "Présentation",
             "declension": "Déclinaisons",
-            "first": "Première",
-            "second": "Deuxième",
-            "third": "Troisième",
-            "fourth": "Quatrième",
+            "first": "Première (-ый)",
+            "second": "Deuxième (-ой)",
+            "third": "Troisième (-ий)",
+            "fourth": "Quatrième (-ний)",
             "close": "Fermer",
             "adjectives": "Adjectifs",
             "consult": "Consulter",

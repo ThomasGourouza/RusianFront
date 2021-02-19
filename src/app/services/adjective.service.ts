@@ -48,13 +48,11 @@ export class AdjectiveService extends subscribedContainerMixin() {
 
   public fetchAdjectives() {
     this.adjectiveApi.getAdjectives()
-      .pipe(
-        takeUntil(
-          this.destroyed$
-        )
-      ).subscribe((adjectives: Array<Adjective>) => {
+      .toPromise()
+      .then((adjectives: Array<Adjective>) => {
         this._adjectiveList$.next(adjectives);
-      }, (error: HttpErrorResponse) => {
+      })
+      .catch((error: HttpErrorResponse) => {
         this.toastr.error(
           this.translate.instant(
             error.status === 404 ? 'toastr.error.message.getAdjective' : 'toastr.error.message.basic'
@@ -68,19 +66,16 @@ export class AdjectiveService extends subscribedContainerMixin() {
     this.adjectiveApi.getAdjectiveByTranslation(
       new AdjTranslationParam(englishTranslation)
     )
-      .pipe(
-        takeUntil(
-          this.destroyed$
-        )
-      ).subscribe((adjectives: Array<Adjective>) => {
+      .toPromise()
+      .then((adjectives: Array<Adjective>) => {
         this._adjective$.next(adjectives[0]);
-      }, (error: HttpErrorResponse) => {
-        this.toastr.error(
-          this.translate.instant(
-            error.status === 404 ? 'toastr.error.message.getAdjective' : 'toastr.error.message.basic'
-          ),
-          this.translate.instant('toastr.error.title')
-        );
+      })
+      .catch((error: HttpErrorResponse) => {
+        if (error.status === 404) {
+          this._adjective$.next({});
+        } else {
+          this.toastr.error(this.translate.instant('toastr.error.message.basic'), this.translate.instant('toastr.error.title'));
+        }
       });
   }
 
@@ -152,9 +147,8 @@ export class AdjectiveService extends subscribedContainerMixin() {
         takeUntil(
           this.destroyed$
         )
-      ).subscribe((response: any) => {
-        console.log(response);
-        this.clearAdjective();
+      ).subscribe(() => {
+        this.fetchAdjectives();
         this.toastr.success(
           this.translate.instant('toastr.success.message.deleteAdjective'),
           this.translate.instant('toastr.success.title')

@@ -28,12 +28,12 @@ const f = 'feminine';
 const n = 'neuter';
 const p = 'plural';
 
-
 @Component({
   selector: 'app-declension-category',
   templateUrl: './declension-category.component.html',
   styleUrls: ['./declension-category.component.scss']
 })
+// url: adjectives/:category or adjectives/consult/:adjective
 export class DeclensionCategoryComponent implements OnInit {
 
   @Input()

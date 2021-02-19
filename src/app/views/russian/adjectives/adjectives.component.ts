@@ -1,219 +1,163 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { Adjective } from 'src/app/models/adjective/get/adjective.model';
 import { AdjectiveCategory } from 'src/app/models/reference/russian/adjective-category.model';
 import { AdjectiveEnding } from 'src/app/models/reference/russian/adjective-ending.model';
 import { AdjectiveService } from 'src/app/services/adjective.service';
 import { RussianReferenceService } from 'src/app/services/russian-reference.service';
-import { RowData } from './adjective-list/adjective-list.component';
-export interface PAGE {
-  show: boolean;
-  type: number
-}
-export interface MN {
-  first: string;
-  second: string;
-  third: string;
-  fourth: string;
-}
-export interface ActionMenu {
-  show: boolean;
-  rowData: RowData;
-}
-const ADJ = 'adjectives';
-const NF = 'not-found'
-const N = 'Nominative';
-const G = 'Genitive';
-const NG = 'N/G';
-const M = 'Masculine';
-const C = 'category';
-const A = 'adjective';
-const FIRST = 'first-declension';
-const SECOND = 'second-declension';
-const THIRD = 'third-declension';
-const FOURTH = 'fourth-declension';
-const CONSULT = 'consult';
-const ADD = 'add';
+import { SideMenuService } from 'src/app/services/side-menu.service';
+import { ActionMenuService } from 'src/app/services/action-menu.service';
+import { Const } from 'src/app/services/utils/const';
+import { subscribedContainerMixin } from 'src/app/subscribed-container.mixin';
+import { takeUntil } from 'rxjs/operators';
+import { AdjectiveListService, RowData } from 'src/app/services/adjective-list.service';
 
 @Component({
   selector: 'app-adjectives',
   templateUrl: './adjectives.component.html',
   styleUrls: ['./adjectives.component.scss']
 })
-export class AdjectivesComponent implements OnInit {
+/**
+ * urls:
+ * /adjectives
+ * /adjectives/:category
+ * /adjectives/consult/:adjective
+ * /adjectives/not-found/:adjective
+ */
+export class AdjectivesComponent extends subscribedContainerMixin() implements OnInit {
 
-  public page: PAGE;
-  public masculineNominative: MN;
   public _adjectiveCategories: Array<AdjectiveCategory>;
-
-  public actionMenu: ActionMenu;
-
-  public openAdjDeclension: boolean;
-
   public adjectiveCategory: AdjectiveCategory;
+  public translation: string;
+  public selectedRow: RowData;
+  public page: string;
+  public action: string;
 
   constructor(
+    private sideMenuService: SideMenuService,
+    private actionMenuService: ActionMenuService,
+    public translate: TranslateService,
     private adjectiveService: AdjectiveService,
     private russianReferenceService: RussianReferenceService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-  ) { }
+    private adjectiveListService: AdjectiveListService
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
-    this.openAdjDeclension = false;
-    this.actionMenuInit();
-    this.page = {
-      show: false,
-      type: 0
-    };
-    const category = this.activatedRoute.snapshot.params[C];
-    if (category) {
-      this.page.show = [FIRST, SECOND, THIRD, FOURTH, CONSULT, ADD].includes(category);
-      switch (category) {
-        case FIRST: {
-          this.page.type = 1;
-          break;
-        }
-        case SECOND: {
-          this.page.type = 2;
-          break;
-        }
-        case THIRD: {
-          this.page.type = 3;
-          break;
-        }
-        case FOURTH: {
-          this.page.type = 4;
-          break;
-        }
-        case CONSULT: {
-          this.page.type = 5;
-          break;
-        }
-        case ADD: {
-          this.page.type = 6;
-          break;
-        }
-        default: {
-          this.router.navigate([NF]);
-        }
-      }
-    }
+    // this.isAdjectiveDetail = this.activatedRoute.snapshot.params[Const.adjective];
 
-    const adjective = this.activatedRoute.snapshot.params[A];
-    if (adjective) {
+    this.initMenus();
 
-      this.adjectiveService.fetchAdjectiveByTranslation(adjective);
-      this.adjectiveService.adjective$.subscribe(
-        (adj: Adjective) => {
-          if (adj.id) {
-            const root = adj.root;
-            this.adjectiveCategory = new AdjectiveCategory(
-              adj.category.id,
-              adj.category.value,
-              this.mapEndings(root, adj.category.endings)
-            );
-            this.page.show = true;
-            this.page.type = 5;
-            this.actionMenu = {
-              show: true,
-              rowData: {
-                adjective: adj.nominativeMasculineForm,
-                translation: adj.translation,
-                declension: adj.category.id,
-                id: adj.id
-              }
-            };
-            this.openAdjDeclension = true;
-          }
-        }
-      );
-    }
-
+    // récupération des références
     this.russianReferenceService.adjectiveCategories$
       .subscribe((adjectiveCategories: Array<AdjectiveCategory>) => {
         this._adjectiveCategories = adjectiveCategories;
-        if (this._adjectiveCategories && this._adjectiveCategories.length > 0) {
-          this.masculineNominative = {
-            first: ' (-' + this.getMasculineNominative(this.getAdjectiveCategory(1)) + ')',
-            second: ' (-' + this.getMasculineNominative(this.getAdjectiveCategory(2)) + ')',
-            third: ' (-' + this.getMasculineNominative(this.getAdjectiveCategory(3)) + ')',
-            fourth: ' (-н' + this.getMasculineNominative(this.getAdjectiveCategory(4)) + ')',
-          }
-        }
       });
-  }
 
-  private actionMenuInit(): void {
-    this.actionMenu = {
-      show: false,
-      rowData: null
-    };
-  }
+    // setter de this.page au chargement de la page
+    this.setPage(this.router.url);
 
-  public onOpenPage(p: PAGE): void {
-    this.page = p;
-    if (this.page.type !== 5) {
-      this.actionMenuInit();
-      this.openAdjDeclension = false;
-    }
-    if (!this.page.show) {
-      this.router.navigate([ADJ]);
-    } else {
-      switch (this.page.type) {
-        case 1: {
-          this.router.navigate([ADJ + '/' + FIRST]);
-          break;
-        }
-        case 2: {
-          this.router.navigate([ADJ + '/' + SECOND]);
-          break;
-        }
-        case 3: {
-          this.router.navigate([ADJ + '/' + THIRD]);
-          break;
-        }
-        case 4: {
-          this.router.navigate([ADJ + '/' + FOURTH]);
-          break;
-        }
-        case 5: {
-          this.router.navigate([ADJ + '/' + CONSULT]);
-          break;
-        }
-        case 6: {
-          this.router.navigate([ADJ + '/' + ADD]);
-          break;
+    // update la langue à chaque changement
+    this.translate.onLangChange.subscribe(() => {
+      this.initMenus();
+    });
+
+    // emetter du service sideMenu (gauche)
+    this.sideMenuService.selection$.pipe(
+      takeUntil(
+        this.destroyed$
+      )
+    ).subscribe((selection: string) => {
+      if (selection) {
+        if (selection === Const.intro) {
+          this.redirect('/' + Const.adjectives);
+        } else {
+          this.redirect('/' + Const.adjectives + '/' + selection);
         }
       }
-    }
-  }
+    });
 
-  public onOpenActionMenu(actionMenu: ActionMenu): void {
-    this.actionMenu = actionMenu;
-    if (this.actionMenu.rowData != null) {
-      this.adjectiveService.adjectiveList$.subscribe(
-        (adjectives) => {
-          const adjective = adjectives
-            .find((adj) => adj.id === actionMenu.rowData.id);
-          const root = adjective.root;
-          this.adjectiveCategory = new AdjectiveCategory(
-            adjective.category.id,
-            adjective.category.value,
-            this.mapEndings(root, adjective.category.endings)
-          );
+    // emetter de adjective list
+    this.adjectiveListService.rowData$.pipe(
+      takeUntil(
+        this.destroyed$
+      )
+    ).subscribe((selectedRow: RowData) => {
+      this.selectedRow = selectedRow;
+    });
+
+    // emetter du service actionMenu (droite)
+    this.actionMenuService.action$.pipe(
+      takeUntil(
+        this.destroyed$
+      )
+    ).subscribe((action: string) => {
+      if (action) {
+        this.action = action
+        // mise à jour du menu de droite
+        switch (action) {
+          case Const.open: {
+            const translation = this.selectedRow?.translation;
+            this.actionMenuService.setMenu(translation, false);
+            this.redirect('/adjectives/consult/' + translation);
+            break;
+          }
+          case Const.close: {
+            // déselection de la row
+            this.adjectiveListService.setRowdata(null);
+            // mise à jour du menu
+            this.actionMenuService.setMenu('', true);
+            this.redirect('/adjectives/consult');
+            break;
+          }
+          case Const.delete: {
+            this.redirect('/adjectives/consult');
+            // this.menusInit();
+            break;
+          }
+          case Const.update: {
+            console.log(Const.update);
+            this.redirect('/adjectives/consult');
+            break;
+          }
         }
-      );
-    }
+      }
+    });
   }
 
-  public onOpenAdjDeclension(openAdjDeclension: boolean): void {
-    this.openAdjDeclension = openAdjDeclension;
-    if (!this.openAdjDeclension) {
-      this.actionMenuInit();
-      this.router.navigate(['/adjectives/consult']);
-    } else {
-      this.router.navigate(['/adjectives/consult/' + this.actionMenu.rowData.translation]);
+  private initMenus(): void {
+    const category = this.activatedRoute.snapshot.params[Const.category];
+    const adjective = this.activatedRoute.snapshot.params[Const.adjective];
+    const declensionExpanded = category && ![Const.consult, Const.add].includes(category);
+    const adjectiveExpanded = adjective || [Const.consult, Const.add].includes(category);
+
+    // mise à jour du menu de gauche
+    this.sideMenuService.setMenu(declensionExpanded, adjectiveExpanded);
+    // mise à jour du menu de droite
+    this.actionMenuService.setMenu(adjective, !adjective);
+  }
+
+  // redirection en modifiant la valeur de this.page
+  private redirect(url: string): void {
+    this.router.navigate([url]);
+    this.setPage(url);
+  }
+
+  private resetServices(): void {
+    this.actionMenuService.resetAction();
+    this.adjectiveListService.setRowdata(null);
+    this.sideMenuService.setSelection(null);
+  }
+
+  // rechercher un adjectif
+  public searchAdjective(translation: string): void {
+    if (/^[a-z]+$/.test(translation)) {
+      this.resetServices();
+      this.redirect('/adjectives/consult/' + translation);
     }
   }
 
@@ -221,18 +165,12 @@ export class AdjectivesComponent implements OnInit {
     return this._adjectiveCategories.find((category) => category.id === id);
   }
 
-  public getMasculineNominative(category: AdjectiveCategory): string {
-    return category.endings
-      .find((ending) => ending.russianCase === N && ending.russianGender === M)
-      .value;
-  }
-
   private mapEndings(root: string, endings: Array<AdjectiveEnding>): Array<AdjectiveEnding> {
     return endings.map((ending) =>
       new AdjectiveEnding(
         ending.russianCase,
         ending.russianGender,
-        (ending.value != NG) ? root + ending.value : this.nomOrGen(root, ending.russianGender, endings)
+        (ending.value != Const.NG) ? root + ending.value : this.nomOrGen(root, ending.russianGender, endings)
       )
     );
   }
@@ -241,10 +179,54 @@ export class AdjectivesComponent implements OnInit {
     const filteredEndings = endings.filter((ending) =>
       ending.russianGender === gender
     );
-    const nom = filteredEndings.find((filteredEnding) => filteredEnding.russianCase === N).value;
-    const gen = filteredEndings.find((filteredEnding) => filteredEnding.russianCase === G).value;
+    const nom = filteredEndings.find((filteredEnding) => filteredEnding.russianCase === Const.N).value;
+    const gen = filteredEndings.find((filteredEnding) => filteredEnding.russianCase === Const.G).value;
 
     return root + nom + ' / ' + root + gen;
+  }
+
+  private setPage(url: string): void {
+    const urlArray = url.split('/');
+    // url = /adjectives
+    if (urlArray.length === 2 && urlArray[1] === Const.adjectives) {
+      this.page = 'intro';
+    }
+    // url = /adjectives/:category
+    if (urlArray.length === 3) {
+      if ([Const.first, Const.second, Const.third, Const.fourth, Const.consult, Const.add].includes(urlArray[2])) {
+        this.page = urlArray[2];
+      } else {
+        // si la valeur de :category n'existe pas
+        this.router.navigate([Const.NF]);
+        this.page = Const.NF;
+      }
+    }
+    // url = adjectives/consult/:adjective
+    if (urlArray.length === 4) {
+      const adjective = urlArray[3];
+      this.adjectiveService.fetchAdjectiveByTranslation(adjective);
+      this.adjectiveService.adjective$.subscribe(
+        (adj: Adjective) => {
+          if (adj.id) {
+            this.page = 'check';
+            const root = adj.root;
+            this.adjectiveCategory = new AdjectiveCategory(
+              adj.category.id,
+              adj.category.value,
+              this.mapEndings(root, adj.category.endings)
+            );
+            this.selectedRow = {
+              adjective: adj.nominativeMasculineForm,
+              translation: adj.translation,
+              declension: adj.category.id,
+              id: adj.id
+            }
+          } else {
+            this.page = Const.NF;
+          }
+        }
+      );
+    }
   }
 
 }

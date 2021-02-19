@@ -3,15 +3,17 @@
         "menu": {
             "home": "Welcome",
             "account": "My account",
+            "history": "History",
+            "stat": "Statistiques",
             "adjective": "Adjectives",
             "noun": "Nouns",
             "training": "Training",
-            "language": "Language of the application",
             "github": "GitHub",
             "login": "Log in",
             "logout": "Log out"
         },
         "language": {
+            "language": "Language",
             "fr": "Français",
             "en": "English",
             "es": "Español"
@@ -63,10 +65,10 @@
     "adjectives": {
         "text": "There are four declensions of adjectives in russian.",
         "declension": {
-            "first": "First declension",
-            "second": "Second declension",
-            "third": "Third declension",
-            "fourth": "Fourth declension"
+            "first": "First declension (-ый)",
+            "second": "Second declension (-ой)",
+            "third": "Third declension (-ий)",
+            "fourth": "Fourth declension (-ний)"
         },
         "adjectives": {
             "consult": "List of adjectives",
@@ -77,14 +79,27 @@
             "open": "Open",
             "back": "Back",
             "delete": "Delete",
-            "update": "Update"
+            "update": "Update",
+            "title": "Click to sort. Use 'Ctrl' key to sort by multiple columns.",
+            "search": "Search an adjective"
+        },
+        "action": {
+            "open": "Open",
+            "back": "Back",
+            "delete": "Delete",
+            "update": "Update",
+            "confirmation": "Confirmation",
+            "message": "Are you sure you want to delete this adjective ?",
+            "no": "No",
+            "yes": "Yes"
         },
         "side": {
+            "intro": "Intro",
             "declension": "Declensions",
-            "first": "First",
-            "second": "Second",
-            "third": "Third",
-            "fourth": "Fourth",
+            "first": "First (-ый)",
+            "second": "Second (-ой)",
+            "third": "Third (-ий)",
+            "fourth": "Fourth (-ний)",
             "close": "Close",
             "adjectives": "Adjectives",
             "consult": "Consult",

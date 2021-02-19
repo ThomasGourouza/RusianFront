@@ -1,97 +1,44 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
-import { ActionMenu } from '../adjectives.component';
+import { takeUntil } from 'rxjs/operators';
+import { ActionMenuService } from 'src/app/services/action-menu.service';
+import { subscribedContainerMixin } from 'src/app/subscribed-container.mixin';
+// 'open', 'delete' or 'update'
 export interface Action {
-  label: string;
-  icon: string;
-  isOpen: boolean;
+  name: string;
+  value: boolean;
 }
-const A = 'adjective';
 
 @Component({
   selector: 'app-action-menu',
   templateUrl: './action-menu.component.html',
   styleUrls: ['./action-menu.component.scss']
 })
-export class ActionMenuComponent implements OnInit {
+export class ActionMenuComponent extends subscribedContainerMixin() implements OnInit {
 
-  @Input()
-  public actionMenu: ActionMenu;
-  @Output()
-  public openAdjDeclension: EventEmitter<boolean> = new EventEmitter();
-
-  public langue: string;
-  public adjective: string;
-
-  public items: Array<MenuItem>;
-
-  private action: Action;
+  public actionMenu: Array<MenuItem>;
 
   constructor(
-    public translate: TranslateService,
-    private activatedRoute: ActivatedRoute
-  ) {}
+    private actionMenuService: ActionMenuService,
+    public translate: TranslateService
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
-    this.action = this.actionOpen(!this.activatedRoute.snapshot.params[A]);
-    this.refresh(this.action);
+    this.actionMenuService.menu$.pipe(
+      takeUntil(
+        this.destroyed$
+      )
+    ).subscribe((menu: Array<MenuItem>) =>
+      this.actionMenu = menu
+    );
+
   }
 
-  public actionOpen(value: boolean): Action {
-    return value ?
-      {
-        label: this.translate.instant('adjectives.adjectives.open'),
-        icon: 'pi pi-fw pi-arrow-right',
-        isOpen: false
-      } : {
-        label: this.translate.instant('adjectives.adjectives.back'),
-        icon: 'pi pi-fw pi-arrow-left',
-        isOpen: true
-      };
-  }
-
-  public refresh(action: Action): void {
-    this.langue = this.translate.currentLang;
-    this.adjective = this.actionMenu.rowData.adjective;
-    this.items = [{
-      label: this.adjective,
-      items: [
-        {
-          label: action.label,
-          icon: action.icon,
-          command: () => {
-            this.action = action.isOpen ? this.actionOpen(true) : this.actionOpen(false);
-            this.openAdjDeclension.emit(this.action.isOpen);
-            this.refresh(this.action);
-          }
-        },
-        {
-          label: this.translate.instant('adjectives.adjectives.delete'),
-          icon: 'pi pi-fw pi-trash',
-          command: () => {
-            console.log('delete');
-          }
-        },
-        {
-          label: this.translate.instant('adjectives.adjectives.update'),
-          icon: 'pi pi-fw pi-refresh',
-          command: () => {
-            console.log('update');
-          }
-        }
-      ]
-    }];
-  }
-
-  public actualise(): boolean {
-    if (this.langue !== this.translate.currentLang
-      || this.adjective !== this.actionMenu.rowData.adjective) {
-      this.action = this.actionOpen(!this.action.isOpen);
-      this.refresh(this.action);
-    }
-    return true;
+  public getTranslated(word: string): string {
+    return this.translate.instant('adjectives.action.' + word);
   }
 
 }

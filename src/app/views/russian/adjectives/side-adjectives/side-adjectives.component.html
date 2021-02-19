@@ -1,3 +1,5 @@
 <br>
-<div *ngIf="actualise()"></div>
-<p-tieredMenu [model]="items"></p-tieredMenu>
+<div class="col-11">
+    <p-tree [value]="sideMenu" selectionMode="single" (onNodeSelect)="select($event)">
+    </p-tree>
+</div>
