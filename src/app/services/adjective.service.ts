@@ -66,11 +66,13 @@ export class AdjectiveService extends subscribedContainerMixin() {
     this.adjectiveApi.getAdjectiveByTranslation(
       new AdjTranslationParam(englishTranslation)
     )
-      .toPromise()
-      .then((adjectives: Array<Adjective>) => {
+      .pipe(
+        takeUntil(
+          this.destroyed$
+        )
+      ).subscribe((adjectives: Array<Adjective>) => {
         this._adjective$.next(adjectives[0]);
-      })
-      .catch((error: HttpErrorResponse) => {
+      }, (error: HttpErrorResponse) => {
         if (error.status === 404) {
           this._adjective$.next({});
         } else {

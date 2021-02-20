@@ -125,7 +125,7 @@ export class CreatePlayerComponent extends subscribedContainerMixin() implements
       takeUntil(this.destroyed$)
     ).subscribe((player: Player) => {
       if (player.login === this.userForm.value['login']) {
-        this.router.navigate(['/account']);
+        this.router.navigateByUrl('/account');
       }
     });
 

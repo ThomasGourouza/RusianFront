@@ -53,10 +53,10 @@ export class LanguageFormComponent extends subscribedContainerMixin() implements
   public onSignInOut(): void {
     if (this.isAuth()) {
       this.authService.isAuth = false;
-      this.router.navigate(['/welcome']);
+      this.router.navigateByUrl('/welcome');
       this.playerService.logout();
     } else {
-      this.router.navigate(['/authentification']);
+      this.router.navigateByUrl('/authentification');
     }
   }
 
@@ -111,17 +111,17 @@ export class LanguageFormComponent extends subscribedContainerMixin() implements
         {
           label: this.translate.instant('navbar.menu.account'),
           icon: 'pi pi-fw pi-id-card',
-          command: () => this.router.navigate(['/account'])
+          command: () => this.router.navigateByUrl('/account')
         },
         {
           label: this.translate.instant('navbar.menu.history'),
           icon: 'pi pi-fw pi-save',
-          command: () => this.router.navigate(['/account'])
+          command: () => this.router.navigateByUrl('/account')
         },
         {
           label: this.translate.instant('navbar.menu.stat'),
           icon: 'pi pi-fw pi-chart-line',
-          command: () => this.router.navigate(['/account'])
+          command: () => this.router.navigateByUrl('/account')
         },
         {
           separator: true

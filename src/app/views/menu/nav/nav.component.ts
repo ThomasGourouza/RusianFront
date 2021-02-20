@@ -106,7 +106,7 @@ export class NavComponent implements OnInit {
   }
 
   public redirectToWelcome(): void {
-    this.router.navigate(['/welcome']);
+    this.router.navigateByUrl('/welcome');
   }
 
 }

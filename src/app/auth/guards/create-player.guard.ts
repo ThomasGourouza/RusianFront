@@ -13,7 +13,7 @@ export class CreatePlayerGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
       return this.authService.isAuth
-      ? this.router.navigate(['/not-found'])
+      ? this.router.navigateByUrl('/not-found')
       : true;
   }
   
