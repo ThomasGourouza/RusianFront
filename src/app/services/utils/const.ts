@@ -8,6 +8,7 @@ export class Const {
     public static close: string = 'close';
     public static delete: string = 'delete';
     public static update: string = 'update';
+    public static create: string = 'create';
     public static adjectives: string = 'adjectives';
     public static NF: string = 'not-found'
     public static N: string = 'Nominative';

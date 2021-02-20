@@ -32,12 +32,10 @@ export class AdjectiveListComponent implements OnInit {
           this.adjectiveService.fetchAdjectives();
           this.adjectiveService.adjectiveList$.subscribe(
             (adjectivesAfterFetch) => {
-              this.data = [];
               this.initData(adjectivesAfterFetch);
             }
           );
         } else {
-          this.data = [];
           this.initData(adjectives);
         }
       }
@@ -46,6 +44,7 @@ export class AdjectiveListComponent implements OnInit {
   }
 
   private initData(adjectives: Array<Adjective>): void {
+    this.data = [];
     this._adjectives = adjectives;
     this._adjectives.forEach((adjective) => {
       this.data.push({

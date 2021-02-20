@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { ConfirmationService, MenuItem } from 'primeng/api';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { Const } from './utils/const';
 export interface OpenLabel {
   label: string;
   icon: string;
@@ -35,44 +36,67 @@ export class ActionMenuService {
     this._action$.next(null);
   }
 
-  public setMenu(translation: string, isClosed: boolean): void {
+  public setMenu(translation: string, isClosed: boolean, adjectiveExist: boolean): void {
     const openAction = this.openLabel(isClosed);
-    this._menu$.next(
-    [{
-      label: translation,
-      items: [
+    if (adjectiveExist) {
+      this._menu$.next([
         {
-          label: openAction.label,
-          icon: openAction.icon,
-          command: () => {
-            this._action$.next(isClosed ? 'open' : 'close');
-          }
-        },
-        {
-          label: this.translate.instant('adjectives.adjectives.delete'),
-          icon: 'pi pi-fw pi-trash',
-          command: () => {
-            this.confirm();
-          }
-        },
-        {
-          label: this.translate.instant('adjectives.adjectives.update'),
-          icon: 'pi pi-fw pi-refresh',
-          command: () => {
-            this._action$.next('update');
-          }
+          label: translation,
+          items: [
+            {
+              label: openAction.label,
+              icon: openAction.icon,
+              command: () => {
+                this._action$.next(isClosed ? Const.open : Const.close);
+              }
+            },
+            {
+              label: this.translate.instant('adjectives.adjectives.update'),
+              icon: 'pi pi-fw pi-refresh',
+              command: () => {
+                this._action$.next(Const.update);
+              }
+            },
+            {
+              label: this.translate.instant('adjectives.adjectives.delete'),
+              icon: 'pi pi-fw pi-trash',
+              command: () => {
+                this.confirmDelete();
+              }
+            }
+          ]
         }
-      ]
+      ]);
+    } else {
+      this._menu$.next([
+        {
+          label: translation,
+          items: [
+            {
+              label: openAction.label,
+              icon: openAction.icon,
+              command: () => {
+                this._action$.next(isClosed ? Const.open : Const.close);
+              }
+            },
+            {
+              label: this.translate.instant('adjectives.adjectives.create'),
+              icon: 'pi pi-fw pi-plus',
+              command: () => {
+                this._action$.next(Const.create);
+              }
+            }
+          ]
+        }
+      ]);
     }
-    ]
-    );
   }
 
-  private confirm(): void {
+  private confirmDelete(): void {
     this.confirmationService.confirm({
       message: this.translate.instant('adjectives.action.message'),
       accept: () => {
-        this._action$.next('delete');
+        this._action$.next(Const.delete);
       }
     });
   }

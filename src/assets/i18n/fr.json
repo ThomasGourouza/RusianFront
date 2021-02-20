@@ -80,6 +80,7 @@
             "back": "Retour",
             "delete": "Supprimer",
             "update": "Modifier",
+            "create": "Ajouter",
             "title": "Cliquer pour trier. Utiliser la touche 'Ctrl' pour trier sur plusieurs colonnes.",
             "search": "Chercher un adjectif"
         },
@@ -88,6 +89,7 @@
             "back": "Retour",
             "delete": "Supprimer",
             "update": "Modifier",
+            "create": "Ajouter",
             "confirmation": "Confirmation",
             "message": "Êtes-vous sûr de vouloir supprimer cet adjectif ?",
             "no": "Non",

@@ -80,6 +80,7 @@
             "back": "Back",
             "delete": "Delete",
             "update": "Update",
+            "create": "Add",
             "title": "Click to sort. Use 'Ctrl' key to sort by multiple columns.",
             "search": "Search an adjective"
         },
@@ -88,6 +89,7 @@
             "back": "Back",
             "delete": "Delete",
             "update": "Update",
+            "create": "Add",
             "confirmation": "Confirmation",
             "message": "Are you sure you want to delete this adjective ?",
             "no": "No",
