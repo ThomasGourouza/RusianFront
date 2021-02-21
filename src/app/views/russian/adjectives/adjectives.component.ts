@@ -126,14 +126,12 @@ export class AdjectivesComponent extends subscribedContainerMixin() implements O
             const adjective = this.selectedRow?.translation;
             console.log(adjective);
             if (adjective) {
-              // TODO
               this.closeDisplayAdjectiveAndGoTo('/adjectives/update/' + adjective);
             }
             break;
           }
           case Const.create: {
             const adjective = this.activatedRoute.snapshot.params[Const.adjective];
-            // TODO
             this.closeDisplayAdjectiveAndGoTo('/adjectives/add/' + adjective);
             break;
           }
@@ -259,10 +257,12 @@ export class AdjectivesComponent extends subscribedContainerMixin() implements O
                   }
                 } else {
                   // case update
-                  console.log('update');
+                  this.page = Const.update;
+                  this.resetServices();
                 }
               } else {
                 this.actionMenuService.setMenu(adjective, false, false);
+                this.resetServices();
                 this.page = Const.NF;
               }
             }
@@ -270,7 +270,8 @@ export class AdjectivesComponent extends subscribedContainerMixin() implements O
           break;
         }
         case Const.add: {
-          this.redirect('/' + Const.adjectives + '/' + Const.add);
+          // case add adjective
+          this.page = Const.add;
           break;
         }
       }

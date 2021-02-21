@@ -51,14 +51,14 @@ export class ActionMenuService {
               }
             },
             {
-              label: this.translate.instant('adjectives.adjectives.update'),
+              label: this.translate.instant('adjectives.action.update'),
               icon: 'pi pi-fw pi-refresh',
               command: () => {
                 this._action$.next(Const.update);
               }
             },
             {
-              label: this.translate.instant('adjectives.adjectives.delete'),
+              label: this.translate.instant('adjectives.action.delete'),
               icon: 'pi pi-fw pi-trash',
               command: () => {
                 this.confirmDelete();

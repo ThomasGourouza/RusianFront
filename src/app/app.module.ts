@@ -50,6 +50,7 @@ import { AdjectiveNotFoundComponent } from './views/russian/adjectives/core/adje
 import { SideMenuService } from './services/side-menu.service';
 import { ActionMenuService } from './services/action-menu.service';
 import { AdjectiveListService } from './services/adjective-list.service';
+import { UpdateAdjectiveComponent } from './views/russian/adjectives/core/update-adjective/update-adjective.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { AdjectiveListService } from './services/adjective-list.service';
     AdjectiveListComponent,
     AddAdjectiveComponent,
     ActionMenuComponent,
-    AdjectiveNotFoundComponent
+    AdjectiveNotFoundComponent,
+    UpdateAdjectiveComponent
   ],
   imports: [
     CommonModule,
