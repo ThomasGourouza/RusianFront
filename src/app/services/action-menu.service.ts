@@ -36,59 +36,81 @@ export class ActionMenuService {
     this._action$.next(null);
   }
 
-  public setMenu(translation: string, isClosed: boolean, adjectiveExist: boolean): void {
+  public setMenu(translation: string, isClosed: boolean, mode: string): void {
     const openAction = this.openLabel(isClosed);
-    if (adjectiveExist) {
-      this._menu$.next([
-        {
-          label: translation,
-          items: [
-            {
-              label: openAction.label,
-              icon: openAction.icon,
-              command: () => {
-                this._action$.next(isClosed ? Const.open : Const.close);
+    switch (mode) {
+      case Const.check: {
+        this._menu$.next([
+          {
+            label: translation,
+            items: [
+              {
+                label: openAction.label,
+                icon: openAction.icon,
+                command: () => {
+                  this._action$.next(isClosed ? Const.open : Const.close);
+                }
+              },
+              {
+                label: this.translate.instant('adjectives.action.update'),
+                icon: 'pi pi-fw pi-refresh',
+                command: () => {
+                  this._action$.next(Const.update);
+                }
+              },
+              {
+                label: this.translate.instant('adjectives.action.delete'),
+                icon: 'pi pi-fw pi-trash',
+                command: () => {
+                  this.confirmDelete();
+                }
               }
-            },
-            {
-              label: this.translate.instant('adjectives.action.update'),
-              icon: 'pi pi-fw pi-refresh',
-              command: () => {
-                this._action$.next(Const.update);
+            ]
+          }
+        ]);
+        break;
+      }
+      case Const.create: {
+        this._menu$.next([
+          {
+            label: translation,
+            items: [
+              {
+                label: openAction.label,
+                icon: openAction.icon,
+                command: () => {
+                  this._action$.next(Const.close);
+                }
+              },
+              {
+                label: this.translate.instant('adjectives.adjectives.create'),
+                icon: 'pi pi-fw pi-plus',
+                command: () => {
+                  this._action$.next(Const.create);
+                }
               }
-            },
-            {
-              label: this.translate.instant('adjectives.action.delete'),
-              icon: 'pi pi-fw pi-trash',
-              command: () => {
-                this.confirmDelete();
+            ]
+          }
+        ]);
+        break;
+      }
+      case Const.update: {
+        this._menu$.next([
+          {
+            label: translation,
+            items: [
+              {
+                label: openAction.label,
+                icon: openAction.icon,
+                command: () => {
+                  this._action$.next(Const.close);
+                }
               }
-            }
-          ]
-        }
-      ]);
-    } else {
-      this._menu$.next([
-        {
-          label: translation,
-          items: [
-            {
-              label: openAction.label,
-              icon: openAction.icon,
-              command: () => {
-                this._action$.next(isClosed ? Const.open : Const.close);
-              }
-            },
-            {
-              label: this.translate.instant('adjectives.adjectives.create'),
-              icon: 'pi pi-fw pi-plus',
-              command: () => {
-                this._action$.next(Const.create);
-              }
-            }
-          ]
-        }
-      ]);
+            ]
+          }
+        ]);
+        break;
+      }
     }
   }
 

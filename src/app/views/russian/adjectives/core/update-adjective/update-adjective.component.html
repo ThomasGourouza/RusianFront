@@ -1,1 +1,36 @@
-<p>update-adjective</p>
+<br><br>
+<form [formGroup]="adjectiveForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col-3">
+            <div class="form-group">
+                <label for="root">{{ 'adjectives.adjectives.root' | translate }}</label>
+                <input type="text" class="form-control" id="root" formControlName="root"
+                    (click)="displayKeyboard(true)" />
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-group">
+                <label for="ending">{{ 'adjectives.adjectives.ending' | translate }}</label>
+                <select class="form-control" formControlName="ending" (click)="displayKeyboard(false)">
+                    <option *ngFor="let category of categories" [value]="category">
+                        {{ category }}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label for="translation">{{ 'adjectives.adjectives.translation' | translate }}</label>
+                <input type="text" class="form-control" id="translation" formControlName="translation"
+                    (click)="displayKeyboard(false)" />
+            </div>
+        </div>
+        <div class="col-2 d-flex align-items-center">
+            <button pButton type="submit" [disabled]="adjectiveForm.invalid || !isModified()"
+                class="p-button-outlined p-button-raised p-button-rounded" icon="pi pi-refresh"></button>
+        </div>
+    </div>
+</form>
+<br>
+
+<app-keyboard *ngIf="isKeyboardDisplayed" (keyEmitter)="onKey($event)"></app-keyboard>

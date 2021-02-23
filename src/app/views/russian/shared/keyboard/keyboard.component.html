@@ -1,0 +1,14 @@
+<p-card [style]="{'background-color': '#f8f9fa'}">
+    <div class="d-flex justify-content-center">
+        <table>
+            <tr *ngFor="let row of russianKeyboard" [ngClass]="{'row d-flex justify-content-center': row.length > 1}">
+                <td *ngFor="let letter of row">
+                    <button *ngIf="letter" pButton type="button"
+                        class="p-button-secondary p-button-outlined p-button-raised" [label]="letter"
+                        (click)="onKeyboard(letter)"></button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <button type="button" pButton class="p-button-secondary p-button-outlined p-button-raised" icon="pi pi-arrow-left" (click)="onKeyboard('back')"></button>
+</p-card>

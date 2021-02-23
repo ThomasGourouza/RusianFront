@@ -43,7 +43,7 @@
                 "auth": "Login ou mot de passe incorrect",
                 "register": "Enregistrement non effectué",
                 "getAdjective": "Recherche non effectuée",
-                "postAdjective": "Adjectif non enregistré",
+                "postAdjective": "Adjectif déjà existant",
                 "updateAdjective": "Adjectif non modifié",
                 "deleteAdjective": "Adjectif non supprimé"
             }
@@ -82,7 +82,9 @@
             "update": "Modifier un adjectif",
             "create": "Ajouter",
             "title": "Cliquer pour trier. Utiliser la touche 'Ctrl' pour trier sur plusieurs colonnes.",
-            "search": "Chercher un adjectif"
+            "search": "Chercher un adjectif",
+            "root": "Radical",
+            "ending": "Terminaison"
         },
         "action": {
             "open": "Ouvrir",

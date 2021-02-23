@@ -10,7 +10,6 @@ import { Language } from 'src/app/models/reference/player/language.model';
 import { Level } from 'src/app/models/reference/player/level.model';
 import { subscribedContainerMixin } from 'src/app/subscribed-container.mixin';
 import { takeUntil } from 'rxjs/operators';
-import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 import { PlayerService } from 'src/app/services/player.service';
 import { Player } from 'src/app/models/player/get/player.model';

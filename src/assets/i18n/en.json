@@ -43,7 +43,7 @@
                 "auth": "Incorrect login or password",
                 "register": "Registration failed",
                 "getAdjective": "Research failed",
-                "postAdjective": "Adjective not saved",
+                "postAdjective": "Adjective already exists",
                 "updateAdjective": "Adjective not updated",
                 "deleteAdjective": "Adjectif not deleted"
             }
@@ -82,7 +82,9 @@
             "update": "Update",
             "create": "Add",
             "title": "Click to sort. Use 'Ctrl' key to sort by multiple columns.",
-            "search": "Search an adjective"
+            "search": "Search an adjective",
+            "root": "Root",
+            "ending": "Ending"
         },
         "action": {
             "open": "Open",

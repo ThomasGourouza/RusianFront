@@ -18,6 +18,7 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { MenuModule } from 'primeng/menu';
 import { TreeModule } from 'primeng/tree';
+import { CardModule } from 'primeng/card';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
@@ -51,6 +52,7 @@ import { SideMenuService } from './services/side-menu.service';
 import { ActionMenuService } from './services/action-menu.service';
 import { AdjectiveListService } from './services/adjective-list.service';
 import { UpdateAdjectiveComponent } from './views/russian/adjectives/core/update-adjective/update-adjective.component';
+import { KeyboardComponent } from './views/russian/shared/keyboard/keyboard.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +74,8 @@ import { UpdateAdjectiveComponent } from './views/russian/adjectives/core/update
     AddAdjectiveComponent,
     ActionMenuComponent,
     AdjectiveNotFoundComponent,
-    UpdateAdjectiveComponent
+    UpdateAdjectiveComponent,
+    KeyboardComponent
   ],
   imports: [
     CommonModule,
@@ -97,7 +100,8 @@ import { UpdateAdjectiveComponent } from './views/russian/adjectives/core/update
     InputTextModule,
     TreeModule,
     ButtonModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    CardModule
   ],
   providers: [
     Utils,

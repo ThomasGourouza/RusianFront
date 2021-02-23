@@ -1,5 +1,6 @@
 import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -14,5 +15,18 @@ export class Utils {
       httpParams = httpParams.set(param, object[param]);
     }
     return httpParams;
+  }
+
+  public onKey(key: string, form: FormGroup): void {
+    const root = form.value['root'];
+    let value: string = '';
+    if (key === 'back') {
+      if (root.length > 1) {
+        value = root.slice(0, -1);
+      } 
+    } else {
+      value = root + key;
+    }
+    form.controls['root'].setValue(value);
   }
 }

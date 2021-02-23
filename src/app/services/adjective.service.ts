@@ -107,6 +107,7 @@ export class AdjectiveService extends subscribedContainerMixin() {
     this.adjectiveApi.createAdjective(newAdjective).pipe(
       takeUntil(this.destroyed$)
     ).subscribe((adjective: Adjective) => {
+      this.fetchAdjectives();
       this._adjective$.next(adjective);
       this.toastr.success(
         this.translate.instant('toastr.success.message.postAdjective'),
@@ -127,6 +128,7 @@ export class AdjectiveService extends subscribedContainerMixin() {
     this.adjectiveApi.updateAdjective(id, updatedAdjective).pipe(
       takeUntil(this.destroyed$)
     ).subscribe((adjective: Adjective) => {
+      this.fetchAdjectives();
       this._adjective$.next(adjective);
       this.toastr.success(
         this.translate.instant('toastr.success.message.updateAdjective'),

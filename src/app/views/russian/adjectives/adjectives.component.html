@@ -11,45 +11,25 @@
                 [ngSwitch]="page">
                 <!-- accueil adjectifs -->
                 <div *ngSwitchCase="'intro'">
-                    <h3>
-                        {{ 'adjectives.text' | translate }}
-                    </h3>
                 </div>
                 <div *ngSwitchCase="'first-declension'">
-                    <h2 class="d-flex align-items-center justify-content-center">
-                        {{ 'adjectives.declension.first' | translate }}
-                    </h2>
                     <app-declension-category [adjectiveCategory]="getAdjectiveCategory(1)">
                     </app-declension-category>
                 </div>
                 <div *ngSwitchCase="'second-declension'">
-                    <h2 class="d-flex align-items-center justify-content-center">
-                        {{ 'adjectives.declension.second' | translate }}
-                    </h2>
                     <app-declension-category [adjectiveCategory]="getAdjectiveCategory(2)">
                     </app-declension-category>
                 </div>
                 <div *ngSwitchCase="'third-declension'">
-                    <h2 class="d-flex align-items-center justify-content-center">
-                        {{ 'adjectives.declension.third' | translate }}
-                    </h2>
                     <app-declension-category [adjectiveCategory]="getAdjectiveCategory(3)">
                     </app-declension-category>
                 </div>
                 <div *ngSwitchCase="'fourth-declension'">
-                    <h2 class="d-flex align-items-center justify-content-center">
-                        {{ 'adjectives.declension.fourth' | translate }}
-                    </h2>
                     <app-declension-category [adjectiveCategory]="getAdjectiveCategory(4)">
                     </app-declension-category>
                 </div>
                 <div *ngSwitchCase="'consult'">
-
-                    <h2 class="d-flex align-items-center justify-content-center">
-                        {{ 'adjectives.adjectives.consult' | translate }}
-                    </h2>
                     <app-adjective-list></app-adjective-list>
-
                     <div class="d-flex justify-content-center align-items-start">
                         <span class="p-float-label">
                             <input id="search" type="text" pInputText [(ngModel)]="translation">
@@ -62,9 +42,6 @@
                     </div>
                 </div>
                 <div *ngSwitchCase="'check'">
-                    <h3 class="d-flex justify-content-center">
-                        {{ selectedRow?.adjective }}
-                    </h3>
                     <app-declension-category [adjectiveCategory]="adjectiveCategory">
                     </app-declension-category>
                     <br>
@@ -75,15 +52,9 @@
                     <br>
                 </div>
                 <div *ngSwitchCase="'add'">
-                    <h2 class="d-flex align-items-center justify-content-center">
-                        {{ 'adjectives.adjectives.add' | translate }}
-                    </h2>
                     <app-add-adjective></app-add-adjective>
                 </div>
                 <div *ngSwitchCase="'update'">
-                    <h2 class="d-flex align-items-center justify-content-center">
-                        {{ 'adjectives.adjectives.update' | translate }}
-                    </h2>
                     <app-update-adjective></app-update-adjective>
                 </div>
             </div>

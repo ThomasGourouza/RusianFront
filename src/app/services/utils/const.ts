@@ -9,6 +9,7 @@ export class Const {
     public static delete: string = 'delete';
     public static update: string = 'update';
     public static create: string = 'create';
+    public static check: string = 'check';
     public static adjectives: string = 'adjectives';
     public static NF: string = 'not-found'
     public static N: string = 'Nominative';
@@ -22,6 +23,5 @@ export class Const {
     public static fourth: string = 'fourth-declension';
     public static translation: string = 'translation';
     public static declension: string = 'declension';
-    public static check: string = 'check';
 
 }
