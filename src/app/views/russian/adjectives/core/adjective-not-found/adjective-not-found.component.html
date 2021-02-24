@@ -1,5 +1,8 @@
+<br>
 <div class="d-flex align-items-center justify-content-center">
-
-    <p>L'adjectif "{{ adjective }}" n'est pas enregistré.</p>
-
+    <p>
+        {{ 'adjectives.not-found.adjective' | translate }}
+        <strong>{{ adjective }}</strong>
+        {{ 'adjectives.not-found.is-not-saved' | translate }}
+    </p>
 </div>

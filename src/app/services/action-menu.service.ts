@@ -39,6 +39,7 @@ export class ActionMenuService {
   public setMenu(translation: string, isClosed: boolean, mode: string): void {
     const openAction = this.openLabel(isClosed);
     switch (mode) {
+      case Const.consult:
       case Const.check: {
         this._menu$.next([
           {
@@ -70,6 +71,7 @@ export class ActionMenuService {
         ]);
         break;
       }
+      case Const.NF:
       case Const.create: {
         this._menu$.next([
           {

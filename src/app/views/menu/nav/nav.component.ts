@@ -14,8 +14,6 @@ export class NavComponent implements OnInit {
   public items: MenuItem[];
   public activeItem: MenuItem;
 
-  public langue: string;
-
   constructor(
     public translate: TranslateService,
     private router: Router
@@ -28,8 +26,8 @@ export class NavComponent implements OnInit {
   }
   
   public ngOnInit(): void {
-    this.langue = this.translate.currentLang;
-    this.translate.get('home.name').subscribe((res: string) => {
+    // update la langue à chaque changement
+    this.translate.onLangChange.subscribe(() => {
       this.refresh();
     });
   }
@@ -86,14 +84,6 @@ export class NavComponent implements OnInit {
       }
     ];
 
-  }
-
-  public actualise(): boolean {
-    if (this.langue !== this.translate.currentLang) {
-      this.langue = this.translate.currentLang;
-      this.refresh();
-    }
-    return true;
   }
 
   public activeMenu(menu: Array<MenuItem>): MenuItem {

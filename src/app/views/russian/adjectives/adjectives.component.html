@@ -11,6 +11,8 @@
                 [ngSwitch]="page">
                 <!-- accueil adjectifs -->
                 <div *ngSwitchCase="'intro'">
+                    <br>
+                    {{ 'adjectives.text' | translate }}
                 </div>
                 <div *ngSwitchCase="'first-declension'">
                     <app-declension-category [adjectiveCategory]="getAdjectiveCategory(1)">
@@ -30,16 +32,7 @@
                 </div>
                 <div *ngSwitchCase="'consult'">
                     <app-adjective-list></app-adjective-list>
-                    <div class="d-flex justify-content-center align-items-start">
-                        <span class="p-float-label">
-                            <input id="search" type="text" pInputText [(ngModel)]="translation">
-                            <label for="search">{{ 'adjectives.adjectives.search' | translate
-                                }}</label>
-                        </span>
-                        &nbsp;
-                        <button pButton type="button" class="p-button-outlined p-button-raised p-button-rounded"
-                            icon="pi pi-search" (click)="searchAdjective()"></button>
-                    </div>
+                    <br>
                 </div>
                 <div *ngSwitchCase="'check'">
                     <app-declension-category [adjectiveCategory]="adjectiveCategory">

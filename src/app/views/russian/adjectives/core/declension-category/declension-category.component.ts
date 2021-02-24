@@ -39,6 +39,7 @@ export class DeclensionCategoryComponent implements OnInit {
   @Input()
   public adjectiveCategory: AdjectiveCategory;
 
+  public title: string;
   public rows: Array<string>;
   public cols: Array<ColData>;
   public data: Array<RowData>;
@@ -48,6 +49,24 @@ export class DeclensionCategoryComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    switch (this.adjectiveCategory.id) {
+      case 1: {
+        this.title = 'first';
+        break;
+      }
+      case 2: {
+        this.title = 'second';
+        break;
+      }
+      case 3: {
+        this.title = 'third';
+        break;
+      }
+      case 4: {
+        this.title = 'fourth';
+        break;
+      }
+    }
     this.rows = [N, A, G, D, L, I];
     this.cols = [
       { field: c, header: '' },

@@ -12,6 +12,8 @@ import { Const } from 'src/app/services/utils/const';
 import { subscribedContainerMixin } from 'src/app/subscribed-container.mixin';
 import { takeUntil } from 'rxjs/operators';
 import { AdjectiveListService, RowData } from 'src/app/services/adjective-list.service';
+import { LazyLoadEvent } from 'primeng/api';
+import { Table } from 'primeng/table';
 
 @Component({
   selector: 'app-adjectives',
@@ -88,6 +90,10 @@ export class AdjectivesComponent extends subscribedContainerMixin() implements O
       )
     ).subscribe((selectedRow: RowData) => {
       this.selectedRow = selectedRow;
+      if (selectedRow) {
+        // mise à jour du menu de droite
+        this.actionMenuService.setMenu(selectedRow.translation, true, Const.check);
+      }
     });
 
     // emetter du service actionMenu (droite)
@@ -117,6 +123,7 @@ export class AdjectivesComponent extends subscribedContainerMixin() implements O
             const adjectiveId = this.selectedRow?.id;
             if (adjectiveId) {
               this.adjectiveService.deleteAdjectiveById(adjectiveId);
+              this.resetServices();
               this.closeDisplayAdjectiveAndGoTo('/adjectives/consult');
             }
             break;
@@ -124,6 +131,7 @@ export class AdjectivesComponent extends subscribedContainerMixin() implements O
           case Const.update: {
             const adjective = this.selectedRow?.translation;
             if (adjective) {
+              this.resetServices();
               this.closeDisplayAdjectiveAndGoTo('/adjectives/update/' + adjective);
             }
             break;
@@ -131,6 +139,7 @@ export class AdjectivesComponent extends subscribedContainerMixin() implements O
           case Const.create: {
             const adjective = this.activatedRoute.snapshot.params[Const.adjective];
             if (adjective) {
+              this.resetServices();
               this.closeDisplayAdjectiveAndGoTo('/adjectives/add/' + adjective);
             }
             break;
@@ -138,6 +147,10 @@ export class AdjectivesComponent extends subscribedContainerMixin() implements O
         }
       }
     });
+  }
+
+  clear(table: Table) {
+    table.clear();
   }
 
   private closeDisplayAdjectiveAndGoTo(url: string): void {
@@ -157,7 +170,7 @@ export class AdjectivesComponent extends subscribedContainerMixin() implements O
     // mise à jour du menu de gauche
     this.sideMenuService.setMenu(declensionExpanded, adjectiveExpanded);
     // mise à jour du menu de droite
-    this.actionMenuService.setMenu(adjective, !adjective, Const.check);
+    this.actionMenuService.setMenu(adjective, !adjective, this.page);
   }
 
   // redirection en modifiant la valeur de this.page
@@ -170,14 +183,6 @@ export class AdjectivesComponent extends subscribedContainerMixin() implements O
     this.actionMenuService.resetAction();
     this.adjectiveListService.setRowdata(null);
     this.sideMenuService.setSelection(null);
-  }
-
-  // rechercher un adjectif
-  public searchAdjective(): void {
-    if (!!this.translation && /^[a-z]+$/.test(this.translation)) {
-      this.resetServices();
-      this.redirect('/adjectives/consult/' + this.translation);
-    }
   }
 
   public displayActionMenu(): boolean {
@@ -212,6 +217,7 @@ export class AdjectivesComponent extends subscribedContainerMixin() implements O
   }
 
   private setPage(url: string): void {
+    this.selectedRow = null;
     const urlArray = url.split('/');
     // url = /adjectives
     if (urlArray.length === 2 && urlArray[1] === Const.adjectives) {
@@ -234,51 +240,61 @@ export class AdjectivesComponent extends subscribedContainerMixin() implements O
       const category = urlArray[2];
       const adjective = urlArray[3];
       this.adjectiveService.clearAdjective();
-      switch (category) {
-        case Const.consult:
-        case Const.update: {
-          this.adjectiveService.fetchAdjectiveByTranslation(adjective);
-          this.adjectiveService.adjective$.subscribe(
-            (adj: Adjective) => {
+      this.adjectiveService.fetchAdjectiveByTranslation(adjective);
+      this.adjectiveService.adjective$.subscribe(
+        (adj: Adjective) => {
+          switch (category) {
+            case Const.consult: {
               if (adj.id) {
-                if (category === Const.consult) {
-                  this.actionMenuService.setMenu(adjective, false, Const.check);
-                  this.page = Const.check;
-                  const root = adj.root;
-                  this.adjectiveCategory = new AdjectiveCategory(
-                    adj.category.id,
-                    adj.category.value,
-                    this.mapEndings(root, adj.category.endings)
-                  );
-                  this.selectedRow = {
-                    adjective: adj.nominativeMasculineForm,
-                    translation: adj.translation,
-                    declension: adj.category.id,
-                    id: adj.id
-                  }
-                } else {
-                  // case update
-                  this.actionMenuService.setMenu(adjective, false, Const.update);
-                  this.page = Const.update;
-                  this.resetServices();
-                }
+                this.caseConsultAdjective(adjective, adj);
               } else {
-                this.actionMenuService.setMenu(adjective, false, Const.create);
                 this.resetServices();
+                this.actionMenuService.setMenu(adjective, false, Const.create);
                 this.page = Const.NF;
               }
+              break;
             }
-          );
-          break;
-        }
-        case Const.add: {
-          // case add adjective
-          this.page = Const.add;
-          break;
-        }
-      }
+            case Const.update: {
+              if (adj.id) {
+                this.resetServices();
+                this.actionMenuService.setMenu(adjective, false, Const.update);
+                this.page = Const.update;
+              } else {
+                this.resetServices();
+                this.actionMenuService.setMenu(adjective, false, Const.create);
+                this.page = Const.NF;
+              }
+              break;
+            }
+            case Const.add: {
+              if (adj.id) {
+                this.router.navigateByUrl('/adjectives/consult/' + adj.translation);
+                this.caseConsultAdjective(adjective, adj);
+              } else {
+                this.resetServices();
+                this.page = Const.add;
+              }
+              break;
+            }
+          }
+        });
+    }
+  }
 
-
+  private caseConsultAdjective(adjective: string, adj: Adjective): void {
+    this.actionMenuService.setMenu(adjective, false, Const.check);
+    this.page = Const.check;
+    const root = adj.root;
+    this.adjectiveCategory = new AdjectiveCategory(
+      adj.category.id,
+      adj.category.value,
+      this.mapEndings(root, adj.category.endings)
+    );
+    this.selectedRow = {
+      adjective: adj.nominativeMasculineForm,
+      translation: adj.translation,
+      declension: adj.category.id,
+      id: adj.id
     }
   }
 

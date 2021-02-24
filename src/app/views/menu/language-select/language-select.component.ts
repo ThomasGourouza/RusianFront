@@ -16,8 +16,7 @@ import { subscribedContainerMixin } from 'src/app/subscribed-container.mixin';
 export class LanguageFormComponent extends subscribedContainerMixin() implements OnInit {
 
   public _player: Player;
-  public items: MegaMenuItem[];
-  public langue: string;
+  public items: Array<MegaMenuItem>;
 
   constructor(
     public translate: TranslateService,
@@ -29,7 +28,6 @@ export class LanguageFormComponent extends subscribedContainerMixin() implements
   }
 
   ngOnInit(): void {
-    this.langue = this.translate.currentLang;
     this.playerService.player$.pipe(
       takeUntil(this.destroyed$)
     ).subscribe((player: Player) => {
@@ -39,6 +37,11 @@ export class LanguageFormComponent extends subscribedContainerMixin() implements
           this.refresh();
         });
       }, 10);
+    });
+
+    // update la langue à chaque changement
+    this.translate.onLangChange.subscribe(() => {
+      this.refresh();
     });
   }
 
@@ -129,14 +132,6 @@ export class LanguageFormComponent extends subscribedContainerMixin() implements
       ];
       this.items.find((item) => item.id === 'player').items[0][0].items = userMenu.concat(basicMenu);
     }
-  }
-
-  public actualise(): boolean {
-    if (this.langue !== this.translate.currentLang) {
-      this.langue = this.translate.currentLang;
-      this.refresh();
-    }
-    return true;
   }
 
 }

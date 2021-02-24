@@ -64,6 +64,10 @@
     },
     "adjectives": {
         "text": "Il existe quatre déclinaisons d'adjectifs en russe.",
+        "not-found": {
+            "adjective": "L'adjectif ",
+            "is-not-saved": " n'est pas enregistré."
+        },
         "declension": {
             "first": "Première déclinaison (-ый)",
             "second": "Deuxième déclinaison (-ой)",
@@ -82,7 +86,7 @@
             "update": "Modifier un adjectif",
             "create": "Ajouter",
             "title": "Cliquer pour trier. Utiliser la touche 'Ctrl' pour trier sur plusieurs colonnes.",
-            "search": "Chercher un adjectif",
+            "search": "Chercher dans la liste",
             "root": "Radical",
             "ending": "Terminaison"
         },

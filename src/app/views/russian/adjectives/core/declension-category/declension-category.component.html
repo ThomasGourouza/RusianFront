@@ -1,6 +1,11 @@
 <br>
 <div class="card">
     <p-table [columns]="cols" [value]="data" styleClass="p-datatable-gridlines" [reorderableColumns]="true">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex d-flex justify-content-center align-items-start">
+                {{ 'adjectives.declension.' + title | translate }}
+            </div>
+        </ng-template>
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns" pReorderableColumn>
@@ -14,7 +19,8 @@
             <tr [pReorderableRow]="index">
                 <td *ngFor="let col of columns" [ngClass]="{'header': col.field === 'case'}">
                     <div [ngClass]="{'d-flex justify-content-center': col.field != 'case'}">
-                        <span *ngIf="col.field === 'case'" class="pi pi-bars grabbable" pReorderableRowHandle>&nbsp;</span>
+                        <span *ngIf="col.field === 'case'" class="pi pi-bars grabbable"
+                            pReorderableRowHandle>&nbsp;</span>
                         {{ printCase(rowData[col.field]) }}
                     </div>
                 </td>

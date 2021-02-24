@@ -1,7 +1,19 @@
 <br>
 <div class="card">
-    <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="5" sortMode="multiple" selectionMode="single"
-        dataKey="id" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect()">
+    <p-table #list [columns]="cols" [value]="data" [paginator]="true" [rows]="5"
+        [rowsPerPageOptions]="[5,10,15,20,30,50,100]" sortMode="multiple" selectionMode="single" dataKey="id"
+        (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect()"
+        [globalFilterFields]="['adjective','translation','declension']">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex d-flex justify-content-center align-items-start">
+                <span class="p-input-icon-right p-ml-auto p-float-label">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" id="search"
+                        (input)="list.filterGlobal($event.target.value, 'contains')" />
+                    <label for="search">{{ 'adjectives.adjectives.search' | translate }}</label>
+                </span>
+            </div>
+        </ng-template>
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns" [pSortableColumn]="col" [title]="translateTitle()">

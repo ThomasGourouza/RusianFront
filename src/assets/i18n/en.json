@@ -4,7 +4,7 @@
             "home": "Welcome",
             "account": "My account",
             "history": "History",
-            "stat": "Statistiques",
+            "stat": "Statistics",
             "adjective": "Adjectives",
             "noun": "Nouns",
             "training": "Training",
@@ -64,6 +64,10 @@
     },
     "adjectives": {
         "text": "There are four declensions of adjectives in russian.",
+        "not-found": {
+            "adjective": "The adjective ",
+            "is-not-saved": " isn't saved."
+        },
         "declension": {
             "first": "First declension (-ый)",
             "second": "Second declension (-ой)",
@@ -82,7 +86,7 @@
             "update": "Update",
             "create": "Add",
             "title": "Click to sort. Use 'Ctrl' key to sort by multiple columns.",
-            "search": "Search an adjective",
+            "search": "Search in the list",
             "root": "Root",
             "ending": "Ending"
         },
