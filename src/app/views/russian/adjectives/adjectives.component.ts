@@ -31,7 +31,6 @@ export class AdjectivesComponent extends subscribedContainerMixin() implements O
 
   public _adjectiveCategories: Array<AdjectiveCategory>;
   public adjectiveCategory: AdjectiveCategory;
-  public translation: string;
   public selectedRow: RowData;
   public page: string;
   public action: string;
