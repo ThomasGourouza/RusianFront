@@ -33,7 +33,11 @@
                 "getAdjective": "Recherche effectuée",
                 "postAdjective": "Adjectif enregistré",
                 "updateAdjective": "Adjectif modifié",
-                "deleteAdjective": "Adjectif supprimé"
+                "deleteAdjective": "Adjectif supprimé",
+                "getNoun": "Recherche effectuée",
+                "postNoun": "Nom enregistré",
+                "updateNoun": "Nom modifié",
+                "deleteNoun": "Nom supprimé"
             }
         },
         "error": {
@@ -45,7 +49,11 @@
                 "getAdjective": "Recherche non effectuée",
                 "postAdjective": "Adjectif déjà existant",
                 "updateAdjective": "Adjectif non modifié",
-                "deleteAdjective": "Adjectif non supprimé"
+                "deleteAdjective": "Adjectif non supprimé",
+                "getNoun": "Recherche non effectuée",
+                "postNoun": "Nom déjà existant",
+                "updateNoun": "Nom non modifié",
+                "deleteNoun": "Nom non supprimé"
             }
         },
         "info": {
@@ -112,6 +120,27 @@
             "adjectives": "Adjectifs",
             "consult": "Consulter",
             "add": "Ajouter"
+        }
+    },
+    "nouns": {
+        "declension": {
+            "first": "Première déclinaison",
+            "second": "Deuxième déclinaison",
+            "third": "Troisième déclinaison"
+        },
+        "gender": {
+            "masculine": "Masculin",
+            "feminine": "Fémimin",
+            "neuter": "Neutre"
+        },
+        "number": {
+            "singular": "Singulier",
+            "plural": "Pluriel"
+        },
+        "type": {
+            "first": "Premier type",
+            "second": "Deuxième type",
+            "third": "Troisième type"
         }
     },
     "reference": {

@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { subscribedContainerMixin } from '../subscribed-container.mixin';
-import { takeUntil } from 'rxjs/operators';
 import { PlayerReferenceApi } from './api/player-reference.api';
 import { Country } from '../models/reference/player/country.model';
 import { Gender } from '../models/reference/player/gender.model';
@@ -13,7 +11,7 @@ import { Image } from '../models/reference/player/image.model';
 @Injectable({
   providedIn: 'root'
 })
-export class PlayerReferenceService extends subscribedContainerMixin() {
+export class PlayerReferenceService {
 
   private _countries$ = new BehaviorSubject([]);
   private _genders$ = new BehaviorSubject([]);
@@ -23,9 +21,7 @@ export class PlayerReferenceService extends subscribedContainerMixin() {
 
   constructor(
     private playerReferenceApi: PlayerReferenceApi
-  ) {
-    super();
-  }
+  ) { }
 
   public get countries$() {
     return this._countries$.asObservable();
@@ -45,47 +41,32 @@ export class PlayerReferenceService extends subscribedContainerMixin() {
 
   public fetchReferences() {
     this.playerReferenceApi.getCountry()
-      .pipe(
-        takeUntil(
-          this.destroyed$
-        )
-      ).subscribe((countries: Array<Country>) => {
+      .toPromise()
+      .then((countries: Array<Country>) => {
         this._countries$.next(countries);
       });
 
     this.playerReferenceApi.getGender()
-      .pipe(
-        takeUntil(
-          this.destroyed$
-        )
-      ).subscribe((genders: Array<Gender>) => {
+      .toPromise()
+      .then((genders: Array<Gender>) => {
         this._genders$.next(genders);
       });
 
     this.playerReferenceApi.getImage()
-      .pipe(
-        takeUntil(
-          this.destroyed$
-        )
-      ).subscribe((images: Array<Image>) => {
+      .toPromise()
+      .then((images: Array<Image>) => {
         this._images$.next(images);
       });
 
     this.playerReferenceApi.getLanguage()
-      .pipe(
-        takeUntil(
-          this.destroyed$
-        )
-      ).subscribe((languages: Array<Language>) => {
+      .toPromise()
+      .then((languages: Array<Language>) => {
         this._languages$.next(languages);
       });
 
     this.playerReferenceApi.getLevel()
-      .pipe(
-        takeUntil(
-          this.destroyed$
-        )
-      ).subscribe((levels: Array<Level>) => {
+      .toPromise()
+      .then((levels: Array<Level>) => {
         this._levels$.next(levels);
       });
   }

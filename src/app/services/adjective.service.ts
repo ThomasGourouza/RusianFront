@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { subscribedContainerMixin } from '../subscribed-container.mixin';
-import { takeUntil } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
@@ -17,7 +15,7 @@ export class AdjTranslationParam {
 @Injectable({
   providedIn: 'root'
 })
-export class AdjectiveService extends subscribedContainerMixin() {
+export class AdjectiveService {
 
   private _adjective$ = new BehaviorSubject({});
   private _adjectiveList$ = new BehaviorSubject([]);
@@ -26,9 +24,7 @@ export class AdjectiveService extends subscribedContainerMixin() {
     private adjectiveApi: AdjectiveApi,
     private toastr: ToastrService,
     private translate: TranslateService
-  ) {
-    super();
-  }
+  ) { }
 
   public get adjective$() {
     return this._adjective$.asObservable();
@@ -66,13 +62,11 @@ export class AdjectiveService extends subscribedContainerMixin() {
     this.adjectiveApi.getAdjectiveByTranslation(
       new AdjTranslationParam(englishTranslation)
     )
-      .pipe(
-        takeUntil(
-          this.destroyed$
-        )
-      ).subscribe((adjectives: Array<Adjective>) => {
+      .toPromise()
+      .then((adjectives: Array<Adjective>) => {
         this._adjective$.next(adjectives[0]);
-      }, (error: HttpErrorResponse) => {
+      })
+      .catch((error: HttpErrorResponse) => {
         if (error.status === 404) {
           this._adjective$.next({});
         } else {
@@ -83,17 +77,15 @@ export class AdjectiveService extends subscribedContainerMixin() {
 
   public fetchAdjectiveById(id: number) {
     this.adjectiveApi.getAdjectiveById(id)
-      .pipe(
-        takeUntil(
-          this.destroyed$
-        )
-      ).subscribe((adjective: Adjective) => {
+      .toPromise()
+      .then((adjective: Adjective) => {
         this._adjective$.next(adjective);
         this.toastr.success(
           this.translate.instant('toastr.success.message.getAdjective'),
           this.translate.instant('toastr.success.title')
         );
-      }, (error: HttpErrorResponse) => {
+      })
+      .catch((error: HttpErrorResponse) => {
         this.toastr.error(
           this.translate.instant(
             error.status === 404 ? 'toastr.error.message.getAdjective' : 'toastr.error.message.basic'
@@ -104,60 +96,60 @@ export class AdjectiveService extends subscribedContainerMixin() {
   }
 
   public addAdjective(newAdjective: AdjectivePost) {
-    this.adjectiveApi.createAdjective(newAdjective).pipe(
-      takeUntil(this.destroyed$)
-    ).subscribe((adjective: Adjective) => {
-      this.fetchAdjectives();
-      this._adjective$.next(adjective);
-      this.toastr.success(
-        this.translate.instant('toastr.success.message.postAdjective'),
-        this.translate.instant('toastr.success.title')
-      );
-    }, (error: HttpErrorResponse) => {
-      console.log(error);
-      this.toastr.error(
-        this.translate.instant(
-          error.status < 500 ? 'toastr.error.message.postAdjective' : 'toastr.error.message.basic'
-        ),
-        this.translate.instant('toastr.error.title')
-      );
-    });
+    this.adjectiveApi.createAdjective(newAdjective)
+      .toPromise()
+      .then((adjective: Adjective) => {
+        this.fetchAdjectives();
+        this._adjective$.next(adjective);
+        this.toastr.success(
+          this.translate.instant('toastr.success.message.postAdjective'),
+          this.translate.instant('toastr.success.title')
+        );
+      })
+      .catch((error: HttpErrorResponse) => {
+        console.log(error);
+        this.toastr.error(
+          this.translate.instant(
+            error.status < 500 ? 'toastr.error.message.postAdjective' : 'toastr.error.message.basic'
+          ),
+          this.translate.instant('toastr.error.title')
+        );
+      });
   }
 
   public updateAdjective(id: number, updatedAdjective: AdjectivePost) {
-    this.adjectiveApi.updateAdjective(id, updatedAdjective).pipe(
-      takeUntil(this.destroyed$)
-    ).subscribe((adjective: Adjective) => {
-      this.fetchAdjectives();
-      this._adjective$.next(adjective);
-      this.toastr.success(
-        this.translate.instant('toastr.success.message.updateAdjective'),
-        this.translate.instant('toastr.success.title')
-      );
-    }, (error: HttpErrorResponse) => {
-      console.log(error);
-      this.toastr.error(
-        this.translate.instant(
-          error.status < 500 ? 'toastr.error.message.updateAdjective' : 'toastr.error.message.basic'
-        ),
-        this.translate.instant('toastr.error.title')
-      );
-    });
+    this.adjectiveApi.updateAdjective(id, updatedAdjective)
+      .toPromise()
+      .then((adjective: Adjective) => {
+        this.fetchAdjectives();
+        this._adjective$.next(adjective);
+        this.toastr.success(
+          this.translate.instant('toastr.success.message.updateAdjective'),
+          this.translate.instant('toastr.success.title')
+        );
+      })
+      .catch((error: HttpErrorResponse) => {
+        console.log(error);
+        this.toastr.error(
+          this.translate.instant(
+            error.status < 500 ? 'toastr.error.message.updateAdjective' : 'toastr.error.message.basic'
+          ),
+          this.translate.instant('toastr.error.title')
+        );
+      });
   }
 
   public deleteAdjectiveById(id: number) {
     this.adjectiveApi.deleteAdjectiveById(id)
-      .pipe(
-        takeUntil(
-          this.destroyed$
-        )
-      ).subscribe(() => {
+      .toPromise()
+      .then(() => {
         this.fetchAdjectives();
         this.toastr.success(
           this.translate.instant('toastr.success.message.deleteAdjective'),
           this.translate.instant('toastr.success.title')
         );
-      }, (error: HttpErrorResponse) => {
+      })
+      .catch((error: HttpErrorResponse) => {
         this.toastr.error(
           this.translate.instant(
             error.status === 404 ? 'toastr.error.message.deleteAdjective' : 'toastr.error.message.basic'

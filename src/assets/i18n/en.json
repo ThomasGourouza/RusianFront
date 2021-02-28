@@ -33,7 +33,11 @@
                 "getAdjective": "Research done",
                 "postAdjective": "Adjective saved",
                 "updateAdjective": "Adjective updated",
-                "deleteAdjective": "Adjectif deleted"
+                "deleteAdjective": "Adjectif deleted",
+                "getNoun": "Research done",
+                "postNoun": "Noun saved",
+                "updateNoun": "Noun updated",
+                "deleteNoun": "Noun deleted"
             }
         },
         "error": {
@@ -45,7 +49,11 @@
                 "getAdjective": "Research failed",
                 "postAdjective": "Adjective already exists",
                 "updateAdjective": "Adjective not updated",
-                "deleteAdjective": "Adjectif not deleted"
+                "deleteAdjective": "Adjectif not deleted",
+                "getNoun": "Research failed",
+                "postNoun": "Noun already exists",
+                "updateNoun": "Noun not updated",
+                "deleteNoun": "Noun not deleted"
             }
         },
         "info": {
@@ -112,6 +120,27 @@
             "adjectives": "Adjectives",
             "consult": "Consult",
             "add": "Add"
+        }
+    },
+    "nouns": {
+        "declension": {
+            "first": "First declension",
+            "second": "Second declension",
+            "third": "Third declension"
+        },
+        "gender": {
+            "masculine": "Masculine",
+            "feminine": "Femimine",
+            "neuter": "Neuter"
+        },
+        "number": {
+            "singular": "Singular",
+            "plural": "Plural"
+        },
+        "type": {
+            "first": "First type",
+            "second": "Second type",
+            "third": "Third type"
         }
     },
     "reference": {

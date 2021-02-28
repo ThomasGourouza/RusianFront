@@ -48,11 +48,14 @@ import { AdjectiveListComponent } from './views/russian/adjectives/core/adjectiv
 import { AddAdjectiveComponent } from './views/russian/adjectives/core/add-adjective/add-adjective.component';
 import { ActionMenuComponent } from './views/russian/adjectives/action-menu/action-menu.component';
 import { AdjectiveNotFoundComponent } from './views/russian/adjectives/core/adjective-not-found/adjective-not-found.component';
-import { SideMenuService } from './services/side-menu.service';
+import { SideMenuAdjectivesService } from './services/side-menu-adjectives.service';
 import { ActionMenuService } from './services/action-menu.service';
 import { AdjectiveListService } from './services/adjective-list.service';
 import { UpdateAdjectiveComponent } from './views/russian/adjectives/core/update-adjective/update-adjective.component';
 import { KeyboardComponent } from './views/russian/shared/keyboard/keyboard.component';
+import { SideNounsComponent } from './views/russian/nouns/side-nouns/side-nouns.component';
+import { SideMenuNounsService } from './services/side-menu-nouns.service';
+import { DeclensionComponent } from './views/russian/nouns/declension/declension.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +78,9 @@ import { KeyboardComponent } from './views/russian/shared/keyboard/keyboard.comp
     ActionMenuComponent,
     AdjectiveNotFoundComponent,
     UpdateAdjectiveComponent,
-    KeyboardComponent
+    KeyboardComponent,
+    SideNounsComponent,
+    DeclensionComponent
   ],
   imports: [
     CommonModule,
@@ -117,7 +122,8 @@ import { KeyboardComponent } from './views/russian/shared/keyboard/keyboard.comp
     NounApi,
     NounService,
     ConfirmationService,
-    SideMenuService,
+    SideMenuAdjectivesService,
+    SideMenuNounsService,
     ActionMenuService,
     AdjectiveListService
   ],

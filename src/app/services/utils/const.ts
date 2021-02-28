@@ -13,9 +13,15 @@ export class Const {
     public static adjectives: string = 'adjectives';
     public static NF: string = 'not-found'
     public static N: string = 'Nominative';
+    public static A: string = 'Accusative';
     public static G: string = 'Genitive';
+    public static D: string = 'Dative';
+    public static L: string = 'Locative';
+    public static I: string = 'Instrumental';
     public static NG: string = 'N/G';
     public static M: string = 'Masculine';
+    public static F: string = 'Feminine';
+    public static NT: string = 'Neutral';
     public static intro: string = 'intro';
     public static first: string = 'first-declension';
     public static second: string = 'second-declension';
@@ -23,5 +29,14 @@ export class Const {
     public static fourth: string = 'fourth-declension';
     public static translation: string = 'translation';
     public static declension: string = 'declension';
-
+    public static noun: string = 'noun';
+    public static nouns: string = 'nouns';
+    public static S: string = 'Singular';
+    public static P: string = 'Plural';
+    public static c: string = 'case';
+    public static m: string = 'masculine';
+    public static f: string = 'feminine';
+    public static n: string = 'neuter';
+    public static s: string = 'singular';
+    public static p: string = 'plural';
 }

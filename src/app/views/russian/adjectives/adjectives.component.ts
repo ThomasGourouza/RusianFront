@@ -6,13 +6,12 @@ import { AdjectiveCategory } from 'src/app/models/reference/russian/adjective-ca
 import { AdjectiveEnding } from 'src/app/models/reference/russian/adjective-ending.model';
 import { AdjectiveService } from 'src/app/services/adjective.service';
 import { RussianReferenceService } from 'src/app/services/russian-reference.service';
-import { SideMenuService } from 'src/app/services/side-menu.service';
+import { SideMenuAdjectivesService } from 'src/app/services/side-menu-adjectives.service';
 import { ActionMenuService } from 'src/app/services/action-menu.service';
 import { Const } from 'src/app/services/utils/const';
 import { subscribedContainerMixin } from 'src/app/subscribed-container.mixin';
 import { takeUntil } from 'rxjs/operators';
 import { AdjectiveListService, RowData } from 'src/app/services/adjective-list.service';
-import { LazyLoadEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
 
 @Component({
@@ -25,7 +24,8 @@ import { Table } from 'primeng/table';
  * /adjectives
  * /adjectives/:category
  * /adjectives/consult/:adjective
- * /adjectives/not-found/:adjective
+ * /adjectives/add/:adjective
+ * /adjectives/update/:adjective
  */
 export class AdjectivesComponent extends subscribedContainerMixin() implements OnInit {
 
@@ -33,10 +33,9 @@ export class AdjectivesComponent extends subscribedContainerMixin() implements O
   public adjectiveCategory: AdjectiveCategory;
   public selectedRow: RowData;
   public page: string;
-  public action: string;
 
   constructor(
-    private sideMenuService: SideMenuService,
+    private sideMenuService: SideMenuAdjectivesService,
     private actionMenuService: ActionMenuService,
     public translate: TranslateService,
     private adjectiveService: AdjectiveService,
@@ -102,7 +101,6 @@ export class AdjectivesComponent extends subscribedContainerMixin() implements O
       )
     ).subscribe((action: string) => {
       if (action) {
-        this.action = action
         // mise à jour du menu de droite
         switch (action) {
           case Const.open: {

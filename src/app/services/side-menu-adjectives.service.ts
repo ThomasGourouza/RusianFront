@@ -7,7 +7,7 @@ import { Const } from 'src/app/services/utils/const';
 @Injectable({
   providedIn: 'root'
 })
-export class SideMenuService {
+export class SideMenuAdjectivesService {
 
   // menu de gauche
   private _menu$ = new BehaviorSubject<Array<TreeNode>>([]);

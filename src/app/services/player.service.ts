@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { PlayerApi } from './api/player.api';
-import { subscribedContainerMixin } from '../subscribed-container.mixin';
-import { takeUntil } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
@@ -19,7 +17,7 @@ export class SignInParams {
 @Injectable({
   providedIn: 'root'
 })
-export class PlayerService extends subscribedContainerMixin() {
+export class PlayerService {
 
   private _player$ = new BehaviorSubject({});
 
@@ -28,9 +26,7 @@ export class PlayerService extends subscribedContainerMixin() {
     private authService: AuthService,
     private toastr: ToastrService,
     private translate: TranslateService
-  ) {
-    super();
-  }
+  ) { }
 
   public get player$() {
     return this._player$.asObservable();
@@ -39,25 +35,23 @@ export class PlayerService extends subscribedContainerMixin() {
   public fetchPlayer(params: SignInParams) {
     this.playerApi.getPlayerByLoginAndPassword(
       params
-    ).pipe(
-      takeUntil(
-        this.destroyed$
-      )
-    ).subscribe((players: Array<Player>) => {
-      this._player$.next(players[0]);
-      this.authService.isAuth = true;
-      this.toastr.success(
-        this.translate.instant('toastr.success.message.auth'),
-        this.translate.instant('toastr.success.title')
-      );
-    }, (error: HttpErrorResponse) => {
-      this.toastr.error(
-        this.translate.instant(
-          error.status === 404 ? 'toastr.error.message.auth' : 'toastr.error.message.basic'
-        ),
-        this.translate.instant('toastr.error.title')
-      );
-    });
+    ).toPromise()
+      .then((players: Array<Player>) => {
+        this._player$.next(players[0]);
+        this.authService.isAuth = true;
+        this.toastr.success(
+          this.translate.instant('toastr.success.message.auth'),
+          this.translate.instant('toastr.success.title')
+        );
+      })
+      .catch((error: HttpErrorResponse) => {
+        this.toastr.error(
+          this.translate.instant(
+            error.status === 404 ? 'toastr.error.message.auth' : 'toastr.error.message.basic'
+          ),
+          this.translate.instant('toastr.error.title')
+        );
+      });
   }
 
   public logout() {
@@ -65,24 +59,25 @@ export class PlayerService extends subscribedContainerMixin() {
   }
 
   public registerPlayer(newPlayer: PlayerPost) {
-    this.playerApi.createPlayer(newPlayer).pipe(
-      takeUntil(this.destroyed$)
-    ).subscribe((player: Player) => {
-      this._player$.next(player);
-      this.authService.isAuth = true;
-      this.toastr.success(
-        this.translate.instant('toastr.success.message.register'),
-        this.translate.instant('toastr.success.title')
-      );
-    }, (error: HttpErrorResponse) => {
-      console.log(error);
-      this.toastr.error(
-        this.translate.instant(
-          error.status < 500 ? 'toastr.error.message.register' : 'toastr.error.message.basic'
-        ),
-        this.translate.instant('toastr.error.title')
-      );
-    });
+    this.playerApi.createPlayer(newPlayer)
+      .toPromise()
+      .then((player: Player) => {
+        this._player$.next(player);
+        this.authService.isAuth = true;
+        this.toastr.success(
+          this.translate.instant('toastr.success.message.register'),
+          this.translate.instant('toastr.success.title')
+        );
+      })
+      .catch((error: HttpErrorResponse) => {
+        console.log(error);
+        this.toastr.error(
+          this.translate.instant(
+            error.status < 500 ? 'toastr.error.message.register' : 'toastr.error.message.basic'
+          ),
+          this.translate.instant('toastr.error.title')
+        );
+      });
   }
 
 }

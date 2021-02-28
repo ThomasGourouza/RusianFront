@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { subscribedContainerMixin } from '../subscribed-container.mixin';
-import { takeUntil } from 'rxjs/operators';
 import { RussianReferenceApi } from './api/russian-reference.api';
 import { NounCategory } from '../models/reference/russian/noun-category.model';
 import { DeclensionName } from '../models/reference/russian/declension-name.model';
@@ -22,7 +20,7 @@ export class AnimateNounParam {
 @Injectable({
   providedIn: 'root'
 })
-export class RussianReferenceService extends subscribedContainerMixin() {
+export class RussianReferenceService {
 
   private _declensionNames$ = new BehaviorSubject([]);
   private _declensionTypes$ = new BehaviorSubject([]);
@@ -37,9 +35,7 @@ export class RussianReferenceService extends subscribedContainerMixin() {
 
   constructor(
     private russianReferenceApi: RussianReferenceApi
-  ) {
-    super();
-  }
+  ) { }
 
   public get declensionNames$() {
     return this._declensionNames$.asObservable();
@@ -74,92 +70,62 @@ export class RussianReferenceService extends subscribedContainerMixin() {
 
   public fetchReferences() {
     this.russianReferenceApi.getDeclensionName()
-      .pipe(
-        takeUntil(
-          this.destroyed$
-        )
-      ).subscribe((declensionNames: Array<DeclensionName>) => {
+      .toPromise()
+      .then((declensionNames: Array<DeclensionName>) => {
         this._declensionNames$.next(declensionNames);
       });
 
-      this.russianReferenceApi.getDeclensionType()
-      .pipe(
-        takeUntil(
-          this.destroyed$
-        )
-      ).subscribe((declensionTypes: Array<DeclensionType>) => {
+    this.russianReferenceApi.getDeclensionType()
+      .toPromise()
+      .then((declensionTypes: Array<DeclensionType>) => {
         this._declensionTypes$.next(declensionTypes);
       });
 
-      this.russianReferenceApi.getInterrogativeWord()
-      .pipe(
-        takeUntil(
-          this.destroyed$
-        )
-      ).subscribe((interrogativeWords: Array<InterrogativeWord>) => {
+    this.russianReferenceApi.getInterrogativeWord()
+      .toPromise()
+      .then((interrogativeWords: Array<InterrogativeWord>) => {
         this._interrogativeWords$.next(interrogativeWords);
       });
 
-      this.russianReferenceApi.getGrammaticalNumber()
-      .pipe(
-        takeUntil(
-          this.destroyed$
-        )
-      ).subscribe((grammaticalNumbers: Array<GrammaticalNumber>) => {
+    this.russianReferenceApi.getGrammaticalNumber()
+      .toPromise()
+      .then((grammaticalNumbers: Array<GrammaticalNumber>) => {
         this._grammaticalNumbers$.next(grammaticalNumbers);
       });
 
-      this.russianReferenceApi.getRussianGender()
-      .pipe(
-        takeUntil(
-          this.destroyed$
-        )
-      ).subscribe((russianGenders: Array<RussianGender>) => {
+    this.russianReferenceApi.getRussianGender()
+      .toPromise()
+      .then((russianGenders: Array<RussianGender>) => {
         this._genders$.next(russianGenders);
       });
 
-      this.russianReferenceApi.getRussianCase()
-      .pipe(
-        takeUntil(
-          this.destroyed$
-        )
-      ).subscribe((russianCases: Array<RussianCase>) => {
+    this.russianReferenceApi.getRussianCase()
+      .toPromise()
+      .then((russianCases: Array<RussianCase>) => {
         this._cases$.next(russianCases);
       });
 
-      this.russianReferenceApi.getRussianRole()
-      .pipe(
-        takeUntil(
-          this.destroyed$
-        )
-      ).subscribe((russianRoles: Array<RussianRole>) => {
+    this.russianReferenceApi.getRussianRole()
+      .toPromise()
+      .then((russianRoles: Array<RussianRole>) => {
         this._roles$.next(russianRoles);
       });
 
-      this.russianReferenceApi.getNounCategory(new AnimateNounParam(false))
-      .pipe(
-        takeUntil(
-          this.destroyed$
-        )
-      ).subscribe((nounCategories: Array<NounCategory>) => {
+    this.russianReferenceApi.getNounCategory(new AnimateNounParam(false))
+      .toPromise()
+      .then((nounCategories: Array<NounCategory>) => {
         this._nounCategoriesInanimate$.next(nounCategories);
       });
 
-      this.russianReferenceApi.getNounCategory(new AnimateNounParam(true))
-      .pipe(
-        takeUntil(
-          this.destroyed$
-        )
-      ).subscribe((nounCategories: Array<NounCategory>) => {
+    this.russianReferenceApi.getNounCategory(new AnimateNounParam(true))
+      .toPromise()
+      .then((nounCategories: Array<NounCategory>) => {
         this._nounCategoriesAnimate$.next(nounCategories);
       });
 
-      this.russianReferenceApi.getAdjectiveCategory()
-      .pipe(
-        takeUntil(
-          this.destroyed$
-        )
-      ).subscribe((adjectiveCategories: Array<AdjectiveCategory>) => {
+    this.russianReferenceApi.getAdjectiveCategory()
+      .toPromise()
+      .then((adjectiveCategories: Array<AdjectiveCategory>) => {
         this._adjectiveCategories$.next(adjectiveCategories);
       });
   }
