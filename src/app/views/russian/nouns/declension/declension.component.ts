@@ -3,6 +3,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { Category } from '../nouns.component';
 import { Const } from 'src/app/services/utils/const';
 import { NounEnding } from 'src/app/models/reference/russian/noun-ending.model';
+import { RussianReferenceService } from 'src/app/services/russian-reference.service';
+import { DeclensionRule } from 'src/app/models/reference/russian/declension-rule.model';
 export interface RowData {
   case: string;
   singular: string;
@@ -34,14 +36,44 @@ export class DeclensionComponent implements OnInit {
   public cols: Array<ColData>;
   public data: Array<RowData>;
 
+  public singularExceptions: Array<any>;
+  public pluralExceptions: Array<any>;
+
+  private declensionRules: Array<DeclensionRule>;
   public appliedRules: Array<Rule>;
   public rules: Array<Rule>;
 
   constructor(
-    public translate: TranslateService
+    public translate: TranslateService,
+    private russianReferenceService: RussianReferenceService
   ) { }
 
   ngOnInit(): void {
+    this.singularExceptions = [];
+    this.pluralExceptions = [];
+
+    this.category.endings
+      .find((ending) => ending.number === Const.S).nounEndings
+      .filter((ending) => ending.specificEndingRules.length > 0)
+      .forEach((ending) =>
+        ending.specificEndingRules
+          .forEach((rule) =>
+            this.singularExceptions.push(rule.rule)
+          )
+      );
+    this.category.endings
+      .find((ending) => ending.number === Const.P).nounEndings
+      .filter((ending) => ending.specificEndingRules.length > 0)
+      .forEach((ending) =>
+        ending.specificEndingRules
+          .forEach((rule) =>
+            this.pluralExceptions.push(rule.rule)
+          )
+      );
+
+    console.log(this.singularExceptions);
+    console.log(this.pluralExceptions);
+
     this.getLabels(this.category);
     // update la langue à chaque changement
     this.translate.onLangChange.subscribe(() => {
@@ -55,68 +87,49 @@ export class DeclensionComponent implements OnInit {
       { field: Const.p, header: Const.P }
     ];
     this.setData(this.rows, this.cols, this.category);
-    this.resetRules();
+    this.russianReferenceService.declensionRules$
+      .subscribe((declensionRules: Array<DeclensionRule>) => {
+        if (declensionRules.length > 0) {
+          this.declensionRules = declensionRules.filter((decl) =>
+            this.singularExceptions.includes(decl.value)
+            || this.pluralExceptions.includes(decl.value)
+          );
+          this.resetRules();
+        }
+      });
   }
 
-  // appel API
+  public resetRules(): void {
+    this.rules = this.initRules();
+    this.setRules();
+    this.appliedRules = this.rules.filter((rule) => rule.applied);
+  }
+
   private initRules(): Array<Rule> {
-    return [
-      {
-        id: 1,
-        rule: 'After a sibilant (ж, ч, ш, щ) or a velar (г, к, or х) consonant.',
-        applied: false
-      },
-      {
-        id: 2,
-        rule: 'After a sibilant (ж, ч, ш, щ) and when unstressed.',
-        applied: false
-      },
-      {
-        id: 3,
-        rule: 'After a sibilant (ж, ч, ш, щ).',
-        applied: false
-      },
-      {
-        id: 4,
-        rule: 'After a soft consonant and when stressed.',
-        applied: false
-      },
-      {
-        id: 5,
-        rule: 'After a consonant.',
-        applied: false
-      },
-      {
-        id: 6,
-        rule: 'Inanimate.',
-        applied: true
-      },
-      {
-        id: 7,
-        rule: 'Animate.',
-        applied: false
-      },
-      {
-        id: 8,
-        rule: 'For the nouns ending in ие/иё in the nominative singular and when unstressed.',
-        applied: false
-      },
-      {
-        id: 9,
-        rule: 'For the nouns мать and дочь.',
-        applied: false
-      },
-      {
-        id: 10,
-        rule: 'For the noun подмасте́рье.',
-        applied: false
-      },
-      {
-        id: 11,
-        rule: 'Exception without any specific rule.',
-        applied: false
+    return this.declensionRules.map((declensionRule) => {
+      return {
+        id: declensionRule.id,
+        rule: declensionRule.value,
+        applied: declensionRule.id === 6
+      };
+    });
+  }
+
+  private setRules(): void {
+    this.category.endings.forEach((ending) => {
+      if (ending.nounEndings.length > 0) {
+        ending.nounEndings.forEach((nounEnding) => {
+          if (nounEnding.specificEndingRules.length > 0) {
+            nounEnding.specificEndingRules.forEach((specificEndingRule) => {
+              specificEndingRule.applied = this.rules.find((rule) =>
+                rule.rule === specificEndingRule.rule
+              ).applied;
+            });
+          }
+        });
       }
-    ];
+    });
+    this.setData(this.rows, this.cols, this.category);
   }
 
   private setData(rows: Array<string>, cols: Array<ColData>, category: Category): void {
@@ -149,29 +162,7 @@ export class DeclensionComponent implements OnInit {
     }
     this.setRules();
     this.appliedRules = this.rules.filter((rule) => rule.applied);
-  }
-
-  public resetRules(): void {
-    this.rules = this.initRules();
-    this.setRules();
-    this.appliedRules = this.rules.filter((rule) => rule.applied);
-  }
-
-  private setRules(): void {
-    this.category.endings.forEach((ending) => {
-      if (ending.nounEndings.length > 0) {
-        ending.nounEndings.forEach((nounEnding) => {
-          if (nounEnding.specificEndingRules.length > 0) {
-            nounEnding.specificEndingRules.forEach((specificEndingRule) => {
-              specificEndingRule.applied = this.rules.find((rule) =>
-                rule.rule === specificEndingRule.rule
-              ).applied;
-            });
-          }
-        });
-      }
-    });
-    this.setData(this.rows, this.cols, this.category);
+    console.log(this.rules);
   }
 
   private getLabels(category: Category): void {

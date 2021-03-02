@@ -10,6 +10,7 @@ import { RussianGender } from '../models/reference/russian/russian-gender.model'
 import { RussianCase } from '../models/reference/russian/russian-case.model';
 import { RussianRole } from '../models/reference/russian/russian-role.model';
 import { AdjectiveCategory } from '../models/reference/russian/adjective-category.model';
+import { DeclensionRule } from '../models/reference/russian/declension-rule.model';
 export class AnimateNounParam {
   constructor(
     public is_noun_animate: boolean
@@ -24,6 +25,7 @@ export class RussianReferenceService {
 
   private _declensionNames$ = new BehaviorSubject([]);
   private _declensionTypes$ = new BehaviorSubject([]);
+  private _declensionRules$ = new BehaviorSubject([]);
   private _interrogativeWords$ = new BehaviorSubject([]);
   private _grammaticalNumbers$ = new BehaviorSubject([]);
   private _genders$ = new BehaviorSubject([]);
@@ -41,6 +43,9 @@ export class RussianReferenceService {
   }
   public get declensionTypes$() {
     return this._declensionTypes$.asObservable();
+  }
+  public get declensionRules$() {
+    return this._declensionRules$.asObservable();
   }
   public get interrogativeWords$() {
     return this._interrogativeWords$.asObservable();
@@ -75,6 +80,12 @@ export class RussianReferenceService {
       .toPromise()
       .then((declensionTypes: Array<DeclensionType>) => {
         this._declensionTypes$.next(declensionTypes);
+      });
+
+    this.russianReferenceApi.getDeclensionRule()
+      .toPromise()
+      .then((declensionRules: Array<DeclensionRule>) => {
+        this._declensionRules$.next(declensionRules);
       });
 
     this.russianReferenceApi.getInterrogativeWord()

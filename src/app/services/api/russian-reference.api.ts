@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AdjectiveCategory } from 'src/app/models/reference/russian/adjective-category.model';
 import { DeclensionName } from 'src/app/models/reference/russian/declension-name.model';
+import { DeclensionRule } from 'src/app/models/reference/russian/declension-rule.model';
 import { DeclensionType } from 'src/app/models/reference/russian/declension-type.model';
 import { GrammaticalNumber } from 'src/app/models/reference/russian/grammatical-number.model';
 import { InterrogativeWord } from 'src/app/models/reference/russian/interrogative-word.model';
@@ -16,6 +17,7 @@ import { Utils } from '../utils/utils.service';
 const API_BASE_URL = 'http://localhost:8080/api/v1/reference/russian/';
 const DECLENSIONNAME = 'declension/name';
 const DECLENSIONTYPE = 'declension/type';
+const DECLENSIONRULE = 'declension/rule';
 const INTERROGATIVEWORD = 'interrogative_word';
 const GRAMMATICALNUMBER = 'grammatical_number';
 const GENDER = 'gender';
@@ -39,6 +41,9 @@ export class RussianReferenceApi {
   }
   public getDeclensionType(): Observable<Array<DeclensionType>> {
     return this.http.get<Array<DeclensionType>>(API_BASE_URL + DECLENSIONTYPE);
+  }
+  public getDeclensionRule(): Observable<Array<DeclensionRule>> {
+    return this.http.get<Array<DeclensionRule>>(API_BASE_URL + DECLENSIONRULE);
   }
   public getInterrogativeWord(): Observable<Array<InterrogativeWord>> {
     return this.http.get<Array<InterrogativeWord>>(API_BASE_URL + INTERROGATIVEWORD);
