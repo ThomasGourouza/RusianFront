@@ -4,6 +4,7 @@ import { TreeNode } from 'primeng/api';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Const } from 'src/app/services/utils/const';
 export interface NounCategoryIds {
+  id: number;
   name: string;
   singular: number;
   plural: number;
@@ -36,8 +37,9 @@ export class SideMenuNounsService {
     this._selection$.next(selection);
   }
 
-  private nounCategory(n: string, s: number, p: number): NounCategoryIds {
+  private nounCategory(i: number, n: string, s: number, p: number): NounCategoryIds {
     return {
+      id: i,
       name: n,
       singular: s,
       plural: p
@@ -50,7 +52,7 @@ export class SideMenuNounsService {
           label: this.translate.instant('adjectives.side.intro'),
           icon: "pi pi-paperclip",
           selectable: true,
-          data: this.nounCategory(Const.intro, 0, 0)
+          data: this.nounCategory(0, Const.intro, 0, 0)
 
         },
         {
@@ -78,19 +80,19 @@ export class SideMenuNounsService {
                       label: 'First type',
                       icon: 'pi pi-fw pi-file',
                       selectable: true,
-                      data: this.nounCategory('declension', 1, 4)
+                      data: this.nounCategory(1, 'declension', 1, 4)
                     },
                     {
                       label: 'Second type',
                       icon: 'pi pi-fw pi-file',
                       selectable: true,
-                      data: this.nounCategory('declension', 2, 5)
+                      data: this.nounCategory(2, 'declension', 2, 5)
                     },
                     {
                       label: 'Third type',
                       icon: 'pi pi-fw pi-file',
                       selectable: true,
-                      data: this.nounCategory('declension', 3, 6)
+                      data: this.nounCategory(3, 'declension', 3, 6)
                     }
                   ]
                 },
@@ -105,19 +107,19 @@ export class SideMenuNounsService {
                       label: 'First type',
                       icon: 'pi pi-fw pi-file',
                       selectable: true,
-                      data: this.nounCategory('declension', 7, 10)
+                      data: this.nounCategory(4, 'declension', 7, 10)
                     },
                     {
                       label: 'Second type',
                       icon: 'pi pi-fw pi-file',
                       selectable: true,
-                      data: this.nounCategory('declension', 8, 11)
+                      data: this.nounCategory(5, 'declension', 8, 11)
                     },
                     {
                       label: 'Third type',
                       icon: 'pi pi-fw pi-file',
                       selectable: true,
-                      data: this.nounCategory('declension', 9, 12)
+                      data: this.nounCategory(6, 'declension', 9, 12)
                     }
                   ]
                 }
@@ -141,19 +143,19 @@ export class SideMenuNounsService {
                       label: 'First type',
                       icon: 'pi pi-fw pi-file',
                       selectable: true,
-                      data: this.nounCategory('declension', 13, 16)
+                      data: this.nounCategory(7, 'declension', 13, 16)
                     },
                     {
                       label: 'Second type',
                       icon: 'pi pi-fw pi-file',
                       selectable: true,
-                      data: this.nounCategory('declension', 14, 17)
+                      data: this.nounCategory(8, 'declension', 14, 17)
                     },
                     {
                       label: 'Third type',
                       icon: 'pi pi-fw pi-file',
                       selectable: true,
-                      data: this.nounCategory('declension', 15, 18)
+                      data: this.nounCategory(9, 'declension', 15, 18)
                     }
                   ]
                 },
@@ -168,13 +170,13 @@ export class SideMenuNounsService {
                       label: 'First type',
                       icon: 'pi pi-fw pi-file',
                       selectable: true,
-                      data: this.nounCategory('declension', 19, 21)
+                      data: this.nounCategory(10, 'declension', 19, 21)
                     },
                     {
                       label: 'Second type',
                       icon: 'pi pi-fw pi-file',
                       selectable: true,
-                      data: this.nounCategory('declension', 20, 22)
+                      data: this.nounCategory(11, 'declension', 20, 22)
                     }
                   ]
                 }
@@ -198,7 +200,7 @@ export class SideMenuNounsService {
                       label: 'First type',
                       icon: 'pi pi-fw pi-file',
                       selectable: true,
-                      data: this.nounCategory('declension', 23, 24)
+                      data: this.nounCategory(12, 'declension', 23, 24)
                     }
                   ]
                 },
@@ -213,7 +215,7 @@ export class SideMenuNounsService {
                       label: 'First type',
                       icon: 'pi pi-fw pi-file',
                       selectable: true,
-                      data: this.nounCategory('declension', 25, 26)
+                      data: this.nounCategory(13, 'declension', 25, 26)
                     }
                   ]
                 },
@@ -228,13 +230,13 @@ export class SideMenuNounsService {
                       label: 'First type',
                       icon: 'pi pi-fw pi-file',
                       selectable: true,
-                      data: this.nounCategory('declension', 27, 29)
+                      data: this.nounCategory(14, 'declension', 27, 29)
                     },
                     {
                       label: 'Second type',
                       icon: 'pi pi-fw pi-file',
                       selectable: true,
-                      data: this.nounCategory('declension', 28, 30)
+                      data: this.nounCategory(15, 'declension', 28, 30)
                     }
                   ]
                 }
@@ -248,18 +250,19 @@ export class SideMenuNounsService {
           collapsedIcon: "pi pi-folder",
           selectable: false,
           expanded: isAdjectiveExpanded,
-          children: [{
-            label: this.translate.instant('adjectives.side.consult'),
-            icon: 'pi pi-fw pi-eye',
-            selectable: true,
-            data: this.nounCategory(Const.consult, 0, 0)
-          },
-          {
-            label: this.translate.instant('adjectives.side.add'),
-            icon: 'pi pi-fw pi-plus',
-            selectable: true,
-            data: this.nounCategory(Const.add, 0, 0)
-          }
+          children: [
+            {
+              label: this.translate.instant('adjectives.side.consult'),
+              icon: 'pi pi-fw pi-eye',
+              selectable: true,
+              data: this.nounCategory(0, Const.consult, 0, 0)
+            },
+            {
+              label: this.translate.instant('adjectives.side.add'),
+              icon: 'pi pi-fw pi-plus',
+              selectable: true,
+              data: this.nounCategory(0, Const.add, 0, 0)
+            }
           ]
         }
       ]

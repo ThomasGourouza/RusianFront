@@ -7,16 +7,19 @@
 
     <div class="col">
         <section>
-            <div class="d-flex align-items-center justify-content-center" *ngIf="_nounCategoriesInanimate.length > 0"
+            <div class="d-flex align-items-center justify-content-center" *ngIf="_nounCategories?.length > 0"
                 [ngSwitch]="page">
                 <div *ngSwitchCase="'intro'">
                     <br>
                     {{ 'adjectives.text' | translate }}
                 </div>
                 <div *ngSwitchCase="'declension'">
-                    <div *ngIf="category">
-                        <app-declension [category]="category"></app-declension>
+                    <div *ngFor="let i of declensionIds">
+                        <div *ngIf="category.id === i">
+                            <app-declension [category]="category"></app-declension>
+                        </div>
                     </div>
+
                 </div>
                 <!-- <div *ngSwitchCase="'second-declension'">
                     <app-declension-category [adjectiveCategory]="getAdjectiveCategory(2)">

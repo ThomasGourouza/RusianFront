@@ -29,8 +29,7 @@ export class RussianReferenceService {
   private _genders$ = new BehaviorSubject([]);
   private _cases$ = new BehaviorSubject([]);
   private _roles$ = new BehaviorSubject([]);
-  private _nounCategoriesInanimate$ = new BehaviorSubject([]);
-  private _nounCategoriesAnimate$ = new BehaviorSubject([]);
+  private _nounCategories$ = new BehaviorSubject([]);
   private _adjectiveCategories$ = new BehaviorSubject([]);
 
   constructor(
@@ -59,10 +58,7 @@ export class RussianReferenceService {
     return this._roles$.asObservable();
   }
   public get nounCategoriesInanimate$() {
-    return this._nounCategoriesInanimate$.asObservable();
-  }
-  public get nounCategoriesAnimate$() {
-    return this._nounCategoriesAnimate$.asObservable();
+    return this._nounCategories$.asObservable();
   }
   public get adjectiveCategories$() {
     return this._adjectiveCategories$.asObservable();
@@ -114,13 +110,7 @@ export class RussianReferenceService {
     this.russianReferenceApi.getNounCategory(new AnimateNounParam(false))
       .toPromise()
       .then((nounCategories: Array<NounCategory>) => {
-        this._nounCategoriesInanimate$.next(nounCategories);
-      });
-
-    this.russianReferenceApi.getNounCategory(new AnimateNounParam(true))
-      .toPromise()
-      .then((nounCategories: Array<NounCategory>) => {
-        this._nounCategoriesAnimate$.next(nounCategories);
+        this._nounCategories$.next(nounCategories);
       });
 
     this.russianReferenceApi.getAdjectiveCategory()

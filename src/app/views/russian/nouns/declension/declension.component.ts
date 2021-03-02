@@ -66,6 +66,17 @@ export class DeclensionComponent implements OnInit {
     });
   }
 
+  public click(): void {
+    this.category.endings.forEach((ending) => {
+      ending.nounEndings.filter((nounEnding) =>
+        nounEnding.russianCase === 'Accusative' 
+        && nounEnding.specificEndingRules.length > 0
+      ).forEach((e) => {
+        console.log(e.specificEndingRules.find((r) => r.applied).value);
+      });
+    });
+  }
+
   private getLabels(category: Category): void {
     let cat: string;
     let gender: string;

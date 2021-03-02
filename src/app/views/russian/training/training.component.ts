@@ -30,8 +30,7 @@ export class TrainingComponent extends subscribedContainerMixin()  implements On
   public _genders: Array<RussianGender>;
   public _cases: Array<RussianCase>;
   public _roles: Array<RussianRole>;
-  public _nounCategoriesInanimate: Array<NounCategory>;
-  public _nounCategoriesAnimate: Array<NounCategory>;
+  public _nounCategories: Array<NounCategory>;
   public _adjectiveCategories: Array<AdjectiveCategory>;
 
   constructor(
@@ -122,15 +121,8 @@ export class TrainingComponent extends subscribedContainerMixin()  implements On
     this.russianReferenceService.nounCategoriesInanimate$.pipe(
       takeUntil(this.destroyed$)
     ).subscribe((nounCategoriesInanimate) => {
-      this._nounCategoriesInanimate = nounCategoriesInanimate;
-      console.log(this._nounCategoriesInanimate);
-    });
-
-    this.russianReferenceService.nounCategoriesAnimate$.pipe(
-      takeUntil(this.destroyed$)
-    ).subscribe((nounCategoriesAnimate) => {
-      this._nounCategoriesAnimate = nounCategoriesAnimate;
-      console.log(this._nounCategoriesAnimate);
+      this._nounCategories = nounCategoriesInanimate;
+      console.log(this._nounCategories);
     });
 
     this.russianReferenceService.adjectiveCategories$.pipe(

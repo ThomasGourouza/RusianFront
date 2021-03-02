@@ -14,6 +14,7 @@ import { NounEnding } from 'src/app/models/reference/russian/noun-ending.model';
 import { Noun } from 'src/app/models/noun/get/noun.model';
 
 export interface Category {
+  id: number;
   declension: string;
   gender: string;
   type: string;
@@ -39,11 +40,11 @@ export interface Ending {
  */
 export class NounsComponent extends subscribedContainerMixin() implements OnInit {
 
-  public _nounCategoriesInanimate: Array<NounCategory>;
-  public _nounCategoriesAnimate: Array<NounCategory>;
+  public _nounCategories: Array<NounCategory>;
   public nounCategory: NounCategory;
 
   public category: Category;
+  public declensionIds: Array<number>;
 
   // public selectedRow: RowData;
   public page: string;
@@ -62,6 +63,10 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
   }
 
   ngOnInit(): void {
+    this.declensionIds = [];
+    for (let i = 1; i <= 15; i++) {
+      this.declensionIds.push(i);
+    }
     this.initMenus();
     this.resetServices();
 
@@ -73,15 +78,10 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
     // récupération des références
     this.russianReferenceService.nounCategoriesInanimate$
       .subscribe((nounCategories: Array<NounCategory>) => {
-        this._nounCategoriesInanimate = nounCategories;
+        this._nounCategories = nounCategories;
         // setter de this.page au chargement de la page
         this.setPage(this.router.url);
       });
-    this.russianReferenceService.nounCategoriesAnimate$
-      .subscribe((nounCategories: Array<NounCategory>) => {
-        this._nounCategoriesAnimate = nounCategories;
-      });
-
 
     // emetter du service sideMenu (gauche)
     this.sideMenuService.selection$.pipe(
@@ -183,16 +183,18 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
   }
 
   private mapCategory(selection: NounCategoryIds): Category {
-    const categories = this._nounCategoriesInanimate.filter(
+    const categories = this._nounCategories.filter(
       (c) => c.id === selection.singular || c.id === selection.plural
     );
     if (categories.length === 2) {
       const category: Category = {
+        id: 0,
         declension: '',
         gender: '',
         type: '',
         endings: []
       }
+      category.id = selection.id;
       category.declension = categories[0].russianDeclensionName;
       category.gender = categories[0].russianGender;
       category.type = categories[0].russianDeclCatType;
@@ -274,6 +276,7 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
 
   private selectionFromUrl(category: string, gender: string, type: string): NounCategoryIds {
     const selection: NounCategoryIds = {
+      id: 0,
       name: 'declension',
       singular: 0,
       plural: 0
@@ -284,16 +287,19 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
           case 'masculine': {
             switch (type) {
               case '1': {
+                selection.id = 1;
                 selection.singular = 1;
                 selection.plural = 4;
                 break;
               }
               case '2': {
+                selection.id = 2;
                 selection.singular = 2;
                 selection.plural = 5;
                 break;
               }
               case '3': {
+                selection.id = 3;
                 selection.singular = 3;
                 selection.plural = 6;
                 break;
@@ -308,16 +314,19 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
           case 'feminine': {
             switch (type) {
               case '1': {
+                selection.id = 4;
                 selection.singular = 7;
                 selection.plural = 10;
                 break;
               }
               case '2': {
+                selection.id = 5;
                 selection.singular = 8;
                 selection.plural = 11;
                 break;
               }
               case '3': {
+                selection.id = 6;
                 selection.singular = 9;
                 selection.plural = 12;
                 break;
@@ -341,16 +350,19 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
           case 'masculine': {
             switch (type) {
               case '1': {
+                selection.id = 7;
                 selection.singular = 13;
                 selection.plural = 16;
                 break;
               }
               case '2': {
+                selection.id = 8;
                 selection.singular = 14;
                 selection.plural = 17;
                 break;
               }
               case '3': {
+                selection.id = 9;
                 selection.singular = 15;
                 selection.plural = 18;
                 break;
@@ -365,11 +377,13 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
           case 'neuter': {
             switch (type) {
               case '1': {
+                selection.id = 10;
                 selection.singular = 19;
                 selection.plural = 21;
                 break;
               }
               case '2': {
+                selection.id = 11;
                 selection.singular = 20;
                 selection.plural = 22;
                 break;
@@ -392,6 +406,7 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
         switch (gender) {
           case 'masculine': {
             if (type === '1') {
+              selection.id = 12;
               selection.singular = 23;
               selection.plural = 24;
             } else {
@@ -401,6 +416,7 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
           }
           case 'feminine': {
             if (type === '1') {
+              selection.id = 13;
               selection.singular = 25;
               selection.plural = 26;
             } else {
@@ -411,11 +427,13 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
           case 'neuter': {
             switch (type) {
               case '1': {
+                selection.id = 14;
                 selection.singular = 27;
                 selection.plural = 29;
                 break;
               }
               case '2': {
+                selection.id = 15;
                 selection.singular = 28;
                 selection.plural = 30;
                 break;
@@ -488,7 +506,7 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
   }
 
   public getNounCategory(id: number): NounCategory {
-    return this._nounCategoriesInanimate.find((category) => category.id === id);
+    return this._nounCategories.find((category) => category.id === id);
   }
 
   private mapEndings(root: string, endings: Array<NounEnding>): Array<NounEnding> {
