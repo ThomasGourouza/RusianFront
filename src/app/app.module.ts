@@ -21,6 +21,7 @@ import { TreeModule } from 'primeng/tree';
 import { CardModule } from 'primeng/card';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { CheckboxModule } from 'primeng/checkbox';
 import { ConfirmationService } from 'primeng/api';
 import { AccountComponent } from './views/player/account/account.component';
 import { TrainingComponent } from './views/russian/training/training.component';
@@ -106,7 +107,8 @@ import { DeclensionComponent } from './views/russian/nouns/declension/declension
     TreeModule,
     ButtonModule,
     ConfirmDialogModule,
-    CardModule
+    CardModule,
+    CheckboxModule
   ],
   providers: [
     Utils,

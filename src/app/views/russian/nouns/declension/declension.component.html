@@ -29,4 +29,12 @@
     </p-table>
 </div>
 <br>
-<button class="btn btn-success" (click)="click()">animate</button>
+<div *ngFor="let rule of rules" class="p-field-checkbox">
+    <p-checkbox name="rules" [value]="rule" [ngModel]="appliedRules" [inputId]="rule.id"
+        (onChange)="applyRule(rule.id, !rule.applied)"></p-checkbox>
+    <label [for]="rule.id">{{rule.rule}}</label>
+</div>
+<br>
+<button class="btn btn-primary" (click)="resetRules()">Reset</button>
+<br>
+<br>
