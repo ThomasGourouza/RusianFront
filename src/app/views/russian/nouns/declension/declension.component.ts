@@ -197,35 +197,29 @@ export class DeclensionComponent implements OnInit {
     });
   }
 
+
   public applyException(id: number, value: boolean): void {
     this.findByRuleId(this.exceptions, id).applied = value;
-    // if animate
-    if (id === 7) {
-      this.findByRuleId(this.exceptions, 6).applied = !value;
-    }
-    // TODO switch + methode commune mat, doch et podmasterie
-    // if мать and дочь
-    if (id === 9) {
-      this.findByRuleId(this.exceptions, 7).applied = value;
-      this.findByRuleId(this.exceptions, 6).applied = !value;
-      if (value) {
-        for (let i = 1; i <= 12; i++) {
-          if (!!this.findByRuleId(this.exceptions, i) && ![6, 7, 9].includes(i)) {
-            this.findByRuleId(this.exceptions, i).applied = false;
-          }
-        }
+    switch (id) {
+      // if animate
+      case 7: {
+        this.findByRuleId(this.exceptions, 6).applied = !value;
+        break;
       }
-    }
-    // if подмасте́рье
-    if (id === 10) {
-      this.findByRuleId(this.exceptions, 7).applied = value;
-      this.findByRuleId(this.exceptions, 6).applied = !value;
-      if (value) {
-        for (let i = 1; i <= 12; i++) {
-          if (!!this.findByRuleId(this.exceptions, i) && ![6, 7, 10].includes(i)) {
-            this.findByRuleId(this.exceptions, i).applied = false;
+      // if мать and дочь
+      case 9:
+      // if подмасте́рье
+      case 10: {
+        this.findByRuleId(this.exceptions, 7).applied = value;
+        this.findByRuleId(this.exceptions, 6).applied = !value;
+        if (value) {
+          for (let i = 1; i <= 12; i++) {
+            if (!!this.findByRuleId(this.exceptions, i) && ![6, 7, id].includes(i)) {
+              this.findByRuleId(this.exceptions, i).applied = false;
+            }
           }
         }
+        break;
       }
     }
     // if no specific rule and after a soft consonant, when stressed.
