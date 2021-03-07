@@ -1,40 +1,59 @@
 <br>
-<div class="card">
-    <p-table [columns]="cols" [value]="data" styleClass="p-datatable-gridlines" [reorderableColumns]="true">
-        <ng-template pTemplate="caption">
-            <div class="p-d-flex d-flex justify-content-center align-items-start">
-                {{ title }}
+<div class="row">
+    <div class="col-8">
+        <div class="card">
+            <p-table [columns]="cols" [value]="data" styleClass="p-datatable-gridlines" [reorderableColumns]="true">
+                <ng-template pTemplate="caption">
+                    <div class="p-d-flex d-flex justify-content-center align-items-start">
+                        {{ title }}
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th *ngFor="let col of columns" pReorderableColumn>
+                            <div class="d-flex justify-content-center">
+                                {{ printNumber(col.header) }}
+                            </div>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex">
+                    <tr [pReorderableRow]="index">
+                        <td *ngFor="let col of columns" [ngClass]="{'header': col.field === 'case'}">
+                            <div [ngClass]="{'d-flex justify-content-center large': col.field != 'case', 
+                                    'blue': col.field != 'case' && isSpecificCase(rowData, col)}">
+                                <span *ngIf="col.field === 'case'" class="pi pi-bars grabbable"
+                                    pReorderableRowHandle>&nbsp;</span>
+                                {{ printCase(rowData[col.field]) }}
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+    <div class="col-4">
+        <div *ngFor="let exception of exceptions" class="p-field-checkbox">
+            <div *ngIf="exception.ruleId !== 6 && exception.ruleId !== 12">
+                <div class="row">
+                    <div class="col-1">
+                        <p-checkbox name="exceptions" [value]="exception" [ngModel]="appliedExceptions"
+                            [inputId]="exception.ruleId"
+                            (onChange)="applyException(exception.ruleId, !exception.applied)"
+                            [disabled]="isCheckBoxDisabled(exception.ruleId)">
+                        </p-checkbox>
+                    </div>
+                    <div class="col d-flex align-items-end">
+                        <label [for]="exception.ruleId">{{ 'nouns.exception.' + exception.ruleId | translate }}</label>
+                    </div>
+                </div>
             </div>
-        </ng-template>
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th *ngFor="let col of columns" pReorderableColumn>
-                    <div class="d-flex justify-content-center">
-                        {{ printNumber(col.header) }}
-                    </div>
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex">
-            <tr [pReorderableRow]="index">
-                <td *ngFor="let col of columns" [ngClass]="{'header': col.field === 'case'}">
-                    <div [ngClass]="{'d-flex justify-content-center': col.field != 'case'}">
-                        <span *ngIf="col.field === 'case'" class="pi pi-bars grabbable"
-                            pReorderableRowHandle>&nbsp;</span>
-                        {{ printCase(rowData[col.field]) }}
-                    </div>
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
+        </div>
+        <br>
+        <button *ngIf="exceptions.length > 0" pButton type="button"
+            class="p-button-outlined p-button-raised p-button-rounded" icon="pi pi-ban" [label]="unselect"
+            (click)="resetExceptions()"></button>
+        <br>
+    </div>
 </div>
-<br>
-<div *ngFor="let rule of rules" class="p-field-checkbox">
-    <p-checkbox name="rules" [value]="rule" [ngModel]="appliedRules" [inputId]="rule.id"
-        (onChange)="applyRule(rule.id, !rule.applied)"></p-checkbox>
-    <label [for]="rule.id">{{rule.rule}}</label>
-</div>
-<br>
-<button class="btn btn-primary" (click)="resetRules()">Reset</button>
-<br>
 <br>

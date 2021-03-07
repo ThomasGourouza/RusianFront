@@ -123,6 +123,7 @@
         }
     },
     "nouns": {
+        "unselect": "Tout désélectioner",
         "declension": {
             "first": "Première déclinaison",
             "second": "Deuxième déclinaison",
@@ -141,6 +142,20 @@
             "first": "Premier type",
             "second": "Deuxième type",
             "third": "Troisième type"
+        },
+        "exception": {
+            "1": "Après une consonne sibilante (ж, ч, ш, щ) ou vélaire (г, к, х)",
+            "2": "Après une consonne sibilante (ж, ч, ш, щ) et quand accentué",
+            "3": "Après une consonne sibilante (ж, ч, ш, щ)",
+            "4": "Après une consonne molle et quand accentué",
+            "5": "Après une consonne",
+            "8": "Pour les noms finissant par ие/иё (au nominatif singulier) et quand accentué",
+            "9": "Pour les noms мать et дочь",
+            "10": "Pour le nom подмасте́рье",
+            "11": "Exception sans règle spécifique",
+            "7": "Animé",
+            "6": "Inanimé",
+            "12": "Exception sans règle spécifique, après une consonne molle et quand accentué"
         }
     },
     "reference": {

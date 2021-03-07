@@ -5,23 +5,32 @@
         </app-side-nouns>
     </div>
 
-    <div class="col">
-        <section>
-            <div class="d-flex align-items-center justify-content-center" *ngIf="_nounCategories?.length > 0"
-                [ngSwitch]="page">
-                <div *ngSwitchCase="'intro'">
-                    <br>
-                    {{ 'adjectives.text' | translate }}
+    <section *ngIf="page === 'declension' && _nounCategories?.length > 0" class="col-9">
+        <div class="d-flex align-items-center justify-content-center">
+            <div *ngFor="let i of declensionIds">
+                <div *ngIf="category.id === i">
+                    <app-declension [category]="category"></app-declension>
                 </div>
-                <div *ngSwitchCase="'declension'">
-                    <div *ngFor="let i of declensionIds">
-                        <div *ngIf="category.id === i">
-                            <app-declension [category]="category"></app-declension>
-                        </div>
-                    </div>
+            </div>
+        </div>
+    </section>
 
+    <section *ngIf="page !== 'declension'" class="col-6">
+        <div class="d-flex align-items-center justify-content-center" *ngIf="_nounCategories?.length > 0"
+            [ngSwitch]="page">
+            <div *ngSwitchCase="'intro'">
+                <br>
+                {{ 'adjectives.text' | translate }}
+            </div>
+            <div *ngSwitchCase="'declension'">
+                <div *ngFor="let i of declensionIds">
+                    <div *ngIf="category.id === i">
+                        <app-declension [category]="category"></app-declension>
+                    </div>
                 </div>
-                <!-- <div *ngSwitchCase="'second-declension'">
+
+            </div>
+            <!-- <div *ngSwitchCase="'second-declension'">
                     <app-declension-category [adjectiveCategory]="getAdjectiveCategory(2)">
                     </app-declension-category>
                 </div>
@@ -42,22 +51,21 @@
                     </app-declension-category>
                     <br>
                 </div> -->
-                <div *ngSwitchCase="'not-found'">
-                    <!-- <app-adjective-not-found>
+            <div *ngSwitchCase="'not-found'">
+                <!-- <app-adjective-not-found>
                     </app-adjective-not-found> -->
-                    <br>
-                </div>
-                <!-- <div *ngSwitchCase="'add'">
+                <br>
+            </div>
+            <!-- <div *ngSwitchCase="'add'">
                     <app-add-adjective></app-add-adjective>
                 </div>
                 <div *ngSwitchCase="'update'">
                     <app-update-adjective></app-update-adjective>
                 </div> -->
-            </div>
-        </section>
-    </div>
+        </div>
+    </section>
 
-    <div class="col-3">
+    <div *ngIf="page !== 'declension'" class="col-3">
         <!-- <app-action-menu *ngIf="displayActionMenu()">
         </app-action-menu> -->
     </div>

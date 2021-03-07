@@ -123,6 +123,7 @@
         }
     },
     "nouns": {
+        "unselect": "Unselect all",
         "declension": {
             "first": "First declension",
             "second": "Second declension",
@@ -141,6 +142,20 @@
             "first": "First type",
             "second": "Second type",
             "third": "Third type"
+        },
+        "exception": {
+            "1": "After a sibilant (ж, ч, ш, щ) or a velar (г, к, х) consonant",
+            "2": "After a sibilant (ж, ч, ш, щ) and when unstressed",
+            "3": "After a sibilant (ж, ч, ш, щ)",
+            "4": "After a soft consonant and when stressed",
+            "5": "After a consonant",
+            "8": "For the nouns ending in ие/иё (in the nominative singular) and when unstressed",
+            "9": "For the nouns мать and дочь",
+            "10": "For the noun подмасте́рье",
+            "11": "Exception without any specific rule",
+            "7": "Animate",
+            "6": "Inanimate",
+            "12": "Exception without any specific rule, after a soft consonant and when stressed"
         }
     },
     "reference": {

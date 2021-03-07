@@ -89,29 +89,28 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
         this.destroyed$
       )
     ).subscribe((selection: NounCategoryIds) => {
-      if (selection) {
-        if (selection.name === 'declension') {
-          this.category = this.mapCategory(selection);
-          this.redirect(this.mapCategoryToUrl(this.category));
-        } else {
-          switch (selection.name) {
-            case 'intro': {
-              //   this.resetServices();
-              //   this.redirect('/' + Const.nouns);
-              break;
-            }
-            case 'consult': {
-              //   this.redirect('/' + Const.nouns + '/' + selection);
-              //   nouns/:category/:gender/:type
-              break;
-            }
-            case 'add': {
-              //   this.redirect('/' + Const.nouns + '/' + selection);
-              //   nouns/:category/:gender/:type
-              break;
-            }
+      if (!!selection) {
+        switch (selection.name) {
+          case 'declension': {
+            this.category = this.mapCategory(selection);
+            this.redirect(this.mapCategoryToUrl(this.category));
+            break;
           }
-
+          case 'intro': {
+            //   this.resetServices();
+            //   this.redirect('/' + Const.nouns);
+            break;
+          }
+          case 'consult': {
+            //   this.redirect('/' + Const.nouns + '/' + selection);
+            //   nouns/:category/:gender/:type
+            break;
+          }
+          case 'add': {
+            //   this.redirect('/' + Const.nouns + '/' + selection);
+            //   nouns/:category/:gender/:type
+            break;
+          }
         }
       }
     });

@@ -33,6 +33,7 @@ import { PlayerApi } from './services/api/player.api';
 import { PlayerService } from './services/player.service';
 import { AuthService } from './auth/auth.service';
 import { SortPipe } from './pipes/sort.pipe';
+import { UniquePipe } from './pipes/unique.pipe';
 import { AdjectivesComponent } from './views/russian/adjectives/adjectives.component';
 import { NounsComponent } from './views/russian/nouns/nouns.component';
 import { Utils } from './services/utils/utils.service';
@@ -71,6 +72,7 @@ import { DeclensionComponent } from './views/russian/nouns/declension/declension
     GetPlayerComponent,
     CreatePlayerComponent,
     SortPipe,
+    UniquePipe,
     AdjectivesComponent,
     NounsComponent,
     DeclensionCategoryComponent,

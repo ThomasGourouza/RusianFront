@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Category } from '../nouns.component';
+import { Category, Ending } from '../nouns.component';
 import { Const } from 'src/app/services/utils/const';
 import { NounEnding } from 'src/app/models/reference/russian/noun-ending.model';
 import { RussianReferenceService } from 'src/app/services/russian-reference.service';
@@ -14,10 +14,15 @@ export interface ColData {
   field: string;
   header: string;
 }
-export interface Rule {
-  id: number;
+export interface Exception {
+  ruleId: number;
   rule: string;
+  locations: Array<Location>;
   applied: boolean;
+}
+export interface Location {
+  number: string;
+  case: string;
 }
 
 @Component({
@@ -31,17 +36,14 @@ export class DeclensionComponent implements OnInit {
   public category: Category;
 
   public title: string;
+  public unselect: string;
 
   public rows: Array<string>;
   public cols: Array<ColData>;
   public data: Array<RowData>;
 
-  public singularExceptions: Array<any>;
-  public pluralExceptions: Array<any>;
-
-  private declensionRules: Array<DeclensionRule>;
-  public appliedRules: Array<Rule>;
-  public rules: Array<Rule>;
+  public exceptions: Array<Exception>;
+  public appliedExceptions: Array<Exception>;
 
   constructor(
     public translate: TranslateService,
@@ -49,30 +51,40 @@ export class DeclensionComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.singularExceptions = [];
-    this.pluralExceptions = [];
-
+    this.exceptions = [];
     this.category.endings
-      .find((ending) => ending.number === Const.S).nounEndings
-      .filter((ending) => ending.specificEndingRules.length > 0)
-      .forEach((ending) =>
-        ending.specificEndingRules
-          .forEach((rule) =>
-            this.singularExceptions.push(rule.rule)
-          )
-      );
-    this.category.endings
-      .find((ending) => ending.number === Const.P).nounEndings
-      .filter((ending) => ending.specificEndingRules.length > 0)
-      .forEach((ending) =>
-        ending.specificEndingRules
-          .forEach((rule) =>
-            this.pluralExceptions.push(rule.rule)
-          )
-      );
-
-    console.log(this.singularExceptions);
-    console.log(this.pluralExceptions);
+      .forEach((ending) => {
+        ending.nounEndings
+          .filter((nounEnding) => nounEnding.specificEndingRules.length > 0)
+          .forEach((nounEnding) => {
+            const russianCase = nounEnding.russianCase;
+            nounEnding.specificEndingRules
+              .forEach((rule) => {
+                if (!this.exceptions.map((exception) => exception.rule).includes(rule.rule)) {
+                  this.exceptions.push(
+                    {
+                      ruleId: 0,
+                      rule: rule.rule,
+                      locations: [{
+                        number: ending.number,
+                        case: russianCase
+                      }],
+                      applied: rule.applied
+                    }
+                  )
+                } else {
+                  this.exceptions.find((exception) =>
+                    exception.rule === rule.rule
+                  ).locations.push({
+                    number: ending.number,
+                    case: russianCase
+                  });
+                }
+              }
+              );
+          }
+          );
+      });
 
     this.getLabels(this.category);
     // update la langue à chaque changement
@@ -90,46 +102,79 @@ export class DeclensionComponent implements OnInit {
     this.russianReferenceService.declensionRules$
       .subscribe((declensionRules: Array<DeclensionRule>) => {
         if (declensionRules.length > 0) {
-          this.declensionRules = declensionRules.filter((decl) =>
-            this.singularExceptions.includes(decl.value)
-            || this.pluralExceptions.includes(decl.value)
-          );
-          this.resetRules();
+          declensionRules.forEach((declensionRule) => {
+            this.exceptions.forEach((exception) => {
+              if (declensionRule.value === exception.rule) {
+                exception.ruleId = declensionRule.id;
+              }
+            });
+          });
+          this.resetExceptions();
         }
       });
   }
 
-  public resetRules(): void {
-    this.rules = this.initRules();
-    this.setRules();
-    this.appliedRules = this.rules.filter((rule) => rule.applied);
+  public resetExceptions(): void {
+    this.exceptions.forEach((exception) => exception.applied = exception.ruleId === 6);
+    this.setException();
+    this.appliedExceptions = this.exceptions.filter((exception) => exception.applied);
   }
 
-  private initRules(): Array<Rule> {
-    return this.declensionRules.map((declensionRule) => {
-      return {
-        id: declensionRule.id,
-        rule: declensionRule.value,
-        applied: declensionRule.id === 6
-      };
-    });
-  }
-
-  private setRules(): void {
+  private setException(): void {
+    const animateRule = this.exceptions.find((exception) => exception.ruleId === 7);
+    const inAnimateRule = this.exceptions.find((exception) => exception.ruleId === 6);
+    let accusativeHasBeenChanged: boolean = false;
     this.category.endings.forEach((ending) => {
       if (ending.nounEndings.length > 0) {
         ending.nounEndings.forEach((nounEnding) => {
+
           if (nounEnding.specificEndingRules.length > 0) {
+            let isTwelveDone: boolean = false;
             nounEnding.specificEndingRules.forEach((specificEndingRule) => {
-              specificEndingRule.applied = this.rules.find((rule) =>
-                rule.rule === specificEndingRule.rule
-              ).applied;
+
+              if (nounEnding.russianCase !== Const.A || !accusativeHasBeenChanged || !isTwelveDone) {
+                specificEndingRule.applied = this.exceptions.find((exception) =>
+                  exception.rule === specificEndingRule.rule
+                ).applied;
+              }
+
+              const twelve = this.exceptions.find((e) => e.ruleId === 12);
+              if (nounEnding.russianCase === Const.G && ending.number === Const.P
+                && !!twelve && twelve.applied && specificEndingRule.rule === twelve.rule) {
+                nounEnding.specificEndingRules.filter((s) => s.id !== specificEndingRule.id)
+                  .forEach((s) => s.applied = false);
+                isTwelveDone = true;
+              }
+
+              if (!!animateRule && animateRule.applied && specificEndingRule.rule === animateRule.rule) {
+                specificEndingRule.value = this.animateOrInanimate(Const.G, ending);
+                specificEndingRule.applied = true;
+                nounEnding.specificEndingRules.find((spec) => spec.rule === inAnimateRule.rule).applied = false;
+                accusativeHasBeenChanged = true;
+              }
+              if (!!inAnimateRule && inAnimateRule.applied && specificEndingRule.rule === inAnimateRule.rule) {
+                specificEndingRule.value = this.animateOrInanimate(Const.N, ending);
+                specificEndingRule.applied = true;
+                nounEnding.specificEndingRules.find((spec) => spec.rule === animateRule.rule).applied = false;
+                accusativeHasBeenChanged = true;
+              }
             });
           }
         });
       }
     });
     this.setData(this.rows, this.cols, this.category);
+  }
+
+  private animateOrInanimate(russianCase: string, ending: Ending): string {
+    const genOrNom = ending.nounEndings.find((e) => e.russianCase === russianCase);
+    genOrNom.specificEndingRules.forEach((a) => {
+      const updatedRule = this.exceptions.find((e) => e.rule === a.rule);
+      a.applied = !!updatedRule && updatedRule.applied;
+    });
+    const genOrNomSpecific = genOrNom.specificEndingRules.find((spec) => spec.applied);
+
+    return !!genOrNomSpecific ? genOrNomSpecific.value : genOrNom.value;
   }
 
   private setData(rows: Array<string>, cols: Array<ColData>, category: Category): void {
@@ -152,17 +197,90 @@ export class DeclensionComponent implements OnInit {
     });
   }
 
-  public applyRule(id: number, value: boolean): void {
-    this.rules.find((rule) => rule.id === id).applied = value;
-    if (id === 6) {
-      this.rules.find((rule) => rule.id === 7).applied = !value;
-    }
+  public applyException(id: number, value: boolean): void {
+    this.findByRuleId(this.exceptions, id).applied = value;
+    // if animate
     if (id === 7) {
-      this.rules.find((rule) => rule.id === 6).applied = !value;
+      this.findByRuleId(this.exceptions, 6).applied = !value;
     }
-    this.setRules();
-    this.appliedRules = this.rules.filter((rule) => rule.applied);
-    console.log(this.rules);
+    // TODO switch + methode commune mat, doch et podmasterie
+    // if мать and дочь
+    if (id === 9) {
+      this.findByRuleId(this.exceptions, 7).applied = value;
+      this.findByRuleId(this.exceptions, 6).applied = !value;
+      if (value) {
+        for (let i = 1; i <= 12; i++) {
+          if (!!this.findByRuleId(this.exceptions, i) && ![6, 7, 9].includes(i)) {
+            this.findByRuleId(this.exceptions, i).applied = false;
+          }
+        }
+      }
+    }
+    // if подмасте́рье
+    if (id === 10) {
+      this.findByRuleId(this.exceptions, 7).applied = value;
+      this.findByRuleId(this.exceptions, 6).applied = !value;
+      if (value) {
+        for (let i = 1; i <= 12; i++) {
+          if (!!this.findByRuleId(this.exceptions, i) && ![6, 7, 10].includes(i)) {
+            this.findByRuleId(this.exceptions, i).applied = false;
+          }
+        }
+      }
+    }
+    // if no specific rule and after a soft consonant, when stressed.
+    const twelve = this.findByRuleId(this.exceptions, 12);
+    if (!!twelve) {
+      twelve.applied = this.findByRuleId(this.exceptions, 4).applied
+        && this.findByRuleId(this.exceptions, 11).applied;
+    }
+    this.setException();
+    this.appliedExceptions = this.exceptions.filter((exception) => exception.applied);
+  }
+
+  public isCheckBoxDisabled(ruleId: number): boolean {
+    return this.isRuleApplied(ruleId, 9) || this.isRuleApplied(ruleId, 10);
+  }
+
+  private isRuleApplied(ruleId: number, selectedCheckbox: number): boolean {
+    return ruleId !== selectedCheckbox
+      && !!this.findByRuleId(this.exceptions, selectedCheckbox)
+      && this.findByRuleId(this.exceptions, selectedCheckbox).applied;
+  }
+
+  private findByRuleId(exceptions: Array<Exception>, ruleId: number): Exception {
+    return exceptions.find((exception) => exception.ruleId === ruleId);
+  }
+
+  public isSpecificCase(rowData: RowData, col: ColData): boolean {
+    const specificEndingsLocations: Array<Location> = [];
+    this.exceptions
+      .filter((e) => e.applied && e.ruleId !== 6)
+      .map((e) => e.locations)
+      .forEach((locations) => {
+        locations.forEach((location) => {
+          if (!specificEndingsLocations.some((l) =>
+            l.case === location.case && l.number === location.number
+          )) {
+            specificEndingsLocations.push(location);
+          }
+        });
+      });
+
+    const endingsLocation: Location = {
+      case: rowData.case,
+      number: col.header
+    }
+
+    const inanimate = (endingsLocation.case === Const.A
+      && specificEndingsLocations.some((l) => l.case === Const.N
+        && l.number === endingsLocation.number)
+      && this.exceptions.some((e) => e.ruleId === 6)
+      && this.exceptions.find((e) => e.ruleId === 6).applied);
+
+    return specificEndingsLocations.some((l) =>
+      l.case === endingsLocation.case && l.number === endingsLocation.number
+    ) || inanimate;
   }
 
   private getLabels(category: Category): void {
@@ -220,7 +338,8 @@ export class DeclensionComponent implements OnInit {
         break;
       }
     }
-    this.title = cat + ' - ' + gender + ' - ' + type;
+    this.unselect = this.translate.instant('nouns.unselect');
+    this.title = cat + ': ' + gender + ' (' + type + ')';
   }
 
   private findDeclensionByCaseAndNumber(category: Category, russianCase: string, number: string): string {
