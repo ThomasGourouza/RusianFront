@@ -123,6 +123,7 @@
         }
     },
     "nouns": {
+        "text": "La page des noms",
         "unselect": "Tout désélectioner",
         "declension": {
             "first": "Première déclinaison",
@@ -144,6 +145,9 @@
             "third": "Troisième type"
         },
         "exception": {
+            "labelAnimate": "Mode",
+            "labelSingular": "Exception",
+            "labelPlural": "Exceptions",
             "1": "Après une consonne sibilante (ж, ч, ш, щ) ou vélaire (г, к, х)",
             "2": "Après une consonne sibilante (ж, ч, ш, щ) et quand accentué",
             "3": "Après une consonne sibilante (ж, ч, ш, щ)",

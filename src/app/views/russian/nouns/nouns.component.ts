@@ -97,8 +97,8 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
             break;
           }
           case 'intro': {
-            //   this.resetServices();
-            //   this.redirect('/' + Const.nouns);
+              this.resetServices();
+              this.redirect('/' + Const.nouns);
             break;
           }
           case 'consult': {

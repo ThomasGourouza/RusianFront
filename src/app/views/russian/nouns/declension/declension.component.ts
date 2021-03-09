@@ -114,6 +114,11 @@ export class DeclensionComponent implements OnInit {
       });
   }
 
+  public isInit(exceptions: Array<Exception>): boolean {
+    const exceptionsApplied = exceptions.filter((e) => e.applied);
+    return exceptionsApplied.length === 0 || (exceptionsApplied.length === 1 && exceptionsApplied[0].ruleId === 6);
+  }
+
   public resetExceptions(): void {
     this.exceptions.forEach((exception) => exception.applied = exception.ruleId === 6);
     this.setException();
@@ -349,6 +354,14 @@ export class DeclensionComponent implements OnInit {
       }
     }
     return (declensionValue != '') ? declensionValue : '/';
+  }
+
+  public number(exceptions: Array<Exception>): number {
+    return exceptions.filter((e) => ![6, 7].includes(e.ruleId)).length;
+  }
+
+  public isAnimatePresent(exceptions: Array<Exception>): boolean {
+    return exceptions.some((e) => e.ruleId === 7);
   }
 
   public printCase(russianCase: string): string {

@@ -33,27 +33,69 @@
         </div>
     </div>
     <div class="col-4">
-        <div *ngFor="let exception of exceptions" class="p-field-checkbox">
-            <div *ngIf="exception.ruleId !== 6 && exception.ruleId !== 12">
-                <div class="row">
-                    <div class="col-1">
-                        <p-checkbox name="exceptions" [value]="exception" [ngModel]="appliedExceptions"
-                            [inputId]="exception.ruleId"
-                            (onChange)="applyException(exception.ruleId, !exception.applied)"
-                            [disabled]="isCheckBoxDisabled(exception.ruleId)">
-                        </p-checkbox>
-                    </div>
-                    <div class="col d-flex align-items-end">
-                        <label [for]="exception.ruleId">{{ 'nouns.exception.' + exception.ruleId | translate }}</label>
+        <div *ngIf="exceptions.length > 0">
+
+            <div *ngFor="let exception of exceptions" class="p-field-checkbox">
+                <div *ngIf="exception.ruleId === 7">
+                    <h5 class="blue">{{ 'nouns.exception.labelAnimate' | translate }}:</h5>
+                    <br>
+                    <div class="row">
+                        <div class="col-1">
+                            <p-checkbox name="exceptions" [value]="exception" [ngModel]="appliedExceptions"
+                                [inputId]="exception.ruleId"
+                                (onChange)="applyException(exception.ruleId, !exception.applied)"
+                                [disabled]="isCheckBoxDisabled(exception.ruleId)">
+                            </p-checkbox>
+                        </div>
+                        <div class="col d-flex align-items-end">
+                            <label [for]="exception.ruleId">
+                                {{ 'nouns.exception.' + exception.ruleId | translate }}
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <div *ngIf="isAnimatePresent(exceptions) && number(exceptions) > 0">
+                <br>
+                <br>
+            </div>
+
+            <div *ngIf="number(exceptions) === 1">
+                <h5 class="blue">{{ 'nouns.exception.labelSingular' | translate }}:</h5>
+                <br>
+            </div>
+            <div *ngIf="number(exceptions) > 1">
+                <h5 class="blue">{{ 'nouns.exception.labelPlural' | translate }}:</h5>
+                <br>
+            </div>
+
+            <div *ngFor="let exception of exceptions" class="p-field-checkbox">
+                <div *ngIf="exception.ruleId !== 6 && exception.ruleId !== 7 && exception.ruleId !== 12">
+                    <div class="row">
+                        <div class="col-1">
+                            <p-checkbox name="exceptions" [value]="exception" [ngModel]="appliedExceptions"
+                                [inputId]="exception.ruleId"
+                                (onChange)="applyException(exception.ruleId, !exception.applied)"
+                                [disabled]="isCheckBoxDisabled(exception.ruleId)">
+                            </p-checkbox>
+                        </div>
+                        <div class="col d-flex align-items-end">
+                            <label [for]="exception.ruleId">
+                                {{ 'nouns.exception.' + exception.ruleId | translate }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+            <br>
+            <button *ngIf="(isAnimatePresent(exceptions) && number(exceptions) > 0) || number(exceptions) > 1" pButton
+                type="button" class="p-button-outlined p-button-raised p-button-rounded" icon="pi pi-ban"
+                [label]="unselect" (click)="resetExceptions()" [disabled]="isInit(exceptions)"></button>
+            <br>
         </div>
-        <br>
-        <button *ngIf="exceptions.length > 0" pButton type="button"
-            class="p-button-outlined p-button-raised p-button-rounded" icon="pi pi-ban" [label]="unselect"
-            (click)="resetExceptions()"></button>
-        <br>
     </div>
 </div>
 <br>

@@ -123,6 +123,7 @@
         }
     },
     "nouns": {
+        "text": "The nouns page",
         "unselect": "Unselect all",
         "declension": {
             "first": "First declension",
@@ -144,6 +145,9 @@
             "third": "Third type"
         },
         "exception": {
+            "labelAnimate": "Mode",
+            "labelSingular": "Exception",
+            "labelPlural": "Exceptions",
             "1": "After a sibilant (ж, ч, ш, щ) or a velar (г, к, х) consonant",
             "2": "After a sibilant (ж, ч, ш, щ) and when unstressed",
             "3": "After a sibilant (ж, ч, ш, щ)",
