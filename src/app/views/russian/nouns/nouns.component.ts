@@ -460,13 +460,14 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
   }
 
   private initMenus(): void {
-    const category = this.activatedRoute.snapshot.params[Const.category];
-    const noun = this.activatedRoute.snapshot.params[Const.noun];
-    const declensionExpanded = category && ![Const.consult, Const.add].includes(category);
-    const nounExpanded = noun || [Const.consult, Const.add].includes(category);
+    const category: string = this.activatedRoute.snapshot.params[Const.category];
+    const gender: string = this.activatedRoute.snapshot.params[Const.gender];
+    const type: string = this.activatedRoute.snapshot.params[Const.type];
+    const noun: string = this.activatedRoute.snapshot.params[Const.noun];
+    const nounExpanded = !!noun || [Const.consult, Const.add].includes(category);
 
     // mise à jour du menu de gauche
-    this.sideMenuService.setMenu(declensionExpanded, nounExpanded);
+    this.sideMenuService.setMenu(category, gender, type, nounExpanded);
     // mise à jour du menu de droite
     // this.actionMenuService.setMenu(noun, !noun, this.page);
   }

@@ -156,6 +156,21 @@
             "7": "Animé",
             "6": "Inanimé",
             "12": "Exception sans règle spécifique, après une consonne molle et quand accentué"
+        },
+        "side": {
+            "intro": "Présentation",
+            "declension": "Déclinaisons",
+            "first": "Première déclinaison",
+            "second": "Deuxième déclinaison",
+            "third": "Troisième déclinaison",
+            "masculine": "Masculin",
+            "feminine": "Féminin",
+            "neuter": "Neutre",
+            "first-type": "Premier type",
+            "second-type": "Deuxième type",
+            "third-type": "Troisième type",
+            "consult": "Consulter",
+            "add": "Ajouter"
         }
     },
     "reference": {

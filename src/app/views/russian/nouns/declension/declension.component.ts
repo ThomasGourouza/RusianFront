@@ -333,7 +333,7 @@ export class DeclensionComponent implements OnInit {
       }
     }
     this.unselect = this.translate.instant('nouns.unselect');
-    this.title = cat + ': ' + gender + ' (' + type + ')';
+    this.title = cat + ' > ' + gender + ' > ' + type;
   }
 
   private findDeclensionByCaseAndNumber(category: Category, russianCase: string, number: string): string {

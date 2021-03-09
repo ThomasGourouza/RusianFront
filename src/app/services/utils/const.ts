@@ -1,6 +1,8 @@
 export class Const {
 
     public static category: string = 'category';
+    public static gender: string = 'gender';
+    public static type: string = 'type';
     public static adjective: string = 'adjective';
     public static consult: string = 'consult';
     public static add: string = 'add';

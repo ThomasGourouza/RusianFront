@@ -156,6 +156,21 @@
             "7": "Animate",
             "6": "Inanimate",
             "12": "Exception without any specific rule, after a soft consonant and when stressed"
+        },
+        "side": {
+            "intro": "Intro",
+            "declension": "Declension",
+            "first": "First declension",
+            "second": "Second declension",
+            "third": "Third declension",
+            "masculine": "Masculine",
+            "feminine": "Feminine",
+            "neuter": "Neuter",
+            "first-type": "First type",
+            "second-type": "Second type",
+            "third-type": "Third type",
+            "consult": "Consult",
+            "add": "Add"
         }
     },
     "reference": {

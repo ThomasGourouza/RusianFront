@@ -86,7 +86,7 @@ export class LanguageFormComponent extends subscribedContainerMixin() implements
       },
       {
         id: 'language',
-        icon: 'pi pi-fw pi-comment',
+        icon: 'pi pi-fw pi-globe',
         items: [
           [
             {
