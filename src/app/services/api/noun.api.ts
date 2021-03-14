@@ -41,7 +41,7 @@ export class NounApi {
     return this.http.put<Noun>(API_Noun_URL + '/' + id, noun);
   }
 
-  public deleteNounById(id: number): Observable<any> {
-    return this.http.delete<Noun>(API_Noun_URL + '/' + id);
+  public deleteNounById(id: number): Observable<void> {
+    return this.http.delete<void>(API_Noun_URL + '/' + id);
   }
 }

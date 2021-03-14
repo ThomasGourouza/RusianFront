@@ -19,6 +19,7 @@ export class NounTranslationParam {
 export class NounService {
 
   private _noun$ = new BehaviorSubject({});
+  private _nounPlural$ = new BehaviorSubject({});
   private _nounList$ = new BehaviorSubject([]);
 
   constructor(
@@ -31,12 +32,20 @@ export class NounService {
     return this._noun$.asObservable();
   }
 
+  public get nounPlural$() {
+    return this._nounPlural$.asObservable();
+  }
+
   public get nounList$() {
     return this._nounList$.asObservable();
   }
 
   public clearNoun() {
     this._noun$.next({});
+  }
+
+  public clearNounPlural() {
+    this._nounPlural$.next({});
   }
 
   public clearNounList() {
@@ -76,15 +85,11 @@ export class NounService {
       });
   }
 
-  public fetchNounById(id: number) {
+  public fetchNounPluralById(id: number) {
     this.nounApi.getNounById(id)
       .toPromise()
-      .then((noun: Noun) => {
-        this._noun$.next(noun);
-        this.toastr.success(
-          this.translate.instant('toastr.success.message.getNoun'),
-          this.translate.instant('toastr.success.title')
-        );
+      .then((nounPlural: Noun) => {
+        this._nounPlural$.next(nounPlural);
       })
       .catch((error: HttpErrorResponse) => {
         this.toastr.error(

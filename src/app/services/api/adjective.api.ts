@@ -41,7 +41,7 @@ export class AdjectiveApi {
     return this.http.put<Adjective>(API_Adjective_URL + '/' + id, adjective);
   }
 
-  public deleteAdjectiveById(id: number): Observable<any> {
-    return this.http.delete<Adjective>(API_Adjective_URL + '/' + id);
+  public deleteAdjectiveById(id: number): Observable<void> {
+    return this.http.delete<void>(API_Adjective_URL + '/' + id);
   }
 }

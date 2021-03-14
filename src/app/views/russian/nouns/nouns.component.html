@@ -5,68 +5,55 @@
         </app-side-nouns>
     </div>
 
-    <section *ngIf="page === 'declension' && _nounCategories?.length > 0" class="col-9">
-        <div class="d-flex align-items-center justify-content-center">
-            <div *ngFor="let i of declensionIds">
-                <div *ngIf="category.id === i">
-                    <app-declension [category]="category"></app-declension>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section *ngIf="page !== 'declension'" class="col-6">
+    <section class="col-6">
         <div class="d-flex align-items-center justify-content-center" *ngIf="_nounCategories?.length > 0"
             [ngSwitch]="page">
             <div *ngSwitchCase="'intro'">
                 <br>
                 {{ 'nouns.text' | translate }}
             </div>
+
             <div *ngSwitchCase="'declension'">
+                <br>
                 <div *ngFor="let i of declensionIds">
-                    <div *ngIf="category.id === i">
+                    <div *ngIf="!!category && category.id === i">
                         <app-declension [category]="category"></app-declension>
                     </div>
                 </div>
-
             </div>
-            <!-- <div *ngSwitchCase="'second-declension'">
-                    <app-declension-category [adjectiveCategory]="getAdjectiveCategory(2)">
-                    </app-declension-category>
-                </div>
-                <div *ngSwitchCase="'third-declension'">
-                    <app-declension-category [adjectiveCategory]="getAdjectiveCategory(3)">
-                    </app-declension-category>
-                </div>
-                <div *ngSwitchCase="'fourth-declension'">
-                    <app-declension-category [adjectiveCategory]="getAdjectiveCategory(4)">
-                    </app-declension-category>
-                </div>
-                <div *ngSwitchCase="'consult'">
-                    <app-adjective-list></app-adjective-list>
-                    <br>
-                </div>
-                <div *ngSwitchCase="'check'">
-                    <app-declension-category [adjectiveCategory]="adjectiveCategory">
-                    </app-declension-category>
-                    <br>
-                </div> -->
-            <div *ngSwitchCase="'not-found'">
-                <!-- <app-adjective-not-found>
-                    </app-adjective-not-found> -->
+
+            <div *ngSwitchCase="'consult'">
+                <br>
+                <app-noun-list></app-noun-list>
                 <br>
             </div>
-            <!-- <div *ngSwitchCase="'add'">
-                    <app-add-adjective></app-add-adjective>
-                </div>
-                <div *ngSwitchCase="'update'">
-                    <app-update-adjective></app-update-adjective>
-                </div> -->
+            <div *ngSwitchCase="'check'">
+                <br>
+                <app-declension-noun [category]="category"></app-declension-noun>
+                <br>
+            </div>
+            <div *ngSwitchCase="'not-found'">
+                <br>
+                {{ 'nouns.nf' | translate }}
+                <!-- <app-adjective-not-found>
+                </app-adjective-not-found> -->
+                <br>
+            </div>
+            <div *ngSwitchCase="'add'">
+                <br>
+                {{ 'nouns.add' | translate }}
+                <!-- <app-add-adjective></app-add-adjective> -->
+            </div>
+            <div *ngSwitchCase="'update'">
+                <br>
+                {{ 'nouns.update' | translate }}
+                <!-- <app-update-adjective></app-update-adjective> -->
+            </div>
         </div>
     </section>
 
     <div *ngIf="page !== 'declension'" class="col-3">
-        <!-- <app-action-menu *ngIf="displayActionMenu()">
-        </app-action-menu> -->
+        <app-action-menu *ngIf="displayActionMenu()">
+        </app-action-menu>
     </div>
 </div>

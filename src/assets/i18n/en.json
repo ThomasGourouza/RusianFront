@@ -74,13 +74,17 @@
         "text": "There are four declensions of adjectives in russian.",
         "not-found": {
             "adjective": "The adjective ",
-            "is-not-saved": " isn't saved."
+            "is-not-saved": " isn't found."
         },
         "declension": {
             "first": "First declension (-ый)",
             "second": "Second declension (-ой)",
             "third": "Third declension (-ий)",
-            "fourth": "Fourth declension (-ний)"
+            "fourth": "Fourth declension (-ний)",
+            "1": "First declension (-ый)",
+            "2": "Second declension (-ой)",
+            "3": "Third declension (-ий)",
+            "4": "Fourth declension (-ний)"
         },
         "adjectives": {
             "consult": "List of adjectives",
@@ -94,7 +98,7 @@
             "update": "Update",
             "create": "Add",
             "title": "Click to sort. Use 'Ctrl' key to sort by multiple columns.",
-            "search": "Search in the list",
+            "search": "Search in the array",
             "root": "Root",
             "ending": "Ending"
         },
@@ -124,6 +128,11 @@
     },
     "nouns": {
         "text": "The nouns page",
+        "consult": "Consult",
+        "check": "Check",
+        "nf": "Page not found",
+        "add": "Add",
+        "update": "Update",
         "unselect": "Unselect all",
         "declension": {
             "first": "First declension",
@@ -161,6 +170,22 @@
             "6": "Inanimate",
             "12": "Exception without any specific rule, after a soft consonant and when stressed"
         },
+        "nouns": {
+            "consult": "List of nouns",
+            "noun": "Noun",
+            "translation": "Translation",
+            "declension": "Declension",
+            "add": "Add a noun",
+            "open": "Open",
+            "back": "Back",
+            "delete": "Delete",
+            "update": "Update",
+            "create": "Add",
+            "title": "Click to sort. Use 'Ctrl' key to sort by multiple columns.",
+            "search": "Search in the array",
+            "root": "Root",
+            "ending": "Ending"
+        },
         "side": {
             "intro": "Intro",
             "declension": "Declension",
@@ -175,6 +200,38 @@
             "third-type": "Third type",
             "consult": "Consult",
             "add": "Add"
+        },
+        "explicit-declension": {
+            "1":  "First declension  > Masculine > First type ",
+            "2":  "First declension  > Masculine > Second type",
+            "3":  "First declension  > Masculine > Third type ",
+            "4":  "First declension  > Masculine > First type ",
+            "5":  "First declension  > Masculine > Second type",
+            "6":  "First declension  > Masculine > Third type ",
+            "7":  "First declension  > Feminine  > First type ",
+            "8":  "First declension  > Feminine  > Second type",
+            "9":  "First declension  > Feminine  > Third type ",
+            "10": "First declension  > Feminine  > First type ",
+            "11": "First declension  > Feminine  > Second type",
+            "12": "First declension  > Feminine  > Third type ",
+            "13": "Second declension > Masculine > First type ",
+            "14": "Second declension > Masculine > Second type",
+            "15": "Second declension > Masculine > Third type ",
+            "16": "Second declension > Masculine > First type ",
+            "17": "Second declension > Masculine > Second type",
+            "18": "Second declension > Masculine > Third type ",
+            "19": "Second declension > Neuter    > First type ",
+            "20": "Second declension > Neuter    > Second type",
+            "21": "Second declension > Neuter    > First type ",
+            "22": "Second declension > Neuter    > Second type",
+            "23": "Third declension  > Masculine > First type ",
+            "24": "Third declension  > Masculine > First type ",
+            "25": "Third declension  > Feminine  > First type ",
+            "26": "Third declension  > Feminine  > First type ",
+            "27": "Third declension  > Neuter    > First type ",
+            "28": "Third declension  > Neuter    > Second type",
+            "29": "Third declension  > Neuter    > First type ",
+            "30": "Third declension  > Neuter    > Second type"       
         }
     },
     "reference": {

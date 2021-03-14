@@ -74,13 +74,17 @@
         "text": "Il existe quatre déclinaisons d'adjectifs en russe.",
         "not-found": {
             "adjective": "L'adjectif ",
-            "is-not-saved": " n'est pas enregistré."
+            "is-not-saved": " n'a pas été trouvé."
         },
         "declension": {
             "first": "Première déclinaison (-ый)",
             "second": "Deuxième déclinaison (-ой)",
             "third": "Troisième déclinaison (-ий)",
-            "fourth": "Quatrième déclinaison (-ний)"
+            "fourth": "Quatrième déclinaison (-ний)",
+            "1": "Première déclinaison (-ый)",
+            "2": "Deuxième déclinaison (-ой)",
+            "3": "Troisième déclinaison (-ий)",
+            "4": "Quatrième déclinaison (-ний)"
         },
         "adjectives": {
             "consult": "Liste des adjectifs",
@@ -94,7 +98,7 @@
             "update": "Modifier un adjectif",
             "create": "Ajouter",
             "title": "Cliquer pour trier. Utiliser la touche 'Ctrl' pour trier sur plusieurs colonnes.",
-            "search": "Chercher dans la liste",
+            "search": "Chercher dans le tableau",
             "root": "Radical",
             "ending": "Terminaison"
         },
@@ -124,6 +128,11 @@
     },
     "nouns": {
         "text": "La page des noms",
+        "consult": "Consultation",
+        "check": "Check",
+        "nf": "Page introuvable",
+        "add": "Add",
+        "update": "Update",
         "unselect": "Tout désélectioner",
         "declension": {
             "first": "Première déclinaison",
@@ -161,6 +170,22 @@
             "6": "Inanimé",
             "12": "Exception sans règle spécifique, après une consonne molle et quand accentué"
         },
+        "nouns": {
+            "consult": "Liste des noms",
+            "noun": "Nom",
+            "translation": "Traduction",
+            "declension": "Déclinaison",
+            "add": "Ajouter un nom",
+            "open": "Ouvrir",
+            "back": "Retour",
+            "delete": "Supprimer",
+            "update": "Modifier un nom",
+            "create": "Ajouter",
+            "title": "Cliquer pour trier. Utiliser la touche 'Ctrl' pour trier sur plusieurs colonnes.",
+            "search": "Chercher dans le tableau",
+            "root": "Radical",
+            "ending": "Terminaison"
+        },
         "side": {
             "intro": "Présentation",
             "declension": "Déclinaisons",
@@ -175,6 +200,38 @@
             "third-type": "Troisième type",
             "consult": "Consulter",
             "add": "Ajouter"
+        },
+        "explicit-declension": {
+            "1":  "Première déclinaison  > Masculin > Premier type  ",
+            "2":  "Première déclinaison  > Masculin > Deuxième type ",
+            "3":  "Première déclinaison  > Masculin > Troisième type",
+            "4":  "Première déclinaison  > Masculin > Premier type  ",
+            "5":  "Première déclinaison  > Masculin > Deuxième type ",
+            "6":  "Première déclinaison  > Masculin > Troisième type",
+            "7":  "Première déclinaison  > Féminin  > Premier type  ",
+            "8":  "Première déclinaison  > Féminin  > Deuxième type ",
+            "9":  "Première déclinaison  > Féminin  > Troisième type",
+            "10": "Première déclinaison  > Féminin  > Premier type  ",
+            "11": "Première déclinaison  > Féminin  > Deuxième type ",
+            "12": "Première déclinaison  > Féminin  > Troisième type",
+            "13": "Deuxième déclinaison  > Masculin > Premier type  ",
+            "14": "Deuxième déclinaison  > Masculin > Deuxième type ",
+            "15": "Deuxième déclinaison  > Masculin > Troisième type",
+            "16": "Deuxième déclinaison  > Masculin > Premier type  ",
+            "17": "Deuxième déclinaison  > Masculin > Deuxième type ",
+            "18": "Deuxième déclinaison  > Masculin > Troisième type",
+            "19": "Deuxième déclinaison  > Neutre   > Premier type  ",
+            "20": "Deuxième déclinaison  > Neutre   > Deuxième type ",
+            "21": "Deuxième déclinaison  > Neutre   > Premier type  ",
+            "22": "Deuxième déclinaison  > Neutre   > Deuxième type ",
+            "23": "Troisième déclinaison > Masculin > Premier type  ",
+            "24": "Troisième déclinaison > Masculin > Premier type  ",
+            "25": "Troisième déclinaison > Féminin  > Premier type  ",
+            "26": "Troisième déclinaison > Féminin  > Premier type  ",
+            "27": "Troisième déclinaison > Neutre   > Premier type  ",
+            "28": "Troisième déclinaison > Neutre   > Deuxième type ",
+            "29": "Troisième déclinaison > Neutre   > Premier type  ",
+            "30": "Troisième déclinaison > Neutre   > Deuxième type "
         }
     },
     "reference": {

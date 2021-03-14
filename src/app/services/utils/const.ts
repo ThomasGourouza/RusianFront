@@ -25,10 +25,16 @@ export class Const {
     public static F: string = 'Feminine';
     public static NT: string = 'Neutral';
     public static intro: string = 'intro';
+    public static FIRST: string = 'First declension';
+    public static SECOND: string = 'Second declension';
+    public static THIRD: string = 'Third declension';
     public static first: string = 'first-declension';
     public static second: string = 'second-declension';
     public static third: string = 'third-declension';
     public static fourth: string = 'fourth-declension';
+    public static FT: string = 'First type';
+    public static ST: string = 'Second type';
+    public static TT: string = 'Third type';
     public static translation: string = 'translation';
     public static declension: string = 'declension';
     public static noun: string = 'noun';
@@ -41,4 +47,7 @@ export class Const {
     public static n: string = 'neuter';
     public static s: string = 'singular';
     public static p: string = 'plural';
+    public static one: string = '1';
+    public static two: string = '2';
+    public static three: string = '3';
 }

@@ -12,9 +12,12 @@ import { RussianReferenceService } from 'src/app/services/russian-reference.serv
 import { Table } from 'primeng/table';
 import { NounEnding } from 'src/app/models/reference/russian/noun-ending.model';
 import { Noun } from 'src/app/models/noun/get/noun.model';
+import { NounListService, RowData } from 'src/app/services/noun-list.service';
 
 export interface Category {
   id: number;
+  idSingularPlural?: number;
+  root?: string;
   declension: string;
   gender: string;
   type: string;
@@ -41,12 +44,11 @@ export interface Ending {
 export class NounsComponent extends subscribedContainerMixin() implements OnInit {
 
   public _nounCategories: Array<NounCategory>;
-  public nounCategory: NounCategory;
 
   public category: Category;
   public declensionIds: Array<number>;
 
-  // public selectedRow: RowData;
+  public selectedRow: RowData;
   public page: string;
 
   constructor(
@@ -57,7 +59,7 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
     private actionMenuService: ActionMenuService,
     private nounService: NounService,
     private russianReferenceService: RussianReferenceService,
-    // private nounListService: NounListService
+    private nounListService: NounListService
   ) {
     super();
   }
@@ -97,16 +99,20 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
             break;
           }
           case 'intro': {
-              this.resetServices();
-              this.redirect('/' + Const.nouns);
+            this.resetServices();
+            this.redirect('/' + Const.nouns);
             break;
           }
           case 'consult': {
+            this.resetServices();
+            this.redirect('/' + Const.nouns + '/' + Const.consult);
             //   this.redirect('/' + Const.nouns + '/' + selection);
             //   nouns/:category/:gender/:type
             break;
           }
           case 'add': {
+            this.resetServices();
+            this.redirect('/' + Const.nouns + '/' + Const.add);
             //   this.redirect('/' + Const.nouns + '/' + selection);
             //   nouns/:category/:gender/:type
             break;
@@ -116,17 +122,17 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
     });
 
     // emetter de noun list (milieu)
-    // this.nounListService.rowData$.pipe(
-    //   takeUntil(
-    //     this.destroyed$
-    //   )
-    // ).subscribe((selectedRow: RowData) => {
-    //   this.selectedRow = selectedRow;
-    //   if (selectedRow) {
-    //     // mise à jour du menu de droite
-    //     this.actionMenuService.setMenu(selectedRow.translation, true, Const.check);
-    //   }
-    // });
+    this.nounListService.rowData$.pipe(
+      takeUntil(
+        this.destroyed$
+      )
+    ).subscribe((selectedRow: RowData) => {
+      this.selectedRow = selectedRow;
+      if (selectedRow) {
+        // mise à jour du menu de droite
+        this.actionMenuService.setMenu(selectedRow.translation, true, Const.check);
+      }
+    });
 
     // emetter du service actionMenu (droite)
     this.actionMenuService.action$.pipe(
@@ -135,20 +141,19 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
       )
     ).subscribe((action: string) => {
       if (action) {
-        console.log(action);
         // mise à jour du menu de droite
         switch (action) {
           case Const.open: {
-            // const translation = this.selectedRow?.translation;
-            // if (translation) {
-            //   this.actionMenuService.setMenu(translation, false, Const.check);
-            //   this.redirect('/nouns/consult/' + translation);
-            // }
+            const translation = this.selectedRow?.translation;
+            if (translation) {
+              this.actionMenuService.setMenu(translation, false, Const.check);
+              this.redirect('/nouns/consult/' + translation);
+            }
             break;
           }
           case Const.close: {
             // déselection de la row
-            // this.closeDisplayNounAndGoTo('/nouns/consult');
+            this.closeDisplayNounAndGoTo('/nouns/consult');
             break;
           }
           case Const.delete: {
@@ -220,16 +225,16 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
     let gender: string;
     let type: string;
     switch (category.declension) {
-      case 'First declension': {
-        cat = 'first-declension';
+      case Const.FIRST: {
+        cat = Const.first;
         break;
       }
-      case 'Second declension': {
-        cat = 'second-declension';
+      case Const.SECOND: {
+        cat = Const.second;
         break;
       }
-      case 'Third declension': {
-        cat = 'third-declension';
+      case Const.THIRD: {
+        cat = Const.third;
         break;
       }
       default: {
@@ -237,16 +242,16 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
       }
     }
     switch (category.gender) {
-      case 'Masculine': {
-        gender = 'masculine';
+      case Const.M: {
+        gender = Const.m;
         break;
       }
-      case 'Feminine': {
-        gender = 'feminine';
+      case Const.F: {
+        gender = Const.f;
         break;
       }
-      case 'Neutral': {
-        gender = 'neuter';
+      case Const.NT: {
+        gender = Const.n;
         break;
       }
       default: {
@@ -254,16 +259,16 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
       }
     }
     switch (category.type) {
-      case 'First type': {
-        type = '1';
+      case Const.FT: {
+        type = Const.one;
         break;
       }
-      case 'Second type': {
-        type = '2';
+      case Const.ST: {
+        type = Const.two;
         break;
       }
-      case 'Third type': {
-        type = '3';
+      case Const.TT: {
+        type = Const.three;
         break;
       }
       default: {
@@ -281,23 +286,23 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
       plural: 0
     };
     switch (category) {
-      case 'first-declension': {
+      case Const.first: {
         switch (gender) {
-          case 'masculine': {
+          case Const.m: {
             switch (type) {
-              case '1': {
+              case Const.one: {
                 selection.id = 1;
                 selection.singular = 1;
                 selection.plural = 4;
                 break;
               }
-              case '2': {
+              case Const.two: {
                 selection.id = 2;
                 selection.singular = 2;
                 selection.plural = 5;
                 break;
               }
-              case '3': {
+              case Const.three: {
                 selection.id = 3;
                 selection.singular = 3;
                 selection.plural = 6;
@@ -310,21 +315,21 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
             }
             break;
           }
-          case 'feminine': {
+          case Const.f: {
             switch (type) {
-              case '1': {
+              case Const.one: {
                 selection.id = 4;
                 selection.singular = 7;
                 selection.plural = 10;
                 break;
               }
-              case '2': {
+              case Const.two: {
                 selection.id = 5;
                 selection.singular = 8;
                 selection.plural = 11;
                 break;
               }
-              case '3': {
+              case Const.three: {
                 selection.id = 6;
                 selection.singular = 9;
                 selection.plural = 12;
@@ -344,23 +349,23 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
         }
         break;
       }
-      case 'second-declension': {
+      case Const.second: {
         switch (gender) {
-          case 'masculine': {
+          case Const.m: {
             switch (type) {
-              case '1': {
+              case Const.one: {
                 selection.id = 7;
                 selection.singular = 13;
                 selection.plural = 16;
                 break;
               }
-              case '2': {
+              case Const.two: {
                 selection.id = 8;
                 selection.singular = 14;
                 selection.plural = 17;
                 break;
               }
-              case '3': {
+              case Const.three: {
                 selection.id = 9;
                 selection.singular = 15;
                 selection.plural = 18;
@@ -373,15 +378,15 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
             }
             break;
           }
-          case 'neuter': {
+          case Const.n: {
             switch (type) {
-              case '1': {
+              case Const.one: {
                 selection.id = 10;
                 selection.singular = 19;
                 selection.plural = 21;
                 break;
               }
-              case '2': {
+              case Const.two: {
                 selection.id = 11;
                 selection.singular = 20;
                 selection.plural = 22;
@@ -401,10 +406,10 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
         }
         break;
       }
-      case 'third-declension': {
+      case Const.third: {
         switch (gender) {
-          case 'masculine': {
-            if (type === '1') {
+          case Const.m: {
+            if (type === Const.one) {
               selection.id = 12;
               selection.singular = 23;
               selection.plural = 24;
@@ -413,8 +418,8 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
             }
             break;
           }
-          case 'feminine': {
-            if (type === '1') {
+          case Const.f: {
+            if (type === Const.one) {
               selection.id = 13;
               selection.singular = 25;
               selection.plural = 26;
@@ -423,15 +428,15 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
             }
             break;
           }
-          case 'neuter': {
+          case Const.n: {
             switch (type) {
-              case '1': {
+              case Const.one: {
                 selection.id = 14;
                 selection.singular = 27;
                 selection.plural = 29;
                 break;
               }
-              case '2': {
+              case Const.two: {
                 selection.id = 15;
                 selection.singular = 28;
                 selection.plural = 30;
@@ -469,18 +474,18 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
     // mise à jour du menu de gauche
     this.sideMenuService.setMenu(category, gender, type, nounExpanded);
     // mise à jour du menu de droite
-    // this.actionMenuService.setMenu(noun, !noun, this.page);
+    this.actionMenuService.setMenu(noun, !noun, this.page);
   }
 
   // redirection en modifiant la valeur de this.page
   private redirect(url: string): void {
-    // this.setPage(url);
+    this.setPage(url);
     this.router.navigateByUrl(url);
   }
 
   private resetServices(): void {
-    // this.actionMenuService.resetAction();
-    // this.nounListService.setRowdata(null);
+    this.actionMenuService.resetAction();
+    this.nounListService.setRowdata(null);
     this.sideMenuService.setSelection(null);
   }
 
@@ -490,7 +495,7 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
 
   private closeDisplayNounAndGoTo(url: string): void {
     // déselection de la row
-    // this.nounListService.setRowdata(null);
+    this.nounListService.setRowdata(null);
     // mise à jour du menu
     this.actionMenuService.setMenu('', true, Const.check);
     this.redirect(url);
@@ -498,42 +503,19 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
 
 
   public displayActionMenu(): boolean {
-    // return (this.page === Const.consult && !!this.selectedRow)
-    //   || this.page === Const.check
-    //   || this.page === Const.update
-    //   || this.page === Const.NF;
-    return true;
+    return (this.page === Const.consult && !!this.selectedRow)
+      || this.page === Const.check
+      || this.page === Const.update
+      || this.page === Const.NF;
   }
 
   public getNounCategory(id: number): NounCategory {
     return this._nounCategories.find((category) => category.id === id);
   }
 
-  private mapEndings(root: string, endings: Array<NounEnding>): Array<NounEnding> {
-    // return endings.map((ending) =>
-    //   new NounEnding(
-    //     ending.russianCase,
-    //     ending.russianGender,
-    //     (ending.value != Const.NG) ? root + ending.value : this.nomOrGen(root, ending.russianGender, endings)
-    //   )
-    // );
-    return endings;
-  }
-
-  // private nomOrGen(root: string, gender: string, endings: Array<NounEnding>): string {
-  //   const filteredEndings = endings.filter((ending) =>
-  //     ending.russianGender === gender
-  //   );
-  //   const nom = filteredEndings.find((filteredEnding) => filteredEnding.russianCase === Const.N).value;
-  //   const gen = filteredEndings.find((filteredEnding) => filteredEnding.russianCase === Const.G).value;
-
-  //   return root + nom + ' / ' + root + gen;
-  // }
-
   private setPage(url: string): void {
-    // this.selectedRow = null;
+    this.selectedRow = null;
     const urlArray = url.split('/');
-    // console.log(urlArray);
     // url = /nouns
     if (urlArray.length === 2 && urlArray[1] === Const.nouns) {
       this.page = 'intro';
@@ -556,49 +538,48 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
       const noun = urlArray[3];
       this.nounService.clearNoun();
       this.nounService.fetchNounByTranslation(noun);
-      this.nounService.noun$.subscribe(
-        (n: Noun) => {
-          switch (category) {
-            case Const.consult: {
-              if (n.id) {
-                this.caseConsultNoun(noun, n);
-              } else {
-                this.resetServices();
-                this.actionMenuService.setMenu(noun, false, Const.create);
-                this.page = Const.NF;
-              }
-              break;
+      this.nounService.noun$.subscribe((n: Noun) => {
+        switch (category) {
+          case Const.consult: {
+            if (!!n.id) {
+              this.caseConsultNoun(noun, n);
+            } else {
+              this.resetServices();
+              this.actionMenuService.setMenu(noun, false, Const.create);
+              this.page = Const.NF;
             }
-            case Const.update: {
-              if (n.id) {
-                this.resetServices();
-                this.actionMenuService.setMenu(noun, false, Const.update);
-                this.page = Const.update;
-              } else {
-                this.resetServices();
-                this.actionMenuService.setMenu(noun, false, Const.create);
-                this.page = Const.NF;
-              }
-              break;
-            }
-            case Const.add: {
-              if (n.id) {
-                this.router.navigateByUrl('/nouns/consult/' + n.translation);
-                this.caseConsultNoun(noun, n);
-              } else {
-                this.resetServices();
-                this.page = Const.add;
-              }
-              break;
-            }
+            break;
           }
-        });
+          case Const.update: {
+            if (n.id) {
+              this.resetServices();
+              this.actionMenuService.setMenu(noun, false, Const.update);
+              this.page = Const.update;
+            } else {
+              this.resetServices();
+              this.actionMenuService.setMenu(noun, false, Const.create);
+              this.page = Const.NF;
+            }
+            break;
+          }
+          case Const.add: {
+            if (n.id) {
+              this.router.navigateByUrl('/nouns/consult/' + n.translation);
+              // this.caseConsultNoun(noun, n);
+            } else {
+              this.resetServices();
+              this.page = Const.add;
+            }
+            break;
+          }
+        }
+      });
     }
     // url = nouns/:category/:gender/:type
     if (urlArray.length === 5) {
       if ([Const.first, Const.second, Const.third].includes(urlArray[2])
         && ['masculine', 'feminine', 'neuter'].includes(urlArray[3])
-        && ['1', '2', '3'].includes(urlArray[4])) {
+        && [Const.one, Const.two, Const.three].includes(urlArray[4])) {
         const selection = this.selectionFromUrl(urlArray[2], urlArray[3], urlArray[4]);
         this.category = this.mapCategory(selection);
         this.page = 'declension';
@@ -613,18 +594,26 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
   private caseConsultNoun(noun: string, n: Noun): void {
     this.actionMenuService.setMenu(noun, false, Const.check);
     this.page = Const.check;
-    const root = n.root;
-    // this.nounCategory = new NounCategory(
-    //   n.category.id,
-    //   n.category.value,
-    //   this.mapEndings(root, n.category.endings)
-    // );
-    // this.selectedRow = {
-    //   noun: n.nominativeMasculineForm,
-    //   translation: n.translation,
-    //   declension: n.category.id,
-    //   id: n.id
-    // }
+    this.category = {
+      id: n.russianNounCategory.id,
+      idSingularPlural: n.singularPluralCoupleNounId,
+      root: n.root,
+      declension: n.russianNounCategory.russianDeclensionName,
+      gender: n.russianNounCategory.russianGender,
+      type: n.russianNounCategory.russianDeclCatType,
+      endings: [{
+        number: n.russianNounCategory.russianGrammaticalNumber,
+        nounEndings: n.russianNounCategory.russianNounEndings
+      }]
+    };
+    this.selectedRow = {
+      noun: n.nominativeForm,
+      translation: n.translation,
+      declension: n.russianNounCategory.id,
+      id: n.id,
+      animate: n.isAnimate,
+      singularPluralId: n.singularPluralCoupleNounId
+    }
   }
 
 }

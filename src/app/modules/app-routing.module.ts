@@ -23,6 +23,7 @@ const routes: Routes = [
   { path: 'adjectives/add/:adjective', component: AdjectivesComponent },
   { path: 'adjectives/update/:adjective', component: AdjectivesComponent },
   { path: 'nouns', component: NounsComponent },
+  { path: 'nouns/:category', component: NounsComponent },
   { path: 'nouns/:category/:gender/:type', component: NounsComponent },
   { path: 'nouns/consult/:noun', component: NounsComponent },
   { path: 'nouns/add/:noun', component: NounsComponent },

@@ -4,7 +4,7 @@ import { AdjectiveService } from 'src/app/services/adjective.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Const } from 'src/app/services/utils/const';
 import { AdjectiveListService, RowData } from 'src/app/services/adjective-list.service';
-import { Router } from '@angular/router';
+// import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-adjective-list',
@@ -22,7 +22,7 @@ export class AdjectiveListComponent implements OnInit {
   constructor(
     private adjectiveService: AdjectiveService,
     public translate: TranslateService,
-    private router: Router,
+    // private router: Router,
     private adjectiveListService: AdjectiveListService
   ) { }
 
@@ -47,15 +47,15 @@ export class AdjectiveListComponent implements OnInit {
   }
 
   // rechercher un adjectif
-  public searchAdjective(): void {
-    if (this.isSearchEnable()) {
-      this.router.navigateByUrl('/adjectives/consult/' + this.translation);
-    }
-  }
+  // public searchAdjective(): void {
+  //   if (this.isSearchEnable()) {
+  //     this.router.navigateByUrl('/adjectives/consult/' + this.translation);
+  //   }
+  // }
 
-  public isSearchEnable(): boolean {
-    return !!this.translation && /^[a-z]+$/.test(this.translation);
-  }
+  // public isSearchEnable(): boolean {
+  //   return !!this.translation && /^[a-z]+$/.test(this.translation);
+  // }
 
   private initData(adjectives: Array<Adjective>): void {
     this.data = [];

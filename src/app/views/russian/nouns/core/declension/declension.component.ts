@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Category, Ending } from '../nouns.component';
+import { Category, Ending } from '../../nouns.component';
 import { Const } from 'src/app/services/utils/const';
 import { NounEnding } from 'src/app/models/reference/russian/noun-ending.model';
 import { RussianReferenceService } from 'src/app/services/russian-reference.service';
@@ -27,8 +27,7 @@ export interface Location {
 
 @Component({
   selector: 'app-declension',
-  templateUrl: './declension.component.html',
-  styleUrls: ['./declension.component.scss']
+  templateUrl: './declension.component.html'
 })
 export class DeclensionComponent implements OnInit {
 
@@ -343,16 +342,16 @@ export class DeclensionComponent implements OnInit {
 
   private findDeclensionByCaseAndNumber(category: Category, russianCase: string, number: string): string {
     let declensionValue: string;
-    const nounEnding: NounEnding = category.endings
-      .find((cat) => cat.number === number)
-      .nounEndings.find((ending) => ending.russianCase === russianCase);
-    declensionValue = nounEnding.value;
-    if (nounEnding.specificEndingRules.length > 0) {
-      const appliedRule = nounEnding.specificEndingRules.find((rule) => rule.applied);
-      if (!!appliedRule) {
-        declensionValue = appliedRule.value;
+      const nounEnding: NounEnding = category.endings
+        .find((cat) => cat.number === number)
+        .nounEndings.find((ending) => ending.russianCase === russianCase);
+      declensionValue = nounEnding.value;
+      if (nounEnding.specificEndingRules.length > 0) {
+        const appliedRule = nounEnding.specificEndingRules.find((rule) => rule.applied);
+        if (!!appliedRule) {
+          declensionValue = appliedRule.value;
+        }
       }
-    }
     return (declensionValue != '') ? declensionValue : '/';
   }
 

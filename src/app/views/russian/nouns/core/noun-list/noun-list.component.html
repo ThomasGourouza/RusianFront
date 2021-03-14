@@ -3,25 +3,22 @@
     <p-table #list [columns]="cols" [value]="data" [paginator]="true" [rows]="5"
         [rowsPerPageOptions]="[5,10,15,20,30,50,100]" sortMode="multiple" selectionMode="single" dataKey="id"
         (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect()"
-        [globalFilterFields]="['adjective','translation','declension']">
+        [globalFilterFields]="['noun','translation','declension']">
         <ng-template pTemplate="caption">
             <div class="p-d-flex d-flex justify-content-center align-items-start">
                 <span class="p-input-icon-right p-ml-auto p-float-label">
                     <i class="pi pi-search"></i>
                     <input pInputText type="text" id="search" [(ngModel)]="translation"
                         (input)="list.filterGlobal($event.target.value, 'contains')" />
-                    <label for="search">{{ 'adjectives.adjectives.search' | translate }}</label>
+                    <label for="search">{{ 'nouns.nouns.search' | translate }}</label>
                 </span>
-                <!-- &nbsp; &nbsp;
-                <button pButton type="button" class="p-button-outlined p-button-raised p-button-rounded"
-                    icon="pi pi-arrow-right" (click)="searchAdjective()" [disabled]="!isSearchEnable()" ></button> -->
             </div>
         </ng-template>
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns" [pSortableColumn]="col" [title]="translateTitle()">
                     <div class="d-flex justify-content-center">
-                        {{ 'adjectives.adjectives.' + col | translate }} <p-sortIcon [field]="col"></p-sortIcon>
+                        {{ 'nouns.nouns.' + col | translate }} <p-sortIcon [field]="col"></p-sortIcon>
                     </div>
                 </th>
             </tr>
@@ -30,12 +27,12 @@
             <tr [pSelectableRow]="rowData">
                 <td *ngFor="let col of columns">
                     <span class="d-flex justify-content-center">
-                        <div *ngIf="col === 'declension';then declension else adjtrad"></div>
-                        <ng-template #adjtrad>
+                        <div *ngIf="col === 'declension';then declension else nountrad"></div>
+                        <ng-template #nountrad>
                             {{ rowData[col] }}
                         </ng-template>
                         <ng-template #declension>
-                            {{ 'adjectives.declension.' + rowData[col] | translate }}
+                            {{ 'nouns.explicit-declension.' + rowData[col] | translate }}
                         </ng-template>
                     </span>
                 </td>
