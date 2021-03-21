@@ -74,7 +74,7 @@
         "text": "There are four declensions of adjectives in russian.",
         "not-found": {
             "adjective": "The adjective ",
-            "is-not-saved": " isn't found."
+            "is-not-saved": " has not been found."
         },
         "declension": {
             "first": "First declension (-ый)",
@@ -174,6 +174,7 @@
             "consult": "List of nouns",
             "noun": "Noun",
             "translation": "Translation",
+            "translationPlural": "Translation (pl.)",
             "declension": "Declension",
             "add": "Add a noun",
             "open": "Open",
@@ -206,16 +207,20 @@
             "consult": "Consult",
             "add": "Add"
         },
+        "not-found": {
+            "noun": "The noun ",
+            "is-not-saved": " has not been found."
+        },
         "explicit-declension": {
-            "1":  "First declension  > Masculine > First type ",
-            "2":  "First declension  > Masculine > Second type",
-            "3":  "First declension  > Masculine > Third type ",
-            "4":  "First declension  > Masculine > First type ",
-            "5":  "First declension  > Masculine > Second type",
-            "6":  "First declension  > Masculine > Third type ",
-            "7":  "First declension  > Feminine  > First type ",
-            "8":  "First declension  > Feminine  > Second type",
-            "9":  "First declension  > Feminine  > Third type ",
+            "1": "First declension  > Masculine > First type ",
+            "2": "First declension  > Masculine > Second type",
+            "3": "First declension  > Masculine > Third type ",
+            "4": "First declension  > Masculine > First type ",
+            "5": "First declension  > Masculine > Second type",
+            "6": "First declension  > Masculine > Third type ",
+            "7": "First declension  > Feminine  > First type ",
+            "8": "First declension  > Feminine  > Second type",
+            "9": "First declension  > Feminine  > Third type ",
             "10": "First declension  > Feminine  > First type ",
             "11": "First declension  > Feminine  > Second type",
             "12": "First declension  > Feminine  > Third type ",
@@ -236,7 +241,7 @@
             "27": "Third declension  > Neuter    > First type ",
             "28": "Third declension  > Neuter    > Second type",
             "29": "Third declension  > Neuter    > First type ",
-            "30": "Third declension  > Neuter    > Second type"       
+            "30": "Third declension  > Neuter    > Second type"
         }
     },
     "reference": {
@@ -253,6 +258,16 @@
             "feminine": "Feminine",
             "neuter": "Neuter",
             "plural": "Plural"
+        },
+        "declension": {
+            "first": "First",
+            "second": "Second",
+            "third": "Third"
+        },
+        "type": {
+            "first": "First",
+            "second": "Second",
+            "third": "Third"
         }
     }
 }

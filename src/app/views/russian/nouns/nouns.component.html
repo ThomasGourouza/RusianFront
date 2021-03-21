@@ -34,19 +34,12 @@
             </div>
             <div *ngSwitchCase="'not-found'">
                 <br>
-                {{ 'nouns.nf' | translate }}
-                <!-- <app-adjective-not-found>
-                </app-adjective-not-found> -->
+                <app-noun-not-found></app-noun-not-found>
                 <br>
             </div>
             <div *ngSwitchCase="'add'">
                 <br>
                 <app-add-noun></app-add-noun>
-            </div>
-            <div *ngSwitchCase="'update'">
-                <br>
-                {{ 'nouns.update' | translate }}
-                <!-- <app-update-adjective></app-update-adjective> -->
             </div>
         </div>
     </section>

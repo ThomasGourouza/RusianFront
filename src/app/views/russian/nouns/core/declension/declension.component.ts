@@ -16,6 +16,7 @@ export interface ColData {
 }
 export interface Exception {
   ruleId: number;
+  specificId: number;
   rule: string;
   locations: Array<Location>;
   applied: boolean;
@@ -23,6 +24,11 @@ export interface Exception {
 export interface Location {
   number: string;
   case: string;
+}
+export interface ExceptionIds {
+  specificId: number;
+  ruleId: number;
+  numbers: Array<string>;
 }
 
 @Component({
@@ -34,7 +40,7 @@ export class DeclensionComponent implements OnInit {
   @Input()
   public category: Category;
   @Output()
-  public exceptionEmitter: EventEmitter<Array<number>> = new EventEmitter<Array<number>>();
+  public exceptionEmitter: EventEmitter<Array<ExceptionIds>> = new EventEmitter<Array<ExceptionIds>>();
 
   public title: string;
   public unselect: string;
@@ -76,6 +82,7 @@ export class DeclensionComponent implements OnInit {
                   this.exceptions.push(
                     {
                       ruleId: 0,
+                      specificId: rule.id,
                       rule: rule.rule,
                       locations: [{
                         number: ending.number,
@@ -129,7 +136,13 @@ export class DeclensionComponent implements OnInit {
     this.exceptions.forEach((exception) => exception.applied = exception.ruleId === 6);
     this.setException();
     this.appliedExceptions = this.exceptions.filter((exception) => exception.applied);
-    this.exceptionEmitter.emit(this.appliedExceptions.map((e) => e.ruleId));
+    this.exceptionEmitter.emit(this.appliedExceptions.map((e) => {
+      return {
+        specificId: e.specificId,
+        ruleId: e.ruleId,
+        numbers: e.locations.map((l) => l.number)
+      };
+    }));
   }
 
   private setException(): void {
@@ -222,8 +235,12 @@ export class DeclensionComponent implements OnInit {
       case 9:
       // if подмасте́рье
       case 10: {
-        this.findByRuleId(this.exceptions, 7).applied = value;
-        this.findByRuleId(this.exceptions, 6).applied = !value;
+        if (!!this.findByRuleId(this.exceptions, 7)) {
+          this.findByRuleId(this.exceptions, 7).applied = value;
+        }
+        if (!!this.findByRuleId(this.exceptions, 6)) {
+          this.findByRuleId(this.exceptions, 6).applied = !value;
+        }
         if (value) {
           for (let i = 1; i <= 12; i++) {
             if (!!this.findByRuleId(this.exceptions, i) && ![6, 7, id].includes(i)) {
@@ -242,7 +259,13 @@ export class DeclensionComponent implements OnInit {
     }
     this.setException();
     this.appliedExceptions = this.exceptions.filter((exception) => exception.applied);
-    this.exceptionEmitter.emit(this.appliedExceptions.map((e) => e.ruleId));
+    this.exceptionEmitter.emit(this.appliedExceptions.map((e) => {
+      return {
+        specificId: e.specificId,
+        ruleId: e.ruleId,
+        numbers: e.locations.map((l) => l.number)
+      };
+    }));
   }
 
   public isCheckBoxDisabled(ruleId: number): boolean {

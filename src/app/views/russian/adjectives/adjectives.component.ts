@@ -90,7 +90,7 @@ export class AdjectivesComponent extends subscribedContainerMixin() implements O
       this.selectedRow = selectedRow;
       if (selectedRow) {
         // mise à jour du menu de droite
-        this.actionMenuService.setMenu(selectedRow.translation, true, Const.check);
+        this.actionMenuService.setMenu(selectedRow.translation, true, Const.check, true);
       }
     });
 
@@ -106,7 +106,7 @@ export class AdjectivesComponent extends subscribedContainerMixin() implements O
           case Const.open: {
             const translation = this.selectedRow?.translation;
             if (translation) {
-              this.actionMenuService.setMenu(translation, false, Const.check);
+              this.actionMenuService.setMenu(translation, false, Const.check, true);
               this.redirect('/adjectives/consult/' + translation);
             }
             break;
@@ -154,7 +154,7 @@ export class AdjectivesComponent extends subscribedContainerMixin() implements O
     // déselection de la row
     this.adjectiveListService.setRowdata(null);
     // mise à jour du menu
-    this.actionMenuService.setMenu('', true, Const.check);
+    this.actionMenuService.setMenu('', true, Const.check, true);
     this.redirect(url);
   }
 
@@ -167,7 +167,7 @@ export class AdjectivesComponent extends subscribedContainerMixin() implements O
     // mise à jour du menu de gauche
     this.sideMenuService.setMenu(declensionExpanded, adjectiveExpanded);
     // mise à jour du menu de droite
-    this.actionMenuService.setMenu(adjective, !adjective, this.page);
+    this.actionMenuService.setMenu(adjective, !adjective, this.page, true);
   }
 
   // redirection en modifiant la valeur de this.page
@@ -246,7 +246,7 @@ export class AdjectivesComponent extends subscribedContainerMixin() implements O
                 this.caseConsultAdjective(adjective, adj);
               } else {
                 this.resetServices();
-                this.actionMenuService.setMenu(adjective, false, Const.create);
+                this.actionMenuService.setMenu(adjective, false, Const.create, true);
                 this.page = Const.NF;
               }
               break;
@@ -254,11 +254,11 @@ export class AdjectivesComponent extends subscribedContainerMixin() implements O
             case Const.update: {
               if (adj.id) {
                 this.resetServices();
-                this.actionMenuService.setMenu(adjective, false, Const.update);
+                this.actionMenuService.setMenu(adjective, false, Const.update, true);
                 this.page = Const.update;
               } else {
                 this.resetServices();
-                this.actionMenuService.setMenu(adjective, false, Const.create);
+                this.actionMenuService.setMenu(adjective, false, Const.create, true);
                 this.page = Const.NF;
               }
               break;
@@ -279,7 +279,7 @@ export class AdjectivesComponent extends subscribedContainerMixin() implements O
   }
 
   private caseConsultAdjective(adjective: string, adj: Adjective): void {
-    this.actionMenuService.setMenu(adjective, false, Const.check);
+    this.actionMenuService.setMenu(adjective, false, Const.check, true);
     this.page = Const.check;
     const root = adj.root;
     this.adjectiveCategory = new AdjectiveCategory(

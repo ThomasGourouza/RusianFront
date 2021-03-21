@@ -39,7 +39,6 @@ export interface Ending {
  * /nouns/:category/:gender/:type
  * /nouns/consult/:noun
  * /nouns/add/:noun
- * /nouns/update/:noun
  */
 export class NounsComponent extends subscribedContainerMixin() implements OnInit {
 
@@ -103,18 +102,10 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
             this.redirect('/' + Const.nouns);
             break;
           }
-          case 'consult': {
+          case Const.consult:
+          case Const.add: {
             this.resetServices();
-            this.redirect('/' + Const.nouns + '/' + Const.consult);
-            //   this.redirect('/' + Const.nouns + '/' + selection);
-            //   nouns/:category/:gender/:type
-            break;
-          }
-          case 'add': {
-            this.resetServices();
-            this.redirect('/' + Const.nouns + '/' + Const.add);
-            //   this.redirect('/' + Const.nouns + '/' + selection);
-            //   nouns/:category/:gender/:type
+            this.redirect('/' + Const.nouns + '/' + selection.name);
             break;
           }
         }
@@ -130,7 +121,7 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
       this.selectedRow = selectedRow;
       if (selectedRow) {
         // mise à jour du menu de droite
-        this.actionMenuService.setMenu(selectedRow.translation, true, Const.check);
+        this.actionMenuService.setMenu(selectedRow.translation, true, Const.check, false);
       }
     });
 
@@ -146,7 +137,7 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
           case Const.open: {
             const translation = this.selectedRow?.translation;
             if (translation) {
-              this.actionMenuService.setMenu(translation, false, Const.check);
+              this.actionMenuService.setMenu(translation, false, Const.check, false);
               this.redirect('/nouns/consult/' + translation);
             }
             break;
@@ -165,20 +156,12 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
             }
             break;
           }
-          case Const.update: {
-            // const noun = this.selectedRow?.translation;
-            // if (noun) {
-            //   this.resetServices();
-            //   this.closeDisplayNounAndGoTo('/nouns/update/' + noun);
-            // }
-            break;
-          }
           case Const.create: {
-            // const noun = this.activatedRoute.snapshot.params[Const.noun];
-            // if (noun) {
-            //   this.resetServices();
-            //   this.closeDisplayNounAndGoTo('/nouns/add/' + noun);
-            // }
+            const noun = this.activatedRoute.snapshot.params[Const.noun];
+            if (noun) {
+              this.resetServices();
+              this.closeDisplayNounAndGoTo('/nouns/add/' + noun);
+            }
             break;
           }
         }
@@ -474,7 +457,7 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
     // mise à jour du menu de gauche
     this.sideMenuService.setMenu(category, gender, type, nounExpanded);
     // mise à jour du menu de droite
-    this.actionMenuService.setMenu(noun, !noun, this.page);
+    this.actionMenuService.setMenu(noun, !noun, this.page, false);
   }
 
   // redirection en modifiant la valeur de this.page
@@ -497,15 +480,13 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
     // déselection de la row
     this.nounListService.setRowdata(null);
     // mise à jour du menu
-    this.actionMenuService.setMenu('', true, Const.check);
+    this.actionMenuService.setMenu('', true, Const.check, false);
     this.redirect(url);
   }
-
 
   public displayActionMenu(): boolean {
     return (this.page === Const.consult && !!this.selectedRow)
       || this.page === Const.check
-      || this.page === Const.update
       || this.page === Const.NF;
   }
 
@@ -532,7 +513,6 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
     }
     // url = nouns/consult/:noun
     // url = nouns/add/:noun
-    // url = nouns/update/:noun
     if (urlArray.length === 4) {
       const category = urlArray[2];
       const noun = urlArray[3];
@@ -545,19 +525,7 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
               this.caseConsultNoun(noun, n);
             } else {
               this.resetServices();
-              this.actionMenuService.setMenu(noun, false, Const.create);
-              this.page = Const.NF;
-            }
-            break;
-          }
-          case Const.update: {
-            if (n.id) {
-              this.resetServices();
-              this.actionMenuService.setMenu(noun, false, Const.update);
-              this.page = Const.update;
-            } else {
-              this.resetServices();
-              this.actionMenuService.setMenu(noun, false, Const.create);
+              this.actionMenuService.setMenu(noun, false, Const.create, false);
               this.page = Const.NF;
             }
             break;
@@ -565,7 +533,7 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
           case Const.add: {
             if (n.id) {
               this.router.navigateByUrl('/nouns/consult/' + n.translation);
-              // this.caseConsultNoun(noun, n);
+              this.caseConsultNoun(noun, n);
             } else {
               this.resetServices();
               this.page = Const.add;
@@ -586,13 +554,13 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
       } else {
         // si les valeurs de l'url sont incorrectes
         this.router.navigateByUrl('/' + Const.NF);
-        // this.page = Const.NF;
+        this.page = Const.NF;
       }
     }
   }
 
   private caseConsultNoun(noun: string, n: Noun): void {
-    this.actionMenuService.setMenu(noun, false, Const.check);
+    this.actionMenuService.setMenu(noun, false, Const.check, false);
     this.page = Const.check;
     this.category = {
       id: n.russianNounCategory.id,

@@ -178,12 +178,12 @@ export class NounService {
         this.fetchNouns();
       })
       .catch((error: HttpErrorResponse) => {
-        this.toastr.error(
-          this.translate.instant(
-            error.status === 404 ? 'toastr.error.message.deleteNoun' : 'toastr.error.message.basic'
-          ),
-          this.translate.instant('toastr.error.title')
-        );
+        if (error.status !== 404) {
+          this.toastr.error(
+            this.translate.instant('toastr.error.message.basic'),
+            this.translate.instant('toastr.error.title')
+          );
+        }
       });
   }
 

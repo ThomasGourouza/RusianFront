@@ -27,7 +27,6 @@ const routes: Routes = [
   { path: 'nouns/:category/:gender/:type', component: NounsComponent },
   { path: 'nouns/consult/:noun', component: NounsComponent },
   { path: 'nouns/add/:noun', component: NounsComponent },
-  { path: 'nouns/update/:noun', component: NounsComponent },
   { path: 'authentification', canActivate: [CreatePlayerGuard], component: GetPlayerComponent },
   { path: 'not-found', component: NotfoundComponent },
   { path: '**', redirectTo: '/not-found' },

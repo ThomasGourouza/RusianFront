@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-const A = 'adjective';
+import { Const } from 'src/app/services/utils/const';
 
 @Component({
   selector: 'app-adjective-not-found',
@@ -17,7 +17,7 @@ export class AdjectiveNotFoundComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.adjective = this.activatedRoute.snapshot.params[A];
+    this.adjective = this.activatedRoute.snapshot.params[Const.adjective];
   }
 
 }

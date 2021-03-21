@@ -7,7 +7,6 @@ import { RussianReferenceService } from 'src/app/services/russian-reference.serv
 import { DeclensionRule } from 'src/app/models/reference/russian/declension-rule.model';
 import { NounService } from 'src/app/services/noun.service';
 import { Noun } from 'src/app/models/noun/get/noun.model';
-import { Utils } from 'src/app/services/utils/utils.service';
 import { Router } from '@angular/router';
 export interface RowData {
   case: string;
@@ -334,97 +333,6 @@ export class DeclensionNounComponent implements OnInit {
     return specificEndingsLocations.some((l) =>
       l.case === endingsLocation.case && l.number === endingsLocation.number
     ) || inanimate;
-  }
-
-  public applyException(id: number, value: boolean): void {
-    this.findByRuleId(this.exceptions, id).applied = value;
-    switch (id) {
-      // if animate
-      case 7: {
-        this.findByRuleId(this.exceptions, 6).applied = !value;
-        break;
-      }
-      // if мать and дочь
-      case 9:
-      // if подмасте́рье
-      case 10: {
-        this.findByRuleId(this.exceptions, 7).applied = value;
-        this.findByRuleId(this.exceptions, 6).applied = !value;
-        if (value) {
-          for (let i = 1; i <= 12; i++) {
-            if (!!this.findByRuleId(this.exceptions, i) && ![6, 7, id].includes(i)) {
-              this.findByRuleId(this.exceptions, i).applied = false;
-            }
-          }
-        }
-        break;
-      }
-    }
-    // if no specific rule and after a soft consonant, when stressed.
-    const twelve = this.findByRuleId(this.exceptions, 12);
-    if (!!twelve) {
-      twelve.applied = this.findByRuleId(this.exceptions, 4).applied
-        && this.findByRuleId(this.exceptions, 11).applied;
-    }
-    this.setException();
-    this.appliedExceptions = this.exceptions.filter((exception) => exception.applied);
-  }
-
-  private setException(): void {
-    const animateRule = this.exceptions.find((exception) => exception.ruleId === 7);
-    const inAnimateRule = this.exceptions.find((exception) => exception.ruleId === 6);
-    let accusativeHasBeenChanged: boolean = false;
-    this.category.endings.forEach((ending) => {
-      if (ending.nounEndings.length > 0) {
-        ending.nounEndings.forEach((nounEnding) => {
-
-          if (nounEnding.specificEndingRules.length > 0) {
-            let isTwelveDone: boolean = false;
-            nounEnding.specificEndingRules.forEach((specificEndingRule) => {
-
-              if (nounEnding.russianCase !== Const.A || !accusativeHasBeenChanged || !isTwelveDone) {
-                specificEndingRule.applied = this.exceptions.find((exception) =>
-                  exception.rule === specificEndingRule.rule
-                ).applied;
-              }
-
-              const twelve = this.exceptions.find((e) => e.ruleId === 12);
-              if (nounEnding.russianCase === Const.G && ending.number === Const.P
-                && !!twelve && twelve.applied && specificEndingRule.rule === twelve.rule) {
-                nounEnding.specificEndingRules.filter((s) => s.id !== specificEndingRule.id)
-                  .forEach((s) => s.applied = false);
-                isTwelveDone = true;
-              }
-
-              if (!!animateRule && animateRule.applied && specificEndingRule.rule === animateRule.rule) {
-                specificEndingRule.value = this.animateOrInanimate(Const.G, ending);
-                specificEndingRule.applied = true;
-                nounEnding.specificEndingRules.find((spec) => spec.rule === inAnimateRule.rule).applied = false;
-                accusativeHasBeenChanged = true;
-              }
-              if (!!inAnimateRule && inAnimateRule.applied && specificEndingRule.rule === inAnimateRule.rule) {
-                specificEndingRule.value = this.animateOrInanimate(Const.N, ending);
-                specificEndingRule.applied = true;
-                nounEnding.specificEndingRules.find((spec) => spec.rule === animateRule.rule).applied = false;
-                accusativeHasBeenChanged = true;
-              }
-            });
-          }
-        });
-      }
-    });
-    this.setData(this.rows, this.cols, this.category);
-  }
-
-  private animateOrInanimate(russianCase: string, ending: Ending): string {
-    const genOrNom = ending.nounEndings.find((e) => e.russianCase === russianCase);
-    genOrNom.specificEndingRules.forEach((a) => {
-      const updatedRule = this.exceptions.find((e) => e.rule === a.rule);
-      a.applied = !!updatedRule && updatedRule.applied;
-    });
-    const genOrNomSpecific = genOrNom.specificEndingRules.find((spec) => spec.applied);
-
-    return !!genOrNomSpecific ? genOrNomSpecific.value : genOrNom.value;
   }
 
 }

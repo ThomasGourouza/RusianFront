@@ -36,37 +36,45 @@ export class ActionMenuService {
     this._action$.next(null);
   }
 
-  public setMenu(translation: string, isClosed: boolean, mode: string): void {
+  public setMenu(translation: string, isClosed: boolean, mode: string, update: boolean): void {
     const openAction = this.openLabel(isClosed);
     switch (mode) {
       case Const.consult:
       case Const.check: {
+        const itemsArray: Array<MenuItem> = [
+          {
+            label: openAction.label,
+            icon: openAction.icon,
+            command: () => {
+              this._action$.next(isClosed ? Const.open : Const.close);
+            }
+          }
+        ];
+        if (update) {
+          itemsArray.push(
+            {
+              label: this.translate.instant('adjectives.action.update'),
+              icon: 'pi pi-fw pi-refresh',
+              command: () => {
+                this._action$.next(Const.update);
+              }
+            }
+          );
+        }
+        itemsArray.push(
+          {
+            label: this.translate.instant('adjectives.action.delete'),
+            icon: 'pi pi-fw pi-trash',
+            command: () => {
+              this.confirmDelete();
+            }
+          }
+        );
+
         this._menu$.next([
           {
             label: translation,
-            items: [
-              {
-                label: openAction.label,
-                icon: openAction.icon,
-                command: () => {
-                  this._action$.next(isClosed ? Const.open : Const.close);
-                }
-              },
-              {
-                label: this.translate.instant('adjectives.action.update'),
-                icon: 'pi pi-fw pi-refresh',
-                command: () => {
-                  this._action$.next(Const.update);
-                }
-              },
-              {
-                label: this.translate.instant('adjectives.action.delete'),
-                icon: 'pi pi-fw pi-trash',
-                command: () => {
-                  this.confirmDelete();
-                }
-              }
-            ]
+            items: itemsArray
           }
         ]);
         break;

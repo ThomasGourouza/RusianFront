@@ -1,10 +1,8 @@
-<br><br>
 <div class="row d-flex justify-content-center">
-    <form [formGroup]="adjectiveForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="nounForm" (ngSubmit)="onSubmit()">
 
         <div class="row">
-
-            <div class="col-3">
+            <div class="col-4">
                 <div class="form-group">
                     <label for="root">{{ 'nouns.nouns.root' | translate }}</label>
                     <input type="text" class="form-control" id="root" formControlName="root"
@@ -12,15 +10,21 @@
                 </div>
             </div>
 
-            <div class="col-3">
+            <div class="col-4">
                 <div class="form-group">
                     <label for="translation">{{ 'nouns.nouns.translation' | translate }}</label>
                     <input type="text" class="form-control" id="translation" formControlName="translation"
                         (click)="displayKeyboard(false)" />
                 </div>
             </div>
+            <div class="col-4 d-flex align-items-center justify-content-end">
+                <button pButton type="submit" [disabled]="nounForm.invalid"
+                    class="p-button-outlined p-button-raised p-button-rounded" icon="pi pi-plus"></button>
+            </div>
+        </div>
 
-            <div class="col-3">
+        <div class="row">
+            <div class="col-4">
                 <div class="form-group">
                     <label for="number">{{ 'nouns.nouns.number' | translate }}</label>
 
@@ -33,25 +37,26 @@
                 </div>
             </div>
 
-            <div class="col-1">
+            <div class="col-2">
                 <div *ngIf="isSingular()" class="form-group">
                     <label for="plural">{{ 'nouns.nouns.plural' | translate }}</label>
                     <div class="d-flex align-items-end justify-content-center">
-                        <p-checkbox [formControl]="adjectiveForm.controls['plural']" (click)="displayKeyboard(false)"
+                        <p-checkbox [formControl]="nounForm.controls['plural']" (click)="displayKeyboard(false)"
                             inputId="plural" [binary]="true"></p-checkbox>
                     </div>
                 </div>
             </div>
 
-            <div class="col-2 d-flex align-items-center justify-content-end">
-                <button pButton type="submit" [disabled]="adjectiveForm.invalid"
-                    class="p-button-outlined p-button-raised p-button-rounded" icon="pi pi-plus"></button>
+            <div class="col-4">
+                <div *ngIf="translationPluralEnabled()" class="form-group">
+                    <label for="translationPlural">{{ 'nouns.nouns.translationPlural' | translate }}</label>
+                    <input type="text" class="form-control" id="translationPlural" formControlName="translationPlural"
+                        (click)="displayKeyboard(false)" />
+                </div>
             </div>
-
         </div>
 
         <div class="row">
-
             <div class="col-4">
                 <div class="form-group">
                     <label for="gender">{{ 'nouns.nouns.gender' | translate }}</label>
@@ -85,7 +90,6 @@
                     </select>
                 </div>
             </div>
-
         </div>
     </form>
 </div>
@@ -95,7 +99,7 @@
     <app-keyboard (keyEmitter)="onKey($event)"></app-keyboard>
 </div>
 
-<div *ngIf="!isKeyboardDisplayed && !!category" class="row d-flex justify-content-center">
+<div *ngIf="!isKeyboardDisplayed && !!category && displayDeclensionTab" class="row d-flex justify-content-center">
     <div *ngFor="let i of declensionIds">
         <div *ngIf="!!category && category.id === i">
             <app-declension [category]="category" (exceptionEmitter)="onException($event)"></app-declension>
