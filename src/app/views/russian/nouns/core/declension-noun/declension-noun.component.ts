@@ -239,7 +239,7 @@ export class DeclensionNounComponent implements OnInit {
         declensionValue = appliedRule.value;
       }
     }
-    return (declensionValue != '') ? declensionValue : '/';
+    return declensionValue;
   }
 
   public number(exceptions: Array<Exception>): number {

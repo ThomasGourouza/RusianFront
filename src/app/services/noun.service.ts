@@ -5,6 +5,10 @@ import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
 import { Noun } from '../models/noun/get/noun.model';
 import { NounPost } from '../models/noun/post/noun-post.model';
+import { SingularPluralPost } from '../models/noun/post/singular-plural-post.model';
+import { SpecificRulePost } from '../models/noun/post/specific-rule-post.model';
+import { NounSingularPluralApi } from './api/noun-singular-plural.api';
+import { NounSpecificRuleApi, NounSpecParam } from './api/noun-specific-rule.api';
 import { NounApi } from './api/noun.api';
 
 export class NounTranslationParam {
@@ -24,6 +28,8 @@ export class NounService {
 
   constructor(
     private nounApi: NounApi,
+    private nounSpecificRuleApi: NounSpecificRuleApi,
+    private nounSingularPluralApi: NounSingularPluralApi,
     private toastr: ToastrService,
     private translate: TranslateService
   ) { }
@@ -154,6 +160,54 @@ export class NounService {
           this.translate.instant('toastr.success.message.deleteNoun'),
           this.translate.instant('toastr.success.title')
         );
+      })
+      .catch((error: HttpErrorResponse) => {
+        this.toastr.error(
+          this.translate.instant(
+            error.status === 404 ? 'toastr.error.message.deleteNoun' : 'toastr.error.message.basic'
+          ),
+          this.translate.instant('toastr.error.title')
+        );
+      });
+  }
+
+  public removeException(param: NounSpecParam) {
+    this.nounSpecificRuleApi.deleteSpecificRuleByNounAndSpecId(param)
+      .toPromise()
+      .then(() => {
+        this.fetchNouns();
+      })
+      .catch((error: HttpErrorResponse) => {
+        this.toastr.error(
+          this.translate.instant(
+            error.status === 404 ? 'toastr.error.message.deleteNoun' : 'toastr.error.message.basic'
+          ),
+          this.translate.instant('toastr.error.title')
+        );
+      });
+  }
+
+  public addException(specificRule: SpecificRulePost) {
+    this.nounSpecificRuleApi.createSpecificRule(specificRule)
+      .toPromise()
+      .then(() => {
+        this.fetchNouns();
+      })
+      .catch((error: HttpErrorResponse) => {
+        this.toastr.error(
+          this.translate.instant(
+            error.status === 404 ? 'toastr.error.message.deleteNoun' : 'toastr.error.message.basic'
+          ),
+          this.translate.instant('toastr.error.title')
+        );
+      });
+  }
+
+  public addCouple(singularPluralPost: SingularPluralPost) {
+    this.nounSingularPluralApi.createCouple(singularPluralPost)
+      .toPromise()
+      .then(() => {
+        this.fetchNouns();
       })
       .catch((error: HttpErrorResponse) => {
         this.toastr.error(

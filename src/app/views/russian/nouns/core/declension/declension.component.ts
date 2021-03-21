@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Category, Ending } from '../../nouns.component';
 import { Const } from 'src/app/services/utils/const';
@@ -33,6 +33,8 @@ export class DeclensionComponent implements OnInit {
 
   @Input()
   public category: Category;
+  @Output()
+  public exceptionEmitter: EventEmitter<Array<number>> = new EventEmitter<Array<number>>();
 
   public title: string;
   public unselect: string;
@@ -51,8 +53,19 @@ export class DeclensionComponent implements OnInit {
 
   ngOnInit(): void {
     this.exceptions = [];
+    this.rows = [Const.N, Const.A, Const.G, Const.D, Const.L, Const.I];
+    this.cols = [
+      { field: Const.c, header: '' }
+    ];
+
     this.category.endings
       .forEach((ending) => {
+        if (ending.number === Const.S && !this.cols.some((c) => c.header === ending.number)) {
+          this.cols.push({ field: Const.s, header: Const.S });
+        }
+        if (ending.number === Const.P && !this.cols.some((c) => c.header === ending.number)) {
+          this.cols.push({ field: Const.p, header: Const.P });
+        }
         ending.nounEndings
           .filter((nounEnding) => nounEnding.specificEndingRules.length > 0)
           .forEach((nounEnding) => {
@@ -91,12 +104,6 @@ export class DeclensionComponent implements OnInit {
       this.getLabels(this.category);
     });
 
-    this.rows = [Const.N, Const.A, Const.G, Const.D, Const.L, Const.I];
-    this.cols = [
-      { field: Const.c, header: '' },
-      { field: Const.s, header: Const.S },
-      { field: Const.p, header: Const.P }
-    ];
     this.setData(this.rows, this.cols, this.category);
     this.russianReferenceService.declensionRules$
       .subscribe((declensionRules: Array<DeclensionRule>) => {
@@ -122,6 +129,7 @@ export class DeclensionComponent implements OnInit {
     this.exceptions.forEach((exception) => exception.applied = exception.ruleId === 6);
     this.setException();
     this.appliedExceptions = this.exceptions.filter((exception) => exception.applied);
+    this.exceptionEmitter.emit(this.appliedExceptions.map((e) => e.ruleId));
   }
 
   private setException(): void {
@@ -234,6 +242,7 @@ export class DeclensionComponent implements OnInit {
     }
     this.setException();
     this.appliedExceptions = this.exceptions.filter((exception) => exception.applied);
+    this.exceptionEmitter.emit(this.appliedExceptions.map((e) => e.ruleId));
   }
 
   public isCheckBoxDisabled(ruleId: number): boolean {
@@ -342,17 +351,17 @@ export class DeclensionComponent implements OnInit {
 
   private findDeclensionByCaseAndNumber(category: Category, russianCase: string, number: string): string {
     let declensionValue: string;
-      const nounEnding: NounEnding = category.endings
-        .find((cat) => cat.number === number)
-        .nounEndings.find((ending) => ending.russianCase === russianCase);
-      declensionValue = nounEnding.value;
-      if (nounEnding.specificEndingRules.length > 0) {
-        const appliedRule = nounEnding.specificEndingRules.find((rule) => rule.applied);
-        if (!!appliedRule) {
-          declensionValue = appliedRule.value;
-        }
+    const nounEnding: NounEnding = category.endings
+      .find((cat) => cat.number === number)
+      .nounEndings.find((ending) => ending.russianCase === russianCase);
+    declensionValue = nounEnding.value;
+    if (nounEnding.specificEndingRules.length > 0) {
+      const appliedRule = nounEnding.specificEndingRules.find((rule) => rule.applied);
+      if (!!appliedRule) {
+        declensionValue = appliedRule.value;
       }
-    return (declensionValue != '') ? declensionValue : '/';
+    }
+    return (declensionValue != '' || !!this.category.root) ? declensionValue : '/';
   }
 
   public number(exceptions: Array<Exception>): number {

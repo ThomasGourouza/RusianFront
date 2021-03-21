@@ -109,7 +109,7 @@
             "update": "Modifier",
             "create": "Ajouter",
             "confirmation": "Confirmation",
-            "message": "Êtes-vous sûr de vouloir supprimer cet adjectif ?",
+            "message": "Confirmer la suppression ?",
             "no": "Non",
             "yes": "Oui"
         },
@@ -184,7 +184,12 @@
             "title": "Cliquer pour trier. Utiliser la touche 'Ctrl' pour trier sur plusieurs colonnes.",
             "search": "Chercher dans le tableau",
             "root": "Radical",
-            "ending": "Terminaison"
+            "ending": "Terminaison",
+            "gender": "Genre",
+            "type": "Type",
+            "animate": "Animé",
+            "number": "Nombre",
+            "plural": "Pluriel"
         },
         "side": {
             "intro": "Présentation",

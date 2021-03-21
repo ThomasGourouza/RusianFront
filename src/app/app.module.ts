@@ -61,6 +61,7 @@ import { SideMenuNounsService } from './services/side-menu-nouns.service';
 import { DeclensionComponent } from './views/russian/nouns/core/declension/declension.component';
 import { NounListComponent } from './views/russian/nouns/core/noun-list/noun-list.component';
 import { DeclensionNounComponent } from './views/russian/nouns/core/declension-noun/declension-noun.component';
+import { AddNounComponent } from './views/russian/nouns/core/add-noun/add-noun.component';
 
 @NgModule({
   declarations: [
@@ -88,7 +89,8 @@ import { DeclensionNounComponent } from './views/russian/nouns/core/declension-n
     SideNounsComponent,
     DeclensionComponent,
     NounListComponent,
-    DeclensionNounComponent
+    DeclensionNounComponent,
+    AddNounComponent
   ],
   imports: [
     CommonModule,

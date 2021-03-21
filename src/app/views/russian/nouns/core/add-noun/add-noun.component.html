@@ -1,0 +1,104 @@
+<br><br>
+<div class="row d-flex justify-content-center">
+    <form [formGroup]="adjectiveForm" (ngSubmit)="onSubmit()">
+
+        <div class="row">
+
+            <div class="col-3">
+                <div class="form-group">
+                    <label for="root">{{ 'nouns.nouns.root' | translate }}</label>
+                    <input type="text" class="form-control" id="root" formControlName="root"
+                        (click)="displayKeyboard(true)" />
+                </div>
+            </div>
+
+            <div class="col-3">
+                <div class="form-group">
+                    <label for="translation">{{ 'nouns.nouns.translation' | translate }}</label>
+                    <input type="text" class="form-control" id="translation" formControlName="translation"
+                        (click)="displayKeyboard(false)" />
+                </div>
+            </div>
+
+            <div class="col-3">
+                <div class="form-group">
+                    <label for="number">{{ 'nouns.nouns.number' | translate }}</label>
+
+                    <select class="form-control" formControlName="number" id="number" (click)="displayKeyboard(false)">
+                        <option *ngFor="let number of numbers" [value]="number.value">
+                            {{ number.label }}
+                        </option>
+                    </select>
+
+                </div>
+            </div>
+
+            <div class="col-1">
+                <div *ngIf="isSingular()" class="form-group">
+                    <label for="plural">{{ 'nouns.nouns.plural' | translate }}</label>
+                    <div class="d-flex align-items-end justify-content-center">
+                        <p-checkbox [formControl]="adjectiveForm.controls['plural']" (click)="displayKeyboard(false)"
+                            inputId="plural" [binary]="true"></p-checkbox>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-2 d-flex align-items-center justify-content-end">
+                <button pButton type="submit" [disabled]="adjectiveForm.invalid"
+                    class="p-button-outlined p-button-raised p-button-rounded" icon="pi pi-plus"></button>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="gender">{{ 'nouns.nouns.gender' | translate }}</label>
+                    <select class="form-control" formControlName="gender" id="gender" (click)="displayKeyboard(false)">
+                        <option *ngFor="let gender of genders" [value]="gender.value">
+                            {{ gender.label }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="declension">{{ 'nouns.nouns.declension' | translate }}</label>
+                    <select class="form-control" formControlName="declension" id=declension
+                        (click)="displayKeyboard(false)">
+                        <option *ngFor="let declension of declensions" [value]="declension.value">
+                            {{ declension.label }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="type">{{ 'nouns.nouns.type' | translate }}</label>
+                    <select class="form-control" formControlName="type" (click)="displayKeyboard(false)">
+                        <option *ngFor="let type of types" [value]="type.value">
+                            {{ type.label }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+<br>
+<div *ngIf="isKeyboardDisplayed" class="row d-flex justify-content-center">
+    <app-keyboard (keyEmitter)="onKey($event)"></app-keyboard>
+</div>
+
+<div *ngIf="!isKeyboardDisplayed && !!category" class="row d-flex justify-content-center">
+    <div *ngFor="let i of declensionIds">
+        <div *ngIf="!!category && category.id === i">
+            <app-declension [category]="category" (exceptionEmitter)="onException($event)"></app-declension>
+        </div>
+    </div>
+</div>

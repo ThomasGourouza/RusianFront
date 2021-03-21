@@ -43,9 +43,7 @@
                     <div class="row">
                         <div class="col-1">
                             <p-checkbox name="exceptions" [value]="exception" [ngModel]="appliedExceptions"
-                                [inputId]="exception.ruleId"
-                                (onChange)="applyException(exception.ruleId, !exception.applied)"
-                                [disabled]="isCheckBoxDisabled(exception.ruleId)">
+                                [inputId]="exception.ruleId" disabled>
                             </p-checkbox>
                         </div>
                         <div class="col d-flex align-items-end">
@@ -76,9 +74,7 @@
                     <div class="row">
                         <div class="col-1">
                             <p-checkbox name="exceptions" [value]="exception" [ngModel]="appliedExceptions"
-                                [inputId]="exception.ruleId"
-                                (onChange)="applyException(exception.ruleId, !exception.applied)"
-                                [disabled]="isCheckBoxDisabled(exception.ruleId)">
+                                [inputId]="exception.ruleId" disabled>
                             </p-checkbox>
                         </div>
                         <div class="col d-flex align-items-end">

@@ -15,7 +15,7 @@ const API_Noun_Singular_Plural_URL = 'http://localhost:8080/api/v1/noun/singular
 @Injectable({
   providedIn: 'root'
 })
-export class NounSpecificRuleApi {
+export class NounSingularPluralApi {
 
   constructor(
     private http: HttpClient,

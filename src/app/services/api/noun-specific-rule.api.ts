@@ -6,8 +6,7 @@ import { Utils } from '../utils/utils.service';
 
 export class NounSpecParam {
   constructor(
-    public noun_id: string,
-    public spec_id: string,
+    public noun_id: number
   ) { }
 }
 

@@ -157,12 +157,12 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
             break;
           }
           case Const.delete: {
-            // const nounId = this.selectedRow?.id;
-            // if (nounId) {
-            //   this.nounService.deleteNounById(nounId);
-            //   this.resetServices();
-            //   this.closeDisplayNounAndGoTo('/nouns/consult');
-            // }
+            const nounId = this.selectedRow?.id;
+            if (nounId) {
+              this.nounService.deleteNounById(nounId);
+              this.resetServices();
+              this.closeDisplayNounAndGoTo('/nouns/consult');
+            }
             break;
           }
           case Const.update: {
@@ -578,7 +578,7 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
     // url = nouns/:category/:gender/:type
     if (urlArray.length === 5) {
       if ([Const.first, Const.second, Const.third].includes(urlArray[2])
-        && ['masculine', 'feminine', 'neuter'].includes(urlArray[3])
+        && [Const.m, Const.f, Const.n].includes(urlArray[3])
         && [Const.one, Const.two, Const.three].includes(urlArray[4])) {
         const selection = this.selectionFromUrl(urlArray[2], urlArray[3], urlArray[4]);
         this.category = this.mapCategory(selection);
