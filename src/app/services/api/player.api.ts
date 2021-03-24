@@ -28,4 +28,8 @@ export class PlayerApi {
       params: this.utils.asHttpParam(params)
     });
   }
+
+  public checkPlayerByLogin(login: string): Observable<void> {
+    return this.http.get<void>(API_PLAYER_URL + '/login/' + login);
+  }
 }

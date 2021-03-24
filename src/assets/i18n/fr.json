@@ -67,6 +67,10 @@
         "message": "Page non trouvée"
     },
     "account": {
+        "login": "Pseudo",
+        "password": "Mot de passe",
+        "connection": "Connexion",
+        "create": "Créer un compte",
         "welcome": "Bienvenue sur la page Utilisateur",
         "refresh": "Rafraichir"
     },
@@ -269,5 +273,8 @@
             "second": "Deuxième",
             "third": "Troisième"
         }
+    },
+    "training": {
+        "intro": "Entraînement"
     }
 }

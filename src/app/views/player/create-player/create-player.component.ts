@@ -29,6 +29,7 @@ export class CreatePlayerComponent extends subscribedContainerMixin() implements
   public _images: Array<Image>;
   public _languages: Array<Language>;
   public _levels: Array<Level>;
+  public loginStatus: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -42,6 +43,7 @@ export class CreatePlayerComponent extends subscribedContainerMixin() implements
   }
 
   public ngOnInit(): void {
+    this.loginStatus = '';
     this.playerReferenceService.fetchReferences();
 
     this.playerReferenceService.countries$.pipe(
@@ -75,22 +77,23 @@ export class CreatePlayerComponent extends subscribedContainerMixin() implements
     });
 
     this.initForm();
+    this.onChanges();
   }
 
   private initForm(): void {
     this.userForm = this.formBuilder.group(
       {
-        birthCountryRefId: ['', Validators.required],
-        birthDate: ['', Validators.required],
-        email: ['', Validators.required
-          // , Validators.email
-        ],
-        firstName: ['', Validators.required],
-        genderRefId: ['', Validators.required],
+        // birthCountryRefId: ['', Validators.required],
+        // birthDate: ['', Validators.required],
+        // email: ['', Validators.required
+        //   // , Validators.email
+        // ],
+        // firstName: ['', Validators.required],
+        // genderRefId: ['', Validators.required],
+        // lastName: ['', Validators.required],
+        // phone: ['', Validators.required],
+        // playerSpokenLanguages: this.formBuilder.array([]),
         imageRefId: ['', Validators.required],
-        lastName: ['', Validators.required],
-        phone: ['', Validators.required],
-        playerSpokenLanguages: this.formBuilder.array([]),
         login: ['', Validators.required],
         password: ['', Validators.required],
         passwordConfirmation: ['', Validators.required],
@@ -102,6 +105,32 @@ export class CreatePlayerComponent extends subscribedContainerMixin() implements
         ),
       }
     );
+  }
+
+  public checkPlayerByLogin(): void {
+    const login = this.userForm.controls['login'].value;
+    this.playerService.checkPlayerByLogin(login);
+    this.playerService.checkPlayer$.subscribe((loginExists) => {
+      this.loginStatus = loginExists ? 'taken' : 'available';
+    });
+  }
+
+  public checkAvailable(): boolean {
+    return this.userForm.controls['login'].value !== '';
+  }
+
+  public selectImg(id: number): void {
+    this.userForm.controls['imageRefId'].setValue(this.imgIdEquals(id) ? '' : id);
+  }
+
+  public imgIdEquals(id: number): boolean {
+    return this.userForm.controls['imageRefId'].value === id;
+  }
+
+  private onChanges(): void {
+    this.userForm.get('login').valueChanges.subscribe(() => {
+      this.loginStatus = '';
+    });
   }
 
   public onSubmit(): void {

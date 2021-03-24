@@ -20,6 +20,7 @@ export class SignInParams {
 export class PlayerService {
 
   private _player$ = new BehaviorSubject({});
+  private _checkPlayer$ = new BehaviorSubject(false);
 
   constructor(
     private playerApi: PlayerApi,
@@ -30,6 +31,10 @@ export class PlayerService {
 
   public get player$() {
     return this._player$.asObservable();
+  }
+
+  public get checkPlayer$() {
+    return this._checkPlayer$.asObservable();
   }
 
   public fetchPlayer(params: SignInParams) {
@@ -51,6 +56,23 @@ export class PlayerService {
           ),
           this.translate.instant('toastr.error.title')
         );
+      });
+  }
+
+  public checkPlayerByLogin(login: string) {
+    this.playerApi.checkPlayerByLogin(login).toPromise()
+      .then(() => {
+        this._checkPlayer$.next(true);
+      })
+      .catch((error: HttpErrorResponse) => {
+        if (error.status === 404) {
+          this._checkPlayer$.next(false);
+        } else {
+          this.toastr.error(
+            this.translate.instant('toastr.error.message.basic'),
+            this.translate.instant('toastr.error.title')
+          );
+        }
       });
   }
 

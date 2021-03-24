@@ -67,6 +67,10 @@
         "message": "Page not found"
     },
     "account": {
+        "login": "Login",
+        "password": "Password",
+        "connection": "Log in",
+        "create": "Sign in",
         "welcome": "Welcome on the account's page",
         "refresh": "Refresh"
     },
@@ -269,5 +273,8 @@
             "second": "Second",
             "third": "Third"
         }
+    },
+    "training": {
+        "intro": "Training"
     }
 }
