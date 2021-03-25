@@ -69,10 +69,18 @@
     "account": {
         "login": "Login",
         "password": "Password",
+        "passwordConfirmation": "Confirm password",
+        "avatar": "Avatar",
         "connection": "Log in",
         "create": "Sign in",
         "welcome": "Welcome on the account's page",
-        "refresh": "Refresh"
+        "refresh": "Refresh",
+        "existingLogin": "Existing login",
+        "availableLogin": "Available login",
+        "check": "Check",
+        "confirmationCorrect": "Confirmation correct",
+        "confirmationIncorrect": "Confirmation incorrect",
+        "save": "Save"
     },
     "adjectives": {
         "text": "There are four declensions of adjectives in russian.",

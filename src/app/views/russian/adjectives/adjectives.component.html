@@ -6,50 +6,48 @@
     </div>
 
     <div class="col">
-        <section>
-            <div class="d-flex align-items-center justify-content-center" *ngIf="_adjectiveCategories.length > 0"
-                [ngSwitch]="page">
-                <!-- accueil adjectifs -->
-                <div *ngSwitchCase="'intro'">
-                    <br>
-                    {{ 'adjectives.text' | translate }}
-                </div>
-                <div *ngSwitchCase="'first-declension'">
-                    <app-declension-category [adjectiveCategory]="getAdjectiveCategory(1)">
-                    </app-declension-category>
-                </div>
-                <div *ngSwitchCase="'second-declension'">
-                    <app-declension-category [adjectiveCategory]="getAdjectiveCategory(2)">
-                    </app-declension-category>
-                </div>
-                <div *ngSwitchCase="'third-declension'">
-                    <app-declension-category [adjectiveCategory]="getAdjectiveCategory(3)">
-                    </app-declension-category>
-                </div>
-                <div *ngSwitchCase="'fourth-declension'">
-                    <app-declension-category [adjectiveCategory]="getAdjectiveCategory(4)">
-                    </app-declension-category>
-                </div>
-                <div *ngSwitchCase="'consult'">
-                    <app-adjective-list></app-adjective-list>
-                    <br>
-                </div>
-                <div *ngSwitchCase="'check'">
-                    <app-declension-category [adjectiveCategory]="adjectiveCategory">
-                    </app-declension-category>
-                    <br>
-                </div>
-                <div *ngSwitchCase="'not-found'">
-                    <app-adjective-not-found>
-                    </app-adjective-not-found>
-                    <br>
-                </div>
-                <div *ngSwitchCase="'add'">
-                    <app-add-adjective></app-add-adjective>
-                </div>
-                <div *ngSwitchCase="'update'">
-                    <app-update-adjective></app-update-adjective>
-                </div>
+        <section class="d-flex align-items-center justify-content-center" *ngIf="_adjectiveCategories.length > 0"
+            [ngSwitch]="page">
+            <!-- accueil adjectifs -->
+            <div *ngSwitchCase="'intro'">
+                <br>
+                {{ 'adjectives.text' | translate }}
+            </div>
+            <div *ngSwitchCase="'first-declension'">
+                <app-declension-category [adjectiveCategory]="getAdjectiveCategory(1)">
+                </app-declension-category>
+            </div>
+            <div *ngSwitchCase="'second-declension'">
+                <app-declension-category [adjectiveCategory]="getAdjectiveCategory(2)">
+                </app-declension-category>
+            </div>
+            <div *ngSwitchCase="'third-declension'">
+                <app-declension-category [adjectiveCategory]="getAdjectiveCategory(3)">
+                </app-declension-category>
+            </div>
+            <div *ngSwitchCase="'fourth-declension'">
+                <app-declension-category [adjectiveCategory]="getAdjectiveCategory(4)">
+                </app-declension-category>
+            </div>
+            <div *ngSwitchCase="'consult'">
+                <app-adjective-list></app-adjective-list>
+                <br>
+            </div>
+            <div *ngSwitchCase="'check'">
+                <app-declension-category [adjectiveCategory]="adjectiveCategory">
+                </app-declension-category>
+                <br>
+            </div>
+            <div *ngSwitchCase="'not-found'">
+                <app-adjective-not-found>
+                </app-adjective-not-found>
+                <br>
+            </div>
+            <div *ngSwitchCase="'add'">
+                <app-add-adjective></app-add-adjective>
+            </div>
+            <div *ngSwitchCase="'update'">
+                <app-update-adjective></app-update-adjective>
             </div>
         </section>
     </div>

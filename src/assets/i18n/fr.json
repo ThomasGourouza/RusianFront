@@ -69,10 +69,18 @@
     "account": {
         "login": "Pseudo",
         "password": "Mot de passe",
+        "passwordConfirmation": "Confirmer le mot de passe",
+        "avatar": "Avatar",
         "connection": "Connexion",
         "create": "Créer un compte",
         "welcome": "Bienvenue sur la page Utilisateur",
-        "refresh": "Rafraichir"
+        "refresh": "Rafraichir",
+        "existingLogin": "Pseudo existant",
+        "availableLogin": "Pseudo disponible",
+        "check": "Vérifier",
+        "confirmationCorrect": "Confirmation correcte",
+        "confirmationIncorrect": "Confirmation incorrecte",
+        "save": "Enregistrer"
     },
     "adjectives": {
         "text": "Il existe quatre déclinaisons d'adjectifs en russe.",

@@ -6,7 +6,7 @@
 
       <div>
         <div class="form-group">
-          <label for="login">Login</label>
+          <label for="login">{{ 'account.login' | translate }}</label>
 
           <div class="row">
             <div class="col-6">
@@ -14,48 +14,23 @@
                 [ngClass]="{ 'is-invalid': checkAvailable() && loginStatus === 'taken', 'is-valid': checkAvailable() && loginStatus === 'available' }"
                 id="login" formControlName="login" />
               <div *ngIf="checkAvailable() && loginStatus === 'taken'" class="invalid-feedback">
-                Login existant
+                {{ 'account.existingLogin' | translate }}
               </div>
               <div *ngIf="checkAvailable() && loginStatus === 'available'" class="valid-feedback">
-                Login disponible
+                {{ 'account.availableLogin' | translate }}
               </div>
             </div>
             <div class="col">
               <div *ngIf="checkAvailable()" class="btn btn-outline-primary" (click)="checkPlayerByLogin()">
-                Check
+                {{ 'account.check' | translate }}
               </div>
-
             </div>
           </div>
-
         </div>
-
-
-        <!-- <div class="col-2">
-          <div class="form-group">
-            <div *ngIf="checkAvailable()" class="btn btn-outline-primary" (click)="checkPlayerByLogin()">
-              Check
-            </div>
-          </div>
-        </div> -->
-
-        <!-- <div class="col">
-          <div class="form-group">
-            <label for="imageRefId">Image</label>
-            <select class="form-control" id="imageRefId" formControlName="imageRefId">
-              <option *ngFor="let image of _images" [value]="image.value">
-                {{ image.id }}
-              </option>
-            </select>
-          </div>
-        </div>
-        <div class="col-4">
-          <img *ngIf="!!imgUrl" [src]="imgUrl" alt="Avatar" width="50" height="60">
-        </div> -->
       </div>
 
-      <label for="login">Image</label>
-      <div id="image">
+      <label for="avatar">{{ 'account.avatar' | translate }}</label>
+      <div id="avatar">
 
         <table>
           <tr *ngFor="let i of [0, 5, 10, 15]">
@@ -76,7 +51,7 @@
       <div class="row">
         <div class="col">
           <div class="form-group">
-            <label for="password">Mot de passe</label>
+            <label for="password">{{ 'account.password' | translate }}</label>
             <input type="password" class="form-control" [ngClass]="{
                       'is-valid': !userForm.get('passwordConfirmation').errors
                     }" id="password" formControlName="password" />
@@ -85,7 +60,7 @@
 
         <div class="col">
           <div class="form-group">
-            <label for="passwordConfirmation">Confirmer le mot de passe</label>
+            <label for="passwordConfirmation">{{ 'account.passwordConfirmation' | translate }}</label>
             <input type="password" class="form-control" [ngClass]="{
                       'is-invalid':
                         userForm.get('passwordConfirmation').errors &&
@@ -95,12 +70,12 @@
             <div *ngIf="
                       userForm.get('passwordConfirmation').hasError('passwordMismatch')
                     " class="invalid-feedback">
-              Confirmation incorrecte
+              {{ 'account.confirmationIncorrect' | translate }}
             </div>
             <div *ngIf="
                       !userForm.get('passwordConfirmation').hasError('passwordMismatch')
                     " class="valid-feedback">
-              Confirmation correcte
+              {{ 'account.confirmationCorrect' | translate }}
             </div>
           </div>
         </div>
@@ -109,8 +84,8 @@
       <br />
 
       <div class="d-flex justify-content-center">
-        <button class="btn btn-success" type="submit" [disabled]="userForm.invalid">
-          Enregistrer
+        <button class="btn btn-success" type="submit" [disabled]="userForm.invalid || loginStatus !== 'available'">
+          {{ 'account.save' | translate }}
         </button>
       </div>
 

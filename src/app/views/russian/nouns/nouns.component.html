@@ -5,8 +5,8 @@
         </app-side-nouns>
     </div>
 
-    <section class="col-6">
-        <div class="d-flex align-items-center justify-content-center" *ngIf="_nounCategories?.length > 0"
+    <div class="col">
+        <section class="d-flex align-items-center justify-content-center" *ngIf="_nounCategories?.length > 0"
             [ngSwitch]="page">
             <div *ngSwitchCase="'intro'">
                 <br>
@@ -38,14 +38,13 @@
                 <br>
             </div>
             <div *ngSwitchCase="'add'">
-                <br>
                 <app-add-noun></app-add-noun>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 
-    <div *ngIf="page !== 'declension'" class="col-3">
-        <app-action-menu *ngIf="displayActionMenu()">
+    <div class="col-3">
+        <app-action-menu *ngIf="page !== 'declension' && displayActionMenu()">
         </app-action-menu>
     </div>
 </div>
