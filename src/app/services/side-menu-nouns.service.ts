@@ -262,6 +262,12 @@ export class SideMenuNounsService {
               icon: 'pi pi-fw pi-plus',
               selectable: true,
               data: this.nounCategory(0, Const.add, 0, 0)
+            },
+            {
+              label: this.translate.instant('nouns.side.link'),
+              icon: 'pi pi-fw pi-link',
+              selectable: true,
+              data: this.nounCategory(0, Const.link, 0, 0)
             }
           ]
         }

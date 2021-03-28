@@ -1,8 +1,48 @@
 <br>
-<section class="d-flex align-items-center justify-content-center">
-    <article>
-        <h1>
-            {{ 'training.intro' | translate }}
-        </h1>
-    </article>
-</section>
+<div class="d-flex justify-content-center">
+    <p-card [style]="{'background-color': '#f8f9fa'}">
+        <form [formGroup]="trainingForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="adjective">{{ 'training.adjective' | translate }}</label>
+                        <select class="form-control" formControlName="adjective" id="adjective">
+                            <option *ngFor="let adjective of adjectives" [value]="adjective.id">
+                                {{ adjective.translation }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="noun">{{ 'training.noun' | translate }}</label>
+                        <select class="form-control" formControlName="noun" id="noun">
+                            <option *ngFor="let noun of nouns" [value]="noun.id">
+                                {{ noun.translation }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="russianCase">{{ 'training.russianCase' | translate }}</label>
+                        <select class="form-control" formControlName="russianCase" id="russianCase">
+                            <option *ngFor="let russianCase of cases" [value]="russianCase.value">
+                                {{ 'reference.case.' + russianCase.id | translate }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="d-flex justify-content-center">
+                <button class="btn btn-primary" type="submit" [disabled]="trainingForm.invalid">
+                    OK
+                </button>
+            </div>
+        </form>
+        <button class="btn btn-primary" (click)="click()">
+            click
+        </button>
+    </p-card>
+</div>

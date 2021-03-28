@@ -202,7 +202,10 @@
             "type": "Type",
             "animate": "Animate",
             "number": "Number",
-            "plural": "Plural"
+            "singular": "Singular",
+            "plural": "Plural",
+            "link": "Link",
+            "no_link": "No noun to link"
         },
         "side": {
             "intro": "Intro",
@@ -217,7 +220,8 @@
             "second-type": "Second type",
             "third-type": "Third type",
             "consult": "Consult",
-            "add": "Add"
+            "add": "Add",
+            "link": "Link singular / plural"
         },
         "not-found": {
             "noun": "The noun ",
@@ -263,13 +267,27 @@
             "genitive": "Genitive",
             "dative": "Dative",
             "locative": "Locative",
-            "instrumental": "Instrumental"
+            "instrumental": "Instrumental",
+            "1": "Nominative",
+            "2": "Accusative",
+            "3": "Genitive",
+            "4": "Dative",
+            "5": "Locative",
+            "6": "Instrumental"
         },
         "gender": {
             "masculine": "Masculine",
             "feminine": "Feminine",
             "neuter": "Neuter",
-            "plural": "Plural"
+            "plural": "Plural",
+            "1": "Masculine",
+            "2": "Feminine",
+            "3": "Neuter",
+            "4": "Plural"
+        },
+        "number": {
+            "1": "Singular",
+            "2": "Plural"
         },
         "declension": {
             "first": "First",
@@ -283,6 +301,11 @@
         }
     },
     "training": {
-        "intro": "Training"
+        "intro": "Training",
+        "adjective": "Adjective",
+        "noun": "Noun",
+        "russianCase": "Case",
+        "gender": "Gender",
+        "number": "Number"
     }
 }

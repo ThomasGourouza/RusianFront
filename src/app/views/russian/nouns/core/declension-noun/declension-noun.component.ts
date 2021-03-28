@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Category, Ending } from '../../nouns.component';
+import { Category } from '../../nouns.component';
 import { Const } from 'src/app/services/utils/const';
 import { NounEnding } from 'src/app/models/reference/russian/noun-ending.model';
 import { RussianReferenceService } from 'src/app/services/russian-reference.service';
@@ -68,6 +68,7 @@ export class DeclensionNounComponent implements OnInit {
           && !this.category.endings.some((item) =>
             item.number === nPlural.russianNounCategory.russianGrammaticalNumber
           )) {
+          this.category.rootPlural = nPlural.root;
           this.category.endings.push({
             number: nPlural.russianNounCategory.russianGrammaticalNumber,
             nounEndings: nPlural.russianNounCategory.russianNounEndings
@@ -145,7 +146,6 @@ export class DeclensionNounComponent implements OnInit {
       });
     this.appliedExceptions = this.exceptions.filter((exception) => exception.applied);
   }
-
 
   private setData(rows: Array<string>, cols: Array<ColData>, category: Category): void {
     this.data = [
@@ -291,7 +291,7 @@ export class DeclensionNounComponent implements OnInit {
 
   public isCheckBoxDisabled(ruleId: number): boolean {
     return (this.isRuleApplied(ruleId, 9) || this.isRuleApplied(ruleId, 10))
-    || (this.router.url.split('/').length > 2 && this.router.url.split('/')[2] === Const.consult);
+      || (this.router.url.split('/').length > 2 && this.router.url.split('/')[2] === Const.consult);
   }
 
   private isRuleApplied(ruleId: number, selectedCheckbox: number): boolean {

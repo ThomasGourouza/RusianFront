@@ -14,7 +14,6 @@
             </div>
 
             <div *ngSwitchCase="'declension'">
-                <br>
                 <div *ngFor="let i of declensionIds">
                     <div *ngIf="!!category && category.id === i">
                         <app-declension [category]="category"></app-declension>
@@ -23,22 +22,23 @@
             </div>
 
             <div *ngSwitchCase="'consult'">
-                <br>
                 <app-noun-list></app-noun-list>
-                <br>
             </div>
+
             <div *ngSwitchCase="'check'">
-                <br>
                 <app-declension-noun [category]="category"></app-declension-noun>
-                <br>
             </div>
+
             <div *ngSwitchCase="'not-found'">
-                <br>
                 <app-noun-not-found></app-noun-not-found>
-                <br>
             </div>
+
             <div *ngSwitchCase="'add'">
                 <app-add-noun></app-add-noun>
+            </div>
+
+            <div *ngSwitchCase="'link'">
+                <app-link></app-link>
             </div>
         </section>
     </div>

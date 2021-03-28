@@ -1,19 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PlayerPost } from 'src/app/models/player/post/player-post.model';
 import { PlayerReferenceService } from 'src/app/services/player-reference.service';
-import { Country } from 'src/app/models/reference/player/country.model';
-import { Gender } from 'src/app/models/reference/player/gender.model';
 import { Image } from 'src/app/models/reference/player/image.model';
-import { Language } from 'src/app/models/reference/player/language.model';
-import { Level } from 'src/app/models/reference/player/level.model';
 import { subscribedContainerMixin } from 'src/app/subscribed-container.mixin';
 import { takeUntil } from 'rxjs/operators';
-import { TranslateService } from '@ngx-translate/core';
 import { PlayerService } from 'src/app/services/player.service';
 import { Player } from 'src/app/models/player/get/player.model';
-// import { SortPipe } from 'src/app/pipes/sort.pipe';
 
 @Component({
   selector: 'app-create-player',
@@ -31,8 +25,7 @@ export class CreatePlayerComponent extends subscribedContainerMixin() implements
     private formBuilder: FormBuilder,
     private playerReferenceService: PlayerReferenceService,
     private playerService: PlayerService,
-    private router: Router,
-    private translate: TranslateService,
+    private router: Router
   ) {
     super();
   }

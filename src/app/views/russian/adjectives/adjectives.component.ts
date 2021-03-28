@@ -71,7 +71,7 @@ export class AdjectivesComponent extends subscribedContainerMixin() implements O
         this.destroyed$
       )
     ).subscribe((selection: string) => {
-      if (selection) {
+      if (!!selection) {
         if (selection === Const.intro) {
           this.resetServices();
           this.redirect('/' + Const.adjectives);
@@ -88,7 +88,7 @@ export class AdjectivesComponent extends subscribedContainerMixin() implements O
       )
     ).subscribe((selectedRow: RowData) => {
       this.selectedRow = selectedRow;
-      if (selectedRow) {
+      if (!!selectedRow) {
         // mise à jour du menu de droite
         this.actionMenuService.setMenu(selectedRow.translation, true, Const.check, true);
       }
@@ -105,7 +105,7 @@ export class AdjectivesComponent extends subscribedContainerMixin() implements O
         switch (action) {
           case Const.open: {
             const translation = this.selectedRow?.translation;
-            if (translation) {
+            if (!!translation) {
               this.actionMenuService.setMenu(translation, false, Const.check, true);
               this.redirect('/adjectives/consult/' + translation);
             }
@@ -118,7 +118,7 @@ export class AdjectivesComponent extends subscribedContainerMixin() implements O
           }
           case Const.delete: {
             const adjectiveId = this.selectedRow?.id;
-            if (adjectiveId) {
+            if (!!adjectiveId) {
               this.adjectiveService.deleteAdjectiveById(adjectiveId);
               this.resetServices();
               this.closeDisplayAdjectiveAndGoTo('/adjectives/consult');
@@ -127,7 +127,7 @@ export class AdjectivesComponent extends subscribedContainerMixin() implements O
           }
           case Const.update: {
             const adjective = this.selectedRow?.translation;
-            if (adjective) {
+            if (!!adjective) {
               this.resetServices();
               this.closeDisplayAdjectiveAndGoTo('/adjectives/update/' + adjective);
             }
@@ -135,7 +135,7 @@ export class AdjectivesComponent extends subscribedContainerMixin() implements O
           }
           case Const.create: {
             const adjective = this.activatedRoute.snapshot.params[Const.adjective];
-            if (adjective) {
+            if (!!adjective) {
               this.resetServices();
               this.closeDisplayAdjectiveAndGoTo('/adjectives/add/' + adjective);
             }

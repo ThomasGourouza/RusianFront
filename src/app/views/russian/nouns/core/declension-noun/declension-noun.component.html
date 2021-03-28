@@ -24,7 +24,9 @@
                                     'blue': col.field != 'case' && isSpecificCase(rowData, col)}">
                                 <span *ngIf="col.field === 'case'" class="pi pi-bars grabbable"
                                     pReorderableRowHandle>&nbsp;</span>
-                                <span *ngIf="col.field !== 'case'">{{ category.root }}</span>
+                                <span *ngIf="col.field !== 'case'">
+                                    {{ col.header === 'Singular' ? category.root : category.rootPlural }}
+                                </span>
                                 {{ printCase(rowData[col.field]) }}
                             </div>
                         </td>

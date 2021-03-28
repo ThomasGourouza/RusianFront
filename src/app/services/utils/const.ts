@@ -12,6 +12,7 @@ export class Const {
     public static update: string = 'update';
     public static create: string = 'create';
     public static check: string = 'check';
+    public static link: string = 'link';
     public static adjectives: string = 'adjectives';
     public static NF: string = 'not-found'
     public static N: string = 'Nominative';

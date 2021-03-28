@@ -18,6 +18,7 @@ export interface Category {
   id: number;
   idSingularPlural?: number;
   root?: string;
+  rootPlural?: string;
   declension: string;
   gender: string;
   type: string;
@@ -92,16 +93,17 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
     ).subscribe((selection: NounCategoryIds) => {
       if (!!selection) {
         switch (selection.name) {
-          case 'declension': {
+          case Const.declension: {
             this.category = this.mapCategory(selection);
             this.redirect(this.mapCategoryToUrl(this.category));
             break;
           }
-          case 'intro': {
+          case Const.intro: {
             this.resetServices();
             this.redirect('/' + Const.nouns);
             break;
           }
+          case Const.link:
           case Const.consult:
           case Const.add: {
             this.resetServices();
@@ -452,7 +454,7 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
     const gender: string = this.activatedRoute.snapshot.params[Const.gender];
     const type: string = this.activatedRoute.snapshot.params[Const.type];
     const noun: string = this.activatedRoute.snapshot.params[Const.noun];
-    const nounExpanded = !!noun || [Const.consult, Const.add].includes(category);
+    const nounExpanded = !!noun || [Const.consult, Const.add, Const.link].includes(category);
 
     // mise à jour du menu de gauche
     this.sideMenuService.setMenu(category, gender, type, nounExpanded);
@@ -503,7 +505,7 @@ export class NounsComponent extends subscribedContainerMixin() implements OnInit
     }
     // url = /nouns/:category
     if (urlArray.length === 3) {
-      if ([Const.first, Const.second, Const.third, Const.fourth, Const.consult, Const.add].includes(urlArray[2])) {
+      if ([Const.first, Const.second, Const.third, Const.fourth, Const.consult, Const.add, Const.link].includes(urlArray[2])) {
         this.page = urlArray[2];
       } else {
         // si la valeur de :category n'existe pas

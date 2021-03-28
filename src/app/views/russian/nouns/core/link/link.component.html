@@ -1,0 +1,43 @@
+<br>
+
+<div class="d-flex justify-content-center">
+    <p-card [style]="{'background-color': '#f8f9fa'}">
+        <div *ngIf="singularNouns.length > 0 && pluralNouns.length > 0; else no_link">
+            <form [formGroup]="linkForm" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="singular">{{ 'nouns.nouns.singular' | translate }}</label>
+                            <select class="form-control" id="singular" formControlName="singular">
+                                <option></option>
+                                <option *ngFor="let singularNoun of singularNouns" [value]="singularNoun.id">
+                                    {{ singularNoun.noun }} ({{ singularNoun.translation }})
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <label for="plural">{{ 'nouns.nouns.plural' | translate }}</label>
+                            <select class="form-control" id="plural" formControlName="plural">
+                                <option></option>
+                                <option *ngFor="let pluralNoun of pluralNouns" [value]="pluralNoun.id">
+                                    {{ pluralNoun.noun }} ({{ pluralNoun.translation }})
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="d-flex justify-content-center">
+                    <button class="btn btn-success" type="submit" [disabled]="linkForm.invalid">
+                        {{ 'nouns.nouns.link' | translate }}
+                    </button>
+                </div>
+
+            </form>
+        </div>
+        <ng-template #no_link>
+            {{ 'nouns.nouns.no_link' | translate }}
+        </ng-template>
+    </p-card>
+</div>
+<br />

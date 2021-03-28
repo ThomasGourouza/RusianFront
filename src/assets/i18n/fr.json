@@ -69,7 +69,7 @@
     "account": {
         "login": "Pseudo",
         "password": "Mot de passe",
-        "passwordConfirmation": "Confirmer le mot de passe",
+        "passwordConfirmation": "Confirmation",
         "avatar": "Avatar",
         "connection": "Connexion",
         "create": "Créer un compte",
@@ -202,7 +202,10 @@
             "type": "Type",
             "animate": "Animé",
             "number": "Nombre",
-            "plural": "Pluriel"
+            "singular": "Singulier",
+            "plural": "Pluriel",
+            "link": "Lier",
+            "no_link": "Aucun nom à lier"
         },
         "side": {
             "intro": "Présentation",
@@ -217,22 +220,23 @@
             "second-type": "Deuxième type",
             "third-type": "Troisième type",
             "consult": "Consulter",
-            "add": "Ajouter"
+            "add": "Ajouter",
+            "link": "Lier singulier / pluriel"
         },
         "not-found": {
             "noun": "Le nom ",
             "is-not-saved": " n'a pas été trouvé."
         },
         "explicit-declension": {
-            "1":  "Première déclinaison  > Masculin > Premier type  ",
-            "2":  "Première déclinaison  > Masculin > Deuxième type ",
-            "3":  "Première déclinaison  > Masculin > Troisième type",
-            "4":  "Première déclinaison  > Masculin > Premier type  ",
-            "5":  "Première déclinaison  > Masculin > Deuxième type ",
-            "6":  "Première déclinaison  > Masculin > Troisième type",
-            "7":  "Première déclinaison  > Féminin  > Premier type  ",
-            "8":  "Première déclinaison  > Féminin  > Deuxième type ",
-            "9":  "Première déclinaison  > Féminin  > Troisième type",
+            "1": "Première déclinaison  > Masculin > Premier type  ",
+            "2": "Première déclinaison  > Masculin > Deuxième type ",
+            "3": "Première déclinaison  > Masculin > Troisième type",
+            "4": "Première déclinaison  > Masculin > Premier type  ",
+            "5": "Première déclinaison  > Masculin > Deuxième type ",
+            "6": "Première déclinaison  > Masculin > Troisième type",
+            "7": "Première déclinaison  > Féminin  > Premier type  ",
+            "8": "Première déclinaison  > Féminin  > Deuxième type ",
+            "9": "Première déclinaison  > Féminin  > Troisième type",
             "10": "Première déclinaison  > Féminin  > Premier type  ",
             "11": "Première déclinaison  > Féminin  > Deuxième type ",
             "12": "Première déclinaison  > Féminin  > Troisième type",
@@ -263,13 +267,27 @@
             "genitive": "Génitif",
             "dative": "Datif",
             "locative": "Locatif",
-            "instrumental": "Instrumental"
+            "instrumental": "Instrumental",
+            "1": "Nominatif",
+            "2": "Accusatif",
+            "3": "Datif",
+            "4": "Génitif",
+            "5": "Locatif",
+            "6": "Instrumental"
         },
         "gender": {
             "masculine": "Masculin",
             "feminine": "Fémimin",
             "neuter": "Neutre",
-            "plural": "Pluriel"
+            "plural": "Pluriel",
+            "1": "Masculin",
+            "2": "Fémimin",
+            "3": "Neutre",
+            "4": "Pluriel"
+        },
+        "number": {
+            "1": "Singulier",
+            "2": "Pluriel"
         },
         "declension": {
             "first": "Première",
@@ -283,6 +301,11 @@
         }
     },
     "training": {
-        "intro": "Entraînement"
+        "intro": "Entraînement",
+        "adjective": "Adjectif",
+        "noun": "Nom",
+        "russianCase": "Cas",
+        "gender": "Genre",
+        "number": "Nombre"
     }
 }

@@ -229,7 +229,7 @@ export class AddNounComponent extends subscribedContainerMixin() implements OnIn
                     value: Const.FT
                   },
                   {
-                    label: this.translate.instant('reference.type.deuxième'),
+                    label: this.translate.instant('reference.type.second'),
                     value: Const.ST
                   }
                 ];
