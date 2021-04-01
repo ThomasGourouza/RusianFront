@@ -16,17 +16,21 @@ export interface ColData {
 }
 export interface Exception {
   ruleId: number;
-  specificId: number;
+  specificIds: Array<SpecificId>;
   rule: string;
   locations: Array<Location>;
   applied: boolean;
+}
+export interface SpecificId {
+  id: number;
+  number: string;
 }
 export interface Location {
   number: string;
   case: string;
 }
 export interface ExceptionIds {
-  specificId: number;
+  specificIds: Array<SpecificId>;
   ruleId: number;
   numbers: Array<string>;
 }
@@ -82,7 +86,10 @@ export class DeclensionComponent implements OnInit {
                   this.exceptions.push(
                     {
                       ruleId: 0,
-                      specificId: rule.id,
+                      specificIds: [{
+                        id: rule.id,
+                        number: ending.number
+                      }],
                       rule: rule.rule,
                       locations: [{
                         number: ending.number,
@@ -92,9 +99,17 @@ export class DeclensionComponent implements OnInit {
                     }
                   )
                 } else {
-                  this.exceptions.find((exception) =>
-                    exception.rule === rule.rule
-                  ).locations.push({
+                  const exceptionsFound = this.exceptions
+                    .find((exception) =>
+                      exception.rule === rule.rule
+                    );
+                  if (!exceptionsFound.specificIds.some((specificId) => specificId.id === rule.id)) {
+                    exceptionsFound.specificIds.push({
+                      id: rule.id,
+                      number: ending.number
+                    });
+                  }
+                  exceptionsFound.locations.push({
                     number: ending.number,
                     case: russianCase
                   });
@@ -138,7 +153,7 @@ export class DeclensionComponent implements OnInit {
     this.appliedExceptions = this.exceptions.filter((exception) => exception.applied);
     this.exceptionEmitter.emit(this.appliedExceptions.map((e) => {
       return {
-        specificId: e.specificId,
+        specificIds: e.specificIds,
         ruleId: e.ruleId,
         numbers: e.locations.map((l) => l.number)
       };
@@ -261,7 +276,7 @@ export class DeclensionComponent implements OnInit {
     this.appliedExceptions = this.exceptions.filter((exception) => exception.applied);
     this.exceptionEmitter.emit(this.appliedExceptions.map((e) => {
       return {
-        specificId: e.specificId,
+        specificIds: e.specificIds,
         ruleId: e.ruleId,
         numbers: e.locations.map((l) => l.number)
       };

@@ -25,7 +25,8 @@
                                 <span *ngIf="col.field === 'case'" class="pi pi-bars grabbable"
                                     pReorderableRowHandle>&nbsp;</span>
                                 <span *ngIf="col.field !== 'case'">
-                                    {{ col.header === 'Singular' ? category.root : category.rootPlural }}
+                                    {{ (col.header === 'Plural' && !!category.rootPlural) ? category.rootPlural :
+                                    category.root }}
                                 </span>
                                 {{ printCase(rowData[col.field]) }}
                             </div>

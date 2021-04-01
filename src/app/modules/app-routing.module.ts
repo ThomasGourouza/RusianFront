@@ -17,6 +17,7 @@ const routes: Routes = [
   { path: 'register', canActivate: [CreatePlayerGuard], component: CreatePlayerComponent },
   { path: 'account', canActivate: [AuthGuard], component: AccountComponent },
   { path: 'training', component: TrainingComponent },
+  { path: 'training/:category', component: TrainingComponent },
   { path: 'adjectives', component: AdjectivesComponent },
   { path: 'adjectives/:category', component: AdjectivesComponent },
   { path: 'adjectives/consult/:adjective', component: AdjectivesComponent },

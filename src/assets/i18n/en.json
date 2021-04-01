@@ -126,7 +126,7 @@
             "yes": "Yes"
         },
         "side": {
-            "intro": "Intro",
+            "intro": "Presentation",
             "declension": "Declensions",
             "first": "First (-ый)",
             "second": "Second (-ой)",
@@ -208,7 +208,7 @@
             "no_link": "No noun to link"
         },
         "side": {
-            "intro": "Intro",
+            "intro": "Presentation",
             "declension": "Declension",
             "first": "First declension",
             "second": "Second declension",
@@ -301,11 +301,14 @@
         }
     },
     "training": {
-        "intro": "Training",
+        "intro": "Presentation",
         "adjective": "Adjective",
         "noun": "Noun",
         "russianCase": "Case",
         "gender": "Gender",
-        "number": "Number"
+        "context": "Context",
+        "number": "Number",
+        "preparation": "Preparation",
+        "test": "Test"
     }
 }

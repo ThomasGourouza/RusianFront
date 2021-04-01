@@ -301,11 +301,14 @@
         }
     },
     "training": {
-        "intro": "Entraînement",
+        "intro": "Présentation",
         "adjective": "Adjectif",
         "noun": "Nom",
         "russianCase": "Cas",
+        "context": "Contexte",
         "gender": "Genre",
-        "number": "Nombre"
+        "number": "Nombre",
+        "preparation": "Préparation",
+        "test": "Test"
     }
 }

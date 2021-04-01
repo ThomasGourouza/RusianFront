@@ -420,9 +420,13 @@ export class AddNounComponent extends subscribedContainerMixin() implements OnIn
             if (otherExceptions.length > 0) {
               otherExceptions.forEach((exceptionId) => {
                 // Add exceptions
-                this.nounService.addException({
-                  russianNounId: nounPl.id,
-                  russianDeclSpecEndingRefId: exceptionId.specificId
+                exceptionId.specificIds.forEach((specificId) => {
+                  if (specificId.number === Const.P) {
+                    this.nounService.addException({
+                      russianNounId: nounPl.id,
+                      russianDeclSpecEndingRefId: specificId.id
+                    });
+                  }
                 });
               });
             }
@@ -458,9 +462,13 @@ export class AddNounComponent extends subscribedContainerMixin() implements OnIn
         if (otherExceptions.length > 0) {
           otherExceptions.forEach((exceptionId) => {
             // Add exceptions
-            this.nounService.addException({
-              russianNounId: noun.id,
-              russianDeclSpecEndingRefId: exceptionId.specificId
+            exceptionId.specificIds.forEach((specificId) => {
+              if (specificId.number === noun.russianNounCategory.russianGrammaticalNumber) {
+                this.nounService.addException({
+                  russianNounId: noun.id,
+                  russianDeclSpecEndingRefId: specificId.id
+                });
+              }
             });
           });
         }

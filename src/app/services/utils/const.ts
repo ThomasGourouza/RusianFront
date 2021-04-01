@@ -43,6 +43,7 @@ export class Const {
     public static S: string = 'Singular';
     public static P: string = 'Plural';
     public static c: string = 'case';
+    public static context: string = 'context';
     public static m: string = 'masculine';
     public static f: string = 'feminine';
     public static n: string = 'neuter';
@@ -51,4 +52,7 @@ export class Const {
     public static one: string = '1';
     public static two: string = '2';
     public static three: string = '3';
+    public static preparation: string = 'preparation';
+    public static test: string = 'test';
+    public static training: string = 'training';
 }

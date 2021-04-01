@@ -1,0 +1,77 @@
+<br>
+<div class="row">
+    <div class="col-8">
+        <p-card [style]="{'background-color': '#f8f9fa'}">
+            <form [formGroup]="trainingForm">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="adjective">{{ 'training.adjective' | translate }}</label>
+                            <select class="form-control" formControlName="adjective" id="adjective">
+                                <option></option>
+                                <option *ngFor="let adjective of adjectives" [value]="adjective.id">
+                                    {{ adjective.translation }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="noun">{{ 'training.noun' | translate }}</label>
+                            <select class="form-control" formControlName="noun" id="noun">
+                                <option></option>
+                                <option *ngFor="let noun of nouns" [value]="noun.id">
+                                    {{ noun.translation }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="russianCase">{{ 'training.russianCase' | translate }}</label>
+                            <select class="form-control" formControlName="russianCase" id="russianCase">
+                                <option></option>
+                                <option *ngFor="let russianCase of cases" [value]="russianCase.value">
+                                    {{ 'reference.case.' + russianCase.id | translate }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </p-card>
+    </div>
+    <div class="col-4">
+        <div *ngIf="trainingForm.valid && !!text">
+            <br>
+            <p-card [style]="{'background-color': '#f8f9fa'}">
+                <h5 class="d-flex justify-content-center">{{ text }}</h5>
+            </p-card>
+        </div>
+    </div>
+</div>
+<br>
+<div *ngIf="trainingForm.valid" class="card">
+    <p-table [columns]="cols" [value]="data" styleClass="p-datatable-gridlines" [reorderableColumns]="true">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns" pReorderableColumn>
+                    <span *ngIf="col.field != 'case'" class="d-flex justify-content-center">
+                        {{ printNumber(col.field) }}
+                    </span>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex">
+            <tr [pReorderableRow]="index">
+                <td *ngFor="let col of columns" [ngClass]="{'header': col.field === 'case'}">
+                    <div [ngClass]="{'d-flex justify-content-center large': col.field != 'case'}">
+                        <span *ngIf="col.field === 'case'" class="pi pi-bars grabbable"
+                            pReorderableRowHandle>&nbsp;</span>
+                        {{ printCase(rowData[col.field]) }}
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

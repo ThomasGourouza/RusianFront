@@ -58,12 +58,16 @@ import { UpdateAdjectiveComponent } from './views/russian/adjectives/core/update
 import { KeyboardComponent } from './views/russian/shared/keyboard/keyboard.component';
 import { SideNounsComponent } from './views/russian/nouns/side-nouns/side-nouns.component';
 import { SideMenuNounsService } from './services/side-menu-nouns.service';
+import { SideMenuTrainingService } from './services/side-menu-training.service';
 import { DeclensionComponent } from './views/russian/nouns/core/declension/declension.component';
 import { NounListComponent } from './views/russian/nouns/core/noun-list/noun-list.component';
 import { DeclensionNounComponent } from './views/russian/nouns/core/declension-noun/declension-noun.component';
 import { AddNounComponent } from './views/russian/nouns/core/add-noun/add-noun.component';
 import { NounNotFoundComponent } from './views/russian/nouns/core/noun-not-found/noun-not-found.component';
 import { LinkComponent } from './views/russian/nouns/core/link/link.component';
+import { SideTrainingComponent } from './views/russian/training/side-training/side-training.component';
+import { PreparationComponent } from './views/russian/training/core/preparation/preparation.component';
+import { TestComponent } from './views/russian/training/core/test/test.component';
 
 @NgModule({
   declarations: [
@@ -94,7 +98,10 @@ import { LinkComponent } from './views/russian/nouns/core/link/link.component';
     DeclensionNounComponent,
     AddNounComponent,
     NounNotFoundComponent,
-    LinkComponent
+    LinkComponent,
+    SideTrainingComponent,
+    PreparationComponent,
+    TestComponent
   ],
   imports: [
     CommonModule,
@@ -139,6 +146,7 @@ import { LinkComponent } from './views/russian/nouns/core/link/link.component';
     ConfirmationService,
     SideMenuAdjectivesService,
     SideMenuNounsService,
+    SideMenuTrainingService,
     ActionMenuService,
     AdjectiveListService,
     NounListService

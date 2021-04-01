@@ -5,9 +5,11 @@ import { NounService } from 'src/app/services/noun.service';
 import { RussianReferenceService } from 'src/app/services/russian-reference.service';
 import { NounEnding } from 'src/app/models/reference/russian/noun-ending.model';
 import { AdjectiveService } from 'src/app/services/adjective.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RussianCase } from 'src/app/models/reference/russian/russian-case.model';
-
+import { FormBuilder } from '@angular/forms';
+import { Const } from 'src/app/services/utils/const';
+import { SideMenuTrainingService } from 'src/app/services/side-menu-training.service';
+import { takeUntil } from 'rxjs/operators';
+import { Router } from '@angular/router';
 export interface Category {
   id: number;
   idSingularPlural?: number;
@@ -22,6 +24,16 @@ export interface Ending {
   number: string;
   nounEndings: Array<NounEnding>;
 }
+export interface RowData {
+  case: string;
+  context: string;
+  adjective: string;
+  noun: string;
+}
+export interface RowContext {
+  case: string;
+  context: string;
+}
 
 @Component({
   selector: 'app-russian',
@@ -30,91 +42,75 @@ export interface Ending {
 })
 export class TrainingComponent extends subscribedContainerMixin() implements OnInit {
 
-  public nouns: Array<any>;
-  public adjectives: Array<any>;
-  public cases: Array<RussianCase>;
-
-  public trainingForm: FormGroup;
+  public page: string;
 
   constructor(
+    private router: Router,
     public translate: TranslateService,
-    private nounService: NounService,
-    private adjectiveService: AdjectiveService,
-    private russianReferenceService: RussianReferenceService,
-    private formBuilder: FormBuilder
+    private sideMenuService: SideMenuTrainingService,
   ) {
     super();
   }
 
   ngOnInit(): void {
+    // setter de this.page au chargement de la page
+    this.setPage(this.router.url);
 
-    this.russianReferenceService.cases$
-    .subscribe((cases: Array<RussianCase>) => {
-      this.cases = cases;
-    });
-
-    this.nounService.fetchNouns();
-    this.nounService.nounList$
-      .subscribe((nouns) => {
-        this.nouns = nouns;
-      });
-
-    this.adjectiveService.fetchAdjectives();
-    this.adjectiveService.adjectiveList$
-      .subscribe((adjectives) => {
-        this.adjectives = adjectives;
-      });
+    this.sideMenuService.setSelection(null);
+    // mise à jour du menu de gauche
+    this.sideMenuService.setMenu();
 
     // update la langue à chaque changement
     this.translate.onLangChange.subscribe(() => {
-
+      // mise à jour du menu de gauche
+      this.sideMenuService.setMenu();
     });
 
-    // récupération des références
-    // this.russianReferenceService.nounCategoriesInanimate$
-    //   .subscribe((nounCategories: Array<NounCategory>) => {
-    //     this._nounCategories = nounCategories;
-    //     // setter de this.page au chargement de la page
-    //     this.setPage(this.router.url);
-    //   });
-
-    this.initForm();
-    this.onChanges();
-  }
-
-  public click(): void {
-    console.log(this.adjectives);
-    console.log(this.nouns);
-    console.log(this.cases);
-  }
-
-  private initForm(): void {
-    this.trainingForm = this.formBuilder.group(
-      {
-        adjective: ['', Validators.required],
-        noun: ['', Validators.required],
-        russianCase: ['', Validators.required]
+    // emetter du service sideMenu (gauche)
+    this.sideMenuService.selection$.pipe(
+      takeUntil(
+        this.destroyed$
+      )
+    ).subscribe((selection: string) => {
+      if (!!selection) {
+        switch (selection) {
+          case Const.intro: {
+            this.sideMenuService.setSelection(null);
+            this.redirect('/' + Const.training);
+            break;
+          }
+          case Const.preparation:
+          case Const.test: {
+            this.sideMenuService.setSelection(null);
+            this.redirect('/' + Const.training + '/' + selection);
+            break;
+          }
+        }
       }
-    );
-  }
-
-  private onChanges(): void {
-    this.trainingForm.get('adjective').valueChanges.subscribe((adjective) => {
-      console.log(adjective);
-    });
-    this.trainingForm.get('noun').valueChanges.subscribe((noun) => {
-      console.log(noun);
-    });
-    this.trainingForm.get('russianCase').valueChanges.subscribe((russianCase) => {
-      console.log(russianCase);
     });
   }
 
-  public onSubmit(): void {
-    const formValue = this.trainingForm.value;
-    console.log(formValue['adjective']);
-    console.log(formValue['noun']);
-    console.log(formValue['russianCase']);
+  // redirection en modifiant la valeur de this.page
+  private redirect(url: string): void {
+    this.setPage(url);
+    this.router.navigateByUrl(url);
   }
 
+  private setPage(url: string): void {
+    const urlArray = url.split('/');
+    // url = /training
+    if (urlArray.length === 2 && urlArray[1] === Const.training) {
+      this.page = 'intro';
+    }
+    // url = /nouns/:category
+    if (urlArray.length === 3) {
+      if ([Const.preparation, Const.test].includes(urlArray[2])) {
+        this.page = urlArray[2];
+      } else {
+        // si la valeur de :category n'existe pas
+        this.router.navigateByUrl('/' + Const.NF);
+        this.page = Const.NF;
+      }
+    }
+  }
 }
