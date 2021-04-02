@@ -52,7 +52,9 @@ export class Const {
     public static one: string = '1';
     public static two: string = '2';
     public static three: string = '3';
-    public static preparation: string = 'preparation';
+    public static mode: string = 'mode';
     public static test: string = 'test';
     public static training: string = 'training';
+    public static visual: string = 'visual';
+    public static written: string = 'written';
 }

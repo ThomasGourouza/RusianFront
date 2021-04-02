@@ -67,7 +67,8 @@ import { NounNotFoundComponent } from './views/russian/nouns/core/noun-not-found
 import { LinkComponent } from './views/russian/nouns/core/link/link.component';
 import { SideTrainingComponent } from './views/russian/training/side-training/side-training.component';
 import { PreparationComponent } from './views/russian/training/core/preparation/preparation.component';
-import { TestComponent } from './views/russian/training/core/test/test.component';
+import { VisualTestComponent } from './views/russian/training/core/visual-test/visual-test.component';
+import { WrittenTestComponent } from './views/russian/training/core/written-test/written-test.component';
 
 @NgModule({
   declarations: [
@@ -101,7 +102,8 @@ import { TestComponent } from './views/russian/training/core/test/test.component
     LinkComponent,
     SideTrainingComponent,
     PreparationComponent,
-    TestComponent
+    VisualTestComponent,
+    WrittenTestComponent
   ],
   imports: [
     CommonModule,

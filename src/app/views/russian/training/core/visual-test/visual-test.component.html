@@ -1,0 +1,58 @@
+<br>
+<div class="row d-flex justify-content-center">
+    <div class="col-9">
+        <p-card [style]="{'background-color': '#f8f9fa'}">
+            <div class="row">
+                <div class="col-5">
+                    <label for="russianCase">{{ 'training.russianCase' | translate }}</label>
+                    <input *ngIf="!!russianCase" class="form-control" type="text" id="russianCase"
+                        [ngModel]="printCase(russianCase.id) + ': « ' + context +' »'" disabled>
+                </div>
+                <div class="col">
+                    <label for="adjective">{{ 'training.adjective' | translate }}</label>
+                    <input *ngIf="!!adjective" class="form-control" type="text" id="adjective"
+                        [ngModel]="adjective.translation" disabled>
+                </div>
+                <div class="col">
+                    <label for="noun">{{ 'training.noun' | translate }}</label>
+                    <input *ngIf="!!noun" class="form-control" type="text" id="noun" [ngModel]="noun.translation"
+                        disabled>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="row d-flex justify-content-center">
+                <table>
+                    <tr>
+                        <td>
+                            &nbsp;<button class="btn btn-outline-primary" (click)="onNew()">
+                                {{ 'training.new' | translate }}
+                            </button>&nbsp;
+                        </td>
+                        <td>
+                            &nbsp;<button class="btn btn-outline-primary" (click)="onAnswer()">
+                                {{ 'training.answer' | translate }}
+                            </button>&nbsp;
+                        </td>
+                        <td>
+                            &nbsp;<button class="btn btn-outline-primary" (click)="onHide()">
+                                {{ 'training.hide' | translate }}
+                            </button>&nbsp;
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </p-card>
+    </div>
+</div>
+<br>
+<div class="row d-flex justify-content-center">
+    <div *ngIf="!!text" class="col-5">
+        <p-card [style]="{'background-color': '#f8f9fa'}">
+            <h5 class="d-flex justify-content-center">
+                {{ text }}
+            </h5>
+        </p-card>
+    </div>
+</div>
+<br>

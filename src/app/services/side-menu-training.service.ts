@@ -31,7 +31,7 @@ export class SideMenuTrainingService {
     this._selection$.next(selection);
   }
 
-  public setMenu(): void {
+  public setMenu(testExpanded: boolean): void {
     this._menu$.next(
       [
         {
@@ -42,15 +42,30 @@ export class SideMenuTrainingService {
         },
         {
           label: this.translate.instant('training.preparation'),
-          icon: "pi pi-eye",
+          icon: "pi pi-check",
           selectable: true,
-          data: Const.preparation
+          data: Const.check
         },
         {
-          label: this.translate.instant('training.test'),
-          icon: "pi pi-pencil",
-          selectable: true,
-          data: Const.test
+          label: this.translate.instant('training.tests'),
+          expandedIcon: "pi pi-folder-open",
+          collapsedIcon: "pi pi-folder",
+          selectable: false,
+          expanded: testExpanded,
+          children: [
+            {
+              label: this.translate.instant('training.test-visual'),
+              icon: "pi pi-eye",
+              selectable: true,
+              data: Const.visual
+            },
+            {
+              label: this.translate.instant('training.test-written'),
+              icon: "pi pi-pencil",
+              selectable: true,
+              data: Const.written
+            }
+          ]
         }
       ]
     );

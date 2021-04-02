@@ -1,15 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { subscribedContainerMixin } from 'src/app/subscribed-container.mixin';
 import { TranslateService } from '@ngx-translate/core';
-import { NounService } from 'src/app/services/noun.service';
-import { RussianReferenceService } from 'src/app/services/russian-reference.service';
 import { NounEnding } from 'src/app/models/reference/russian/noun-ending.model';
-import { AdjectiveService } from 'src/app/services/adjective.service';
-import { FormBuilder } from '@angular/forms';
 import { Const } from 'src/app/services/utils/const';
 import { SideMenuTrainingService } from 'src/app/services/side-menu-training.service';
 import { takeUntil } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 export interface Category {
   id: number;
   idSingularPlural?: number;
@@ -46,6 +42,7 @@ export class TrainingComponent extends subscribedContainerMixin() implements OnI
 
   constructor(
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     public translate: TranslateService,
     private sideMenuService: SideMenuTrainingService,
   ) {
@@ -57,13 +54,14 @@ export class TrainingComponent extends subscribedContainerMixin() implements OnI
     this.setPage(this.router.url);
 
     this.sideMenuService.setSelection(null);
+
     // mise à jour du menu de gauche
-    this.sideMenuService.setMenu();
+    this.sideMenuService.setMenu(!!this.activatedRoute.snapshot.params[Const.mode]);
 
     // update la langue à chaque changement
     this.translate.onLangChange.subscribe(() => {
       // mise à jour du menu de gauche
-      this.sideMenuService.setMenu();
+      this.sideMenuService.setMenu(!!this.activatedRoute.snapshot.params[Const.mode]);
     });
 
     // emetter du service sideMenu (gauche)
@@ -79,10 +77,15 @@ export class TrainingComponent extends subscribedContainerMixin() implements OnI
             this.redirect('/' + Const.training);
             break;
           }
-          case Const.preparation:
-          case Const.test: {
+          case Const.check: {
             this.sideMenuService.setSelection(null);
             this.redirect('/' + Const.training + '/' + selection);
+            break;
+          }
+          case Const.visual:
+          case Const.written: {
+            this.sideMenuService.setSelection(null);
+            this.redirect('/' + Const.training + '/' + Const.test + '/' + selection);
             break;
           }
         }
@@ -102,10 +105,14 @@ export class TrainingComponent extends subscribedContainerMixin() implements OnI
     if (urlArray.length === 2 && urlArray[1] === Const.training) {
       this.page = 'intro';
     }
-    // url = /nouns/:category
+    // url = /nouns/check
     if (urlArray.length === 3) {
-      if ([Const.preparation, Const.test].includes(urlArray[2])) {
-        this.page = urlArray[2];
+      this.page = urlArray[2];
+    }
+    // url = /nouns/test/:mode
+    if (urlArray.length === 4) {
+      if ([Const.visual, Const.written].includes(urlArray[3])) {
+        this.page = urlArray[3];
       } else {
         // si la valeur de :category n'existe pas
         this.router.navigateByUrl('/' + Const.NF);

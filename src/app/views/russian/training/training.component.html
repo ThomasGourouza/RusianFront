@@ -10,13 +10,17 @@
                 <br>
                 {{ 'training.intro' | translate }}
             </div>
-            <div *ngSwitchCase="'preparation'">
+            <div *ngSwitchCase="'check'">
                 <app-preparation>
                 </app-preparation>
             </div>
-            <div *ngSwitchCase="'test'">
-                <app-test>
-                </app-test>
+            <div *ngSwitchCase="'visual'">
+                <app-visual-test>
+                </app-visual-test>
+            </div>
+            <div *ngSwitchCase="'written'">
+                <app-written-test>
+                </app-written-test>
             </div>
         </section>
     </div>

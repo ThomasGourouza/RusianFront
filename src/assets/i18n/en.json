@@ -308,7 +308,13 @@
         "gender": "Gender",
         "context": "Context",
         "number": "Number",
-        "preparation": "Preparation",
-        "test": "Test"
+        "preparation": "Check",
+        "tests": "Tests",
+        "test": "Test",
+        "test-visual": "Visual test",
+        "test-written": "Written test",
+        "new": "New",
+        "answer": "Answer",
+        "hide": "Hide"
     }
 }

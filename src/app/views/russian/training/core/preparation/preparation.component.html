@@ -6,7 +6,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <label for="adjective" class="d-flex justify-content-center">{{ 'training.adjective' | translate }}</label>
+                            <label for="adjective">{{ 'training.adjective' | translate }}</label>
                             <select class="form-control" formControlName="adjective" id="adjective">
                                 <option></option>
                                 <option *ngFor="let adjective of adjectives" [value]="adjective.id">
@@ -17,7 +17,7 @@
                     </div>
                     <div class="col">
                         <div class="form-group">
-                            <label for="noun" class="d-flex justify-content-center">{{ 'training.noun' | translate }}</label>
+                            <label for="noun">{{ 'training.noun' | translate }}</label>
                             <select class="form-control" formControlName="noun" id="noun">
                                 <option></option>
                                 <option *ngFor="let noun of nouns" [value]="noun.id">

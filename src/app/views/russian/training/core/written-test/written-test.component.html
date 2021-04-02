@@ -1,0 +1,88 @@
+<br>
+<div class="row d-flex justify-content-center">
+    <div class="col-9">
+        <p-card [style]="{'background-color': '#f8f9fa'}">
+            <div class="row">
+                <div class="col-5">
+                    <label for="russianCase">{{ 'training.russianCase' | translate }}</label>
+                    <input *ngIf="!!russianCase" class="form-control" type="text" id="russianCase"
+                        [ngModel]="printCase(russianCase.id) + ': ' + context" disabled>
+                </div>
+                <div class="col">
+                    <label for="adjective">{{ 'training.adjective' | translate }}</label>
+                    <input *ngIf="!!adjective" class="form-control" type="text" id="adjective"
+                        [ngModel]="adjective.translation" disabled>
+                </div>
+                <div class="col">
+                    <label for="noun">{{ 'training.noun' | translate }}</label>
+                    <input *ngIf="!!noun" class="form-control" type="text" id="noun" [ngModel]="noun.translation"
+                        disabled>
+                </div>
+            </div>
+        </p-card>
+    </div>
+</div>
+<br>
+<div class="row d-flex justify-content-center">
+    <div class="col-9">
+        <p-card [style]="{'background-color': '#f8f9fa'}">
+            <form [formGroup]="answerForm" (ngSubmit)="onSubmit()">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="adjective-answer">{{ 'training.adjective' | translate }}</label>
+                            <select class="form-control" formControlName="adjective" id="adjective-answer">
+                                <option></option>
+                                <option *ngFor="let adjectiveCase of casesOfAdjective" [value]="adjectiveCase.caseId">
+                                    {{ adjectiveCase.value }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="noun-answer">{{ 'training.noun' | translate }}</label>
+                            <select class="form-control" formControlName="noun" id="noun-answer">
+                                <option></option>
+                                <option *ngFor="let nounCase of casesOfNoun" [value]="nounCase.caseId">
+                                    {{ nounCase.value }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col d-flex align-items-center">
+                        <table>
+                            <tr>
+                                <td>
+                                    &nbsp;<button pButton type="submit" [disabled]="answerForm.invalid"
+                                        class="p-button-outlined p-button-raised p-button-rounded"
+                                        icon="pi pi-check"></button>&nbsp;
+                                </td>
+                                <td>
+                                    &nbsp;<button class="btn btn-outline-primary" (click)="onAnswer()">
+                                        {{ 'training.answer' | translate }}</button>&nbsp;
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </form>
+        </p-card>
+    </div>
+</div>
+<br>
+<div class="row d-flex justify-content-center">
+    <div class="col-5">
+        <p-card *ngIf="!!text" [style]="{'background-color': '#f8f9fa'}">
+            <h5 class="d-flex justify-content-center">
+                {{ text }}
+            </h5>
+            <br>
+            <div class="d-flex justify-content-center">
+                <button class="btn btn-outline-primary" (click)="onNew()">
+                    {{ 'training.new' | translate }}</button>
+            </div>
+        </p-card>
+    </div>
+</div>
+<br>
