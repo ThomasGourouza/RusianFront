@@ -25,19 +25,16 @@
                 <table>
                     <tr>
                         <td>
-                            &nbsp;<button class="btn btn-outline-primary" (click)="onNew()">
-                                {{ 'training.new' | translate }}
-                            </button>&nbsp;
+                            &nbsp;<button pButton class="p-button-outlined p-button-raised p-button-rounded"
+                                icon="pi pi-replay" (click)="onNew()"></button>&nbsp;
                         </td>
                         <td>
-                            &nbsp;<button class="btn btn-outline-primary" (click)="onAnswer()">
-                                {{ 'training.answer' | translate }}
-                            </button>&nbsp;
+                            &nbsp;<button pButton class="p-button-outlined p-button-raised p-button-rounded"
+                                icon="pi pi-eye" (click)="onAnswer()"></button>&nbsp;
                         </td>
                         <td>
-                            &nbsp;<button class="btn btn-outline-primary" (click)="onHide()">
-                                {{ 'training.hide' | translate }}
-                            </button>&nbsp;
+                            &nbsp;<button pButton class="p-button-outlined p-button-raised p-button-rounded"
+                                icon="pi pi-eye-slash" (click)="onHide()"></button>&nbsp;
                         </td>
                     </tr>
                 </table>
@@ -49,9 +46,9 @@
 <div class="row d-flex justify-content-center">
     <div *ngIf="!!text" class="col-5">
         <p-card [style]="{'background-color': '#f8f9fa'}">
-            <h5 class="d-flex justify-content-center">
+            <h4 class="d-flex justify-content-center">
                 {{ text }}
-            </h5>
+            </h4>
         </p-card>
     </div>
 </div>

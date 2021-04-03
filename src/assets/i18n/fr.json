@@ -315,6 +315,12 @@
         "test-written": "Test écrit",
         "new": "Nouveau",
         "answer": "Réponse",
-        "hide": "Cacher"
+        "hide": "Cacher",
+        "case": "Cas",
+        "translation": "traduction",
+        "correct": "Correction",
+        "point": "Point",
+        "history": "Historique",
+        "score": "Score"
     }
 }

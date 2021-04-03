@@ -25,7 +25,10 @@
         </section>
     </div>
     <div class="col-3">
-
+        <div *ngIf="page === 'written'" class="d-flex align-items-center justify-content-center">
+            <app-history>
+            </app-history>
+        </div>
     </div>
 </div>
 <br>

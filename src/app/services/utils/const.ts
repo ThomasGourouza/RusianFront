@@ -57,4 +57,7 @@ export class Const {
     public static training: string = 'training';
     public static visual: string = 'visual';
     public static written: string = 'written';
+    public static case: string = 'case';
+    public static correct: string = 'correct';
+    public static point: string = 'point';
 }

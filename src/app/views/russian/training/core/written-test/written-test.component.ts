@@ -9,10 +9,7 @@ import { Adjective } from 'src/app/models/adjective/get/adjective.model';
 import { Noun } from 'src/app/models/noun/get/noun.model';
 import { Const } from 'src/app/services/utils/const';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-export interface Answer {
-  value: string;
-  caseId: number;
-}
+import { Answer, HistoryTrainingService } from 'src/app/services/history-training.service';
 
 @Component({
   selector: 'app-written-test',
@@ -31,24 +28,32 @@ export class WrittenTestComponent extends subscribedContainerMixin() implements 
   public noun: Noun;
   public russianCase: RussianCase;
 
-  public text: string;
-  public context: string;
+  public adjectiveAnswer: string;
+  public nounAnswer: string;
 
   public answerForm: FormGroup;
-  public casesOfNoun: Array<Answer>;
-  public casesOfAdjective: Array<Answer>;
+  public casesOfNoun: Array<string>;
+  public casesOfAdjective: Array<string>;
+
+  public adjectiveCorrect: boolean;
+  public nounCorrect: boolean;
+
+  public hasPlayed: boolean;
 
   constructor(
     public translate: TranslateService,
     private nounService: NounService,
     private adjectiveService: AdjectiveService,
     private russianReferenceService: RussianReferenceService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private historyService: HistoryTrainingService
   ) {
     super();
   }
 
   ngOnInit(): void {
+    this.initCorrects();
+    this.initForm();
     this.russianReferenceService.cases$
       .subscribe((cases: Array<RussianCase>) => {
         this.cases = cases;
@@ -75,15 +80,20 @@ export class WrittenTestComponent extends subscribedContainerMixin() implements 
               });
           });
       });
+  }
 
-    this.initForm();
+  private initCorrects(): void {
+    this.adjectiveCorrect = false;
+    this.nounCorrect = false;
+    this.hasPlayed = false;
   }
 
   private initForm(): void {
     this.answerForm = this.formBuilder.group(
       {
         adjective: ['', Validators.required],
-        noun: ['', Validators.required]
+        noun: ['', Validators.required],
+        context: [{ value: '', disabled: true }]
       }
     );
   }
@@ -92,14 +102,34 @@ export class WrittenTestComponent extends subscribedContainerMixin() implements 
     return array[Math.floor(Math.random() * array.length)];
   }
 
-  public onAnswer(): void {
-    this.text = !!this.russianCase.value ?
+  public setAnswer(): void {
+    this.adjectiveAnswer = !!this.russianCase.value ?
       this.giveResult(this.adjective.id, this.noun.id, this.russianCase.value, Const.adjective)
-      + ' ' + this.giveResult(this.adjective.id, this.noun.id, this.russianCase.value, Const.noun)
+      : '';
+    this.nounAnswer = !!this.russianCase.value ?
+      this.giveResult(this.adjective.id, this.noun.id, this.russianCase.value, Const.noun)
       : '';
   }
 
   public onNew(): void {
+    this.setAnswer();
+    const answer: Answer = {
+      case: this.printCase(this.russianCase.id),
+      adjective: this.adjectiveAnswer,
+      noun: this.nounAnswer,
+      point: 0
+    };
+    this.historyService.addHistory(answer);
+    this.onNext();
+  }
+
+  public onNext(): void {
+    this.initCorrects();
+    this.answerForm.controls['adjective'].enable();
+    this.answerForm.controls['noun'].enable();
+    this.answerForm.controls['adjective'].setValue('');
+    this.answerForm.controls['noun'].setValue('');
+
     this.adjective = this.getRandom(this.adjectives);
     this.noun = this.getRandom(this.nouns);
     this.russianCase = this.getRandom(this.cases);
@@ -110,17 +140,38 @@ export class WrittenTestComponent extends subscribedContainerMixin() implements 
     this.casesOfAdjective = this.casesOf(Const.adjective);
 
     this.setContext(this.russianCase.value);
-    this.text = '';
+    this.adjectiveAnswer = '';
+    this.nounAnswer = '';
   }
 
-  public casesOf(field: string): Array<Answer> {
+  private earnedPoint(adjectiveCorrect, nounCorrect): number {
+    if (adjectiveCorrect && nounCorrect) {
+      return 1;
+    } else if (adjectiveCorrect || nounCorrect) {
+      return 0.5;
+    } else {
+      return 0;
+    }
+  }
+
+  public casesOf(field: string): Array<string> {
     if (!!this.adjective && !!this.noun && !!this.cases && this.cases.length > 0) {
-      return this.cases.map((russianCase) => {
-        return {
-          value: this.giveResult(this.adjective.id, this.noun.id, russianCase.value, field),
-          caseId: russianCase.id
+      const arrayWithoutRepetitons = [];
+      this.cases.map((russianCase) =>
+        this.giveResult(this.adjective.id, this.noun.id, russianCase.value, field
+        )).forEach((item) => {
+          if (!arrayWithoutRepetitons.includes(item)) {
+            arrayWithoutRepetitons.push(item);
+          }
+        });
+      const arrayUnsorted = [];
+      while (arrayUnsorted.length < arrayWithoutRepetitons.length) {
+        const random = Math.floor(Math.random() * arrayWithoutRepetitons.length);
+        if (!arrayUnsorted.includes(arrayWithoutRepetitons[random])) {
+          arrayUnsorted.push(arrayWithoutRepetitons[random]);
         }
-      });
+      }
+      return arrayUnsorted;
     }
     return [];
   }
@@ -153,7 +204,7 @@ export class WrittenTestComponent extends subscribedContainerMixin() implements 
         break;
       }
     }
-    this.context = context;
+    this.answerForm.controls['context'].setValue(context);
   }
 
   public giveResult(adjectiveId: number, nounId: number, russianCase: string, field: string): string {
@@ -197,17 +248,32 @@ export class WrittenTestComponent extends subscribedContainerMixin() implements 
     return field === Const.adjective ? this.declinedAdjective : this.declinedNoun;
   }
 
-  public printCase(russianCaseId: string): string {
+  public printCase(russianCaseId: number): string {
     return this.translate.instant('reference.case.' + russianCaseId);
   }
 
   public onSubmit(): void {
+    this.hasPlayed = true;
+    this.setAnswer();
+
+    this.answerForm.controls['adjective'].disable();
+    this.answerForm.controls['noun'].disable();
+
     const formValue = this.answerForm.value;
     const adjective = formValue['adjective'];
     const noun = formValue['noun'];
 
-    console.log(adjective + ' ' + noun);
-    console.log(this.russianCase.id);
+    this.adjectiveCorrect = (adjective === this.adjectiveAnswer);
+    this.nounCorrect = (noun === this.nounAnswer);
+    const point = this.earnedPoint(this.adjectiveCorrect, this.nounCorrect);
+
+    const answer: Answer = {
+      case: this.printCase(this.russianCase.id),
+      adjective: this.adjectiveAnswer,
+      noun: this.nounAnswer,
+      point: point
+    };
+    this.historyService.addHistory(answer);
   }
 
 }

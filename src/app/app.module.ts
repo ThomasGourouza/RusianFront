@@ -69,6 +69,8 @@ import { SideTrainingComponent } from './views/russian/training/side-training/si
 import { PreparationComponent } from './views/russian/training/core/preparation/preparation.component';
 import { VisualTestComponent } from './views/russian/training/core/visual-test/visual-test.component';
 import { WrittenTestComponent } from './views/russian/training/core/written-test/written-test.component';
+import { HistoryTrainingService } from './services/history-training.service';
+import { HistoryComponent } from './views/russian/training/core/history/history.component';
 
 @NgModule({
   declarations: [
@@ -103,7 +105,8 @@ import { WrittenTestComponent } from './views/russian/training/core/written-test
     SideTrainingComponent,
     PreparationComponent,
     VisualTestComponent,
-    WrittenTestComponent
+    WrittenTestComponent,
+    HistoryComponent
   ],
   imports: [
     CommonModule,
@@ -149,6 +152,7 @@ import { WrittenTestComponent } from './views/russian/training/core/written-test
     SideMenuAdjectivesService,
     SideMenuNounsService,
     SideMenuTrainingService,
+    HistoryTrainingService,
     ActionMenuService,
     AdjectiveListService,
     NounListService
