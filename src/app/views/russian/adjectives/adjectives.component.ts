@@ -16,8 +16,7 @@ import { Table } from 'primeng/table';
 
 @Component({
   selector: 'app-adjectives',
-  templateUrl: './adjectives.component.html',
-  styleUrls: ['./adjectives.component.scss']
+  templateUrl: './adjectives.component.html'
 })
 /**
  * urls:

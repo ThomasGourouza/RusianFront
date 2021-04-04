@@ -33,8 +33,7 @@ export interface RowContext {
 
 @Component({
   selector: 'app-russian',
-  templateUrl: './training.component.html',
-  styleUrls: ['./training.component.scss']
+  templateUrl: './training.component.html'
 })
 export class TrainingComponent extends subscribedContainerMixin() implements OnInit {
 

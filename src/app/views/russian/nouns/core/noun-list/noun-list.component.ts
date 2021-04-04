@@ -7,8 +7,7 @@ import { NounListService, RowData } from 'src/app/services/noun-list.service';
 
 @Component({
   selector: 'app-noun-list',
-  templateUrl: './noun-list.component.html',
-  styleUrls: ['./noun-list.component.scss']
+  templateUrl: './noun-list.component.html'
 })
 // url: noun/consult
 export class NounListComponent implements OnInit {

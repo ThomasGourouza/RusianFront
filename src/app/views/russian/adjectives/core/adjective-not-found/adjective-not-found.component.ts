@@ -4,8 +4,7 @@ import { Const } from 'src/app/services/utils/const';
 
 @Component({
   selector: 'app-adjective-not-found',
-  templateUrl: './adjective-not-found.component.html',
-  styleUrls: ['./adjective-not-found.component.scss']
+  templateUrl: './adjective-not-found.component.html'
 })
 export class AdjectiveNotFoundComponent implements OnInit {
 

@@ -11,8 +11,7 @@ import { Const } from 'src/app/services/utils/const';
 
 @Component({
   selector: 'app-update-adjective',
-  templateUrl: './update-adjective.component.html',
-  styleUrls: ['./update-adjective.component.scss']
+  templateUrl: './update-adjective.component.html'
 })
 export class UpdateAdjectiveComponent extends subscribedContainerMixin() implements OnInit {
 

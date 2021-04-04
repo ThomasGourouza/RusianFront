@@ -14,8 +14,7 @@ export interface SimpleNoun {
 
 @Component({
   selector: 'app-link',
-  templateUrl: './link.component.html',
-  styleUrls: ['./link.component.scss']
+  templateUrl: './link.component.html'
 })
 export class LinkComponent extends subscribedContainerMixin() implements OnInit {
 

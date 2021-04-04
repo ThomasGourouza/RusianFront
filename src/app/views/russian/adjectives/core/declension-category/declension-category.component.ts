@@ -16,8 +16,7 @@ export interface ColData {
 
 @Component({
   selector: 'app-declension-category',
-  templateUrl: './declension-category.component.html',
-  styleUrls: ['./declension-category.component.scss']
+  templateUrl: './declension-category.component.html'
 })
 // url: adjectives/:category or adjectives/consult/:adjective
 export class DeclensionCategoryComponent implements OnInit {

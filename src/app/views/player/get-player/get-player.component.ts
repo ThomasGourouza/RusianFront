@@ -6,8 +6,7 @@ import { SignInParams, PlayerService } from 'src/app/services/player.service';
 
 @Component({
   selector: 'app-get-player',
-  templateUrl: './get-player.component.html',
-  styleUrls: ['./get-player.component.scss']
+  templateUrl: './get-player.component.html'
 })
 export class GetPlayerComponent extends subscribedContainerMixin() implements OnInit {
   public login: string;

@@ -71,6 +71,7 @@ import { VisualTestComponent } from './views/russian/training/core/visual-test/v
 import { WrittenTestComponent } from './views/russian/training/core/written-test/written-test.component';
 import { HistoryTrainingService } from './services/history-training.service';
 import { HistoryComponent } from './views/russian/training/core/history/history.component';
+import { GithubComponent } from './views/github/github.component';
 
 @NgModule({
   declarations: [
@@ -106,7 +107,8 @@ import { HistoryComponent } from './views/russian/training/core/history/history.
     PreparationComponent,
     VisualTestComponent,
     WrittenTestComponent,
-    HistoryComponent
+    HistoryComponent,
+    GithubComponent
   ],
   imports: [
     CommonModule,

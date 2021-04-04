@@ -11,8 +11,7 @@ import { Player } from 'src/app/models/player/get/player.model';
 
 @Component({
   selector: 'app-create-player',
-  templateUrl: './create-player.component.html',
-  styleUrls: ['./create-player.component.scss']
+  templateUrl: './create-player.component.html'
 })
 export class CreatePlayerComponent extends subscribedContainerMixin() implements OnInit {
 

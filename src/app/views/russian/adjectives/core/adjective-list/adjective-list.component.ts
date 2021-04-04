@@ -4,12 +4,10 @@ import { AdjectiveService } from 'src/app/services/adjective.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Const } from 'src/app/services/utils/const';
 import { AdjectiveListService, RowData } from 'src/app/services/adjective-list.service';
-// import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-adjective-list',
-  templateUrl: './adjective-list.component.html',
-  styleUrls: ['./adjective-list.component.scss']
+  templateUrl: './adjective-list.component.html'
 })
 // url: adjectives/consult
 export class AdjectiveListComponent implements OnInit {

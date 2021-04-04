@@ -10,8 +10,7 @@ import { Utils } from 'src/app/services/utils/utils.service';
 
 @Component({
   selector: 'app-add-adjective',
-  templateUrl: './add-adjective.component.html',
-  styleUrls: ['./add-adjective.component.scss']
+  templateUrl: './add-adjective.component.html'
 })
 export class AddAdjectiveComponent extends subscribedContainerMixin() implements OnInit {
 

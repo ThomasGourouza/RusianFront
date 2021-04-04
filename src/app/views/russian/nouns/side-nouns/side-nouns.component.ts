@@ -7,8 +7,7 @@ import { SideMenuNounsService } from 'src/app/services/side-menu-nouns.service';
 
 @Component({
   selector: 'app-side-nouns',
-  templateUrl: './side-nouns.component.html',
-  styleUrls: ['./side-nouns.component.scss']
+  templateUrl: './side-nouns.component.html'
 })
 export class SideNounsComponent extends subscribedContainerMixin() implements OnInit {
 

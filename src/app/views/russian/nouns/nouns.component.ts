@@ -31,8 +31,7 @@ export interface Ending {
 
 @Component({
   selector: 'app-nouns',
-  templateUrl: './nouns.component.html',
-  styleUrls: ['./nouns.component.scss']
+  templateUrl: './nouns.component.html'
 })
 /**
  * urls:

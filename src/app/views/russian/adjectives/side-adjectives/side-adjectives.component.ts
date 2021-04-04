@@ -7,8 +7,7 @@ import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-side-adjectives',
-  templateUrl: './side-adjectives.component.html',
-  styleUrls: ['./side-adjectives.component.scss']
+  templateUrl: './side-adjectives.component.html'
 })
 export class SideAdjectivesComponent extends subscribedContainerMixin() implements OnInit {
 

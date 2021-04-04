@@ -10,8 +10,7 @@ import { subscribedContainerMixin } from 'src/app/subscribed-container.mixin';
 
 @Component({
   selector: 'app-language-select',
-  templateUrl: './language-select.component.html',
-  styleUrls: ['./language-select.component.scss']
+  templateUrl: './language-select.component.html'
 })
 export class LanguageFormComponent extends subscribedContainerMixin() implements OnInit {
 

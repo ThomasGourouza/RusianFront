@@ -12,8 +12,7 @@ export interface Action {
 
 @Component({
   selector: 'app-action-menu',
-  templateUrl: './action-menu.component.html',
-  styleUrls: ['./action-menu.component.scss']
+  templateUrl: './action-menu.component.html'
 })
 export class ActionMenuComponent extends subscribedContainerMixin() implements OnInit {
 

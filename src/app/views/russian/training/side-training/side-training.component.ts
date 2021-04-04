@@ -7,8 +7,7 @@ import { SideMenuTrainingService } from 'src/app/services/side-menu-training.ser
 
 @Component({
   selector: 'app-side-training',
-  templateUrl: './side-training.component.html',
-  styleUrls: ['./side-training.component.scss']
+  templateUrl: './side-training.component.html'
 })
 export class SideTrainingComponent extends subscribedContainerMixin() implements OnInit {
 

@@ -21,8 +21,7 @@ export interface Item {
 
 @Component({
   selector: 'app-add-noun',
-  templateUrl: './add-noun.component.html',
-  styleUrls: ['./add-noun.component.scss']
+  templateUrl: './add-noun.component.html'
 })
 export class AddNounComponent extends subscribedContainerMixin() implements OnInit {
 

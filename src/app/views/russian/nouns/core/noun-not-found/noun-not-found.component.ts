@@ -4,8 +4,7 @@ import { Const } from 'src/app/services/utils/const';
 
 @Component({
   selector: 'app-noun-not-found',
-  templateUrl: './noun-not-found.component.html',
-  styleUrls: ['./noun-not-found.component.scss']
+  templateUrl: './noun-not-found.component.html'
 })
 export class NounNotFoundComponent implements OnInit {
 
