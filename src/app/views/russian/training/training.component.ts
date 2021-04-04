@@ -50,7 +50,6 @@ export class TrainingComponent extends subscribedContainerMixin() implements OnI
   }
 
   ngOnInit(): void {
-    this.history = true;
     // setter de this.page au chargement de la page
     this.setPage(this.router.url);
 
