@@ -6,9 +6,10 @@
     </div>
     <div class="col">
         <section [ngSwitch]="page">
-            <div *ngSwitchCase="'intro'" class="d-flex align-items-center justify-content-center">
-                <br>
-                {{ 'training.intro' | translate }}
+            <div *ngSwitchCase="'intro'">
+                <div class="row d-flex justify-content-center">
+                    <img src="../../../../assets/images/tank.png" alt="Country" style="width:80%;height:80%;">
+                </div>
             </div>
             <div *ngSwitchCase="'check'">
                 <app-preparation>

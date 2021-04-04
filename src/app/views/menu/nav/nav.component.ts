@@ -18,10 +18,10 @@ export class NavComponent implements OnInit {
     private router: Router
   ) {
     translate.addLangs(['fr', 'en', 'es']);
-    translate.setDefaultLang('fr');
-    translate.use('fr');
-    const browserLang = translate.getBrowserLang();
-    translate.use(browserLang.match(/en|fr|es/) ? browserLang : 'fr');
+    translate.setDefaultLang('en');
+    translate.use('en');
+    // const browserLang = translate.getBrowserLang();
+    // translate.use(browserLang.match(/en|fr|es/) ? browserLang : 'en');
   }
   
   public ngOnInit(): void {

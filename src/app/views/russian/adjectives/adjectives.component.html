@@ -11,7 +11,9 @@
             <!-- accueil adjectifs -->
             <div *ngSwitchCase="'intro'">
                 <br>
-                {{ 'adjectives.text' | translate }}
+                <div  class="row d-flex justify-content-center">
+                    <img src="../../../../assets/images/country.png" alt="Moscow" style="width:90%;height:90%;">
+                </div>
             </div>
             <div *ngSwitchCase="'first-declension'">
                 <app-declension-category [adjectiveCategory]="getAdjectiveCategory(1)">

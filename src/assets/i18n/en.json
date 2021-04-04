@@ -20,8 +20,8 @@
         }
     },
     "home": {
-        "name": "Russian",
-        "title": "Hello!"
+        "name": "Russian Grammar",
+        "title": "Welcome"
     },
     "toastr": {
         "success": {
@@ -315,7 +315,8 @@
         "test-written": "Written test",
         "point": "Point",
         "history": "History",
-        "score": "Score"
+        "score": "Score",
+        "case": "Case"
     },
     "github": {
         "name": "Name",

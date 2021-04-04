@@ -20,8 +20,8 @@
         }
     },
     "home": {
-        "name": "Russe",
-        "title": "Salut!"
+        "name": "Grammaire Russe",
+        "title": "Bienvenue"
     },
     "toastr": {
         "success": {
@@ -315,7 +315,8 @@
         "test-written": "Test écrit",
         "point": "Point",
         "history": "Historique",
-        "score": "Score"
+        "score": "Score",
+        "case": "Cas"
     },
     "github": {
         "name": "Nom",

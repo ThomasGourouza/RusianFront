@@ -6,7 +6,7 @@
     background-size: 100%;
 }
 .logo {
-    background-image: url(../src/assets/eagle.png);
+    background-image: url(../src/assets/images/eagle.png);
 }
 .logo-config {
     width: 80px;
@@ -38,6 +38,14 @@
 }
 .blue {
     color: rgb(0, 123, 255);
+}
+.blue-cursor {
+    color: rgb(0, 123, 255);
+    cursor: pointer;
+}
+.blue-cursor:hover {
+    color: rgb(94, 172, 255);
+    cursor: pointer;
 }
 .gray {
     background-color: rgb(248, 249, 250);

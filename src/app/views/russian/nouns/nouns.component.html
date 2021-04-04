@@ -10,7 +10,9 @@
             [ngSwitch]="page">
             <div *ngSwitchCase="'intro'">
                 <br>
-                {{ 'nouns.text' | translate }}
+                <div class="row d-flex justify-content-center">
+                    <img src="../../../../assets/images/Matryoshka.png" alt="Matryoshka" style="width:100%;height:100%;">
+                </div>
             </div>
 
             <div *ngSwitchCase="'declension'">
