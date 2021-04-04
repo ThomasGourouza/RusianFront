@@ -313,14 +313,12 @@
         "test": "Test",
         "test-visual": "Test visuel",
         "test-written": "Test écrit",
-        "new": "Nouveau",
-        "answer": "Réponse",
-        "hide": "Cacher",
-        "case": "Cas",
-        "translation": "traduction",
-        "correct": "Correction",
         "point": "Point",
         "history": "Historique",
         "score": "Score"
+    },
+    "github": {
+        "name": "Nom",
+        "description": "Description"
     }
 }

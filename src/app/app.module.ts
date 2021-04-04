@@ -72,6 +72,8 @@ import { WrittenTestComponent } from './views/russian/training/core/written-test
 import { HistoryTrainingService } from './services/history-training.service';
 import { HistoryComponent } from './views/russian/training/core/history/history.component';
 import { GithubComponent } from './views/github/github.component';
+import { GithubApi } from './services/api/githubApi.service';
+import { GithubService } from './services/github.service';
 
 @NgModule({
   declarations: [
@@ -150,6 +152,8 @@ import { GithubComponent } from './views/github/github.component';
     AdjectiveService,
     NounApi,
     NounService,
+    GithubApi,
+    GithubService,
     ConfirmationService,
     SideMenuAdjectivesService,
     SideMenuNounsService,

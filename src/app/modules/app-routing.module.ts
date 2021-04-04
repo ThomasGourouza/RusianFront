@@ -10,6 +10,7 @@ import { AccountComponent } from '../views/player/account/account.component';
 import { WelcomeComponent } from '../views/welcome/welcome.component';
 import { AdjectivesComponent } from '../views/russian/adjectives/adjectives.component';
 import { NounsComponent } from '../views/russian/nouns/nouns.component';
+import { GithubComponent } from '../views/github/github.component';
 
 const routes: Routes = [
   { path: 'welcome', component: WelcomeComponent },
@@ -29,6 +30,7 @@ const routes: Routes = [
   { path: 'nouns/:category/:gender/:type', component: NounsComponent },
   { path: 'nouns/consult/:noun', component: NounsComponent },
   { path: 'nouns/add/:noun', component: NounsComponent },
+  { path: 'github', component: GithubComponent },
   { path: 'authentification', canActivate: [CreatePlayerGuard], component: GetPlayerComponent },
   { path: 'not-found', component: NotfoundComponent },
   { path: '**', redirectTo: '/not-found' },
