@@ -245,7 +245,7 @@ export class SideMenuNounsService {
           ]
         },
         {
-          label: 'Nouns',
+          label: this.translate.instant('nouns.side.nouns'),
           expandedIcon: "pi pi-folder-open",
           collapsedIcon: "pi pi-folder",
           selectable: false,

@@ -119,7 +119,6 @@ export class NounService {
         );
       })
       .catch((error: HttpErrorResponse) => {
-        console.log(error);
         this.toastr.error(
           this.translate.instant(
             error.status < 500 ? 'toastr.error.message.postNoun' : 'toastr.error.message.basic'
@@ -141,7 +140,6 @@ export class NounService {
         );
       })
       .catch((error: HttpErrorResponse) => {
-        console.log(error);
         this.toastr.error(
           this.translate.instant(
             error.status < 500 ? 'toastr.error.message.updateNoun' : 'toastr.error.message.basic'

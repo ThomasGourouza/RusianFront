@@ -8,13 +8,20 @@
     <div class="col">
         <section class="d-flex align-items-center justify-content-center" *ngIf="_nounCategories?.length > 0"
             [ngSwitch]="page">
+            <!-- accueil noun -->
             <div *ngSwitchCase="'intro'">
                 <br>
                 <div class="row d-flex justify-content-center">
-                    <img src="../../../../assets/images/Matryoshka.png" alt="Matryoshka" style="width:100%;height:100%;">
+                    <div class="card gray">
+                        <br>
+                        <div class="row mx-5 d-flex justify-content-center">
+                            <img src="../../../../assets/images/Matryoshka.png" alt="Matryoshka"
+                                style="width:100%;height:100%;">
+                        </div>
+                        <br>
+                    </div>
                 </div>
             </div>
-
             <div *ngSwitchCase="'declension'">
                 <div *ngFor="let i of declensionIds">
                     <div *ngIf="!!category && category.id === i">

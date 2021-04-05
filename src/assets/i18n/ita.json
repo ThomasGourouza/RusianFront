@@ -1,0 +1,330 @@
+{
+    "navbar": {
+        "menu": {
+            "home": "Welcome",
+            "account": "My account",
+            "history": "History",
+            "stat": "Statistics",
+            "adjective": "Adjectives",
+            "noun": "Nouns",
+            "training": "Training",
+            "github": "GitHub",
+            "login": "Log in",
+            "logout": "Log out"
+        },
+        "language": {
+            "language": "Language",
+            "fr": "Français",
+            "en": "English",
+            "es": "Español",
+            "de": "Deutsch",
+            "ru": "Русский",
+            "ja": "日本語",
+            "ita": "Italiano"
+        }
+    },
+    "home": {
+        "name": "Russian Grammar",
+        "title": "Welcome",
+        "work-in-progress": "This page doesn't exist yet."
+    },
+    "toastr": {
+        "success": {
+            "title": "Success",
+            "message": {
+                "basic": "Operation succeeded",
+                "auth": "Welcome ",
+                "register": "Successfully registred",
+                "getAdjective": "Research done",
+                "postAdjective": "Adjective saved",
+                "updateAdjective": "Adjective updated",
+                "deleteAdjective": "Adjectif deleted",
+                "getNoun": "Research done",
+                "postNoun": "Noun saved",
+                "updateNoun": "Noun updated",
+                "deleteNoun": "Noun deleted"
+            }
+        },
+        "error": {
+            "title": "Error",
+            "message": {
+                "basic": "An error occurred",
+                "auth": "Incorrect login or password",
+                "register": "Registration failed",
+                "getAdjective": "Research failed",
+                "postAdjective": "Adjective already exists",
+                "updateAdjective": "Adjective not updated",
+                "deleteAdjective": "Adjectif not deleted",
+                "getNoun": "Research failed",
+                "postNoun": "Noun already exists",
+                "updateNoun": "Noun not updated",
+                "deleteNoun": "Noun not deleted"
+            }
+        },
+        "info": {
+            "title": "Info",
+            "message": {
+                "basic": "Info"
+            }
+        }
+    },
+    "notfound": {
+        "message": "Page not found"
+    },
+    "account": {
+        "login": "Login",
+        "password": "Password",
+        "passwordConfirmation": "Confirm password",
+        "avatar": "Avatar",
+        "connection": "Log in",
+        "create": "Sign in",
+        "welcome": "Welcome on the account's page",
+        "refresh": "Refresh",
+        "existingLogin": "Existing login",
+        "availableLogin": "Available login",
+        "check": "Check",
+        "confirmationCorrect": "Confirmation correct",
+        "confirmationIncorrect": "Confirmation incorrect",
+        "save": "Save"
+    },
+    "adjectives": {
+        "text": "There are four declensions of adjectives in russian.",
+        "not-found": {
+            "adjective": "The adjective ",
+            "is-not-saved": " has not been found."
+        },
+        "declension": {
+            "first": "First declension (-ый)",
+            "second": "Second declension (-ой)",
+            "third": "Third declension (-ий)",
+            "fourth": "Fourth declension (-ний)",
+            "1": "First declension (-ый)",
+            "2": "Second declension (-ой)",
+            "3": "Third declension (-ий)",
+            "4": "Fourth declension (-ний)"
+        },
+        "adjectives": {
+            "consult": "List of adjectives",
+            "adjective": "Adjective",
+            "translation": "Translation",
+            "declension": "Declension",
+            "add": "Add an adjective",
+            "open": "Open",
+            "back": "Back",
+            "delete": "Delete",
+            "update": "Update",
+            "create": "Add",
+            "title": "Click to sort. Use 'Ctrl' key to sort by multiple columns.",
+            "search": "Search in the array",
+            "root": "Root",
+            "ending": "Ending"
+        },
+        "action": {
+            "open": "Open",
+            "back": "Back",
+            "delete": "Delete",
+            "update": "Update",
+            "create": "Add",
+            "confirmation": "Confirmation",
+            "message": "Confirm deletion ?",
+            "no": "No",
+            "yes": "Yes"
+        },
+        "side": {
+            "intro": "Cover",
+            "declension": "Declensions",
+            "first": "First (-ый)",
+            "second": "Second (-ой)",
+            "third": "Third (-ий)",
+            "fourth": "Fourth (-ний)",
+            "close": "Close",
+            "adjectives": "Adjectives",
+            "consult": "Consult",
+            "add": "Add"
+        }
+    },
+    "nouns": {
+        "text": "The nouns page",
+        "consult": "Consult",
+        "check": "Check",
+        "nf": "Page not found",
+        "add": "Add",
+        "update": "Update",
+        "unselect": "Unselect all",
+        "declension": {
+            "first": "First declension",
+            "second": "Second declension",
+            "third": "Third declension"
+        },
+        "gender": {
+            "masculine": "Masculine",
+            "feminine": "Femimine",
+            "neuter": "Neuter"
+        },
+        "number": {
+            "singular": "Singular",
+            "plural": "Plural"
+        },
+        "type": {
+            "first": "First type",
+            "second": "Second type",
+            "third": "Third type"
+        },
+        "exception": {
+            "labelAnimate": "Mode",
+            "labelSingular": "Exception",
+            "labelPlural": "Exceptions",
+            "1": "After a sibilant (ж, ч, ш, щ) or a velar (г, к, х) consonant",
+            "2": "After a sibilant (ж, ч, ш, щ) and when unstressed",
+            "3": "After a sibilant (ж, ч, ш, щ)",
+            "4": "After a soft consonant and when stressed",
+            "5": "After a consonant",
+            "8": "For the nouns ending in ие/иё (in the nominative singular) and when unstressed",
+            "9": "For the nouns мать and дочь",
+            "10": "For the noun подмасте́рье",
+            "11": "Exception without any specific rule",
+            "7": "Animate",
+            "6": "Inanimate",
+            "12": "Exception without any specific rule, after a soft consonant and when stressed"
+        },
+        "nouns": {
+            "consult": "List of nouns",
+            "noun": "Noun",
+            "translation": "Translation",
+            "translationPlural": "Translation (pl.)",
+            "declension": "Declension",
+            "add": "Add a noun",
+            "open": "Open",
+            "back": "Back",
+            "delete": "Delete",
+            "update": "Update",
+            "create": "Add",
+            "title": "Click to sort. Use 'Ctrl' key to sort by multiple columns.",
+            "search": "Search in the array",
+            "root": "Root",
+            "ending": "Ending",
+            "gender": "Gender",
+            "type": "Type",
+            "animate": "Animate",
+            "number": "Number",
+            "singular": "Singular",
+            "plural": "Plural",
+            "link": "Link",
+            "no_link": "No noun to link"
+        },
+        "side": {
+            "intro": "Cover",
+            "declension": "Declension",
+            "first": "First declension",
+            "second": "Second declension",
+            "third": "Third declension",
+            "masculine": "Masculine",
+            "feminine": "Feminine",
+            "neuter": "Neuter",
+            "first-type": "First type",
+            "second-type": "Second type",
+            "third-type": "Third type",
+            "consult": "Consult",
+            "add": "Add",
+            "link": "Link singular / plural"
+        },
+        "not-found": {
+            "noun": "The noun ",
+            "is-not-saved": " has not been found."
+        },
+        "explicit-declension": {
+            "1": "First declension  > Masculine > First type ",
+            "2": "First declension  > Masculine > Second type",
+            "3": "First declension  > Masculine > Third type ",
+            "4": "First declension  > Masculine > First type ",
+            "5": "First declension  > Masculine > Second type",
+            "6": "First declension  > Masculine > Third type ",
+            "7": "First declension  > Feminine  > First type ",
+            "8": "First declension  > Feminine  > Second type",
+            "9": "First declension  > Feminine  > Third type ",
+            "10": "First declension  > Feminine  > First type ",
+            "11": "First declension  > Feminine  > Second type",
+            "12": "First declension  > Feminine  > Third type ",
+            "13": "Second declension > Masculine > First type ",
+            "14": "Second declension > Masculine > Second type",
+            "15": "Second declension > Masculine > Third type ",
+            "16": "Second declension > Masculine > First type ",
+            "17": "Second declension > Masculine > Second type",
+            "18": "Second declension > Masculine > Third type ",
+            "19": "Second declension > Neuter    > First type ",
+            "20": "Second declension > Neuter    > Second type",
+            "21": "Second declension > Neuter    > First type ",
+            "22": "Second declension > Neuter    > Second type",
+            "23": "Third declension  > Masculine > First type ",
+            "24": "Third declension  > Masculine > First type ",
+            "25": "Third declension  > Feminine  > First type ",
+            "26": "Third declension  > Feminine  > First type ",
+            "27": "Third declension  > Neuter    > First type ",
+            "28": "Third declension  > Neuter    > Second type",
+            "29": "Third declension  > Neuter    > First type ",
+            "30": "Third declension  > Neuter    > Second type"
+        }
+    },
+    "reference": {
+        "case": {
+            "nominative": "Nominative",
+            "accusative": "Accusative",
+            "genitive": "Genitive",
+            "dative": "Dative",
+            "locative": "Locative",
+            "instrumental": "Instrumental",
+            "1": "Nominative",
+            "2": "Accusative",
+            "3": "Dative",
+            "4": "Genitive",
+            "5": "Locative",
+            "6": "Instrumental"
+        },
+        "gender": {
+            "masculine": "Masculine",
+            "feminine": "Feminine",
+            "neuter": "Neuter",
+            "plural": "Plural",
+            "1": "Masculine",
+            "2": "Feminine",
+            "3": "Neuter",
+            "4": "Plural"
+        },
+        "number": {
+            "1": "Singular",
+            "2": "Plural"
+        },
+        "declension": {
+            "first": "First",
+            "second": "Second",
+            "third": "Third"
+        },
+        "type": {
+            "first": "First",
+            "second": "Second",
+            "third": "Third"
+        }
+    },
+    "training": {
+        "intro": "Cover",
+        "adjective": "Adjective",
+        "noun": "Noun",
+        "russianCase": "Case",
+        "gender": "Gender",
+        "context": "Context",
+        "number": "Number",
+        "preparation": "Check",
+        "tests": "Tests",
+        "test": "Test",
+        "test-visual": "Visual test",
+        "test-written": "Written test",
+        "point": "Point",
+        "history": "History",
+        "score": "Score",
+        "case": "Case"
+    },
+    "github": {
+        "name": "Name",
+        "description": "Description"
+    }
+}

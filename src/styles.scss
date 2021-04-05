@@ -42,6 +42,7 @@
 .blue-cursor {
     color: rgb(0, 123, 255);
     cursor: pointer;
+    font-family: 'Times New Roman', Times, serif;
 }
 .blue-cursor:hover {
     color: rgb(94, 172, 255);
@@ -55,20 +56,4 @@
 }
 .green {
     color: green;
-}
-.good {
-    background-image: url(../src/assets/images/good.png);
-}
-.bad {
-    background-image: url(../src/assets/images/bad.png);
-}
-.half {
-    background-image: url(../src/assets/images/half.png);
-}
-.smiley-config {
-    width: 50px;
-    height: 50px;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 40%;
 }

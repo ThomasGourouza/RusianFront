@@ -11,12 +11,16 @@ import { WelcomeComponent } from '../views/welcome/welcome.component';
 import { AdjectivesComponent } from '../views/russian/adjectives/adjectives.component';
 import { NounsComponent } from '../views/russian/nouns/nouns.component';
 import { GithubComponent } from '../views/github/github.component';
+import { StatisticsComponent } from '../views/statistics/statistics.component';
+import { UserHistoryComponent } from '../views/user-history/user-history.component';
 
 const routes: Routes = [
   { path: 'welcome', component: WelcomeComponent },
   { path: '', redirectTo: '/welcome', pathMatch: 'full' },
   { path: 'register', canActivate: [CreatePlayerGuard], component: CreatePlayerComponent },
   { path: 'account', canActivate: [AuthGuard], component: AccountComponent },
+  { path: 'history', canActivate: [AuthGuard], component: UserHistoryComponent },
+  { path: 'statistics', canActivate: [AuthGuard], component: StatisticsComponent },
   { path: 'training', component: TrainingComponent },
   { path: 'training/check', component: TrainingComponent },
   { path: 'training/test/:mode', component: TrainingComponent },

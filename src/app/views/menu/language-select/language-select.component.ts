@@ -118,12 +118,12 @@ export class LanguageFormComponent extends subscribedContainerMixin() implements
         {
           label: this.translate.instant('navbar.menu.history'),
           icon: 'pi pi-fw pi-save',
-          command: () => this.router.navigateByUrl('/account')
+          command: () => this.router.navigateByUrl('/history')
         },
         {
           label: this.translate.instant('navbar.menu.stat'),
           icon: 'pi pi-fw pi-chart-line',
-          command: () => this.router.navigateByUrl('/account')
+          command: () => this.router.navigateByUrl('/statistics')
         },
         {
           separator: true

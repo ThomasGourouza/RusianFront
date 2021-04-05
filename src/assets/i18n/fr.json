@@ -7,7 +7,7 @@
             "stat": "Statistiques",
             "adjective": "Les Adjectifs",
             "noun": "Les noms",
-            "training": "Entraînement",
+            "training": "Pratique",
             "github": "GitHub",
             "login": "Connexion",
             "logout": "Déconnexion"
@@ -16,12 +16,17 @@
             "language": "Langue",
             "fr": "Français",
             "en": "English",
-            "es": "Español"
+            "es": "Español",
+            "de": "Deutsch",
+            "ru": "Русский",
+            "ja": "日本語",
+            "ita": "Italiano"
         }
     },
     "home": {
         "name": "Grammaire Russe",
-        "title": "Bienvenue"
+        "title": "Bienvenue",
+        "work-in-progress": "Cette page n'existe pas encore."
     },
     "toastr": {
         "success": {
@@ -126,7 +131,7 @@
             "yes": "Oui"
         },
         "side": {
-            "intro": "Présentation",
+            "intro": "Couverture",
             "declension": "Déclinaisons",
             "first": "Première (-ый)",
             "second": "Deuxième (-ой)",
@@ -208,7 +213,7 @@
             "no_link": "Aucun nom à lier"
         },
         "side": {
-            "intro": "Présentation",
+            "intro": "Couverture",
             "declension": "Déclinaisons",
             "first": "Première déclinaison",
             "second": "Deuxième déclinaison",
@@ -220,6 +225,7 @@
             "second-type": "Deuxième type",
             "third-type": "Troisième type",
             "consult": "Consulter",
+            "nouns": "Noms",
             "add": "Ajouter",
             "link": "Lier singulier / pluriel"
         },
@@ -228,36 +234,36 @@
             "is-not-saved": " n'a pas été trouvé."
         },
         "explicit-declension": {
-            "1": "Première déclinaison  > Masculin > Premier type  ",
-            "2": "Première déclinaison  > Masculin > Deuxième type ",
-            "3": "Première déclinaison  > Masculin > Troisième type",
-            "4": "Première déclinaison  > Masculin > Premier type  ",
-            "5": "Première déclinaison  > Masculin > Deuxième type ",
-            "6": "Première déclinaison  > Masculin > Troisième type",
-            "7": "Première déclinaison  > Féminin  > Premier type  ",
-            "8": "Première déclinaison  > Féminin  > Deuxième type ",
-            "9": "Première déclinaison  > Féminin  > Troisième type",
-            "10": "Première déclinaison  > Féminin  > Premier type  ",
-            "11": "Première déclinaison  > Féminin  > Deuxième type ",
-            "12": "Première déclinaison  > Féminin  > Troisième type",
-            "13": "Deuxième déclinaison  > Masculin > Premier type  ",
-            "14": "Deuxième déclinaison  > Masculin > Deuxième type ",
-            "15": "Deuxième déclinaison  > Masculin > Troisième type",
-            "16": "Deuxième déclinaison  > Masculin > Premier type  ",
-            "17": "Deuxième déclinaison  > Masculin > Deuxième type ",
-            "18": "Deuxième déclinaison  > Masculin > Troisième type",
-            "19": "Deuxième déclinaison  > Neutre   > Premier type  ",
-            "20": "Deuxième déclinaison  > Neutre   > Deuxième type ",
-            "21": "Deuxième déclinaison  > Neutre   > Premier type  ",
-            "22": "Deuxième déclinaison  > Neutre   > Deuxième type ",
-            "23": "Troisième déclinaison > Masculin > Premier type  ",
-            "24": "Troisième déclinaison > Masculin > Premier type  ",
-            "25": "Troisième déclinaison > Féminin  > Premier type  ",
-            "26": "Troisième déclinaison > Féminin  > Premier type  ",
-            "27": "Troisième déclinaison > Neutre   > Premier type  ",
-            "28": "Troisième déclinaison > Neutre   > Deuxième type ",
-            "29": "Troisième déclinaison > Neutre   > Premier type  ",
-            "30": "Troisième déclinaison > Neutre   > Deuxième type "
+            "1": "Première déclinaison > Masculin > Premier type",
+            "2": "Première déclinaison > Masculin > Deuxième type",
+            "3": "Première déclinaison > Masculin > Troisième type",
+            "4": "Première déclinaison > Masculin > Premier type",
+            "5": "Première déclinaison > Masculin > Deuxième type",
+            "6": "Première déclinaison > Masculin > Troisième type",
+            "7": "Première déclinaison > Féminin > Premier type",
+            "8": "Première déclinaison > Féminin > Deuxième type",
+            "9": "Première déclinaison > Féminin > Troisième type",
+            "10": "Première déclinaison > Féminin > Premier type",
+            "11": "Première déclinaison > Féminin > Deuxième type",
+            "12": "Première déclinaison > Féminin > Troisième type",
+            "13": "Deuxième déclinaison > Masculin > Premier type",
+            "14": "Deuxième déclinaison > Masculin > Deuxième type",
+            "15": "Deuxième déclinaison > Masculin > Troisième type",
+            "16": "Deuxième déclinaison > Masculin > Premier type",
+            "17": "Deuxième déclinaison > Masculin > Deuxième type",
+            "18": "Deuxième déclinaison > Masculin > Troisième type",
+            "19": "Deuxième déclinaison > Neutre > Premier type",
+            "20": "Deuxième déclinaison > Neutre > Deuxième type",
+            "21": "Deuxième déclinaison > Neutre > Premier type",
+            "22": "Deuxième déclinaison > Neutre > Deuxième type",
+            "23": "Troisième déclinaison > Masculin > Premier type",
+            "24": "Troisième déclinaison > Masculin > Premier type",
+            "25": "Troisième déclinaison > Féminin > Premier type",
+            "26": "Troisième déclinaison > Féminin > Premier type",
+            "27": "Troisième déclinaison > Neutre > Premier type",
+            "28": "Troisième déclinaison > Neutre > Deuxième type",
+            "29": "Troisième déclinaison > Neutre > Premier type",
+            "30": "Troisième déclinaison > Neutre > Deuxième type"
         }
     },
     "reference": {
@@ -301,7 +307,7 @@
         }
     },
     "training": {
-        "intro": "Présentation",
+        "intro": "Couverture",
         "adjective": "Adjectif",
         "noun": "Nom",
         "russianCase": "Cas",

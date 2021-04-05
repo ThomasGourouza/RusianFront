@@ -107,7 +107,6 @@ export class AdjectiveService {
         );
       })
       .catch((error: HttpErrorResponse) => {
-        console.log(error);
         this.toastr.error(
           this.translate.instant(
             error.status < 500 ? 'toastr.error.message.postAdjective' : 'toastr.error.message.basic'
@@ -129,7 +128,6 @@ export class AdjectiveService {
         );
       })
       .catch((error: HttpErrorResponse) => {
-        console.log(error);
         this.toastr.error(
           this.translate.instant(
             error.status < 500 ? 'toastr.error.message.updateAdjective' : 'toastr.error.message.basic'

@@ -3,53 +3,62 @@
         "menu": {
             "home": "Bienvenido",
             "account": "Mi cuenta",
-            "russian": "Aprender el ruso",
-            "language": "Idioma del sitio",
+            "history": "Historia",
+            "stat": "Estadísticas",
+            "adjective": "Adjetivos",
+            "noun": "Sustantivos",
+            "training": "Practica",
             "github": "GitHub",
-            "login": "Conexión",
-            "logout": "Salir"
+            "login": "Iniciar sesión",
+            "logout": "Cerrar sesión"
         },
         "language": {
+            "language": "Idioma",
             "fr": "Français",
             "en": "English",
-            "es": "Español"
-        },
-        "side": {
-            "language": "Idioma",
-            "new": "Nuevo",
-            "project": "Proyecto",
-            "other": "Otro",
-            "open": "Abrir",
-            "quit": "Salir",
-            "edit": "Modificar",
-            "delete": "Borrar",
-            "refresh": "Refrescar"
-        },
-        "russian": {
-            "title": "Rusos"
+            "es": "Español",
+            "de": "Deutsch",
+            "ru": "Русский",
+            "ja": "日本語",
+            "ita": "Italiano"
         }
     },
     "home": {
-        "name": "Ruso",
-        "title": "Hola!",
-        "text": "Como estas ?",
-        "select": "Escoge un idioma"
+        "name": "Gramática rusa",
+        "title": "Bienvenido",
+        "work-in-progress": "Esta página todavia no existe."
     },
     "toastr": {
         "success": {
             "title": "Éxito",
             "message": {
                 "basic": "Operación exitosa",
-                "auth": "Bienvenido ",
-                "register": "Hecho"
+                "auth": "Bienvenido",
+                "register": "Registrado exitosamente",
+                "getAdjective": "Búsqueda realizada",
+                "postAdjective": "Adjetivo guardado",
+                "updateAdjective": "Adjetivo actualizado",
+                "deleteAdjective": "Adjetivo eliminado",
+                "getNoun": "Investigación realizada",
+                "postNoun": "Sustantivo guardado",
+                "updateNoun": "Sustantivo actualizado",
+                "deleteNoun": "Sustantivo eliminado"
             }
         },
         "error": {
             "title": "Error",
             "message": {
                 "basic": "Ocurrió un error",
-                "auth": "Apodo o contraseña incorrecta",
-                "register": "No hecho"
+                "auth": "Login o contraseña incorrecta",
+                "register": "Registro fallido",
+                "getAdjective": "Búsqueda fallida",
+                "postAdjective": "El adjetivo ya existe",
+                "updateAdjective": "Adjetivo no actualizado",
+                "deleteAdjective": "Adjetivo si no se borra",
+                "getNoun": "Búsqueda fallida",
+                "postNoun": "El sustantivo ya existe",
+                "updateNoun": "Sustantivo no actualizado",
+                "deleteNoun": "Sustantivo no eliminado"
             }
         },
         "info": {
@@ -60,13 +69,263 @@
         }
     },
     "notfound": {
-        "message": "La pagina no existe"
+        "message": "Página no encontrada"
     },
     "account": {
-        "welcome": "Bienvenida en la pagina del usario",
-        "refresh": "Actualizar"
+        "login": "Login",
+        "password": "Contraseña",
+        "passwordConfirmation": "Confirmar contraseña",
+        "avatar": "Avatar",
+        "connection": "Iniciar sesión",
+        "create": "Registrarse",
+        "welcome": "Bienvenido a la página de la cuenta",
+        "refresh": "Actualizar",
+        "existingLogin": "Login existente",
+        "availableLogin": "Login disponible",
+        "check": "Controlar",
+        "confirmationCorrect": "Confirmación correcta",
+        "confirmationIncorrect": "Confirmación incorrecta",
+        "save": "guardar"
     },
-    "russian": {
-        "title": "Ruso"
+    "adjectives": {
+        "text": "Hay cuatro declinaciones de adjetivos en ruso.",
+        "not-found": {
+            "adjective": "El adjetivo ",
+            "is-not-saved": " no se ha encontrado."
+        },
+        "declension": {
+            "first": "Primera declinación (-ый)",
+            "second": "Segunda declinación (-ой)",
+            "third": "Tercera declinación (-ий)",
+            "fourth": "Cuarta declinación (-ний)",
+            "1": "Primera declinación (-ый)",
+            "2": "Segunda declinación (-ой)",
+            "3": "Tercera declinación (-ий)",
+            "4": "Cuarta declinación (-ний)"
+        },
+        "adjectives": {
+            "consult": "Lista de adjetivos",
+            "adjective": "Adjetivo",
+            "translation": "Traducción",
+            "declension": "Declinación",
+            "add": "Añadir un adjetivo",
+            "open": "Abrir",
+            "back": "Atrás",
+            "delete": "Borrar",
+            "update": "Actualizar",
+            "create": "Agregar",
+            "title": "Haga clic para ordenar. Utilice la tecla 'Ctrl' para ordenar por varias columnas.",
+            "search": "Buscar",
+            "root": "Raíz",
+            "ending": "Terminación"
+        },
+        "action": {
+            "open": "Abrir",
+            "back": "Atrás",
+            "delete": "Borrar",
+            "update": "Actualizar",
+            "create": "Añadir",
+            "confirmation": "Confirmación",
+            "message": "Confirmar la eliminación ?",
+            "no": "No",
+            "yes": "Sí"
+        },
+        "side": {
+            "intro": "Cubierta",
+            "declension": "Declinaciones",
+            "first": "Primero (-ый)",
+            "second": "Segundo (-ой)",
+            "third": "Tercera (-ий)",
+            "fourth": "Cuarto (-ний)",
+            "close": "Cerrar",
+            "adjectives": "Adjetivos",
+            "consult": "Consultar",
+            "add": "Añadir"
+        }
+    },
+    "nouns": {
+        "text": "La página de sustantivos",
+        "consult": "Consultar",
+        "check": "Controlar",
+        "nf": "Página no encontrada",
+        "add": "Añadir",
+        "update": "Actualizar",
+        "unselect": "Deselecciona todo",
+        "declension": {
+            "first": "Primera declinación",
+            "second": "Segunda declinación",
+            "third": "Tercera declinación"
+        },
+        "gender": {
+            "masculine": "Masculino",
+            "feminine": "Femenino",
+            "neuter": "Neutro"
+        },
+        "number": {
+            "singular": "Singular",
+            "plural": "Plural"
+        },
+        "type": {
+            "first": "Primer tipo",
+            "second": "Segundo tipo",
+            "third": "Tercer tipo"
+        },
+        "exception": {
+            "labelAnimate": "Modo",
+            "labelSingular": "Excepción",
+            "labelPlural": "Excepciones",
+            "1": "Después de una consonante sibilante (ж, ч, ш, щ) o velar (г, к, х)",
+            "2": "Después de un sibilante (ж, ч, ш, щ) y cuando no está estresado",
+            "3": "Después de un sibilante (ж, ч, ш, щ)",
+            "4": "Después de una consonante suave y cuando está estresada",
+            "5": "Después de una consonante",
+            "8": "Para los sustantivos que terminan en ие / иё (en el nominativo singular) y cuando no están acentuados",
+            "9": "Para los sustantivos мать y дочь",
+            "10": "Para el sustantivo подмасте́рье",
+            "11": "Excepción sin ninguna regla específica",
+            "7": "Animado",
+            "6": "Inanimado",
+            "12": "Excepción sin ninguna regla específica, después de una consonante suave y cuando se acentúa"
+        },
+        "nouns": {
+            "consult": "Lista de sustantivos",
+            "noun": "Sustantivo",
+            "translation": "Traducción",
+            "translationPlural": "Traducción (pl.)",
+            "declension": "Declinación",
+            "add": "Añadir un sustantivo",
+            "open": "Abrir",
+            "back": "Atrás",
+            "delete": "Borrar",
+            "update": "Actualizar",
+            "create": "Añadir",
+            "title": "Haga clic para ordenar. Utilice la tecla 'Ctrl' para ordenar por varias columnas.",
+            "search": "Buscar",
+            "root": "Raíz",
+            "ending": "Terminación",
+            "gender": "Género",
+            "type": "Tipo",
+            "animate": "Animado",
+            "number": "Número",
+            "singular": "Singular",
+            "plural": "Plural",
+            "link": "Vincular",
+            "no_link": "Nada que vincular"
+        },
+        "side": {
+            "intro": "Cubierta",
+            "declension": "Declinación",
+            "first": "Primera declinación",
+            "second": "Segunda declinación",
+            "third": "Tercera declinación",
+            "masculine": "Masculino",
+            "feminine": "Femenino",
+            "neuter": "Neutro",
+            "first-type": "Primer tipo",
+            "second-type": "Segundo tipo",
+            "third-type": "Tercer tipo",
+            "consult": "Consultar",
+            "nouns": "Sustantivos",
+            "add": "Añadir",
+            "link": "Vincular singular / plural"
+        },
+        "not-found": {
+            "noun": "El sustantivo ",
+            "is-not-saved": " no se ha encontrado."
+        },
+        "explicit-declension": {
+            "1": "Primera declinación> Masculino> Primer tipo",
+            "2": "Primera declinación> Masculino> Segundo tipo",
+            "3": "Primera declinación> Masculino> Tercer tipo",
+            "4": "Primera declinación> Masculino> Primer tipo",
+            "5": "Primera declinación> Masculino> Segundo tipo",
+            "6": "Primera declinación> Masculino> Tercer tipo",
+            "7": "Primera declinación> Femenino> Primer tipo",
+            "8": "Primera declinación> Femenino> Segundo tipo",
+            "9": "Primera declinación> Femenino> Tercer tipo",
+            "10": "Primera declinación> Femenino> Primer tipo",
+            "11": "Primera declinación> Femenino> Segundo tipo",
+            "12": "Primera declinación> Femenino> Tercer tipo",
+            "13": "Segunda declinación> Masculino> Primer tipo",
+            "14": "Segunda declinación> Masculino> Segundo tipo",
+            "15": "Segunda declinación> Masculino> Tercer tipo",
+            "16": "Segunda declinación> Masculino> Primer tipo",
+            "17": "Segunda declinación> Masculino> Segundo tipo",
+            "18": "Segunda declinación> Masculino> Tercer tipo",
+            "19": "Segunda declinación> Neutro> Primer tipo",
+            "20": "Segunda declinación> Neutro> Segundo tipo",
+            "21": "Segunda declinación> Neutro> Primer tipo",
+            "22": "Segunda declinación> Neutro> Segundo tipo",
+            "23": "Tercera declinación> Masculino> Primer tipo",
+            "24": "Tercera declinación> Masculino> Primer tipo",
+            "25": "Tercera declinación> Femenino> Primer tipo",
+            "26": "Tercera declinación> Femenino> Primer tipo",
+            "27": "Tercera declinación> Neutro> Primer tipo",
+            "28": "Tercera declinación> Neutro> Segundo tipo",
+            "29": "Tercera declinación> Neutro> Primer tipo",
+            "30": "Tercera declinación> Neutro> Segundo tipo"
+        }
+    },
+    "reference": {
+        "case": {
+            "nominative": "Nominativo",
+            "accusative": "Acusativo",
+            "genitive": "Genitivo",
+            "dative": "Dativo",
+            "locative": "Locativo",
+            "instrumental": "Instrumental",
+            "1": "Nominativo",
+            "2": "Acusativo",
+            "3": "Dativo",
+            "4": "Genitivo",
+            "5": "Locativo",
+            "6": "Instrumental"
+        },
+        "gender": {
+            "masculine": "Masculino",
+            "feminine": "Femenino",
+            "neuter": "Neutro",
+            "plural": "Plural",
+            "1": "Masculino",
+            "2": "Femenino",
+            "3": "Neutro",
+            "4": "Plural"
+        },
+        "number": {
+            "1": "Singular",
+            "2": "Plural"
+        },
+        "declension": {
+            "first": "Primero",
+            "second": "Segundo",
+            "third": "Tercera"
+        },
+        "type": {
+            "first": "Primero",
+            "second": "Segundo",
+            "third": "Tercero"
+        }
+    },
+    "training": {
+        "intro": "Cubierta",
+        "adjective": "Adjetivo",
+        "noun": "Sustantivo",
+        "russianCase": "Caso",
+        "gender": "Género",
+        "context": "Contexto",
+        "number": "Número",
+        "preparation": "Controlar",
+        "tests": "Pruebas",
+        "test": "Prueba",
+        "test-visual": "Prueba visual",
+        "test-written": "Prueba escrito",
+        "point": "Punto",
+        "history": "Historia",
+        "score": "Resultado",
+        "case": "Caso"
+    },
+    "github": {
+        "name": "Nombre",
+        "description": "Descripción"
     }
 }

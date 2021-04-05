@@ -92,7 +92,6 @@ export class PlayerService {
         );
       })
       .catch((error: HttpErrorResponse) => {
-        console.log(error);
         this.toastr.error(
           this.translate.instant(
             error.status < 500 ? 'toastr.error.message.register' : 'toastr.error.message.basic'

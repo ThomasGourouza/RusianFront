@@ -74,6 +74,8 @@ import { HistoryComponent } from './views/russian/training/core/history/history.
 import { GithubComponent } from './views/github/github.component';
 import { GithubApi } from './services/api/githubApi.service';
 import { GithubService } from './services/github.service';
+import { StatisticsComponent } from './views/statistics/statistics.component';
+import { UserHistoryComponent } from './views/user-history/user-history.component';
 
 @NgModule({
   declarations: [
@@ -110,7 +112,9 @@ import { GithubService } from './services/github.service';
     VisualTestComponent,
     WrittenTestComponent,
     HistoryComponent,
-    GithubComponent
+    GithubComponent,
+    StatisticsComponent,
+    UserHistoryComponent
   ],
   imports: [
     CommonModule,

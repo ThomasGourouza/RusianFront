@@ -73,12 +73,23 @@
     <div class="col-9">
         <p-card *ngIf="!!adjectiveAnswer && !!nounAnswer" [style]="{'background-color': '#f8f9fa'}">
             <div class="row">
-                <div class="col-2 smiley-config" [ngClass]="{
-                    'good': adjectiveCorrect && nounCorrect, 
-                    'half': (!adjectiveCorrect && nounCorrect) || (adjectiveCorrect && !nounCorrect),
-                    'bad': !adjectiveCorrect && !nounCorrect}">
+                <div class="col-2">
+                    <a href="https://en.wikipedia.org/wiki/Alexander_Pushkin" target="_blank">
+                        <img *ngIf="(!adjectiveCorrect && nounCorrect) || (adjectiveCorrect && !nounCorrect)"
+                            src="../../../../../../assets/images/pouchkine.png" alt="Pushkin" title="Pushkin"
+                            style="width:150%;height:100%;">
+                    </a>
+                    <a href="https://en.wikipedia.org/wiki/Sergei_Korolev" target="_blank">
+                        <img *ngIf="adjectiveCorrect && nounCorrect" src="../../../../../../assets/images/korolev.png"
+                            alt="Korolev" title="Korolev" style="width:150%;height:100%;">
+                    </a>
+                    <a href="https://en.wikipedia.org/wiki/Joseph_Stalin" target="_blank">
+                        <img *ngIf="!adjectiveCorrect && !nounCorrect" src="../../../../../../assets/images/staline.png"
+                            alt="Staline" title="Staline" style="width:150%;height:100%;">
+                    </a>
                 </div>
                 <div class="col">
+                    <br>
                     <h4 class="d-flex justify-content-center">
                         <span [ngClass]="{'green': adjectiveCorrect, 'red': !adjectiveCorrect}">{{ adjectiveAnswer
                             }}</span>
@@ -87,6 +98,7 @@
                     </h4>
                 </div>
                 <div class="col-3">
+                    <br>
                     <div class="d-flex justify-content-center">
                         <button pButton class="p-button-outlined p-button-raised p-button-rounded"
                             icon="pi pi-arrow-right" (click)="onNext()"></button>

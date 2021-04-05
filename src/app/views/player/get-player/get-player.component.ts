@@ -25,7 +25,7 @@ export class GetPlayerComponent extends subscribedContainerMixin() implements On
     this.playerService.player$.pipe(
       takeUntil(this.destroyed$)
     ).subscribe(() => {
-        this.router.navigateByUrl('/welcome');
+        this.router.navigateByUrl('/account');
     });
   }
 

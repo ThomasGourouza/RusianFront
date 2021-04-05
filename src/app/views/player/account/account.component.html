@@ -1,12 +1,22 @@
 <br>
-<section class="d-flex align-items-center justify-content-center">
-    <article *ngIf="_player">
-        <h1>
-            {{ 'home.title' | translate }} {{ _player.firstName }} {{ _player.lastName }}
-        </h1>
-        <div>
-            <img [src]="_player.imageUrl" alt="Avatar" width="50" height="60">
-        </div>
-    </article>
-</section>
-
+<br>
+<div class="row d-flex justify-content-center">
+    <div class="col-6">
+        <p-card [style]="{'background-color': '#f8f9fa'}">
+            <div class="d-flex justify-content-center">
+                <div *ngIf="_player">
+                    <div class="row d-flex justify-content-center">
+                        <img [src]="_player.imageUrl" alt="Avatar" style="width:20%;height:20%;">
+                    </div>
+                    <br>
+                    <div class="row d-flex justify-content-center">
+                        <h3>
+                            {{ 'home.title' | translate }} {{ _player.login }}
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </p-card>
+    </div>
+    <br>
+</div>
