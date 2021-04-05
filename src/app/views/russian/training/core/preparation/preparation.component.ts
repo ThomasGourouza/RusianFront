@@ -66,12 +66,12 @@ export class PreparationComponent extends subscribedContainerMixin() implements 
 
   ngOnInit(): void {
     this.rows = [
-      { case: Const.N, context: 'Это' },
-      { case: Const.A, context: 'Я вижу' },
-      { case: Const.G, context: 'Имя' },
-      { case: Const.D, context: 'Я даю' },
-      { case: Const.L, context: 'Я думаю о(б)' },
-      { case: Const.I, context: 'с(о)' }
+      { case: Const.N, context: 'что/кто' },
+      { case: Const.A, context: 'что/кого' },
+      { case: Const.G, context: 'чего/кого' },
+      { case: Const.D, context: 'чему/кому' },
+      { case: Const.L, context: 'о чём/о ком' },
+      { case: Const.I, context: 'с чем/с кем' }
     ];
     this.cols = [
       { field: Const.c, header: '' },

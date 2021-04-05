@@ -93,27 +93,27 @@ export class VisualTestComponent extends subscribedContainerMixin() implements O
     let context: string;
     switch(russianCaseValue) {
       case Const.N: {
-        context = 'Это';
+        context = 'что/кто';
         break;
       }
       case Const.A: {
-        context = 'Я вижу';
+        context = 'что/кого';
         break;
       }
       case Const.G: {
-        context = 'Имя';
+        context = 'чего/кого';
         break;
       }
       case Const.D: {
-        context = 'Я даю';
+        context = 'чему/кому';
         break;
       }
       case Const.L: {
-        context = 'Я думаю о(б)';
+        context = 'о чём/о ком';
         break;
       }
       case Const.I: {
-        context = 'с(о)';
+        context = 'с чем/с кем';
         break;
       }
     }

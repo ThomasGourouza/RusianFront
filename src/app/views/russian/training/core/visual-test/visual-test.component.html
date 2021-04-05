@@ -6,7 +6,7 @@
                 <div class="col-5">
                     <label for="russianCase">{{ 'training.russianCase' | translate }}</label>
                     <input *ngIf="!!russianCase" class="form-control" type="text" id="russianCase"
-                        [ngModel]="printCase(russianCase.id) + ': « ' + context +' »'" disabled>
+                        [ngModel]="printCase(russianCase.id) + ': ' + context" disabled>
                 </div>
                 <div class="col">
                     <label for="adjective">{{ 'training.adjective' | translate }}</label>
