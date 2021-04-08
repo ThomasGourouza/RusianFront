@@ -8,6 +8,7 @@ import { RussianCase } from 'src/app/models/reference/russian/russian-case.model
 import { Adjective } from 'src/app/models/adjective/get/adjective.model';
 import { Noun } from 'src/app/models/noun/get/noun.model';
 import { Const } from 'src/app/services/utils/const';
+import { SettingsTrainingService } from 'src/app/services/settings-training.service';
 
 @Component({
   selector: 'app-visual-test',
@@ -33,7 +34,8 @@ export class VisualTestComponent extends subscribedContainerMixin() implements O
     public translate: TranslateService,
     private nounService: NounService,
     private adjectiveService: AdjectiveService,
-    private russianReferenceService: RussianReferenceService
+    private russianReferenceService: RussianReferenceService,
+    private settingsService: SettingsTrainingService
   ) {
     super();
   }
@@ -49,19 +51,27 @@ export class VisualTestComponent extends subscribedContainerMixin() implements O
         }
       });
 
-    this.nounService.fetchNouns();
-    this.nounService.nounList$
-      .subscribe((nouns: Array<Noun>) => {
-        this.nouns = nouns;
-        this.noun = this.getRandom(this.nouns);
-      });
+    this.settingsService.nouns$.subscribe((n) => {
+      this.nounService.fetchNouns();
+      this.nounService.nounList$
+        .subscribe((nouns: Array<Noun>) => {
+          this.nouns = (!!n && n.length > 0) ?
+            nouns.filter((noun) => n.map((i) => i.translation).includes(noun.translation))
+            : nouns;
+          this.noun = this.getRandom(this.nouns);
+        });
+    });
 
-    this.adjectiveService.fetchAdjectives();
-    this.adjectiveService.adjectiveList$
-      .subscribe((adjectives: Array<Adjective>) => {
-        this.adjectives = adjectives;
-        this.adjective = this.getRandom(this.adjectives);
-      });
+    this.settingsService.adjectives$.subscribe((a) => {
+      this.adjectiveService.fetchAdjectives();
+      this.adjectiveService.adjectiveList$
+        .subscribe((adjectives: Array<Adjective>) => {
+          this.adjectives = (!!a && a.length > 0) ?
+            adjectives.filter((adjective) => a.map((i) => i.translation).includes(adjective.translation))
+            : adjectives;
+          this.adjective = this.getRandom(this.adjectives);
+        });
+    });
 
   }
 
@@ -91,7 +101,7 @@ export class VisualTestComponent extends subscribedContainerMixin() implements O
 
   private setContext(russianCaseValue: string): void {
     let context: string;
-    switch(russianCaseValue) {
+    switch (russianCaseValue) {
       case Const.N: {
         context = 'что/кто';
         break;

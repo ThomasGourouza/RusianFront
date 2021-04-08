@@ -50,7 +50,7 @@ export class SideMenuNounsService {
       [
         {
           label: this.translate.instant('nouns.side.intro'),
-          icon: "pi pi-paperclip",
+          icon: "pi pi-image",
           selectable: true,
           data: this.nounCategory(0, Const.intro, 0, 0)
 

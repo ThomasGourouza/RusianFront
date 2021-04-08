@@ -18,6 +18,10 @@
                     </div>
                 </div>
             </div>
+            <div *ngSwitchCase="'settings'">
+                <app-settings>
+                </app-settings>
+            </div>
             <div *ngSwitchCase="'check'">
                 <app-preparation>
                 </app-preparation>

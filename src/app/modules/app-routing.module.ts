@@ -22,7 +22,7 @@ const routes: Routes = [
   { path: 'history', canActivate: [AuthGuard], component: UserHistoryComponent },
   { path: 'statistics', canActivate: [AuthGuard], component: StatisticsComponent },
   { path: 'training', component: TrainingComponent },
-  { path: 'training/check', component: TrainingComponent },
+  { path: 'training/:category', component: TrainingComponent },
   { path: 'training/test/:mode', component: TrainingComponent },
   { path: 'adjectives', component: AdjectivesComponent },
   { path: 'adjectives/:category', component: AdjectivesComponent },

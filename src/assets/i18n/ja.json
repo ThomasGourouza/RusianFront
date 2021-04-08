@@ -310,11 +310,15 @@
         "intro": "カバー",
         "adjective": "形容詞",
         "noun": "名詞",
+        "adjectives": "練習する形容詞",
+        "nouns": "練習する名詞",
         "russianCase": "場合",
         "gender": "性別",
         "context": "環境",
         "number": "数",
         "preparation": "小切手",
+        "settings": "設定",
+        "item-selected": "選択したアイテム",
         "tests": "テスト",
         "test": "テスト",
         "test-visual": "視覚テスト",
@@ -322,7 +326,13 @@
         "point": "ポイント",
         "history": "歴史",
         "score": "スコア",
-        "case": "場合"
+        "case": "場合",
+        "confirm": {
+            "message": "履歴をクリア ?",
+            "confirmation": "確認",
+            "yes": "はい",
+            "no": "番号"
+        }
     },
     "github": {
         "name": "名前",

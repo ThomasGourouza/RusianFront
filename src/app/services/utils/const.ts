@@ -60,4 +60,5 @@ export class Const {
     public static case: string = 'case';
     public static correct: string = 'correct';
     public static point: string = 'point';
+    public static settings: string = 'settings';
 }

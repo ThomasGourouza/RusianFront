@@ -16,12 +16,8 @@ export class NavComponent implements OnInit {
   constructor(
     public translate: TranslateService,
     private router: Router
-  ) {
-    translate.addLangs(['en', 'fr', 'de', 'es', 'ja']);
-    translate.setDefaultLang('en');
-    translate.use('en');
-  }
-  
+  ) { }
+
   public ngOnInit(): void {
     // update la langue à chaque changement
     this.translate.onLangChange.subscribe(() => {

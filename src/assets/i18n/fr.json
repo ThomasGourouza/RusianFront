@@ -310,19 +310,29 @@
         "intro": "Couverture",
         "adjective": "Adjectif",
         "noun": "Nom",
+        "adjectives": "Adjectifs à pratiquer",
+        "nouns": "Noms à pratiquer",
         "russianCase": "Cas",
         "context": "Contexte",
         "gender": "Genre",
         "number": "Nombre",
         "preparation": "Vérification",
         "tests": "Tests",
+        "settings": "Paramètres",
+        "item-selected": "éléments sélectionnés",
         "test": "Test",
         "test-visual": "Test visuel",
         "test-written": "Test écrit",
         "point": "Point",
         "history": "Historique",
         "score": "Score",
-        "case": "Cas"
+        "case": "Cas",
+        "confirm": {
+            "message": "Supprimer l'historique ?",
+            "confirmation": "Confirmation",
+            "yes": "Oui",
+            "no": "Non"
+        }
     },
     "github": {
         "name": "Nom",

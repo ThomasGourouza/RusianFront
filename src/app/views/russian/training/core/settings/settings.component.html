@@ -1,0 +1,132 @@
+<br>
+<div class="row">
+    <div class="col d-flex justify-content-center">
+        <p-card [style]="{'background-color': '#f8f9fa'}">
+            <form [formGroup]="trainingForm">
+                <table *ngIf="showInput">
+                    <tr>
+                        <td>
+                            <label for="adjective">{{ 'training.adjectives' | translate }}</label>
+                        </td>
+                        <td>
+                            &nbsp;&nbsp;&nbsp;
+                        </td>
+                        <td>
+                            <label for="noun">{{ 'training.nouns' | translate }}</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p-multiSelect class="form-control" [options]="adjectives" [showToggleAll]="false"
+                                formControlName="adjectives" id="adjectives" optionLabel="translation"
+                                [virtualScroll]="true" [filter]="true" [itemSize]="34"
+                                class="multiselect-custom-virtual-scroll" [maxSelectedLabels]="3"
+                                [selectedItemsLabel]="'{0} ' + itemSelectedLabel">
+                                <ng-template let-adjective pTemplate="item">
+                                    <div>{{ adjective.translation }} ({{
+                                        adjective.adjective }})</div>
+                                </ng-template>
+                            </p-multiSelect>
+                        </td>
+                        <td>
+                            &nbsp;&nbsp;&nbsp;
+                        </td>
+                        <td>
+                            <p-multiSelect class="form-control" [options]="nouns" [showToggleAll]="false"
+                                formControlName="nouns" id="nouns" optionLabel="translation" [virtualScroll]="true"
+                                [filter]="true" [itemSize]="34" class="multiselect-custom-virtual-scroll"
+                                [maxSelectedLabels]="3" [selectedItemsLabel]="'{0} ' + itemSelectedLabel">
+                                <ng-template let-noun pTemplate="item">
+                                    <div>{{ noun.translation }} ({{
+                                        noun.noun }})</div>
+                                </ng-template>
+                            </p-multiSelect>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </p-card>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <p-table [columns]="adjectivesCols" [value]="adjectivesData" [paginator]="true" [rows]="3"
+                [rowsPerPageOptions]="[3,5,10,15,20]">
+                <ng-template pTemplate="caption">
+                    <div class="d-flex justify-content-center align-items-center">
+                        {{ 'training.adjectives' | translate }}
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th *ngFor="let col of columns">
+                            <div class="d-flex justify-content-center">
+                                {{ 'adjectives.adjectives.' + col | translate }}
+                            </div>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr>
+                        <td *ngFor="let col of columns">
+                            <span class="d-flex justify-content-center">
+                                <div *ngIf="col === 'adjective';then adj else adj_other"></div>
+                                <ng-template #adj_other>
+                                    {{ rowData[col] }}
+                                </ng-template>
+                                <ng-template #adj>
+                                    <div class="blue-help"
+                                        [title]="printCategory('adjectives.declension.', rowData['declension'])">
+                                        {{ rowData[col] }}
+                                    </div>
+                                </ng-template>
+                            </span>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card">
+            <p-table [columns]="nounsCols" [value]="nounsData" [paginator]="true" [rows]="3"
+                [rowsPerPageOptions]="[3,5,10,15,20]">
+                <ng-template pTemplate="caption">
+                    <div class="d-flex justify-content-center align-items-center">
+                        {{ 'training.nouns' | translate }}
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th *ngFor="let col of columns">
+                            <div class="d-flex justify-content-center">
+                                {{ 'nouns.nouns.' + col | translate }}
+                            </div>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr>
+                        <td *ngFor="let col of columns">
+                            <span class="d-flex justify-content-center">
+                                <div *ngIf="col === 'noun';then noun else noun_other"></div>
+                                <ng-template #noun_other>
+                                    {{ rowData[col] }}
+                                </ng-template>
+                                <ng-template #noun>
+                                    <div class="blue-help"
+                                        [title]="printCategory('nouns.explicit-declension.', rowData['declension'])">
+                                        {{ rowData[col] }}
+                                    </div>
+                                </ng-template>
+                            </span>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>
+<br>

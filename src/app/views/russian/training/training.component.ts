@@ -76,6 +76,7 @@ export class TrainingComponent extends subscribedContainerMixin() implements OnI
             this.redirect('/' + Const.training);
             break;
           }
+          case Const.settings:
           case Const.check: {
             this.sideMenuService.setSelection(null);
             this.redirect('/' + Const.training + '/' + selection);
@@ -104,8 +105,8 @@ export class TrainingComponent extends subscribedContainerMixin() implements OnI
     if (urlArray.length === 2 && urlArray[1] === Const.training) {
       this.page = 'intro';
     }
-    // url = /nouns/check
-    if (urlArray.length === 3) {
+    // url = /nouns/:category
+    if (urlArray.length === 3 && [Const.check, Const.settings].includes(urlArray[2])) {
       this.page = urlArray[2];
     }
     // url = /nouns/test/:mode

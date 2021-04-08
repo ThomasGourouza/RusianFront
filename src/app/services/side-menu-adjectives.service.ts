@@ -36,7 +36,7 @@ export class SideMenuAdjectivesService {
       [
         {
           label: this.translate.instant('adjectives.side.intro'),
-          icon: "pi pi-paperclip",
+          icon: "pi pi-image",
           selectable: true,
           data: Const.intro,
 

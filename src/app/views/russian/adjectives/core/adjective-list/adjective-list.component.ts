@@ -44,17 +44,6 @@ export class AdjectiveListComponent implements OnInit {
     this.onRowUnselect();
   }
 
-  // rechercher un adjectif
-  // public searchAdjective(): void {
-  //   if (this.isSearchEnable()) {
-  //     this.router.navigateByUrl('/adjectives/consult/' + this.translation);
-  //   }
-  // }
-
-  // public isSearchEnable(): boolean {
-  //   return !!this.translation && /^[a-z]+$/.test(this.translation);
-  // }
-
   private initData(adjectives: Array<Adjective>): void {
     this.data = [];
     this._adjectives = adjectives;

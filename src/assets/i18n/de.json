@@ -310,11 +310,15 @@
         "intro": "Startseite",
         "adjective": "Adjektiv",
         "noun": "Substantiv",
+        "adjectives": "Adjektive zum Üben",
+        "nouns": "Substantive zum Üben",
         "russianCase": "Fall",
         "gender": "Geschlecht",
         "context": "Kontext",
         "number": "Anzahl",
         "preparation": "Prüfen",
+        "settings": "Einstellungen",
+        "item-selected": "Elemente ausgewählt",
         "tests": "Tests",
         "test": "Test",
         "test-visual": "Visueller Test",
@@ -322,7 +326,13 @@
         "point": "Punkt",
         "history": "Verlauf",
         "score": "Ergebnis",
-        "case": "Fall"
+        "case": "Fall",
+        "confirm": {
+            "message": "Verlauf löschen ?",
+            "confirmation": "Bestätigung",
+            "yes": "Ja",
+            "no": "Nein"
+        }
     },
     "github": {
         "name": "Name",

@@ -3,7 +3,7 @@
         "menu": {
             "home": "Bienvenido",
             "account": "Mi cuenta",
-            "history": "Historia",
+            "history": "Historial",
             "stat": "Estadísticas",
             "adjective": "Adjetivos",
             "noun": "Sustantivos",
@@ -310,19 +310,29 @@
         "intro": "Cubierta",
         "adjective": "Adjetivo",
         "noun": "Sustantivo",
+        "adjectives": "Adjetivos para practicar",
+        "nouns": "Sustantivos para practicar",
         "russianCase": "Caso",
         "gender": "Género",
         "context": "Contexto",
         "number": "Número",
         "preparation": "Controlar",
+        "settings": "Parámetros",
+        "item-selected": "elementos seleccionados",
         "tests": "Pruebas",
         "test": "Prueba",
         "test-visual": "Prueba visual",
         "test-written": "Prueba escrito",
         "point": "Punto",
-        "history": "Historia",
+        "history": "Historial",
         "score": "Resultado",
-        "case": "Caso"
+        "case": "Caso",
+        "confirm": {
+            "message": "Borrar el historial?",
+            "confirmation": "Confirmación",
+            "yes": "Sí",
+            "no": "No"
+        }
     },
     "github": {
         "name": "Nombre",

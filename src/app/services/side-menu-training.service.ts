@@ -36,13 +36,19 @@ export class SideMenuTrainingService {
       [
         {
           label: this.translate.instant('training.intro'),
-          icon: "pi pi-paperclip",
+          icon: "pi pi-image",
           selectable: true,
           data: Const.intro
         },
         {
+          label: this.translate.instant('training.settings'),
+          icon: "pi pi-cog",
+          selectable: true,
+          data: Const.settings
+        },
+        {
           label: this.translate.instant('training.preparation'),
-          icon: "pi pi-check",
+          icon: "pi pi-list",
           selectable: true,
           data: Const.check
         },

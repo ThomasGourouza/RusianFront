@@ -10,6 +10,7 @@ import { Noun } from 'src/app/models/noun/get/noun.model';
 import { Const } from 'src/app/services/utils/const';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Answer, HistoryTrainingService } from 'src/app/services/history-training.service';
+import { SettingsTrainingService } from 'src/app/services/settings-training.service';
 
 @Component({
   selector: 'app-written-test',
@@ -46,7 +47,8 @@ export class WrittenTestComponent extends subscribedContainerMixin() implements 
     private adjectiveService: AdjectiveService,
     private russianReferenceService: RussianReferenceService,
     private formBuilder: FormBuilder,
-    private historyService: HistoryTrainingService
+    private historyService: HistoryTrainingService,
+    private settingsService: SettingsTrainingService
   ) {
     super();
   }
@@ -62,23 +64,31 @@ export class WrittenTestComponent extends subscribedContainerMixin() implements 
           this.setContext(this.russianCase.value);
         }
         // nouns
-        this.nounService.fetchNouns();
-        this.nounService.nounList$
-          .subscribe((nouns: Array<Noun>) => {
-            this.nouns = nouns;
-            this.noun = this.getRandom(this.nouns);
-            // adjectives
-            this.adjectiveService.fetchAdjectives();
-            this.adjectiveService.adjectiveList$
-              .subscribe((adjectives: Array<Adjective>) => {
-                this.adjectives = adjectives;
-                this.adjective = this.getRandom(this.adjectives);
-                // casesOfNoun
-                this.casesOfNoun = this.casesOf(Const.noun);
-                // casesOfAdjective
-                this.casesOfAdjective = this.casesOf(Const.adjective);
+        this.settingsService.nouns$.subscribe((n) => {
+          this.nounService.fetchNouns();
+          this.nounService.nounList$
+            .subscribe((nouns: Array<Noun>) => {
+              this.nouns = (!!n && n.length > 0) ?
+                nouns.filter((noun) => n.map((i) => i.translation).includes(noun.translation))
+                : nouns;
+              this.noun = this.getRandom(this.nouns);
+              // adjectives
+              this.settingsService.adjectives$.subscribe((a) => {
+                this.adjectiveService.fetchAdjectives();
+                this.adjectiveService.adjectiveList$
+                  .subscribe((adjectives: Array<Adjective>) => {
+                    this.adjectives = (!!a && a.length > 0) ?
+                      adjectives.filter((adjective) => a.map((i) => i.translation).includes(adjective.translation))
+                      : adjectives;
+                    this.adjective = this.getRandom(this.adjectives);
+                    // casesOfNoun
+                    this.casesOfNoun = this.casesOf(Const.noun);
+                    // casesOfAdjective
+                    this.casesOfAdjective = this.casesOf(Const.adjective);
+                  });
               });
-          });
+            });
+        });
       });
   }
 

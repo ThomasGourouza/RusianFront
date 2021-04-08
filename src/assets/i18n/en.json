@@ -310,11 +310,15 @@
         "intro": "Cover",
         "adjective": "Adjective",
         "noun": "Noun",
+        "adjectives": "Adjectives for practice",
+        "nouns": "Nouns for practice",
         "russianCase": "Case",
         "gender": "Gender",
         "context": "Context",
         "number": "Number",
         "preparation": "Check",
+        "settings": "Settings",
+        "item-selected": "items selected",
         "tests": "Tests",
         "test": "Test",
         "test-visual": "Visual test",
@@ -322,7 +326,13 @@
         "point": "Point",
         "history": "History",
         "score": "Score",
-        "case": "Case"
+        "case": "Case",
+        "confirm": {
+            "message": "Clear history ?",
+            "confirmation": "Confirmation",
+            "yes": "Yes",
+            "no": "No"
+        }
     },
     "github": {
         "name": "Name",

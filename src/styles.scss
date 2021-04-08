@@ -39,10 +39,13 @@
 .blue {
     color: rgb(0, 123, 255);
 }
+.blue-help {
+    color: rgb(0, 123, 255);
+    cursor: help;
+}
 .blue-cursor {
     color: rgb(0, 123, 255);
     cursor: pointer;
-    font-family: 'Times New Roman', Times, serif;
 }
 .blue-cursor:hover {
     color: rgb(94, 172, 255);
@@ -56,4 +59,7 @@
 }
 .green {
     color: green;
+}
+.times-new-roman {
+    font-family: "Times New Roman", Times, serif;
 }

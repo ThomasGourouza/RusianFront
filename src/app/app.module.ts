@@ -22,6 +22,7 @@ import { CardModule } from 'primeng/card';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { CheckboxModule } from 'primeng/checkbox';
+import { MultiSelectModule } from 'primeng/multiselect';
 import { ConfirmationService } from 'primeng/api';
 import { AccountComponent } from './views/player/account/account.component';
 import { TrainingComponent } from './views/russian/training/training.component';
@@ -70,12 +71,14 @@ import { PreparationComponent } from './views/russian/training/core/preparation/
 import { VisualTestComponent } from './views/russian/training/core/visual-test/visual-test.component';
 import { WrittenTestComponent } from './views/russian/training/core/written-test/written-test.component';
 import { HistoryTrainingService } from './services/history-training.service';
+import { SettingsTrainingService } from './services/settings-training.service';
 import { HistoryComponent } from './views/russian/training/core/history/history.component';
 import { GithubComponent } from './views/github/github.component';
 import { GithubApi } from './services/api/githubApi.service';
 import { GithubService } from './services/github.service';
 import { StatisticsComponent } from './views/statistics/statistics.component';
 import { UserHistoryComponent } from './views/user-history/user-history.component';
+import { SettingsComponent } from './views/russian/training/core/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -114,7 +117,8 @@ import { UserHistoryComponent } from './views/user-history/user-history.componen
     HistoryComponent,
     GithubComponent,
     StatisticsComponent,
-    UserHistoryComponent
+    UserHistoryComponent,
+    SettingsComponent
   ],
   imports: [
     CommonModule,
@@ -141,7 +145,8 @@ import { UserHistoryComponent } from './views/user-history/user-history.componen
     ButtonModule,
     ConfirmDialogModule,
     CardModule,
-    CheckboxModule
+    CheckboxModule,
+    MultiSelectModule
   ],
   providers: [
     Utils,
@@ -163,6 +168,7 @@ import { UserHistoryComponent } from './views/user-history/user-history.componen
     SideMenuNounsService,
     SideMenuTrainingService,
     HistoryTrainingService,
+    SettingsTrainingService,
     ActionMenuService,
     AdjectiveListService,
     NounListService

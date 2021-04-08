@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { ConfirmationService } from 'primeng/api';
 import { Answer, HistoryTrainingService } from 'src/app/services/history-training.service';
 import { Const } from 'src/app/services/utils/const';
 
@@ -13,12 +15,16 @@ export class HistoryComponent implements OnInit {
   public history: Array<Answer>;
   public cols: Array<string>;
   public search: string;
+  public showConfirm: boolean;
 
   constructor(
-    private historyService: HistoryTrainingService
+    private historyService: HistoryTrainingService,
+    private confirmationService: ConfirmationService,
+    public translate: TranslateService
   ) { }
 
   ngOnInit(): void {
+    this.showConfirm = false;
     this.oldCounter = this.historyService.history.length;
     this.showHistory = true;
     this.cols = [
@@ -40,8 +46,18 @@ export class HistoryComponent implements OnInit {
   }
 
   public onResetHistory(): void {
-    this.historyService.reset();
-    this.history = this.historyService.history;
+    this.showConfirm = true;
+    this.confirmationService.confirm({
+      message: this.translate.instant('training.confirm.message'),
+      accept: () => {
+        this.historyService.reset();
+        this.history = this.historyService.history;
+      }
+    });
+  }
+
+  public getTranslated(word: string): string {
+    return this.translate.instant('training.confirm.' + word);
   }
 
   public getCounter(): number {
