@@ -11,6 +11,7 @@ import { Adjective } from 'src/app/models/adjective/get/adjective.model';
 import { Noun } from 'src/app/models/noun/get/noun.model';
 import { Const } from 'src/app/services/utils/const';
 import { ColData } from '../../../nouns/core/declension-noun/declension-noun.component';
+import { SettingsTrainingService } from 'src/app/services/settings-training.service';
 export interface Category {
   id: number;
   idSingularPlural?: number;
@@ -59,7 +60,8 @@ export class PreparationComponent extends subscribedContainerMixin() implements 
     private nounService: NounService,
     private adjectiveService: AdjectiveService,
     private russianReferenceService: RussianReferenceService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private settingsService: SettingsTrainingService
   ) {
     super();
   }
@@ -85,17 +87,25 @@ export class PreparationComponent extends subscribedContainerMixin() implements 
         this.cases = cases;
       });
 
-    this.nounService.fetchNouns();
-    this.nounService.nounList$
-      .subscribe((nouns: Array<Noun>) => {
-        this.nouns = nouns;
-      });
+    this.settingsService.nouns$.subscribe((n) => {
+      this.nounService.fetchNouns();
+      this.nounService.nounList$
+        .subscribe((nouns: Array<Noun>) => {
+          this.nouns = (!!n && n.length > 0) ?
+            nouns.filter((noun) => n.map((i) => i.translation).includes(noun.translation))
+            : nouns;
+        });
+    });
 
-    this.adjectiveService.fetchAdjectives();
-    this.adjectiveService.adjectiveList$
-      .subscribe((adjectives: Array<Adjective>) => {
-        this.adjectives = adjectives;
-      });
+    this.settingsService.adjectives$.subscribe((a) => {
+      this.adjectiveService.fetchAdjectives();
+      this.adjectiveService.adjectiveList$
+        .subscribe((adjectives: Array<Adjective>) => {
+          this.adjectives = (!!a && a.length > 0) ?
+            adjectives.filter((adjective) => a.map((i) => i.translation).includes(adjective.translation))
+            : adjectives;
+        });
+    });
 
     this.initForm();
     this.onChanges();

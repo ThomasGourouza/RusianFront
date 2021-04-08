@@ -104,8 +104,8 @@ export class SettingsComponent extends subscribedContainerMixin() implements OnI
   private initForm(): void {
     this.trainingForm = this.formBuilder.group(
       {
-        adjectives: [[], Validators.required],
-        nouns: [[], Validators.required]
+        adjectives: [[]],
+        nouns: [[]]
       }
     );
   }
@@ -129,7 +129,7 @@ export class SettingsComponent extends subscribedContainerMixin() implements OnI
   }
 
   public submit(form: FormPractice): void {
-    if (form.nouns.length > 0 && form.adjectives.length > 0 && this.oneTime < 1) {
+    if (this.oneTime < 1) {
       this.oneTime++;
       this.settingsService.setNouns(form.nouns);
       this.settingsService.setAdjectives(form.adjectives);
