@@ -183,7 +183,7 @@
             "9": "For the nouns мать and дочь",
             "10": "For the noun подмасте́рье",
             "11": "Exception without any specific rule",
-            "7": "Animate",
+            "7": "Animacy",
             "6": "Inanimate",
             "12": "Exception without any specific rule, after a soft consonant and when stressed"
         },
@@ -205,7 +205,7 @@
             "ending": "Ending",
             "gender": "Gender",
             "type": "Type",
-            "animate": "Animate",
+            "animate": "Animacy",
             "number": "Number",
             "singular": "Singular",
             "plural": "Plural",

@@ -16,7 +16,7 @@ export class AddAdjectiveComponent extends subscribedContainerMixin() implements
 
   public adjectiveForm: FormGroup;
 
-  public categories: Array<string> = ["ый", "ой", "ий"];
+  public categories: Array<string> = ['ый', 'ой', 'ий'];
   public urlTranslation: string;
   public isKeyboardDisplayed: boolean = true;
 
