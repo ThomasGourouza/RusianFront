@@ -128,6 +128,23 @@ export class NounService {
       });
   }
 
+  public addNounPlural(newNoun: NounPost) {
+    this.nounApi.createNoun(newNoun)
+      .toPromise()
+      .then((noun: Noun) => {
+        this.fetchNouns();
+        this._nounPlural$.next(noun);
+      })
+      .catch((error: HttpErrorResponse) => {
+        this.toastr.error(
+          this.translate.instant(
+            error.status < 500 ? 'toastr.error.message.postNoun' : 'toastr.error.message.basic'
+          ),
+          this.translate.instant('toastr.error.title')
+        );
+      });
+  }
+
   public updateNoun(id: number, updatedNoun: NounPost) {
     this.nounApi.updateNoun(id, updatedNoun)
       .toPromise()

@@ -392,8 +392,10 @@ export class AddNounComponent extends subscribedContainerMixin() implements OnIn
   }
 
   public onSubmit(): void {
-    const formValue = this.nounForm.value;
+    this.nounService.clearNoun();
+    this.nounService.clearNounPlural();
 
+    const formValue = this.nounForm.value;
     const translation = this.urlTranslationOrElse(formValue['translation']);
     const translationPlural = this.nounForm.value['translationPlural'];
     const root = formValue['root'];
@@ -407,9 +409,8 @@ export class AddNounComponent extends subscribedContainerMixin() implements OnIn
           translationPlural,
           animate
         );
-        this.nounService.clearNoun();
-        this.nounService.addNoun(newNounPlural);
-        this.nounService.noun$.pipe(
+        this.nounService.addNounPlural(newNounPlural);
+        this.nounService.nounPlural$.pipe(
           takeUntil(this.destroyed$)
         ).subscribe((nounPl: Noun) => {
           if (nounPl.id && !this.isSaved) {
@@ -428,6 +429,7 @@ export class AddNounComponent extends subscribedContainerMixin() implements OnIn
                   }
                 });
               });
+              this.nounService.fetchNounPluralById(nounPl.id);
             }
             setTimeout(() => {
               this.addNoun(root, this.russianNounCategoryRefId, translation, animate, nounPl.id);
@@ -442,13 +444,14 @@ export class AddNounComponent extends subscribedContainerMixin() implements OnIn
 
   private addNoun(root: string, categoryId: number, translation: string, animate: boolean, nounPl: number): void {
     this.isSaved = true;
+    let exceptionsSet = false;
+    let linkSet = false;
     const newNoun = new NounPost(
       root,
       categoryId,
       translation,
       animate
     );
-    this.nounService.clearNoun();
     this.nounService.addNoun(newNoun);
     this.nounService.noun$.pipe(
       takeUntil(this.destroyed$)
@@ -458,7 +461,8 @@ export class AddNounComponent extends subscribedContainerMixin() implements OnIn
         const otherExceptions = this.exceptionIds.filter(
           (e) => ![6, 7].includes(e.ruleId) && ((plural && e.numbers.includes(Const.S)) || !plural)
         );
-        if (otherExceptions.length > 0) {
+        if (otherExceptions.length > 0 && !exceptionsSet) {
+          exceptionsSet = true;
           otherExceptions.forEach((exceptionId) => {
             // Add exceptions
             exceptionId.specificIds.forEach((specificId) => {
@@ -470,8 +474,10 @@ export class AddNounComponent extends subscribedContainerMixin() implements OnIn
               }
             });
           });
+          this.nounService.fetchNounByTranslation(translation);
         }
-        if (!!nounPl) {
+        if (!!nounPl && !linkSet) {
+          linkSet = true;
           // Create couple singular plural
           this.nounService.addCouple({
             russianSingularNounId: noun.id,
@@ -479,7 +485,7 @@ export class AddNounComponent extends subscribedContainerMixin() implements OnIn
           });
         }
         setTimeout(() => {
-          this.router.navigateByUrl('/nouns/consult/' + noun.translation);
+          this.router.navigateByUrl('/nouns/consult/' + translation);
         }, 500);
       }
     });
