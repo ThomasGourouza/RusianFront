@@ -202,8 +202,8 @@ export class NounService {
       });
   }
 
-  public addException(specificRule: SpecificRulePost) {
-    this.nounSpecificRuleApi.createSpecificRule(specificRule)
+  public addExceptions(specificRules: Array<SpecificRulePost>) {
+    this.nounSpecificRuleApi.createSpecificRules(specificRules)
       .toPromise()
       .then(() => {
         this.fetchNouns();

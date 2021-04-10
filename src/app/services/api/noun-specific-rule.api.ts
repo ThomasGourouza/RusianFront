@@ -22,8 +22,8 @@ export class NounSpecificRuleApi {
     private utils: Utils
   ) { }
 
-  public createSpecificRule(specificRule: SpecificRulePost): Observable<void> {
-    return this.http.post<void>(API_Noun_Specific_Rule_URL, specificRule);
+  public createSpecificRules(specificRules: Array<SpecificRulePost>): Observable<void> {
+    return this.http.post<void>(API_Noun_Specific_Rule_URL, specificRules);
   }
 
   public deleteSpecificRuleByNounAndSpecId(param: NounSpecParam): Observable<void> {

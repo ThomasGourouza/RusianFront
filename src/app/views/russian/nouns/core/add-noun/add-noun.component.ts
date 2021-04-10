@@ -392,16 +392,18 @@ export class AddNounComponent extends subscribedContainerMixin() implements OnIn
   }
 
   public onSubmit(): void {
-    this.nounService.clearNoun();
-    this.nounService.clearNounPlural();
-
     const formValue = this.nounForm.value;
     const translation = this.urlTranslationOrElse(formValue['translation']);
     const translationPlural = this.nounForm.value['translationPlural'];
     const root = formValue['root'];
     const animate = this.exceptionIds.some((e) => e.ruleId === 7);
 
-    if (!!this.russianNounCategoryRefId) {
+    if (!!this.russianNounCategoryRefId && !this.isSaved) {
+      this.isSaved = true;
+      let exceptionsSet = false;
+      let pluralIsSaved = false;
+      this.nounService.clearNoun();
+      this.nounService.clearNounPlural();
       if (this.nounForm.value['plural'] && !!translationPlural) {
         const newNounPlural = new NounPost(
           root,
@@ -413,22 +415,26 @@ export class AddNounComponent extends subscribedContainerMixin() implements OnIn
         this.nounService.nounPlural$.pipe(
           takeUntil(this.destroyed$)
         ).subscribe((nounPl: Noun) => {
-          if (nounPl.id && !this.isSaved) {
+          if (nounPl.id && !pluralIsSaved) {
+            pluralIsSaved = true;
             const otherExceptions = this.exceptionIds.filter((e) =>
               ![6, 7].includes(e.ruleId) && e.numbers.includes(Const.P)
             );
-            if (otherExceptions.length > 0) {
+            if (otherExceptions.length > 0 && !exceptionsSet) {
+              exceptionsSet = true;
+              const exceptions = [];
+              // Add exceptions
               otherExceptions.forEach((exceptionId) => {
-                // Add exceptions
                 exceptionId.specificIds.forEach((specificId) => {
                   if (specificId.number === Const.P) {
-                    this.nounService.addException({
+                    exceptions.push({
                       russianNounId: nounPl.id,
                       russianDeclSpecEndingRefId: specificId.id
                     });
                   }
                 });
               });
+              this.nounService.addExceptions(exceptions);
               this.nounService.fetchNounPluralById(nounPl.id);
             }
             setTimeout(() => {
@@ -436,16 +442,16 @@ export class AddNounComponent extends subscribedContainerMixin() implements OnIn
             }, 100);
           }
         });
-      } else if (!this.isSaved) {
+      } else {
         this.addNoun(root, this.russianNounCategoryRefId, translation, animate, null);
       }
     }
   }
 
   private addNoun(root: string, categoryId: number, translation: string, animate: boolean, nounPl: number): void {
-    this.isSaved = true;
     let exceptionsSet = false;
     let linkSet = false;
+    let nounIsSaved = false;
     const newNoun = new NounPost(
       root,
       categoryId,
@@ -456,24 +462,27 @@ export class AddNounComponent extends subscribedContainerMixin() implements OnIn
     this.nounService.noun$.pipe(
       takeUntil(this.destroyed$)
     ).subscribe((noun: Noun) => {
-      if (noun.id) {
+      if (noun.id && !nounIsSaved) {
+        nounIsSaved = true;
         const plural = this.nounForm.value['plural'];
         const otherExceptions = this.exceptionIds.filter(
           (e) => ![6, 7].includes(e.ruleId) && ((plural && e.numbers.includes(Const.S)) || !plural)
         );
         if (otherExceptions.length > 0 && !exceptionsSet) {
           exceptionsSet = true;
+          const exceptions = [];
+          // Add exceptions
           otherExceptions.forEach((exceptionId) => {
-            // Add exceptions
             exceptionId.specificIds.forEach((specificId) => {
               if (specificId.number === noun.russianNounCategory.russianGrammaticalNumber) {
-                this.nounService.addException({
+                exceptions.push({
                   russianNounId: noun.id,
                   russianDeclSpecEndingRefId: specificId.id
                 });
               }
             });
           });
+          this.nounService.addExceptions(exceptions);
           this.nounService.fetchNounByTranslation(translation);
         }
         if (!!nounPl && !linkSet) {
